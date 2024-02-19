@@ -19,9 +19,23 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'nik',
         'password',
+        'role',
+        'pw',
     ];
+
+    public function getRedirectRoute()
+    {
+        switch ($this->role) {
+            case 'admin':
+                return 'admin.dashboard';
+            case 'spv':
+                return 'spv.dashboard';
+            case 'user':
+                return 'user.dashboard';
+        }
+    }
 
     /**
      * The attributes that should be hidden for serialization.
