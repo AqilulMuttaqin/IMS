@@ -41,10 +41,13 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Log Out</span>
-                        </a>
+                        <form method="POST" action="{{ route('logout') }}" class="d-flex">
+                            @csrf
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">Log Out</span>
+                            </a>
+                        </form>
                     </li>
                 </ul>
             </li>
