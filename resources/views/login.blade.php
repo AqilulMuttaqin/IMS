@@ -27,12 +27,12 @@
           <div class="card">
             <div class="card-body">
               <div class="app-brand justify-content-center mb-2">
-                <a href="index.html" class="app-brand-link gap-2">
+                <div class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <img src="{{ asset('assets/img/logo.png')}}" alt="" width="30">
                   </span>
                   <span class="app-brand-text demo text-body fw-bolder">Warehouse</span>
-                </a>
+                </div>
               </div>
               <h6 class="mb-2 text-center">Welcome to Production Warehouse 👋</h6><hr>
               <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
@@ -48,13 +48,7 @@
                     <input type="password" id="password" class="form-control" name="password" placeholder="Enter your Password" aria-describedby="password"/>
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
-                </div>
-                <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                    <label class="form-check-label" for="remember-me"> Remember Me </label>
-                  </div><hr>
-                </div>
+                </div><hr>
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                 </div>
