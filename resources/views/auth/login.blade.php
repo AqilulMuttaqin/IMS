@@ -38,14 +38,14 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="nik" class="form-label">Nik</label>
-                                <input type="text" class="form-control" id="nik" name="nik" placeholder="Enter your Nik" autofocus required />
+                                <input type="text" class="form-control" id="nik" name="nik" placeholder="Enter your Nik" autocomplete="off" autofocus required />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="password">Password</label>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control" name="password" placeholder="Enter your Password" aria-describedby="password" required />
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password" autocomplete="off" aria-describedby="password" required />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>

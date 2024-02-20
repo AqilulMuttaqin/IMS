@@ -23,7 +23,7 @@
         </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <i class="menu-icon tf-icons bx bxs-data"></i>
                 <div data-i18n="Data Barang">Data Barang</div>
             </a>
             <ul class="menu-sub">
@@ -41,7 +41,7 @@
         </li>
         <li class="menu-item">
             <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
+                <i class="menu-icon tf-icons bx bx-cart"></i>
                 <div data-i18n="Pesanan">Pesanan</div>
             </a>
             <ul class="menu-sub">
