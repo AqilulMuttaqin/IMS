@@ -7,8 +7,6 @@
     <title>Login Production Warehouse - SAI</title>
     <meta name="description" content="" />
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="{{ asset('assets/css/css2.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
