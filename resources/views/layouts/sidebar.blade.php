@@ -12,33 +12,35 @@
     </div>
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
-        <li class="menu-item active">
-            <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Dashboard">Dashboard</div>
-            </a>
-        </li>
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Pages</span>
-        </li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-refresh"></i>
-                <div data-i18n="Dashboard">Update Stok</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cart-alt"></i>
-                <div data-i18n="Dashboard">Pesanan</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-data"></i>
-                <div data-i18n="Dashboard">Data Barang</div>
-            </a>
-        </li>
+        @if (auth()->user() && auth()->user()->role == 'admin')
+            <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
+                <a href="{{ route('admin.dashboard')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Dashboard">Dashboard</div>
+                </a>
+            </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Pages</span>
+            </li>
+            <li class="menu-item {{ $title === 'Update Stok' ? 'active' : '' }}">
+                <a href="{{ route('admin.update-stok')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-refresh"></i>
+                    <div data-i18n="Update Stok">Update Stok</div>
+                </a>
+            </li>
+            <li class="menu-item {{ $title === 'Pesanan' ? 'active' : '' }}">
+                <a href="{{ route('admin.pesanan')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cart-alt"></i>
+                    <div data-i18n="Pesanan">Pesanan</div>
+                </a>
+            </li>
+            <li class="menu-item {{ $title === 'Data Barang' ? 'active' : '' }}">
+                <a href="{{ route('admin.barang')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-data"></i>
+                    <div data-i18n="Data Barang">Data Barang</div>
+                </a>
+            </li>
+        @endif
         {{-- <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-data"></i>
