@@ -66,7 +66,7 @@ class AdminController extends Controller
 
     public function pesanan()
     {
-        return view('admin.pesanan');
+        return view('staff.pesanan', ['title' => 'Pesanan']);
     }
 
     public function stok()
@@ -76,7 +76,7 @@ class AdminController extends Controller
 
     public function updateStok()
     {
-        return view('admin.update-stok');
+        return view('staff.update-stok', ['title' => 'Update Stok']);
     }
 
     public function barang()

@@ -49,13 +49,13 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('user.dashboard');
 });
 Route::middleware(['auth','role:admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/staff', [AdminController::class, 'index'])->name('staff.dashboard');
     Route::get('/qr', [QrCodeController::class, 'show']);
     Route::get('/qr-download', [QrCodeController::class, 'download']);
     Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch']);
-    Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->name('admin.pesanan');
-    Route::get('admin/barang', [AdminController::class, 'barang'])->name('admin.barang');
-    Route::get('admin/update-stok', [AdminController::class, 'updateStok'])->name('admin.update-stok');
+    Route::get('staff/pesanan', [AdminController::class, 'pesanan'])->name('staff.pesanan');
+    Route::get('staff/barang', [AdminController::class, 'barang'])->name('staff.barang');
+    Route::get('staff/update-stok', [AdminController::class, 'updateStok'])->name('staff.update-stok');
 });
 
 Route::middleware(['auth','role:spv'])->group(function () {
