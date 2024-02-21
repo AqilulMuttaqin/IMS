@@ -39,6 +39,9 @@ class QrCodeController extends Controller
         $qrCodeName = $request->input('nama');
 
         $qrCodesDirectory = storage_path('app/qr_codes');
+        if (!file_exists($qrCodesDirectory)) {
+            mkdir($qrCodesDirectory, 0755, true);
+        }
 
         $qrCodeFileName = $qrCodeName . '.png';
         $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
@@ -59,6 +62,9 @@ class QrCodeController extends Controller
         $qrCodeName = $request->input('nama');
 
         $qrCodesDirectory = storage_path('app/qr_codes');
+        if (!file_exists($qrCodesDirectory)) {
+            mkdir($qrCodesDirectory, 0755, true);
+        }
 
         $qrCodeFileName = $qrCodeName . '.png';
         $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
@@ -207,6 +213,9 @@ class QrCodeController extends Controller
         $html = '<html><body>';
 
         $qrCodesDirectory = storage_path('app/qr_codes');
+        if (!file_exists($qrCodesDirectory)) {
+            mkdir($qrCodesDirectory, 0755, true);
+        }
 
         $html .= '<style>
                     .qr-code-row {
