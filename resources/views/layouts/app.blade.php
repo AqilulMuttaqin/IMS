@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title>{{ $title }} - Production Inventory SAI</title>
     <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png')}}" />
     <link href="{{ asset('assets/css/css2.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css')}}" />
@@ -42,6 +43,9 @@
     <script src="{{ asset('assets/js/main.js')}}"></script>
     <script src="{{ asset('assets/js/dashboards-analytics.js')}}"></script>
     <script async defer src="{{ asset('assets/js/buttons.js')}}"></script>
+    <script src="{{ asset('assets/js/html2canvas.min.js')}}"></script>
+
+    @stack('scripts')
 </body>
 
 </html>

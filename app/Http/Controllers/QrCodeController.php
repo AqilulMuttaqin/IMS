@@ -10,33 +10,30 @@ use ZipArchive;
 
 class QrCodeController extends Controller
 {
-    public function show()
+    public function generate(Request $request)
     {
-        $data = QrCode::size(512)
-            ->format('png')
-            ->margin(1)
-            ->generate(
-                'nyobakkk',
-            );
+        $qrCodeContent = $request->input('qrCodeContent');
 
-        return response($data)
-            ->header('Content-type', 'image/png');
+        // Generate the QR code as a PNG image
+        $qrCode = QrCode::format('png')->size(256)->generate($qrCodeContent);
+
+        // Convert the image data to base64
+        $base64Image = base64_encode($qrCode);
+
+        // Return the base64-encoded image data
+        return response()->json($base64Image);
     }
 
-    public function download()
+    public function download(Request $request)
     {
-        return response()->streamDownload(
-            function () {
-                echo QrCode::size(515)
-                    ->format('png')
-                    ->margin(1)
-                    ->generate('nyobak');
-            },
-            'qr-code.png',
-            [
-                'Content-Type' => 'image/png',
-            ]
-        );
+        $qrCodeContent = $request->input('qrCodeContent');
+        $qrCode = QrCode::format('png')->size(256)->generate($qrCodeContent);
+        $base64Image = base64_encode($qrCode);
+        $file = base64_decode($base64Image);
+        return response($file, 200, [
+            'Content-Type' => 'image/png',
+            'Content-Disposition' => 'attachment; filename="qr-code.png"'
+        ]);
     }
 
     public function downloadBatch()
