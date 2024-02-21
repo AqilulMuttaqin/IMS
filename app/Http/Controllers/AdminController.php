@@ -63,4 +63,20 @@ class AdminController extends Controller
     {
         //
     }
+
+    public function pesanan()
+    {
+        return view('admin.pesanan');
+    }
+
+    public function stok()
+    {
+        return view('admin.stok');
+    }
+
+    public function updateStok()
+    {
+        return view('admin.update-stok');
+    }
+
 }

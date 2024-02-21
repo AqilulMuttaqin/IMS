@@ -53,6 +53,9 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/qr', [QrCodeController::class, 'show']);
     Route::get('/qr-download', [QrCodeController::class, 'download']);
     Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch']);
+    Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->name('admin.pesanan');
+    Route::get('admin/barang', [AdminController::class, 'barang'])->name('admin.barang');
+    Route::get('admin/update-stok', [AdminController::class, 'updateStok'])->name('admin.update-stok');
 });
 
 Route::middleware(['auth','role:spv'])->group(function () {
