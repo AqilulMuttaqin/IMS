@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\SPVController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,12 +19,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (!auth()->check()) {
+        return redirect()->route('login');
+    }
+    $user = auth()->user();
+
+    if ($user->role === 'admin') {
+        return redirect()->route('admin.dashboard');
+    } elseif ($user->role === 'spv') {
+        return redirect()->route('spv.dashboard');
+    } elseif ($user->role === 'user') {
+        return redirect()->route('user.dashboard');
+    }
+
+    return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('welcome');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,6 +50,9 @@ Route::middleware(['auth','role:user'])->group(function () {
 });
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/qr', [QrCodeController::class, 'show']);
+    Route::get('/qr-download', [QrCodeController::class, 'download']);
+    Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch']);
 });
 
 Route::middleware(['auth','role:spv'])->group(function () {
