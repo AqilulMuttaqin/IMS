@@ -8,14 +8,20 @@
                     <h5 class="card-header">Data Barang</h5>
                 </div>
                 <div class="col-sm-8">
-                    <div class="dropdown text-end pt-3 pe-3 mb-3">
-                        <button type="button" class="btn btn-secondary p-0 px-2 py-1 dropdown-toggle" data-bs-toggle="dropdown">
-                            Download QR Code
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ route('download-zip')}}"><i class="bx bxs-file-archive me-1"></i> Download ZIP</a>
-                            <a class="dropdown-item" href="{{ route('download-pdf')}}"><i class="bx bxs-file-pdf me-1"></i> Download PDF</a>
+                    <div class="d-flex align-items-end text-end pt-3 pe-3 mb-3">
+                        <div class="dropdown text-end me-2">
+                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                Download QR Code
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('download-zip')}}"><i class="bx bxs-file-archive me-1"></i> Download ZIP</a>
+                                <a class="dropdown-item" href="{{ route('download-pdf')}}"><i class="bx bxs-file-pdf me-1"></i> Download PDF</a>
+                            </div>
                         </div>
+                        <button class="btn btn-sm btn-primary d-flex align-items-center">
+                            <i class="bx bx-plus me-1"></i>
+                            Tambah Data
+                        </button>
                     </div>
                 </div>
             </div>
