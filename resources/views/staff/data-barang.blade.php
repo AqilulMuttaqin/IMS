@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="dropdown text-end pt-3 pe-3 mb-3">
-                        <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                        <button type="button" class="btn btn-secondary p-0 px-2 py-1 dropdown-toggle" data-bs-toggle="dropdown">
                             Download QR Code
                         </button>
                         <div class="dropdown-menu">
