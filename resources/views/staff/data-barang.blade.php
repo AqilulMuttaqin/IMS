@@ -3,7 +3,22 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <h5 class="card-header">Data Barang</h5>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h5 class="card-header">Data Barang</h5>
+                </div>
+                <div class="col-sm-8">
+                    <div class="dropdown text-end pt-3 pe-3 mb-3">
+                        <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                            Download QR Code
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"><i class="bx bxs-file-archive me-1"></i> Download ZIP</a>
+                            <a class="dropdown-item" href="#"><i class="bx bxs-file-pdf me-1"></i> Download PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive text-nowrap pt-0 p-3">
                 <table class="table table-striped" id="dataBarang">
                     <thead>
@@ -22,7 +37,8 @@
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->stok }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code" data-id="{{$item->id}}" data-nama="{{$item->nama}}">
+                                    <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
+                                        data-id="{{ $item->id }}" data-nama="{{ $item->nama }}">
                                         <i class="bx bx-show-alt me-1"></i>
                                         QR code
                                     </button>
@@ -34,10 +50,10 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#"><i
-                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <a class="dropdown-item" href="#"><i
-                                                    class="bx bx-trash me-1"></i> Delete</a>
+                                            <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
+                                                Edit</a>
+                                            <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
+                                                Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -49,14 +65,15 @@
         </div>
     </div>
 
-    <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+    <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="qrCodeModalLabel">QR Code</h5>
                     <!-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button> -->
+                            <span aria-hidden="true">&times;</span>
+                        </button> -->
                 </div>
                 <div class="modal-body d-flex justify-content-center align-items-center">
                     <div id="qrCodeContainer"></div>
@@ -68,7 +85,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('scripts')
@@ -89,11 +105,14 @@
                 var qrCodeContent = id + '|' + nama;
 
                 $.ajax({
-                    url: '{{ route("qr.generate") }}',
+                    url: '{{ route('qr.generate') }}',
                     method: 'POST',
-                    data: { qrCodeContent: qrCodeContent },
+                    data: {
+                        qrCodeContent: qrCodeContent
+                    },
                     success: function(response) {
-                        $('#qrCodeContainer').html('<img src="data:image/png;base64,' + response + '">');
+                        $('#qrCodeContainer').html('<img src="data:image/png;base64,' +
+                            response + '">');
                         $('#qrCodeModal').modal('show');
                     }
                 });
@@ -103,9 +122,11 @@
                 var qrCodeContent = id + '|' + nama;
 
                 $.ajax({
-                    url: '{{ route("qr.download") }}',
+                    url: '{{ route('qr.download') }}',
                     method: 'POST',
-                    data: { qrCodeContent: qrCodeContent },
+                    data: {
+                        qrCodeContent: qrCodeContent
+                    },
                     xhrFields: {
                         responseType: 'blob'
                     },
