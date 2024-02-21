@@ -112,10 +112,10 @@
                     url: '{{ route('qr.generate') }}',
                     method: 'POST',
                     data: {
-                        qrCodeContent: qrCodeContent
+                        qrCodeContent: qrCodeContent, nama: nama
                     },
                     success: function(response) {
-                        $('#qrCodeContainer').html('<img src="data:image/png;base64,' +
+                        $('#qrCodeContainer').html('<img style="width: 100%; height: auto;" src="data:image/png;base64,' +
                             response + '">');
                         $('#qrCodeModal').modal('show');
                     }
@@ -129,7 +129,7 @@
                     url: '{{ route('qr.download') }}',
                     method: 'POST',
                     data: {
-                        qrCodeContent: qrCodeContent
+                        qrCodeContent: qrCodeContent, nama: nama
                     },
                     xhrFields: {
                         responseType: 'blob'
