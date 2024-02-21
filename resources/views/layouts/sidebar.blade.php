@@ -22,6 +22,24 @@
             <span class="menu-header-text">Pages</span>
         </li>
         <li class="menu-item">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-refresh"></i>
+                <div data-i18n="Dashboard">Update Stok</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cart-alt"></i>
+                <div data-i18n="Dashboard">Pesanan</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-data"></i>
+                <div data-i18n="Dashboard">Data Barang</div>
+            </a>
+        </li>
+        {{-- <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-data"></i>
                 <div data-i18n="Data Barang">Data Barang</div>
@@ -56,6 +74,6 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
     </ul>
 </aside>
