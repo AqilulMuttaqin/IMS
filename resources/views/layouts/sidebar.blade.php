@@ -4,7 +4,7 @@
             <span class="app-brand-logo demo">
                 <img src="{{ asset('assets/img/logo.png')}}" alt="" width="30">
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Warehouse</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">inventory</span>
         </a>
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -23,7 +23,7 @@
         </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <i class="menu-icon tf-icons bx bx-data"></i>
                 <div data-i18n="Data Barang">Data Barang</div>
             </a>
             <ul class="menu-sub">
@@ -41,7 +41,7 @@
         </li>
         <li class="menu-item">
             <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
+                <i class="menu-icon tf-icons bx bx-cart-alt"></i>
                 <div data-i18n="Pesanan">Pesanan</div>
             </a>
             <ul class="menu-sub">
