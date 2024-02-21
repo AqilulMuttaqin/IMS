@@ -11,6 +11,7 @@
                             <th style="width: 20px">No</th>
                             <th>Nama</th>
                             <th>Stok</th>
+                            <th>QR Code</th>
                             <th style="width: 30px;">Actions</th>
                         </tr>
                     </thead>
@@ -20,6 +21,12 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->stok }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code" data-id="{{$item->id}}" data-nama="{{$item->nama}}">
+                                        <i class="bx bx-show-alt me-1"></i>
+                                        QR code
+                                    </button>
+                                </td>
                                 <td class="text-center">
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
