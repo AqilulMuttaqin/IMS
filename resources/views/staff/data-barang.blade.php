@@ -24,10 +24,10 @@
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
-                            <th>No. JS</th>
+                            <th class="text-center">No. JS</th>
                             <th>Nama</th>
-                            <th>Stok</th>
-                            <th>QR Code</th>
+                            <th class="text-center">Stok</th>
+                            <th class="text-center" style="width: 90px">QR Code</th>
                             <th style="width: 30px;">Actions</th>
                         </tr>
                     </thead>
@@ -35,15 +35,17 @@
                         @foreach ($barang as $item)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                <td>{{ $item->no_js }}</td>
+                                <td class="text-center">{{ $item->no_js }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ $item->stok }}</td>
+                                <td class="text-center">{{ $item->stok }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
-                                        data-id="{{ $item->no_js }}" data-nama="{{ $item->nama }}">
-                                        <i class="bx bx-show-alt me-1"></i>
-                                        QR code
-                                    </button>
+                                    <div class="qrcode">
+                                        <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
+                                            data-id="{{ $item->no_js }}" data-nama="{{ $item->nama }}">
+                                            <i class="bx bxs-barcode me-1"></i>
+                                            QR code
+                                        </button>
+                                    </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="dropdown">
