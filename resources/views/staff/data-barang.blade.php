@@ -20,7 +20,7 @@
                                         class="bx bxs-file-pdf me-1"></i> Download PDF</a>
                             </div>
                         </div>
-                        <button class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
+                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
                             data-bs-toggle="modal" data-bs-target="#barangModal">
                             <i class="bx bx-plus me-1"></i>
                             Tambah Data
@@ -84,16 +84,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="qrCodeModalLabel">QR Code</h5>
-                    <!-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-center align-items-center">
                     <div id="qrCodeContainer"></div>
                 </div>
-                <div class="modal-footer d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary download-qr-code">Download QR Code</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary download-qr-code">Download QR Code</button>
                 </div>
             </div>
         </div>
