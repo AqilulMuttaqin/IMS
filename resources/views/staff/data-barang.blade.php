@@ -50,32 +50,24 @@
     </div>
 
     <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="qrCodeModalLabel">QR Code</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <!-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button> -->
                 </div>
-                <div class="modal-body">
+                <div class="modal-body d-flex justify-content-center align-items-center">
                     <div id="qrCodeContainer"></div>
-                    <button class="btn btn-primary download-qr-code mt-3">Download QR Code</button>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer d-flex justify-content-center align-items-center">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary download-qr-code">Download QR Code</button>
                 </div>
             </div>
         </div>
     </div>
-
-@push('scripts')
-<script>
-    $(document).ready(function() {
-        $('#dataTable').DataTable();
-    });
-</script>
-@endpush
 
 @endsection
 
