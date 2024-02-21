@@ -53,6 +53,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/qr', [QrCodeController::class, 'show']);
     Route::get('/qr-download', [QrCodeController::class, 'download']);
     Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch']);
+    Route::get('/pdf', [QrCodeController::class, 'generatePdfWithQrCodes']);
     Route::get('staff/pesanan', [AdminController::class, 'pesanan'])->name('staff.pesanan');
     Route::get('staff/barang', [AdminController::class, 'barang'])->name('staff.barang');
     Route::get('staff/update-stok', [AdminController::class, 'updateStok'])->name('staff.update-stok');
