@@ -8,7 +8,7 @@
                     <h5 class="card-header">Data Barang</h5>
                 </div>
                 <div class="col-sm-8">
-                    <div class="d-flex align-items-end text-end pt-3 pe-3 mb-3">
+                    <div class="d-flex justify-content-end text-end pt-3 pe-3 mb-3">
                         <div class="dropdown text-end me-2">
                             <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                                 Download QR Code
