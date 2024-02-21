@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Production Warehouse - SAI</title>
+    <title>Production Inventory - SAI</title>
     <meta name="description" content="" />
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png')}}" />
     <link href="{{ asset('assets/css/css2.css')}}" rel="stylesheet" />

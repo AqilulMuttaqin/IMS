@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Login Production Warehouse - SAI</title>
+    <title>Login Production Inventory - SAI</title>
     <meta name="description" content="" />
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
     <link href="{{ asset('assets/css/css2.css') }}" rel="stylesheet" />
@@ -29,10 +29,10 @@
                                 <span class="app-brand-logo demo">
                                     <img src="{{ asset('assets/img/logo.png') }}" alt="" width="30">
                                 </span>
-                                <span class="app-brand-text demo text-body fw-bolder">Warehouse</span>
+                                <span class="app-brand-text demo text-body fw-bolder">Inventory</span>
                             </div>
                         </div>
-                        <h6 class="mb-2 text-center">Welcome to Production Warehouse 👋</h6>
+                        <h6 class="mb-2 text-center">Welcome to Production Inventory 👋</h6>
                         <hr>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
