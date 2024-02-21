@@ -13,7 +13,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin', ['title' => 'Dashboard']);
+        return view('staff.dashboard', ['title' => 'Dashboard']);
     }
 
     /**
@@ -77,6 +77,11 @@ class AdminController extends Controller
     public function updateStok()
     {
         return view('admin.update-stok');
+    }
+
+    public function barang()
+    {
+        return view('staff.data-barang', ['title' => 'Data Barang']);
     }
 
 }
