@@ -4,7 +4,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
             <h5 class="card-header">Data Barang</h5>
-            <div class="table-responsive text-nowrap p-3">
+            <div class="table-responsive text-nowrap pt-0 p-3">
                 <table class="table table-striped" id="dataBarang">
                     <thead>
                         <tr>
