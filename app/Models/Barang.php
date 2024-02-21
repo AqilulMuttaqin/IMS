@@ -12,6 +12,7 @@ class Barang extends Model
     protected $table = 'barang';
 
     protected $fillable = [
+        'no_js',
         'nama',
         'stok',
         'stok_dipesan',

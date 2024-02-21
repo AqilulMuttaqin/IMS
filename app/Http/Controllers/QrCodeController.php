@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -38,17 +39,18 @@ class QrCodeController extends Controller
 
     public function downloadBatch()
     {
+        $barangs = Barang::all();
+        
         $tempDir = sys_get_temp_dir() . '/' . uniqid('qrcodes_');
         mkdir($tempDir);
 
-        $qrCodeCount = 10;
         $qrCodePaths = [];
-        for ($i = 1; $i <= $qrCodeCount; $i++) {
-            $qrCodePath = $tempDir . "/qr-code_$i.png";
+        foreach ($barangs as $barang) {
+            $qrCodePath = $tempDir . '/' . $barang->nama . '.png';
             QrCode::size(515)
                 ->format('png')
                 ->margin(1)
-                ->generate("nyobak_$i", $qrCodePath);
+                ->generate($barang->no_js, $qrCodePath);
             $qrCodePaths[] = $qrCodePath;
         }
 
@@ -65,46 +67,46 @@ class QrCodeController extends Controller
         return response()->download($zipFile, 'qr-codes.zip')->deleteFileAfterSend(true);
     }
 
+
     public function generatePdfWithQrCodes()
     {
         $dompdf = new Dompdf();
         
         $html = '<html><body>';
 
-        for ($i = 1; $i <= 35; $i++) {
-            if (($i - 1) % 20 === 0) {
-                if ($i !== 1) {
+        $barangs = Barang::all();
+
+        for ($i = 0; $i < count($barangs); $i++) {
+            if ($i % 20 === 0) {
+                if ($i !== 0) {
                     $html .= '</div><div style="page-break-after: always;"></div>';
                 }
                 $html .= '<div style="display: flex; flex-wrap: wrap;">';
             }
 
+            $barang = $barangs[$i];
             $html .= "<div style='width: 20%; padding: 10px;'>";
             $qrCodeData = QrCode::size(150)
                 ->format('png')
-                ->generate("QR Code $i");
+                ->generate($barang->no_js);
 
             $qrCodeBase64 = base64_encode($qrCodeData);
 
             $html .= "<img src='data:image/png;base64,{$qrCodeBase64}' style='width: 100%; height: auto;' />";
             
-            $html .= "<p style='text-align: center;'>Name $i</p>";
+            $html .= "<p style='text-align: center;'>{$barang->nama}</p>";
 
             $html .= '</div>';
         }
 
         $html .= '</div></body></html>';
 
-        // Load HTML content into DomPDF
         $dompdf->loadHtml($html);
 
-        // Set paper size and orientation
         $dompdf->setPaper('A4', 'portrait');
 
-        // Render PDF (Optional: You can save the PDF to a file by providing a file path instead of outputting it)
         $dompdf->render();
 
-        // Output PDF
         return $dompdf->stream('qrcodes.pdf');
     }
 }
