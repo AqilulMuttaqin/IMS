@@ -15,13 +15,10 @@ class QrCodeController extends Controller
     {
         $qrCodeContent = $request->input('qrCodeContent');
 
-        // Generate the QR code as a PNG image
         $qrCode = QrCode::format('png')->size(256)->generate($qrCodeContent);
 
-        // Convert the image data to base64
         $base64Image = base64_encode($qrCode);
 
-        // Return the base64-encoded image data
         return response()->json($base64Image);
     }
 

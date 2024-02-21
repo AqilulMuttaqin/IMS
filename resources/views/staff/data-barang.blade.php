@@ -9,6 +9,7 @@
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
+                            <th>No. JS</th>
                             <th>Nama</th>
                             <th>Stok</th>
                             <th>QR Code</th>
@@ -19,10 +20,11 @@
                         @foreach ($barang as $item)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
+                                <td>{{ $item->no_js }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->stok }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code" data-id="{{$item->id}}" data-nama="{{$item->nama}}">
+                                    <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code" data-id="{{$item->no_js}}" data-nama="{{$item->nama}}">
                                         <i class="bx bx-show-alt me-1"></i>
                                         QR code
                                     </button>
@@ -86,7 +88,7 @@
                 id = $(this).data('id');
                 nama = $(this).data('nama');
 
-                var qrCodeContent = id + '|' + nama;
+                var qrCodeContent = id;
 
                 $.ajax({
                     url: '{{ route("qr.generate") }}',
@@ -100,7 +102,7 @@
             });
 
             $(document).on('click', '.download-qr-code', function() {
-                var qrCodeContent = id + '|' + nama;
+                var qrCodeContent = id;
 
                 $.ajax({
                     url: '{{ route("qr.download") }}',
