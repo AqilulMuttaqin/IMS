@@ -3,15 +3,12 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <h5 class="card-header">Pesanan</h5>
-            <div class="table-responsive text-nowrap px-2">
-                <table class="table table-striped">
-                    <caption class="ms-4">
-                        List of Projects
-                    </caption>
+            <h5 class="card-header">Data Pesanan</h5>
+            <div class="table-responsive text-nowrap p-3 pt-0">
+                <table class="table table-striped" id="dataPesanan">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th style="width: 20px;">No</th>
                             <th>Nama Pemesan</th>
                             <th>Barang Pesanan</th>
                             <th>Status</th>
@@ -19,9 +16,25 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
+                            <td class="text-center">1</td>
                             <td>Albert Cook</td>
-                            <td><a href="">Lihat Daftar</a></td>
+                            <td>
+                                <button class="btn btn-sm btn-primary d-flex align-items-center">
+                                    <i class="bx bx-show-alt me-1"></i>
+                                    Lihat Pesanan
+                                </button>
+                            </td>
+                            <td><span class="badge bg-label-info me-1">Request</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>Jhon Dee</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary d-flex align-items-center">
+                                    <i class="bx bx-show-alt me-1"></i>
+                                    Lihat Pesanan
+                                </button>
+                            </td>
                             <td><span class="badge bg-label-warning me-1">Pending</span></td>
                         </tr>
                     </tbody>
