@@ -13,8 +13,8 @@
                             Download QR Code
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#"><i class="bx bxs-file-archive me-1"></i> Download ZIP</a>
-                            <a class="dropdown-item" href="#"><i class="bx bxs-file-pdf me-1"></i> Download PDF</a>
+                            <a class="dropdown-item" href="{{ route('download-zip')}}"><i class="bx bxs-file-archive me-1"></i> Download ZIP</a>
+                            <a class="dropdown-item" href="{{ route('download-pdf')}}"><i class="bx bxs-file-pdf me-1"></i> Download PDF</a>
                         </div>
                     </div>
                 </div>
