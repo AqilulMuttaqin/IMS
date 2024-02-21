@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
     <script src="{{ asset('assets/vendor/js/helpers.js')}}"></script>
     <script src="{{ asset('assets/js/config.js')}}"></script>
+    <script src="{{ asset('assets/js/jquery-3.7.0.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.dataTables.min.css')}}">
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/js/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/js/jquery.dataTables.js')}}"></script>
 </head>
 
 <body>
@@ -33,7 +37,10 @@
         </div>
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-
+    <script>
+        new DataTable('#dataBarang');
+        new DataTable('#dataPesanan');
+    </script>
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
     <script src="{{ asset('assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.js')}}"></script>
