@@ -137,7 +137,7 @@
 
                         var link = document.createElement('a');
                         link.href = url;
-                        link.download = 'qr-code.png';
+                        link.download = ''+nama+'.png';
                         document.body.appendChild(link);
 
                         link.click();
