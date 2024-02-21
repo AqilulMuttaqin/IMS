@@ -25,7 +25,7 @@ Route::get('/', function () {
     $user = auth()->user();
 
     if ($user->role === 'admin') {
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('staff.dashboard');
     } elseif ($user->role === 'spv') {
         return redirect()->route('spv.dashboard');
     } elseif ($user->role === 'user') {
