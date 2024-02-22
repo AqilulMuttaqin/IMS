@@ -23,4 +23,9 @@ class Barang extends Model
     {
         return $this->belongsToMany(Pesanan::class)->withPivot('qty');
     }
+
+    public function dataBarang()
+    {
+        return $this->belongsToMany(DataBarang::class);
+    }
 }

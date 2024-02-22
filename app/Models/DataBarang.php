@@ -18,4 +18,14 @@ class DataBarang extends Model
         'PO_number',
         'qty',
     ];
+
+    public function barang()
+    {
+        return $this->hasMany(Barang::class, 'no_js', 'no_js');
+    }
+
+    public function lokasi()
+    {
+        return $this->hasMany(Lokasi::class);
+    }
 }

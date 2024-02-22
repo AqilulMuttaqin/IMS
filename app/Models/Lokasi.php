@@ -14,4 +14,9 @@ class Lokasi extends Model
     protected $fillable = [
         'nama',
     ];
+
+    public function dataBarang()
+    {
+        return $this->belongsToMany(DataBarang::class);
+    }
 }
