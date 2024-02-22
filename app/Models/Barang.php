@@ -14,8 +14,9 @@ class Barang extends Model
     protected $fillable = [
         'no_js',
         'nama',
-        'stok',
-        'stok_dipesan',
+        'harga',
+        'min_stok',
+        'max_stok',
     ];
 
     public function pesanan()
