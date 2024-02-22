@@ -17,4 +17,9 @@ class Barang extends Model
         'stok',
         'stok_dipesan',
     ];
+
+    public function pesanan()
+    {
+        return $this->belongsToMany(Pesanan::class)->withPivot('qty');
+    }
 }
