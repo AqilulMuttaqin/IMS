@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use TCPDF;
 use ZipArchive;
@@ -268,6 +269,13 @@ class QrCodeController extends Controller
 
         $dompdf->render();
 
-        return $dompdf->stream('qrcodes.pdf');
-    }
+        $pdfContent = $dompdf->output();
+    
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="qrcodes.pdf"',
+        ];
+
+        return Response::make($pdfContent, 200, $headers);
+        }
 }
