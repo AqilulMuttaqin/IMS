@@ -29,7 +29,7 @@
                                 <span class="app-brand-logo demo">
                                     <img src="{{ asset('assets/img/logo.png') }}" alt="" width="30">
                                 </span>
-                                <span class="app-brand-text demo text-body fw-bolder">Inventory</span>
+                                <span class="app-brand-text demo text-body fw-bolder" style="text-transform: uppercase;">ims</span>
                             </div>
                         </div>
                         <h6 class="mb-2 text-center">Welcome to Production Inventory 👋</h6>
