@@ -12,7 +12,7 @@ class DataBarang extends Model
     protected $table = 'data_barang';
 
     protected $fillable = [
-        'no_js',
+        'kode_js',
         'lokasi_id',
         'inv_number',
         'PO_number',
@@ -21,7 +21,7 @@ class DataBarang extends Model
 
     public function barang()
     {
-        return $this->hasMany(Barang::class, 'no_js', 'no_js');
+        return $this->hasMany(Barang::class, 'kode_js', 'kode_js');
     }
 
     public function lokasi()
