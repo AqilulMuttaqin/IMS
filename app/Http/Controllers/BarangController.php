@@ -20,6 +20,15 @@ class BarangController extends Controller
         ]);
     }
 
+    public function detail()
+    {
+        $barang = Barang::all();
+        return view('staff.data-detail-barang', [
+            'title' => 'Data Detail Barang',
+            'barang' => $barang,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

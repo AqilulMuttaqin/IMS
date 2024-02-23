@@ -57,6 +57,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/pdf', [QrCodeController::class, 'generatePdfWithQrCodes'])->name('download-pdf');
     Route::get('staff/pesanan', [AdminController::class, 'pesanan'])->name('staff.pesanan');
     Route::get('staff/barang', [BarangController::class, 'index'])->name('staff.barang');
+    Route::get('staff/barang-detail', [BarangController::class, 'detail'])->name('staff.barang-detail');
     Route::get('staff/update-stok', [AdminController::class, 'updateStok'])->name('staff.update-stok');
     Route::resource('barang', BarangController::class);
 });
