@@ -20,9 +20,11 @@ class BarangFactory extends Factory
     public function definition()
     {
         return [
-            'no_js' => $this->faker->unique()->numerify('JS###'),
+            'kode_js' => $this->faker->unique()->numerify('JS###'),
             'nama' => $this->faker->name,
-            'stok' => $this->faker->numberBetween(1, 100),
+            'harga' => $this->faker->randomFloat(2, 1000, 100000),
+            'min_stok' => $this->faker->numberBetween(1, 100),
+            'max_stok' => $this->faker->numberBetween(101, 200),
         ];
     }
 }

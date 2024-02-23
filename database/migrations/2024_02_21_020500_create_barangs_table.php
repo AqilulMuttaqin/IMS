@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('kode_js')->unique();
             $table->string('nama');
             $table->decimal('harga', 15, 2);
-            $table->integer('min_stok');
-            $table->integer('max_stok');
+            $table->integer('min_stok')->default(0);
+            $table->integer('max_stok')->default(0);
             $table->timestamps();
         });
     }

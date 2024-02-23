@@ -29,7 +29,7 @@ class User extends Authenticatable
     {
         switch ($this->role) {
             case 'admin':
-                return 'admin.dashboard';
+                return 'staff.dashboard';
             case 'spv':
                 return 'spv.dashboard';
             case 'user':

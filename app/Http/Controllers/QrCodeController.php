@@ -44,11 +44,11 @@ class QrCodeController extends Controller
             mkdir($qrCodesDirectory, 0755, true);
         }
 
-        $qrCodeFileName = $qrCodeName . '.png';
+        $qrCodeFileName = $qrCodeContent.'-'.$qrCodeName . '.png';
         $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
 
         if (!file_exists($qrCodeFilePath)) {
-            $qrCode = QrCode::format('png')->size(512)->generate($qrCodeContent);
+            $qrCode = QrCode::format('png')->size(512)->margin(1)->generate($qrCodeContent);
             file_put_contents($qrCodeFilePath, $qrCode);
         }
 
@@ -67,11 +67,11 @@ class QrCodeController extends Controller
             mkdir($qrCodesDirectory, 0755, true);
         }
 
-        $qrCodeFileName = $qrCodeName . '.png';
+        $qrCodeFileName = $qrCodeContent.'-'.$qrCodeName . '.png';
         $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
 
         if (!file_exists($qrCodeFilePath)) {
-            $qrCode = QrCode::format('png')->size(512)->generate($qrCodeContent);
+            $qrCode = QrCode::format('png')->size(512)->margin(1)->generate($qrCodeContent);
             file_put_contents($qrCodeFilePath, $qrCode);
         }
 
@@ -92,11 +92,11 @@ class QrCodeController extends Controller
 
     //     $qrCodePaths = [];
     //     foreach ($barangs as $barang) {
-    //         $qrCodePath = $tempDir . '/' . $barang->nama . '.png';
+    //         $qrCodePath = $tempDir . '/' . $barang->kode_js.'-'. $barang->nama . '.png';
     //         QrCode::size(515)
     //             ->format('png')
     //             ->margin(1)
-    //             ->generate($barang->no_js, $qrCodePath);
+    //             ->generate($barang->kode_js, $qrCodePath);
     //         $qrCodePaths[] = $qrCodePath;
     //     }
 
@@ -123,16 +123,18 @@ class QrCodeController extends Controller
         }
 
         $qrCodePaths = [];
+        $generatedFiles = [];
         foreach ($barangs as $barang) {
-            $qrCodePath = $tempDir . '/' . $barang->nama . '.png';
+            $qrCodePath = $tempDir . '/' . $barang->kode_js.'-'. $barang->nama . '.png';
             
             if (!file_exists($qrCodePath)) {
                 QrCode::size(515)
                     ->format('png')
                     ->margin(1)
-                    ->generate($barang->no_js, $qrCodePath);
+                    ->generate($barang->kode_js, $qrCodePath);
             }
             
+            $generatedFiles[] = $barang->kode_js.'-'. $barang->nama . '.png';
             $qrCodePaths[] = $qrCodePath;
         }
 
@@ -145,6 +147,8 @@ class QrCodeController extends Controller
         }
 
         $zip->close();
+
+        $this->deleteUnusedQrCodes($tempDir, $generatedFiles);
 
         return response()->download($zipFile, 'qr-codes.zip')->deleteFileAfterSend(true);
     }
@@ -183,7 +187,7 @@ class QrCodeController extends Controller
     //         // Generate QR code and encode to base64
     //         $qrCodeData = QrCode::size(150)
     //             ->format('png')
-    //             ->generate($barang->no_js);
+    //             ->generate($barang->kode_js);
     //         $qrCodeBase64 = base64_encode($qrCodeData);
 
     //         // Add QR code and details to HTML
@@ -232,6 +236,8 @@ class QrCodeController extends Controller
 
         $barangs = Barang::all();
 
+        $generatedFiles = [];
+
         foreach ($barangs as $key => $barang) {
             if ($key % 4 === 0) {
                 if ($key !== 0) {
@@ -240,14 +246,16 @@ class QrCodeController extends Controller
                 $html .= '<div class="qr-code-row">';
             }
 
-            $qrCodeFileName = $barang->nama . '.png';
+            $qrCodeFileName = $barang->kode_js.'-'. $barang->nama . '.png';
             $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
 
             if (!file_exists($qrCodeFilePath)) {
                 QrCode::size(512)
                     ->format('png')
-                    ->generate($barang->no_js, $qrCodeFilePath);
+                    ->generate($barang->kode_js, $qrCodeFilePath);
             }
+
+            $generatedFiles[] = $qrCodeFileName;
 
             $imageData = base64_encode(file_get_contents($qrCodeFilePath));
             $src = 'data:image/png;base64,' . $imageData;
@@ -276,6 +284,24 @@ class QrCodeController extends Controller
             'Content-Disposition' => 'inline; filename="qrcodes.pdf"',
         ];
 
+        $this->deleteUnusedQrCodes($qrCodesDirectory, $generatedFiles);
+
         return Response::make($pdfContent, 200, $headers);
+    }
+
+    public function deleteUnusedQrCodes($directory, $generatedFiles)
+    {
+        if (file_exists($directory) && is_dir($directory)) {
+            $files = glob($directory . '/*');
+            
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    $filename = basename($file);
+                    if (!in_array($filename, $generatedFiles)) {
+                        unlink($file);
+                    }
+                }
+            }
         }
+    }
 }
