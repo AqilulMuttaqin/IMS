@@ -13,7 +13,8 @@ class DataBarangController extends Controller
      */
     public function index()
     {
-        //
+        $barang = DataBarang::with('lokasi', 'barang')->get();
+        return view('staff.barang', compact('barang'));
     }
 
     /**

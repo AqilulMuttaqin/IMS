@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DataBarangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\SPVController;
@@ -59,6 +60,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('staff/barang', [BarangController::class, 'index'])->name('staff.barang');
     Route::get('staff/update-stok', [AdminController::class, 'updateStok'])->name('staff.update-stok');
     Route::resource('barang', BarangController::class);
+    Route::get('staff/data-barang', [DataBarangController::class, 'index'])->name('staff.data-barang');
 });
 
 Route::middleware(['auth','role:spv'])->group(function () {
