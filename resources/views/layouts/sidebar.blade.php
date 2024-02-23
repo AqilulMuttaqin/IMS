@@ -40,6 +40,12 @@
                     <div data-i18n="Data Barang">Data Barang</div>
                 </a>
             </li>
+            <li class="menu-item {{ $title === 'Data Detail Barang' ? 'active' : '' }}">
+                <a href="{{ route('staff.barang-detail')}}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-data"></i>
+                    <div data-i18n="Data Barang">Data Detail Barang</div>
+                </a>
+            </li>
         @endif
         {{-- <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
