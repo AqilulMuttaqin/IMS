@@ -75,11 +75,12 @@
                                 <label class="col-sm-8 col-form-label" for="barang-1">Bolpoin</label>
                                 <div class="col-sm-4">
                                     <div class="input-group number-spinner">
-                                        <button class="btn btn-sm border">
+                                        <button type="button" class="btn btn-sm border" onclick="minValue('barang-1')">
                                             <i class="bx bx-minus"></i>
                                         </button>
-                                        <input type="number" class="form-control text-center" value="1">
-                                        <button class="btn btn-sm border">
+                                        <input type="text" class="form-control text-center" value="1" id="barang-1"
+                                            name="barang-1" oninput="validateInput(this)">
+                                        <button type="button" class="btn btn-sm border" onclick="plusValue('barang-1')">
                                             <i class="bx bx-plus"></i>
                                         </button>
                                     </div>
@@ -89,11 +90,12 @@
                                 <label class="col-sm-8 col-form-label" for="barang-2">Kertas</label>
                                 <div class="col-sm-4">
                                     <div class="input-group number-spinner">
-                                        <button class="btn btn-sm border">
+                                        <button type="button" class="btn btn-sm border" onclick="minValue('barang-2')">
                                             <i class="bx bx-minus"></i>
                                         </button>
-                                        <input type="number" class="form-control text-center" value="1">
-                                        <button class="btn btn-sm border">
+                                        <input type="text" class="form-control text-center" value="1" id="barang-2"
+                                            name="barang-2" oninput="validateInput(this)">
+                                        <button type="button" class="btn btn-sm border" onclick="plusValue('barang-2')">
                                             <i class="bx bx-plus"></i>
                                         </button>
                                     </div>
@@ -104,13 +106,30 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-primary">Pesan</button>
-                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-primary">Pesan</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        const plusValue = (id) => {
+            const inputElement = document.getElementById(id);
+            inputElement.value = parseInt(inputElement.value) + 1;
+        }
+
+        const minValue = (id) => {
+            const inputElement = document.getElementById(id);
+            const newValue = parseInt(inputElement.value) - 1;
+            inputElement.value = newValue >= 0 ? newValue : 0;
+        }
+
+        const validateInput = (input) => {
+            input.value = input.value.replace(/[^0-9]/g, ''); // Hanya menerima angka
+        }
+    </script>
 @endsection
