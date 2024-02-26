@@ -54,15 +54,75 @@
         </div>
         <div class="card mb-4">
             <div class="card-body p-0 pt-3">
-                <h3 class="text-center text-primary">Pesanan Masuk <i class="bx bx-down-arrow-alt" style="font-size: 1em;"></i></h3>
+                <h3 class="text-center text-primary">Pesanan Masuk <i class="bx bx-down-arrow-alt"
+                        style="font-size: 1em;"></i></h3>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-sm-3 mb-4">
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="card">
-                    <div class="card-header">
-                        <h6></h6>
+                    <div class="card-header pb-1">
+                        <h6 class="text-center">Pesanan Line .....</h6>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="label">Nama/Label</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="label">: Pesanan 1</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="detail">Detail</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary">
+                                        <i class="bx bx-show"></i>
+                                    </button>
+                                </p>
+                            </div>
+                            <hr>
+                            <div class="col-12">
+                                <button type="button" class="btn btn-warning w-100">
+                                    Konfirmasi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-header pb-1">
+                        <h6 class="text-center">Pesanan Line .....</h6>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="label">Nama/Label</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="label">: Pesanan 1</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="detail">Detail</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary">
+                                        <i class="bx bx-show"></i>
+                                    </button>
+                                </p>
+                            </div>
+                            <hr>
+                            <div class="col-12">
+                                <button type="button" class="btn btn-warning w-100">
+                                    Konfirmasi
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

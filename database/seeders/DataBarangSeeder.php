@@ -24,7 +24,7 @@ class DataBarangSeeder extends Seeder
 
         $data = [
             [
-                'kode_js' => 'JS028',
+                'kode_js' => 'JS029',
                 'inv_number' => 'INV001',
                 'PO_number' => 'PO001',
             ],

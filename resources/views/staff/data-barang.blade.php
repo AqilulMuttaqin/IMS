@@ -156,115 +156,85 @@
 @endsection
 
 @push('scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var table = $('#dataBarang').DataTable({
-                processing: true,
-                serveSide: true,
-                scrollX: true,
-                columns: [{
-                        data: null,
-                        render: function(data, type, row, meta) {
-                            return '<td class="text-center">' + (meta.row + 1) + '</td>';
-                        }
-                    },
-                    {
-                        data: 'kode_js',
-                        name: 'kode_js',
-                        render: function(data, type, row, meta) {
-                            return '<td>' + data + '</td>';
-                        }
-                    },
-                    {
-                        data: 'nama',
-                        name: 'nama',
-                        render: function(data, type, row, meta) {
-                            return '<td>' + data + '</td>';
-                        }
-                    },
-                    {
-                        data: 'min_stok',
-                        name: 'min_stok',
-                        render: function(data, type, row, meta) {
-                            return '<td class="text-center">' + data + '</td>';
-                        }
-                    },
-                    {
-                        data: 'max_stok',
-                        name: 'max_stok',
-                        render: function(data, type, row, meta) {
-                            return '<td class="text-center">' + data + '</td>';
-                        }
-                    },
-                    {
-                        data: 'harga',
-                        name: 'harga',
-                        render: function(data, type, row, meta) {
-                            return '<td class="text-center">' + data + '</td>';
-                        }
-                    },
-                    {
-                        data: null,
-                        render: function(data, type, row, meta) {
-                            return `
-                                <td>
-                                    <div class="qrcode">
-                                        <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
-                                            data-id="{{ $item->kode_js }}" data-nama="{{ $item->nama }}">
-                                            <i class="bx bxs-barcode me-1"></i>
-                                            QR code
-                                        </button>
-                                    </div>
-                                </td>
-                            `;
-                        }
-                    },
-                    {
-                        data: null,
-                        render: function(data, type, row, meta) {
-                            return `
-                                <td class="text-center">
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
-                                                Edit</a>
-                                            <form id="deleteForm{{ $item->kode_js }}" action="{{ route('staff.hapus-barang', $item->kode_js) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <a type="submit" class="deleteBtn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</a>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            `;
-                        }
-                    }
-                ],
-                drawCallback: function(settings) {
-                    var pageInfo = table.page.info();
-                    var start = pageInfo.start;
-                    var api = this.api();
-
-                    api.column(0, {
-                        order: 'applied',
-                        search: 'applied'
-                    }).nodes().each(function(cell, i) {
-                        cell.innerHTML = start + i + 1;
-                    });
-                }
-            })
-        })
-    </script>
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            var table = $('#dataBarang').DataTable({
+                processing: false,
+                serverSide: true,
+                ajax: {
+                    url: '{{ url()->current() }}',
+                    type: 'GET'
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'kode_js',
+                        name: 'kode_js'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'min_stok',
+                        name: 'min_stok'
+                    },
+                    {
+                        data: 'max_stok',
+                        name: 'max_stok'
+                    },
+                    {
+                        data: 'harga',
+                        name: 'harga'
+                    },
+                    {
+                        data: 'qr_code',
+                        name: 'qr_code',
+                        orderable: false,
+                        searchable: false,
+                        render: function(){
+                            return `
+                                <div class="qrcode">
+                                    <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
+                                        data-id="" data-nama="">
+                                        <i class="bx bxs-barcode me-1"></i>
+                                        QR code
+                                    </button>
+                                </div>
+                            `;
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        render: function(){
+                            return `
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
+                                            Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
+                                            Delete</a>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                ]
             });
 
             var id;
