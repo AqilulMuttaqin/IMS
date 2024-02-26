@@ -50,6 +50,7 @@ class BarangController extends Controller
         ]);
 
         Barang::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -81,6 +82,8 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        //
+        $barang->delete();
+
+        return redirect()->back();
     }
 }

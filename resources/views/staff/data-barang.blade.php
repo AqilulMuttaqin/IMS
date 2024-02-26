@@ -68,8 +68,11 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
                                                 Edit</a>
-                                            <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
-                                                Delete</a>
+                                            <form id="deleteForm{{ $item->kode_js }}" action="{{ route('staff.hapus-barang', $item->kode_js) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <a type="submit" class="deleteBtn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</a>
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
@@ -225,6 +228,11 @@
                 $('#max_stok').val('');
                 $('#harga').val('');
             }
+
+            $(document).on('click', '.deleteBtn', function() {
+                var formId = $(this).closest('form').attr('id');
+                $('#' + formId).submit();
+            });
         });
         function submitBarangForm() {
             var formData = $('#barangForm').serialize();
@@ -252,6 +260,7 @@
                         icon: "success",
                         timer: 3500
                     });
+                    window.reload();
                 },
                 error: function(xhr, status, error) {}
             });
