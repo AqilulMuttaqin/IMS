@@ -25,6 +25,12 @@
                     <div data-i18n="Pesanan">Pesanan</div>
                 </a>
             </li>
+            <li class="menu-item {{ $title === 'Data Barang' ? 'active' : '' }}">
+                <a href="{{ route('user.barang') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-data"></i>
+                    <div data-i18n="Data Barang">Data Barang</div>
+                </a>
+            </li>
         @endif
         @if (auth()->user() && auth()->user()->role == 'admin')
             <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
