@@ -13,7 +13,13 @@ class PesananController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()){
+            $pesanan = Pesanan::with('user', 'barang')->get();
+
+            return datatables()->of($pesanan)->make(true);
+        };
+
+        return view('staff.pesanan', ['title' => 'Pesanan']);
     }
 
     /**

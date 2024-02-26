@@ -15,7 +15,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td class="text-center">1</td>
                             <td>Albert Cook</td>
                             <td>
@@ -36,10 +36,44 @@
                                 </button>
                             </td>
                             <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-@endsection
+
+    
+    @endsection
+    
+    @push('scripts')
+        <script>
+            $(document).ready(function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                var table = $('#dataPesanan').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: '{{ url()->current() }}',
+                        type: 'GET'
+                    },
+                    columns: [
+                        { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                        { data: 'user.name', name: 'user.name' },
+                        { data: 'status', 
+                            name: 'status', 
+                            render: function (data, type, full, meta) {
+                                return `
+                                <td><span class="badge bg-label-warning me-1">`+ data + `</span></td>
+                                `;
+                            }
+                        },
+                    ]
+                });
+            });
+        </script>
+    @endpush

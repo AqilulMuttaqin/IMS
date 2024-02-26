@@ -12,16 +12,16 @@ class Pesanan extends Model
     protected $table = 'pesanan';
 
     protected $fillable = [
-        'user_id',
+        'nik',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'nik', 'nik');
     }
 
     public function barang()
     {
-        return $this->belongsToMany(Barang::class, 'barang_pesanan', 'kode_js', 'pesanan_id')->withPivot('qty');
+        return $this->belongsToMany(Barang::class, 'barang_pesanan', 'pesanan_id', 'kode_js')->withPivot('qty');
     }
 }

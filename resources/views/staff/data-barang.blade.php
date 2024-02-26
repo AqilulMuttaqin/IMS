@@ -164,11 +164,11 @@
                         name: 'qr_code',
                         orderable: false,
                         searchable: false,
-                        render: function(){
+                        render: function(data, type, row, meta){
                             return `
                                 <div class="qrcode">
                                     <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
-                                        data-id="" data-nama="">
+                                        data-id="${row.kode_js}" data-nama="${row.nama}">
                                         <i class="bx bxs-barcode me-1"></i>
                                         QR code
                                     </button>
@@ -181,7 +181,9 @@
                         name: 'action',
                         orderable: false,
                         searchable: false,
-                        render: function(){
+                        render: function(data, type, row, meta){
+                            var deleteRoute = "{{ route('staff.hapus-barang', ['barang' => ':barang']) }}";
+                            var deleteUrl = deleteRoute.replace(':barang', row.kode_js);
                             return `
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -191,8 +193,11 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
                                             Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
-                                            Delete</a>
+                                        <form action="${deleteUrl}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="dropdown-item deleteBtn"><i class="bx bx-trash me-1"></i>Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                             `;
@@ -295,6 +300,7 @@
                     'X-CSRF-TOKEN': csrfToken
                 },
                 success: function(response) {
+                    $('#dataBarang').DataTable().ajax.reload();
                     $('#barangModal').modal('hide');
                     Swal.fire({
                         title: "Success",
@@ -302,7 +308,6 @@
                         icon: "success",
                         timer: 3500
                     });
-                    window.reload();
                 },
                 error: function(xhr, status, error) {}
             });

@@ -39,7 +39,6 @@
     </div>
     <script>
         new DataTable('#dataBarangUser');
-        new DataTable('#dataPesanan');
         new DataTable('#dataBarangReady');
         new DataTable('#dataStatusPesanan');
     </script>

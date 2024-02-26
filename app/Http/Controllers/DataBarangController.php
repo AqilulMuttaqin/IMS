@@ -6,6 +6,7 @@ use App\Models\DataBarang;
 use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
 use App\Models\Barang;
+use App\Models\Pesanan;
 
 class DataBarangController extends Controller
 {
@@ -78,14 +79,8 @@ class DataBarangController extends Controller
     }
 
     public function tes(){
-        $barang = DataBarang::with('lokasi', 'barang')->get();
+        $pesanan = Pesanan::with('user')->get();
 
-        $barang->map(function ($item, $key) {
-            $item['DT_RowIndex'] = $key + 1;
-            return $item;
-        });
-        
-            return datatables()->of($barang)
-                ->make(true);
+            return datatables()->of($pesanan)->make(true);
     }
 }
