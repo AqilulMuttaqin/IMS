@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DataBarang;
 use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
+use App\Models\Barang;
 
 class DataBarangController extends Controller
 {
@@ -14,7 +15,10 @@ class DataBarangController extends Controller
     public function index()
     {
         $barang = DataBarang::with('lokasi', 'barang')->get();
-        return view('staff.barang', compact('barang'));
+        return view('staff.data-detail-barang', [
+            'title' => 'Data Detail Barang',
+            'barang' => $barang,
+        ]);
     }
 
     /**

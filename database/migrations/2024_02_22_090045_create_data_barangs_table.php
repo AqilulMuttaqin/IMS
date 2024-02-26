@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('data_barang', function (Blueprint $table) {
             $table->id();
             $table->string('kode_js');
-            $table->foreignId('lokasi_id')->constrained('lokasi')->onDelete('cascade');
             $table->string('inv_number');
             $table->string('PO_number');
-            $table->integer('qty');
             $table->timestamps();
 
             $table->foreign('kode_js')->references('kode_js')->on('barang');

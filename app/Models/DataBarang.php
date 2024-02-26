@@ -13,19 +13,17 @@ class DataBarang extends Model
 
     protected $fillable = [
         'kode_js',
-        'lokasi_id',
         'inv_number',
         'PO_number',
-        'qty',
     ];
 
     public function barang()
     {
-        return $this->hasMany(Barang::class, 'kode_js', 'kode_js');
+        return $this->belongsTo(Barang::class, 'kode_js', 'kode_js');
     }
 
     public function lokasi()
     {
-        return $this->hasMany(Lokasi::class);
+        return $this->belongsToMany(Lokasi::class)->withPivot('qty');
     }
 }

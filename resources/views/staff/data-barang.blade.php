@@ -35,7 +35,9 @@
                             <th style="width: 20px">No</th>
                             <th class="text-center">Kode JS</th>
                             <th>Nama</th>
-                            <th class="text-center">Stok</th>
+                            <th class="text-center">Min</th>
+                            <th class="text-center">Max</th>
+                            <th class="text-center">Price($)</th>
                             <th class="text-center" style="width: 90px">QR Code</th>
                             <th style="width: 30px;">Actions</th>
                         </tr>
@@ -46,7 +48,9 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td class="text-center">{{ $item->kode_js }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td class="text-center">{{ $item->stok }}</td>
+                                <td class="text-center">{{ $item->min_stok }}</td>
+                                <td class="text-center">{{ $item->max_stok }}</td>
+                                <td class="text-center">{{ $item->harga }}</td>
                                 <td>
                                     <div class="qrcode">
                                         <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
@@ -118,8 +122,18 @@
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="stok">STOK</label>
-                            <input type="text" class="form-control form-control-user" id="stok" name="stok"
+                            <label for="stok">MIN</label>
+                            <input type="text" class="form-control form-control-user" id="min" name="min"
+                                required autofocus value="">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="stok">MAX</label>
+                            <input type="text" class="form-control form-control-user" id="max" name="max"
+                                required autofocus value="">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="stok">PRICE</label>
+                            <input type="text" class="form-control form-control-user" id="harga" name="harga"
                                 required autofocus value="">
                         </div>
                     </form>
@@ -128,7 +142,7 @@
                     <button type="button" class="btn btn-sm btn-secondary"
                         data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-sm btn-primary" id="submitBtn"
-                        onclick="submitUserForm()">Save Change</button>
+                        onclick="submitBarangForm()">Save Change</button>
                 </div>
             </div>
         </div>

@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li class="menu-item {{ $title === 'Data Detail Barang' ? 'active' : '' }}">
-                <a href="{{ route('staff.barang-detail')}}" class="menu-link">
+                <a href="{{ route('staff.data-barang')}}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-data"></i>
                     <div data-i18n="Data Barang">Data Detail Barang</div>
                 </a>

@@ -17,7 +17,7 @@ class LokasiFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama' => $this->faker->name,
         ];
     }
 }

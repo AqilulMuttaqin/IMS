@@ -22,23 +22,33 @@
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
-                            <th class="text-center">No. JS</th>
+                            <th class="text-center">Kode JS</th>
                             <th>Nama</th>
                             <th>Invoice Num.</th>
                             <th>PO Num.</th>
+                            <th>Lokasi</th>
                             <th class="text-center">Qty</th>
                             <th style="width: 30px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($barang as $item) --}}
+                        @foreach ($barang as $item)
                             <tr>
-                                <td class="text-center"></td>
-                                <td class="text-center"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="text-center"></td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->kode_js }}</td>
+                                <td>{{ $item->barang->nama }}</td>
+                                <td>{{ $item->inv_number }}</td>
+                                <td>{{ $item->PO_number }}</td>
+                                <td>
+                                    @foreach ($item->lokasi as $lokasi)
+                                        {{ $lokasi->nama }}<br>
+                                    @endforeach
+                                </td>
+                                <td class="text-center">
+                                    @foreach ($item->lokasi as $lokasi)
+                                        {{ $lokasi->pivot->qty }}<br>
+                                    @endforeach
+                                </td>
                                 <td class="text-center">
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -54,7 +64,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>
