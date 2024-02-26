@@ -2,7 +2,7 @@
     <div class="app-brand demo">
         <a href="#" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="{{ asset('assets/img/logo.png')}}" alt="" width="30">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="" width="30">
             </span>
             <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform: uppercase;">ims</span>
         </a>
@@ -12,9 +12,23 @@
     </div>
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
+        @if (auth()->user() && auth()->user()->role == 'user')
+            <li class="menu-item {{ $title === 'Home' ? 'active' : '' }}">
+                <a href="{{ route('user.home') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Home">Home</div>
+                </a>
+            </li>
+            <li class="menu-item {{ $title === 'Pesanan' ? 'active' : '' }}">
+                <a href="{{ route('user.pesanan') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cart-alt"></i>
+                    <div data-i18n="Pesanan">Pesanan</div>
+                </a>
+            </li>
+        @endif
         @if (auth()->user() && auth()->user()->role == 'admin')
             <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
-                <a href="{{ route('staff.dashboard')}}" class="menu-link">
+                <a href="{{ route('staff.dashboard') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Dashboard">Dashboard</div>
                 </a>
@@ -23,19 +37,19 @@
                 <span class="menu-header-text">Pages</span>
             </li>
             <li class="menu-item {{ $title === 'Update Stok' ? 'active' : '' }}">
-                <a href="{{ route('staff.update-stok')}}" class="menu-link">
+                <a href="{{ route('staff.update-stok') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-refresh"></i>
                     <div data-i18n="Update Stok">Update Stok</div>
                 </a>
             </li>
             <li class="menu-item {{ $title === 'Pesanan' ? 'active' : '' }}">
-                <a href="{{ route('staff.pesanan')}}" class="menu-link">
+                <a href="{{ route('staff.pesanan') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-cart-alt"></i>
                     <div data-i18n="Pesanan">Pesanan</div>
                 </a>
             </li>
             <li class="menu-item {{ $title === 'Data Barang' ? 'active' : '' }}">
-                <a href="{{ route('staff.barang')}}" class="menu-link">
+                <a href="{{ route('staff.barang') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-data"></i>
                     <div data-i18n="Data Barang">Data Barang</div>
                 </a>
