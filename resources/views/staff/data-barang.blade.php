@@ -47,42 +47,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($barang as $item)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="text-center">{{ $item->kode_js }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td class="text-center">{{ $item->min_stok }}</td>
-                                <td class="text-center">{{ $item->max_stok }}</td>
-                                <td class="text-center">{{ $item->harga }}</td>
-                                <td>
-                                    <div class="qrcode">
-                                        <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
-                                            data-id="{{ $item->kode_js }}" data-nama="{{ $item->nama }}">
-                                            <i class="bx bxs-barcode me-1"></i>
-                                            QR code
-                                        </button>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
-                                                Edit</a>
-                                            <form id="deleteForm{{ $item->kode_js }}" action="{{ route('staff.hapus-barang', $item->kode_js) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <a type="submit" class="deleteBtn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</a>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach --}}
                     </tbody>
                 </table>
             </div>

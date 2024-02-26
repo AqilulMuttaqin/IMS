@@ -25,10 +25,8 @@ class BarangController extends Controller
             return datatables()->of($barang)->make(true);
         }
         
-        $barang = Barang::all();
         return view('staff.data-barang', [
             'title' => 'Data Barang',
-            'barang' => $barang,
         ]);
     }
 
