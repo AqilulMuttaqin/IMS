@@ -73,8 +73,11 @@
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
                                                 Edit</a>
-                                            <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
-                                                Delete</a>
+                                            <form id="deleteForm{{ $item->kode_js }}" action="{{ route('staff.hapus-barang', $item->kode_js) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <a type="submit" class="deleteBtn dropdown-item"><i class="bx bx-trash me-1"></i>Delete</a>
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
@@ -110,14 +113,14 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="barangModalLabel">Tambah Data Barang</h5>
+                    <h5 class="modal-title" id="barangModalLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="barangForm">
                         <div class="form-group mb-3">
                             <label for="nojs">NO. JS</label>
-                            <input type="text" class="form-control form-control-user" id="nojs" name="nojs"
+                            <input type="text" class="form-control form-control-user" id="kode_js" name="kode_js"
                                 required autofocus value="" maxlength="6" minlength="6">
                         </div>
                         <div class="form-group mb-3">
@@ -127,12 +130,12 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="stok">MIN</label>
-                            <input type="text" class="form-control form-control-user" id="min" name="min"
+                            <input type="text" class="form-control form-control-user" id="min_stok" name="min_stok"
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="stok">MAX</label>
-                            <input type="text" class="form-control form-control-user" id="max" name="max"
+                            <input type="text" class="form-control form-control-user" id="max_stok" name="max_stok"
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
@@ -214,6 +217,58 @@
                     }
                 });
             });
+            $('#tambahBtn').click(function() {
+                resetFormFields();
+                $('#submitBtn').text('Submit');
+                $('#barangModalLabel').text('Tambah data Barang');
+                $('#barangForm').attr('action', '{{ route('staff.tambah-barang') }}');
+
+                $('#barangModal').modal('show');
+            });
+
+            function resetFormFields() {
+                $('#kode_js').val('');
+                $('#nama').val('');
+                $('#min_stok').val('');
+                $('#max_stok').val('');
+                $('#harga').val('');
+            }
+
+            $(document).on('click', '.deleteBtn', function() {
+                var formId = $(this).closest('form').attr('id');
+                $('#' + formId).submit();
+            });
         });
+        function submitBarangForm() {
+            var formData = $('#barangForm').serialize();
+            var actionUrl = $('#barangForm').attr('action');
+            var method = 'POST';
+
+            if (actionUrl.includes('update-barang')) {
+                method = 'PUT';
+            }
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: actionUrl,
+                type: method,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function(response) {
+                    $('#barangModal').modal('hide');
+                    Swal.fire({
+                        title: "Success",
+                        text: "Data Berhasil Disimpan",
+                        icon: "success",
+                        timer: 3500
+                    });
+                    window.reload();
+                },
+                error: function(xhr, status, error) {}
+            });
+        }
     </script>
 @endpush
