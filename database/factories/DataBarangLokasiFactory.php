@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Lokasi>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\data_barang_lokasi>
  */
-class LokasiFactory extends Factory
+class DataBarangLokasiFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class LokasiFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama' => $this->faker->name,
+            //
         ];
     }
 }

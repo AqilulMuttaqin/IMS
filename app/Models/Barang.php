@@ -10,6 +10,8 @@ class Barang extends Model
     use HasFactory;
 
     protected $table = 'barang';
+    protected $primaryKey = 'kode_js';
+    public $incrementing = false;
 
     protected $fillable = [
         'kode_js',
@@ -26,6 +28,6 @@ class Barang extends Model
 
     public function dataBarang()
     {
-        return $this->belongsToMany(DataBarang::class);
+        return $this->hasMany(DataBarang::class, 'kode_js', 'kode_js');
     }
 }

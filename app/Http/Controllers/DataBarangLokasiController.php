@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataBarang;
-use App\Http\Requests\StoreDataBarangRequest;
-use App\Http\Requests\UpdateDataBarangRequest;
-use App\Models\Barang;
+use App\Models\data_barang_lokasi;
+use App\Http\Requests\Storedata_barang_lokasiRequest;
+use App\Http\Requests\Updatedata_barang_lokasiRequest;
 
-class DataBarangController extends Controller
+class DataBarangLokasiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $barang = DataBarang::with('lokasi', 'barang')->get();
-        return view('staff.data-detail-barang', [
-            'title' => 'Data Detail Barang',
-            'barang' => $barang,
-        ]);
+        //
     }
 
     /**
@@ -32,7 +27,7 @@ class DataBarangController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDataBarangRequest $request)
+    public function store(Storedata_barang_lokasiRequest $request)
     {
         //
     }
@@ -40,7 +35,7 @@ class DataBarangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DataBarang $dataBarang)
+    public function show(data_barang_lokasi $data_barang_lokasi)
     {
         //
     }
@@ -48,7 +43,7 @@ class DataBarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DataBarang $dataBarang)
+    public function edit(data_barang_lokasi $data_barang_lokasi)
     {
         //
     }
@@ -56,7 +51,7 @@ class DataBarangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDataBarangRequest $request, DataBarang $dataBarang)
+    public function update(Updatedata_barang_lokasiRequest $request, data_barang_lokasi $data_barang_lokasi)
     {
         //
     }
@@ -64,7 +59,7 @@ class DataBarangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DataBarang $dataBarang)
+    public function destroy(data_barang_lokasi $data_barang_lokasi)
     {
         //
     }

@@ -2,33 +2,30 @@
 
 namespace Database\Seeders;
 
-use App\Models\DataBarang;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class DataBarangSeeder extends Seeder
+class DataBarangLokasiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        // DataBarang::create([
-        //     'kode_js' => 'JS233',
+        // DataBarangLokasi::create([
         //     'lokasi_id' => 1,
-        //     'inv_number' => 'INV001',
-        //     'PO_number' => 'PO001',
+        //     'kode_js' => 'JS233',
         //     'qty' => 10,
         // ]);
 
         $data = [
             [
-                'kode_js' => 'JS028',
-                'inv_number' => 'INV001',
-                'PO_number' => 'PO001',
+                'lokasi_id' => 1,
+                'data_barang_id' => '2',
+                'qty' => 10,
             ],
         ];
-        DB::table('data_barang')->insert($data);
+        DB::table('data_barang_lokasi')->insert($data);
     }
 }
