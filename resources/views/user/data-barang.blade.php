@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="table-responsive text-nowrap pt-0 p-3">
-                <table class="table table-striped" id="dataBarang">
+                <table class="table table-striped" id="dataBarangUser">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
