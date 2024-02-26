@@ -52,6 +52,9 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::get('user/pesanan', function () {
         return view('user.pesanan', ['title' => 'Pesanan']);
     })->name('user.pesanan');
+    Route::get('user/data-barang', function () {
+        return view('user.data-barang', ['title' => 'Data Barang']);
+    })->name('user.barang');
 });
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/staff', [AdminController::class, 'index'])->name('staff.dashboard');
