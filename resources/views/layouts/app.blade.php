@@ -38,7 +38,6 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <script>
-        new DataTable('#dataBarang');
         new DataTable('#dataBarangUser');
         new DataTable('#dataPesanan');
         new DataTable('#dataDetailBarang');
