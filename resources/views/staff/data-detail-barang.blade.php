@@ -32,39 +32,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($barang as $item)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="text-center">{{ $item->kode_js }}</td>
-                                <td>{{ $item->barang->nama }}</td>
-                                <td>{{ $item->inv_number }}</td>
-                                <td>{{ $item->PO_number }}</td>
-                                <td>
-                                    @foreach ($item->lokasi as $lokasi)
-                                        {{ $lokasi->nama }}<br>
-                                    @endforeach
-                                </td>
-                                <td class="text-center">
-                                    @foreach ($item->lokasi as $lokasi)
-                                        {{ $lokasi->pivot->qty }}<br>
-                                    @endforeach
-                                </td>
-                                <td class="text-center">
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
-                                                Edit</a>
-                                            <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
-                                                Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -135,6 +102,74 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            var table = $('#dataDetailBarang').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ url()->current() }}',
+                    type: 'GET'
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'kode_js',
+                        name: 'kode_js'
+                    },
+                    {
+                        data: 'barang.nama',
+                        name: 'barang.nama'
+                    },
+                    {
+                        data: 'inv_number',
+                        name: 'inv_number'
+                    },
+                    {
+                        data: 'PO_number',
+                        name: 'PO_number'
+                    },
+                    {
+                        data: function(row) {
+                            return row.lokasi.map(function(item) {
+                                return item.nama;
+                            }).join('<br>');
+                        },
+                        name: 'lokasi.nama'
+                    },
+                    {
+                        data: function(row) {
+                            return row.lokasi.map(function(item) {
+                                return item.pivot.qty;
+                            }).join('<br>');
+                        },
+                        name: 'lokasi.pivot.qty'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        render: function(){
+                            return `
+                            <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
+                                                Edit</a>
+                                            <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i>
+                                                Delete</a>
+                                        </div>
+                                    </div>
+                                    `;
+                        }
+                    }
+                ]
             });
 
             var id;

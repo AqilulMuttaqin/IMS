@@ -14,10 +14,18 @@ class DataBarangController extends Controller
      */
     public function index()
     {
-        $barang = DataBarang::with('lokasi', 'barang')->get();
+        if(request()->ajax()){
+            $barang = DataBarang::with('lokasi', 'barang')->get();
+
+            $barang->map(function ($item, $key) {
+                $item['DT_RowIndex'] = $key + 1;
+                return $item;
+            });
+
+            return datatables()->of($barang)->make(true);
+        }
         return view('staff.data-detail-barang', [
             'title' => 'Data Detail Barang',
-            'barang' => $barang,
         ]);
     }
 
@@ -67,5 +75,17 @@ class DataBarangController extends Controller
     public function destroy(DataBarang $dataBarang)
     {
         //
+    }
+
+    public function tes(){
+        $barang = DataBarang::with('lokasi', 'barang')->get();
+
+        $barang->map(function ($item, $key) {
+            $item['DT_RowIndex'] = $key + 1;
+            return $item;
+        });
+        
+            return datatables()->of($barang)
+                ->make(true);
     }
 }
