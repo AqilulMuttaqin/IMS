@@ -14,6 +14,17 @@ class BarangController extends Controller
      */
     public function index()
     {
+        if(request()->ajax()){
+            $barang = Barang::all();
+
+            $barang->map(function ($item, $key) {
+                $item['DT_RowIndex'] = $key + 1;
+                return $item;
+            });
+
+            return datatables()->of($barang)->make(true);
+        }
+        
         $barang = Barang::all();
         return view('staff.data-barang', [
             'title' => 'Data Barang',
