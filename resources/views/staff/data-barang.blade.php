@@ -20,8 +20,7 @@
                                         class="bx bxs-file-pdf me-1"></i> Download PDF</a>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
-                            data-bs-toggle="modal" data-bs-target="#barangModal">
+                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn">
                             <i class="bx bx-plus me-1"></i>
                             Tambah Data
                         </button>
@@ -106,14 +105,14 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="barangModalLabel">Tambah Data Barang</h5>
+                    <h5 class="modal-title" id="barangModalLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="barangForm">
                         <div class="form-group mb-3">
                             <label for="nojs">NO. JS</label>
-                            <input type="text" class="form-control form-control-user" id="nojs" name="nojs"
+                            <input type="text" class="form-control form-control-user" id="kode_js" name="kode_js"
                                 required autofocus value="" maxlength="6" minlength="6">
                         </div>
                         <div class="form-group mb-3">
@@ -123,12 +122,12 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="stok">MIN</label>
-                            <input type="text" class="form-control form-control-user" id="min" name="min"
+                            <input type="text" class="form-control form-control-user" id="min_stok" name="min_stok"
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="stok">MAX</label>
-                            <input type="text" class="form-control form-control-user" id="max" name="max"
+                            <input type="text" class="form-control form-control-user" id="max_stok" name="max_stok"
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
@@ -210,6 +209,52 @@
                     }
                 });
             });
+            $('#tambahBtn').click(function() {
+                resetFormFields();
+                $('#submitBtn').text('Submit');
+                $('#barangModalLabel').text('Tambah data Barang');
+                $('#barangForm').attr('action', '{{ route('staff.tambah-barang') }}');
+
+                $('#barangModal').modal('show');
+            });
+
+            function resetFormFields() {
+                $('#kode_js').val('');
+                $('#nama').val('');
+                $('#min_stok').val('');
+                $('#max_stok').val('');
+                $('#harga').val('');
+            }
         });
+        function submitBarangForm() {
+            var formData = $('#barangForm').serialize();
+            var actionUrl = $('#barangForm').attr('action');
+            var method = 'POST';
+
+            if (actionUrl.includes('update-barang')) {
+                method = 'PUT';
+            }
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: actionUrl,
+                type: method,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function(response) {
+                    $('#barangModal').modal('hide');
+                    Swal.fire({
+                        title: "Success",
+                        text: "Data Berhasil Disimpan",
+                        icon: "success",
+                        timer: 3500
+                    });
+                },
+                error: function(xhr, status, error) {}
+            });
+        }
     </script>
 @endpush

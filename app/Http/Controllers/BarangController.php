@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
+use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
@@ -40,9 +41,15 @@ class BarangController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBarangRequest $request)
+    public function store(Request $request)
     {
-        //
+        request()->validate([
+            'kode_js' => 'required',
+            'nama' => 'required',
+            'harga' => 'required',
+        ]);
+
+        Barang::create($request->all());
     }
 
     /**
