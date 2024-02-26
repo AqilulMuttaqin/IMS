@@ -20,10 +20,14 @@
                                         class="bx bxs-file-pdf me-1"></i> Download PDF</a>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
+                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2" id="tambahBtn"
                             data-bs-toggle="modal" data-bs-target="#barangModal">
                             <i class="bx bx-plus me-1"></i>
                             Tambah Data
+                        </button>
+                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="importBtn">
+                            <i class="bx bx-import me-1"></i>
+                            Import Excel
                         </button>
                     </div>
                 </div>
