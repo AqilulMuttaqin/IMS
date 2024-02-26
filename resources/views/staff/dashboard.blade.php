@@ -76,7 +76,8 @@
                                 <label for="detail">Detail</label>
                             </div>
                             <div class="col-6">
-                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary">
+                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail"
+                                        data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal">
                                         <i class="bx bx-show"></i>
                                     </button>
                                 </p>
@@ -109,7 +110,8 @@
                                 <label for="detail">Detail</label>
                             </div>
                             <div class="col-6">
-                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary">
+                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail"
+                                    data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal">
                                         <i class="bx bx-show"></i>
                                     </button>
                                 </p>
@@ -122,6 +124,59 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailKonfirmasiModal" tabindex="-1" role="dialog"
+        aria-labelledby="detailKonfirmasiModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailKonfirmasiModalLabel">Detail Pesanan Line ...</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xxl">
+                        <div class="row mb-3">
+                            <label class="col-sm-8 col-form-label" for="label">Nama/Label Pesanan</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control text-center" id="label" name="label" value="pesanan 1" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-8 col-form-label" for="Jumlah"></label>
+                            <div class="col-sm-4">
+                                <div class="text-muted text-center">Jumlah</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-8 col-form-label" for="barang-1">Bolpoin</label>
+                            <div class="col-sm-4">
+                                <div class="input-group number-spinner">
+                                    <input type="text" class="form-control text-center" value="3" id="barang-1"
+                                        name="barang-1" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-8 col-form-label" for="barang-2">Kertas</label>
+                            <div class="col-sm-4">
+                                <div class="input-group number-spinner">
+                                    <input type="text" class="form-control text-center" value="2" id="barang-2"
+                                        name="barang-2" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="text-end">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
