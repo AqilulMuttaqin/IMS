@@ -22,7 +22,7 @@ class DataBarangLokasiSeeder extends Seeder
         $data = [
             [
                 'lokasi_id' => 1,
-                'data_barang_id' => '1',
+                'data_barang_id' => 1,
                 'qty' => 10,
             ],
         ];

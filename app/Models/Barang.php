@@ -23,7 +23,7 @@ class Barang extends Model
 
     public function pesanan()
     {
-        return $this->belongsToMany(Pesanan::class)->withPivot('qty');
+        return $this->belongsToMany(Pesanan::class, 'barang_pesanan', 'kode_js', 'pesanan_id')->withPivot('qty');
     }
 
     public function dataBarang()

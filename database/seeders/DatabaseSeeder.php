@@ -20,5 +20,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(UserSeeder::class);
         $this->call(BarangSeeder::class);
+        $this->call(LokasiSeeder::class);
+        $this->call(DataBarangSeeder::class);
+        $this->call(DataBarangLokasiSeeder::class);
     }
 }
