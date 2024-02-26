@@ -52,9 +52,19 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-body p-0 pt-3">
                 <h3 class="text-center text-primary">Pesanan Masuk <i class="bx bx-down-arrow-alt" style="font-size: 1em;"></i></h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h6></h6>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
