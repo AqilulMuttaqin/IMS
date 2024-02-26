@@ -41,6 +41,7 @@
         new DataTable('#dataBarang');
         new DataTable('#dataPesanan');
         new DataTable('#dataDetailBarang');
+        new DataTable('#dataBarangReady');
     </script>
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
     <script src="{{ asset('assets/vendor/libs/popper/popper.js')}}"></script>
