@@ -19,6 +19,12 @@
                     <div data-i18n="Home">Home</div>
                 </a>
             </li>
+            <li class="menu-item {{ $title === 'Pesanan' ? 'active' : '' }}">
+                <a href="{{ route('user.pesanan') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cart-alt"></i>
+                    <div data-i18n="Pesanan">Pesanan</div>
+                </a>
+            </li>
         @endif
         @if (auth()->user() && auth()->user()->role == 'admin')
             <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">

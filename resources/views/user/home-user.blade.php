@@ -66,6 +66,13 @@
                     <form id="keranjangForm">
                         <div class="col-xxl">
                             <div class="row mb-3">
+                                <label class="col-sm-8 col-form-label" for="label">Nama/Label Pesanan</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control text-center" id="label"
+                                        name="label">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <label class="col-sm-8 col-form-label" for="Jumlah"></label>
                                 <div class="col-sm-4">
                                     <div class="text-muted text-center">Jumlah</div>
