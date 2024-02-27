@@ -16,6 +16,11 @@ class PesananController extends Controller
         if(request()->ajax()){
             $pesanan = Pesanan::with('user', 'barang')->get();
 
+            $pesanan->map(function ($item, $key) {
+                $item['DT_RowIndex'] = $key + 1;
+                return $item;
+            });
+
             return datatables()->of($pesanan)->make(true);
         };
 

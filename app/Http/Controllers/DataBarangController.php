@@ -87,8 +87,8 @@ class DataBarangController extends Controller
     }
 
     public function tes(){
-        $pesanan = Pesanan::with('user')->get();
+        $pesanan = Pesanan::with('barang');
 
-            return datatables()->of($pesanan)->make(true);
+        return response()->json($pesanan);
     }
 }
