@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function pesanan()
     {
-        return $this->hasMany(Pesanan::class, 'nik', 'nik');
+        return $this->hasMany(Pesanan::class);
     }
 
     /**

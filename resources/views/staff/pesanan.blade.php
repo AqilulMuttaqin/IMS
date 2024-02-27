@@ -11,6 +11,7 @@
                             <th style="width: 20px;">No</th>
                             <th>Nama Pemesan</th>
                             <th>Barang Pesanan</th>
+                            <th>Qty</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -64,6 +65,22 @@
                     columns: [
                         { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                         { data: 'user.name', name: 'user.name' },
+                        { 
+                            data: function(row) {
+                                return row.barang.map(function(item) {
+                                    return item.nama;
+                                }).join('<br>');
+                            },
+                            name: 'barang.nama'
+                        },
+                        { 
+                            data: function(row) {
+                                return row.barang.map(function(item) {
+                                    return item.pivot.qty;
+                                }).join('<br>');
+                            },
+                            name: 'barang.pivot.qty'
+                        },
                         { data: 'status', 
                             name: 'status', 
                             render: function (data, type, full, meta) {

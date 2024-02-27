@@ -14,10 +14,12 @@ class PesananSeeder extends Seeder
     public function run(): void
     {
         $pesanan = Pesanan::create([
-            'nik' => '111111',
+            'user_id' => '3',
         ]);
 
         $pesanan->barang()->attach('A0001', ['qty' => 2]);
+        $pesanan->barang()->attach('A0002', ['qty' => 1]);
+        $pesanan->barang()->attach('A0003', ['qty' => 3]);
 
     }
 }
