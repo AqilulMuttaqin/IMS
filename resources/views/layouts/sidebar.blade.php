@@ -19,6 +19,9 @@
                     <div data-i18n="Home">Home</div>
                 </a>
             </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Pages</span>
+            </li>
             <li class="menu-item {{ $title === 'Pesanan' ? 'active' : '' }}">
                 <a href="{{ route('user.pesanan') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-cart-alt"></i>
@@ -65,6 +68,35 @@
                     <i class="menu-icon tf-icons bx bx-data"></i>
                     <div data-i18n="Data Barang">Data Detail Barang</div>
                 </a>
+            </li>
+        @endif
+        @if (auth()->user() && auth()->user()->role == 'spv')
+            <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
+                <a href="{{ route('spv.dashboard') }}" class="menu-link">
+                    <i class="menu-icon tf-icon bx bx-home-circle"></i>
+                    <div data-i18n="Dashboard">Dashboard</div>
+                </a>
+            </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Pages</span>
+            </li>
+            <li class="menu-item {{ $title === 'Data Master Barang' || $title === 'Data Detail Barang' ? 'active open' : '' }}">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-data"></i>
+                    <div data-i18n="Data Barang">Data Barang</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ $title === 'Data Master Barang' ? 'active' : '' }}">
+                        <a href="{{ route('spv.master-barang') }}" class="menu-link">
+                            <div data-i18n="Master Barang">Master Barang</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ $title === 'Data Detail Barang' ? 'active' : '' }}">
+                        <a href="{{ route('spv.detail-barang') }}" class="menu-link">
+                            <div data-i18n="Detail Barang">Detail Barang</div>
+                        </a>
+                    </li>
+                </ul>
             </li>
         @endif
         {{-- <li class="menu-item">
