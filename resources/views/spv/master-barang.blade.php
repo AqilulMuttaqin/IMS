@@ -25,7 +25,8 @@
                             <i class="bx bx-plus me-1"></i>
                             Tambah Data
                         </button>
-                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="importBtn">
+                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="importBtn"
+                            data-bs-toggle="modal" data-bs-target="#importModal">
                             <i class="bx bx-import me-1"></i>
                             Import Excel
                         </button>
@@ -83,7 +84,7 @@
                 <div class="modal-body">
                     <form id="barangForm">
                         <div class="form-group mb-3">
-                            <label for="nojs">NO. JS</label>
+                            <label for="kode_js">NO. JS</label>
                             <input type="text" class="form-control form-control-user" id="kode_js" name="kode_js"
                                 required autofocus value="" maxlength="6" minlength="6">
                         </div>
@@ -93,17 +94,17 @@
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="stok">MIN</label>
+                            <label for="min_stok">MIN</label>
                             <input type="text" class="form-control form-control-user" id="min_stok" name="min_stok"
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="stok">MAX</label>
+                            <label for="max_stok">MAX</label>
                             <input type="text" class="form-control form-control-user" id="max_stok" name="max_stok"
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="stok">PRICE</label>
+                            <label for="harga">PRICE</label>
                             <input type="text" class="form-control form-control-user" id="harga" name="harga"
                                 required autofocus value="">
                         </div>
@@ -114,6 +115,31 @@
                     <button type="button" class="btn btn-sm btn-primary" id="submitBtn"
                         onclick="submitBarangForm()">Save Change</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="importForm">
+                        <div class="form-group mb-3">
+                            <label for="import">NO. JS</label>
+                            <input type="file" class="form-control form-control-user" id="import" name="import"
+                                required autofocus>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-sm btn-success" id="submitBtn">Import</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>

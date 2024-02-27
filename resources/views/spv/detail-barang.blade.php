@@ -101,7 +101,7 @@
             });
 
             var table = $('#dataDetailBarang').DataTable({
-                processing: true,
+                processing: false,
                 serverSide: true,
                 ajax: {
                     url: '{{ url()->current() }}',
