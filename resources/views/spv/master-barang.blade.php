@@ -20,16 +20,27 @@
                                         class="bx bxs-file-pdf me-1"></i> Download PDF</a>
                             </div>
                         </div>
+                        <div class="dropdown text-end me-2">
+                            <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                                Impor & Ekspor
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#"><i class="bx bxs-file-export me-1"></i> Export
+                                    Excel</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal"
+                                    style="cursor: pointer;"><i class="bx bxs-file-import me-1"></i> Import Excel</a>
+                            </div>
+                        </div>
                         <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2" id="tambahBtn"
                             data-bs-toggle="modal" data-bs-target="#barangModal">
                             <i class="bx bx-plus me-1"></i>
                             Tambah Data
                         </button>
-                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="importBtn"
+                        {{-- <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="importBtn"
                             data-bs-toggle="modal" data-bs-target="#importModal">
                             <i class="bx bx-import me-1"></i>
                             Import Excel
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
             </div>
@@ -130,7 +141,7 @@
                 <div class="modal-body">
                     <form id="importForm">
                         <div class="form-group mb-3">
-                            <label for="import">NO. JS</label>
+                            <label for="import">File Excel</label>
                             <input type="file" class="form-control form-control-user" id="import" name="import"
                                 required autofocus>
                         </div>
@@ -284,21 +295,22 @@
             });
 
             $('#dataBarang').on('click', '.edit-btn', function() {
-                    var js = $(this).data('js');
-                    var rowData = table.row($(this).parents('tr')).data();
+                var js = $(this).data('js');
+                var rowData = table.row($(this).parents('tr')).data();
 
-                    $('#kode_js').val(rowData.kode_js);
-                    $('#nama').val(rowData.nama);
-                    $('#min_stok').val(rowData.min_stok);
-                    $('#max_stok').val(rowData.max_stok);
-                    $('#harga').val(rowData.harga);
-                    $('#submitBtn').text('Edit');
-                    $('#barangModalLabel').text('Edit Data Barang');
-                    $('#barangForm').attr('action', '{{ route('spv.update-barang', ['barang' => ':barang']) }}'.replace(':barang', rowData.kode_js));
+                $('#kode_js').val(rowData.kode_js);
+                $('#nama').val(rowData.nama);
+                $('#min_stok').val(rowData.min_stok);
+                $('#max_stok').val(rowData.max_stok);
+                $('#harga').val(rowData.harga);
+                $('#submitBtn').text('Edit');
+                $('#barangModalLabel').text('Edit Data Barang');
+                $('#barangForm').attr('action', '{{ route('spv.update-barang', ['barang' => ':barang']) }}'
+                    .replace(':barang', rowData.kode_js));
 
-                    $('#barangModal').modal('show');
-                });
-                
+                $('#barangModal').modal('show');
+            });
+
             $('#tambahBtn').click(function() {
                 resetFormFields();
                 $('#submitBtn').text('Submit');

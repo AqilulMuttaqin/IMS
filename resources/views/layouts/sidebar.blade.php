@@ -98,6 +98,12 @@
                     </li>
                 </ul>
             </li>
+            <li class="menu-item {{ $title === 'Data Lokasi' ? 'active' : '' }}">
+                <a href="{{ route('spv.lokasi') }}" class="menu-link">
+                    <i class="menu-icon tf-icon bx bx-map"></i>
+                    <div data-i18n="Data Lokasi">Data Lokasi</div>
+                </a>
+            </li>
         @endif
         {{-- <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">

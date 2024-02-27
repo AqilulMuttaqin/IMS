@@ -17,7 +17,7 @@ class PesananSeeder extends Seeder
             'nik' => '111111',
         ]);
 
-        $pesanan->barang()->attach('JS00001', ['qty' => 2]);
+        $pesanan->barang()->attach('A0001', ['qty' => 2]);
 
     }
 }
