@@ -215,7 +215,7 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
+                                        <a class="dropdown-item edit-btn" data-js="${row.kode_js}"><i class="bx bx-edit-alt me-1"></i>
                                             Edit</a>
                                         <form action="${deleteUrl}" method="POST">
                                             @csrf
@@ -282,6 +282,23 @@
                     }
                 });
             });
+
+            $('#dataBarang').on('click', '.edit-btn', function() {
+                    var js = $(this).data('js');
+                    var rowData = table.row($(this).parents('tr')).data();
+
+                    $('#kode_js').val(rowData.kode_js);
+                    $('#nama').val(rowData.nama);
+                    $('#min_stok').val(rowData.min_stok);
+                    $('#max_stok').val(rowData.max_stok);
+                    $('#harga').val(rowData.harga);
+                    $('#submitBtn').text('Edit');
+                    $('#barangModalLabel').text('Edit Data Barang');
+                    $('#barangForm').attr('action', '{{ route('spv.update-barang', ['barang' => ':barang']) }}'.replace(':barang', rowData.kode_js));
+
+                    $('#barangModal').modal('show');
+                });
+                
             $('#tambahBtn').click(function() {
                 resetFormFields();
                 $('#submitBtn').text('Submit');
