@@ -66,7 +66,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('staff/pesanan', [PesananController::class, 'index'])->name('staff.pesanan');
     Route::get('staff/barang', [BarangController::class, 'index'])->name('staff.barang');
     Route::get('staff/update-stok', [AdminController::class, 'updateStok'])->name('staff.update-stok');
-    Route::get('staff/data-barang', [DataBarangController::class, 'index'])->name('staff.detail-barang');
+    Route::get('staff/data-barang', [DataBarangController::class, 'index'])->name('staff.data-barang');
     Route::post('staff/add-barang', [BarangController::class, 'store'])->name('staff.tambah-barang');
     Route::delete('staff/delete-barang/{barang}', [BarangController::class, 'destroy'])->name('staff.hapus-barang');
     Route::get('tes', [DataBarangController::class, 'tes'])->name('tes');
