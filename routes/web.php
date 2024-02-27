@@ -82,6 +82,7 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::post('spv/add-barang', [BarangController::class, 'store'])->name('spv.tambah-barang');
     Route::delete('spv/delete-barang/{barang}', [BarangController::class, 'destroy'])->name('spv.hapus-barang');
     Route::get('spv/detail-barang', [DataBarangController::class, 'index'])->name('spv.detail-barang');
+    Route::put('spv/update-barang/{barang}', [BarangController::class, 'update'])->name('spv.update-barang');
     // Route::get('/spv/master-barang', function () {
     //     return view('spv.master-barang', ['title' => 'Data Master Barang']);
     // })->name('spv.master-barang');

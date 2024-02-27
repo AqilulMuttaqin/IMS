@@ -88,9 +88,16 @@ class BarangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBarangRequest $request, Barang $barang)
+    public function update(Request $request, $kode_js)
     {
-        //
+        request()->validate([
+            'kode_js' => 'required',
+            'nama' => 'required',
+            'harga' => 'required',
+        ]);
+
+        $barang = Barang::find($kode_js);
+        $barang->update($request->all());
     }
 
     /**
