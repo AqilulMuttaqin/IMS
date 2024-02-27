@@ -91,17 +91,20 @@
                             var deleteRoute = "{{ route('spv.hapus-lokasi', ['lokasi' => ':lokasi']) }}";
                             var deleteUrl = deleteRoute.replace(':lokasi', row.id);
                             return `
-                                <div class="d-flex">
-                                    <button type="button" class="btn btn-sm btn-info me-1 edit-btn" data-id="${row.id}">
-                                        <i class="bx bx-edit-alt"></i>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
-                                    <form action="${deleteUrl}" method="POST">
-                                        @csrf
-                                        @method("DELETE")
-                                        <button type="submit" class="btn btn-sm btn-danger deleteBtn">
-                                            <i class="bx bx-trash"></i>
-                                        </button>
-                                    </form>
+                                    <div class="dropdown-menu">
+                                        <button type="button" class="dropdown-item edit-btn" data-id="${row.id}"><i class="bx bx-edit-alt me-1"></i>
+                                            Edit</button>
+                                        <form action="${deleteUrl}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="dropdown-item deleteBtn"><i class="bx bx-trash me-1"></i>Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
                             `;
                         }

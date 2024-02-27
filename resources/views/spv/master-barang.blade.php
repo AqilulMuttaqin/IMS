@@ -226,8 +226,8 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item edit-btn" data-js="${row.kode_js}"><i class="bx bx-edit-alt me-1"></i>
-                                            Edit</a>
+                                        <button type="button" class="dropdown-item edit-btn" data-js="${row.kode_js}"><i class="bx bx-edit-alt me-1"></i>
+                                            Edit</button>
                                         <form action="${deleteUrl}" method="POST">
                                             @csrf
                                             @method('DELETE')
