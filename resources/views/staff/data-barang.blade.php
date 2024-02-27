@@ -117,9 +117,6 @@
             </div>
         </div>
     </div>
-@endsection
-
-@push('scripts')
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -313,4 +310,4 @@
             });
         }
     </script>
-@endpush
+@endsection

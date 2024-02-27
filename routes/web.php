@@ -79,6 +79,8 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch'])->name('download-zip');
     Route::get('/pdf', [QrCodeController::class, 'generatePdfWithQrCodes'])->name('download-pdf');
     Route::get('spv/master-barang', [BarangController::class, 'index'])->name('spv.master-barang');
+    Route::post('spv/add-barang', [BarangController::class, 'store'])->name('spv.tambah-barang');
+    Route::delete('spv/delete-barang/{barang}', [BarangController::class, 'destroy'])->name('spv.hapus-barang');
     // Route::get('/spv/master-barang', function () {
     //     return view('spv.master-barang', ['title' => 'Data Master Barang']);
     // })->name('spv.master-barang');
