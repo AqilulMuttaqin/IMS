@@ -87,7 +87,7 @@ class DataBarangController extends Controller
     }
 
     public function tes(){
-        $pesanan = Pesanan::with('barang');
+        $pesanan = Pesanan::with('barang', 'user')->get();
 
         return response()->json($pesanan);
     }

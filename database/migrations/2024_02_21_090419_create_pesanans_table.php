@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id();
-            $table->string('nik', 6);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->string('status')->default('pending');
-            $table->foreign('nik')->references('nik')->on('users')->onDelete('cascade');
         });
     }
 

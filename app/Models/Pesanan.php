@@ -12,12 +12,12 @@ class Pesanan extends Model
     protected $table = 'pesanan';
 
     protected $fillable = [
-        'nik',
+        'user_id',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'nik', 'nik');
+        return $this->belongsTo(User::class);
     }
 
     public function barang()
