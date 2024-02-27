@@ -66,7 +66,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('staff/pesanan', [PesananController::class, 'index'])->name('staff.pesanan');
     Route::get('staff/barang', [BarangController::class, 'index'])->name('staff.barang');
     Route::get('staff/update-stok', [AdminController::class, 'updateStok'])->name('staff.update-stok');
-    Route::get('staff/data-barang', [DataBarangController::class, 'index'])->name('staff.data-barang');
+    Route::get('staff/data-barang', [DataBarangController::class, 'index'])->name('staff.detail-barang');
     Route::post('staff/add-barang', [BarangController::class, 'store'])->name('staff.tambah-barang');
     Route::delete('staff/delete-barang/{barang}', [BarangController::class, 'destroy'])->name('staff.hapus-barang');
     Route::get('tes', [DataBarangController::class, 'tes'])->name('tes');
@@ -81,12 +81,13 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('spv/master-barang', [BarangController::class, 'index'])->name('spv.master-barang');
     Route::post('spv/add-barang', [BarangController::class, 'store'])->name('spv.tambah-barang');
     Route::delete('spv/delete-barang/{barang}', [BarangController::class, 'destroy'])->name('spv.hapus-barang');
+    Route::get('spv/detail-barang', [DataBarangController::class, 'index'])->name('spv.detail-barang');
     // Route::get('/spv/master-barang', function () {
     //     return view('spv.master-barang', ['title' => 'Data Master Barang']);
     // })->name('spv.master-barang');
-    Route::get('/spv/detail-barang', function () {
-        return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
-    })->name('spv.detail-barang');
+    // Route::get('/spv/detail-barang', function () {
+    //     return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
+    // })->name('spv.detail-barang');
 });
 
 require __DIR__.'/auth.php';

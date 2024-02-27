@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
 use App\Models\Barang;
 use App\Models\Pesanan;
+use Illuminate\Support\Facades\Auth;
 
 class DataBarangController extends Controller
 {
@@ -25,9 +26,16 @@ class DataBarangController extends Controller
 
             return datatables()->of($barang)->make(true);
         }
-        return view('staff.data-detail-barang', [
-            'title' => 'Data Detail Barang',
-        ]);
+
+        if (Auth::check() && Auth::user()->role === 'admin' ) {
+            return view('staff.data-detail-barang', [
+                'title' => 'Data Detail Barang',
+            ]);
+        } else if (Auth::check() && Auth::user()->role === 'spv') {
+            return view('spv.detail-barang', [
+                'title' => 'Data Detail Barang'
+            ]);
+        }
     }
 
     /**

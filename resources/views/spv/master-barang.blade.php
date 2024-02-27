@@ -161,7 +161,7 @@
                         name: 'qr_code',
                         orderable: false,
                         searchable: false,
-                        render: function(data, type, row, meta){
+                        render: function(data, type, row, meta) {
                             return `
                                 <div class="qrcode">
                                     <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
@@ -178,8 +178,9 @@
                         name: 'action',
                         orderable: false,
                         searchable: false,
-                        render: function(data, type, row, meta){
-                            var deleteRoute = "{{ route('spv.hapus-barang', ['barang' => ':barang']) }}";
+                        render: function(data, type, row, meta) {
+                            var deleteRoute =
+                                "{{ route('spv.hapus-barang', ['barang' => ':barang']) }}";
                             var deleteUrl = deleteRoute.replace(':barang', row.kode_js);
                             return `
                                 <div class="dropdown">
