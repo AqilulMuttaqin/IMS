@@ -13,7 +13,7 @@ class SPVController extends Controller
      */
     public function index()
     {
-        return view('spv');
+        return view('spv.dashboard', ['title' => 'Dashboard']);
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BarangController extends Controller
 {
@@ -25,9 +26,15 @@ class BarangController extends Controller
             return datatables()->of($barang)->make(true);
         }
         
-        return view('staff.data-barang', [
-            'title' => 'Data Barang',
-        ]);
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return view('staff.data-barang', [
+                'title' => 'Data Barang',
+            ]);
+        } else if (Auth::check() && Auth::user()->role === 'spv') {
+            return view('spv.master-barang', [
+                'title' => 'Data Master Barang'
+            ]);
+        }
     }
 
     public function detail()

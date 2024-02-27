@@ -33,7 +33,7 @@ class User extends Authenticatable
             case 'spv':
                 return 'spv.dashboard';
             case 'user':
-                return 'user.dashboard';
+                return 'user.home';
         }
     }
 

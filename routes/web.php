@@ -74,6 +74,17 @@ Route::middleware(['auth','role:admin'])->group(function () {
 
 Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('/spv', [SPVController::class, 'index'])->name('spv.dashboard');
+    Route::post('/qr-generate', [QrCodeController::class, 'generate'])->name('qr.generate');
+    Route::post('/qr-download', [QrCodeController::class, 'download'])->name('qr.download');
+    Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch'])->name('download-zip');
+    Route::get('/pdf', [QrCodeController::class, 'generatePdfWithQrCodes'])->name('download-pdf');
+    Route::get('spv/master-barang', [BarangController::class, 'index'])->name('spv.master-barang');
+    // Route::get('/spv/master-barang', function () {
+    //     return view('spv.master-barang', ['title' => 'Data Master Barang']);
+    // })->name('spv.master-barang');
+    Route::get('/spv/detail-barang', function () {
+        return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
+    })->name('spv.detail-barang');
 });
 
 require __DIR__.'/auth.php';
