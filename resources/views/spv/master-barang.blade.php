@@ -124,7 +124,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-sm btn-primary" id="submitBtn"
-                        onclick="submitBarangForm()">Save Change</button>
+                        onclick="submitBarangForm()">Submit</button>
                 </div>
             </div>
         </div>
@@ -138,18 +138,18 @@
                     <h5 class="modal-title" id="importModalLabel">Import Excel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form id="importForm">
+                <form id="importForm">
+                    <div class="modal-body">
                         <div class="form-group mb-3">
                             <label for="import">File Excel</label>
                             <input type="file" class="form-control form-control-user" id="import" name="import"
                                 required autofocus>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-sm btn-success" id="submitBtn">Import</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-success" id="submitBtn">Import</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -226,8 +226,8 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item edit-btn" data-js="${row.kode_js}"><i class="bx bx-edit-alt me-1"></i>
-                                            Edit</a>
+                                        <button type="button" class="dropdown-item edit-btn" data-js="${row.kode_js}"><i class="bx bx-edit-alt me-1"></i>
+                                            Edit</button>
                                         <form action="${deleteUrl}" method="POST">
                                             @csrf
                                             @method('DELETE')

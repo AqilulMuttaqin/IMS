@@ -22,32 +22,13 @@
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
-                            <th>Nama Barang</th>
-                            <th style="width: 90px">Stok</th>
-                            <th class="text-center" style="width: 90px">Masukkan Keranjang</th>
+                            <th>Nama</th>
+                            <th>Stok</th>
+                            <th style="width: 30px;">Check Out</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Bolpoint</td>
-                            <td>180</td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-warning">
-                                    <i class="bx bxs-cart-add"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>Kertas</td>
-                            <td>88</td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-warning">
-                                    <i class="bx bxs-cart-add"></i>
-                                </button>
-                            </td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -68,8 +49,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-8 col-form-label" for="label">Nama/Label Pesanan</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control text-center" id="label"
-                                        name="label">
+                                    <input type="text" class="form-control text-center" id="label" name="label">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -113,12 +93,12 @@
                                 </div>
                             </div>
                         </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-sm btn-primary">Pesan</button>
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
-                </form>
             </div>
         </div>
     </div>
@@ -138,5 +118,51 @@
         const validateInput = (input) => {
             input.value = input.value.replace(/[^0-9]/g, ''); // Hanya menerima angka
         }
+
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var table = $('#dataBarangReady').DataTable({
+                processing: false,
+                serverSide: true,
+                ajax: {
+                    url: '{{ url()->current() }}',
+                    type: 'GET'
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'total_qty',
+                        name: 'total_qty'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        render: function() {
+                            return `
+                                <button type="button" class="btn btn-sm btn-warning">
+                                    <i class="bx bxs-cart-add"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger">
+                                    Request Langsung
+                                </button>
+                            `;
+                        }
+                    }
+                ]
+            });
+        });
     </script>
 @endsection

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DataBarangController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrCodeController;
@@ -49,7 +50,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth','role:user'])->group(function () {
-    Route::get('/user', [UserController::class, 'index'])->name('user.home');
+    // Route::get('/user', [UserController::class, 'index'])->name('user.home');
+    Route::get('/user', [BarangController::class, 'index'])->name('user.home');
     Route::get('user/pesanan', function () {
         return view('user.pesanan', ['title' => 'Pesanan']);
     })->name('user.pesanan');
@@ -80,13 +82,17 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('/pdf', [QrCodeController::class, 'generatePdfWithQrCodes'])->name('download-pdf');
     Route::get('spv/master-barang', [BarangController::class, 'index'])->name('spv.master-barang');
     Route::post('spv/add-barang', [BarangController::class, 'store'])->name('spv.tambah-barang');
+    Route::put('spv/update-barang/{barang}', [BarangController::class, 'update'])->name('spv.update-barang');
     Route::delete('spv/delete-barang/{barang}', [BarangController::class, 'destroy'])->name('spv.hapus-barang');
     Route::get('spv/detail-barang', [DataBarangController::class, 'index'])->name('spv.detail-barang');
-    Route::put('spv/update-barang/{barang}', [BarangController::class, 'update'])->name('spv.update-barang');
+    Route::get('spv/lokasi', [LokasiController::class, 'index'])->name('spv.lokasi');
+    Route::post('spv/add-lokasi', [LokasiController::class, 'store'])->name('spv.tambah-lokasi');
+    Route::put('spv/update-lokasi/{id}', [LokasiController::class, 'update'])->name('spv.update-lokasi');
+    Route::delete('spv/delete-lokasi/{lokasi}', [LokasiController::class, 'destroy'])->name('spv.hapus-lokasi');
     Route::get('spv/export-barang', [BarangController::class, 'export'])->name('spv.export-barang');
-    Route::get('/spv/lokasi', function () {
-        return view('spv.lokasi', ['title' => 'Data Lokasi']);
-    })->name('spv.lokasi');
+    // Route::get('/spv/lokasi', function () {
+    //     return view('spv.lokasi', ['title' => 'Data Lokasi']);
+    // })->name('spv.lokasi');
     // Route::get('/spv/detail-barang', function () {
     //     return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
     // })->name('spv.detail-barang');
