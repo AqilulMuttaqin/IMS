@@ -39,7 +39,6 @@
     </div>
     <script>
         new DataTable('#dataBarangUser');
-        new DataTable('#dataBarangReady');
         new DataTable('#dataStatusPesanan');
     </script>
     <!-- <script src="{{ asset('assets/vendor/libs/jquery/jquery.js')}}"></script> -->

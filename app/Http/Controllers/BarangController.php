@@ -15,22 +15,48 @@ class BarangController extends Controller
      */
     public function index()
     {
-        if(request()->ajax()){
-            $barang = Barang::all();
+        if (Auth::check() && Auth::user()->role === 'user') {
+            if (request()->ajax()) {
+                $barangs = Barang::with('dataBarang.lokasi')->get();
 
-            $barang->map(function ($item, $key) {
-                $item['DT_RowIndex'] = $key + 1;
-                return $item;
-            });
+                $barangs->map(function ($barang, $key) {
+                    $barang['DT_RowIndex'] = $key + 1;
+                    $barang['total_qty'] = $barang->dataBarang->sum(function ($dataBarang) {
+                        return $dataBarang->lokasi->where('nama', 'Gudang Utama')->sum('pivot.qty');
+                    });
+                    return $barang;
+                });
 
-            return datatables()->of($barang)->make(true);
-        }
-        
-        if (Auth::check() && Auth::user()->role === 'admin') {
+                return datatables()->of($barangs)->make(true);
+            }
+            return view('user.home-user', [
+                'title' => 'Home',
+            ]);
+        } else if (Auth::check() && Auth::user()->role === 'admin') {
+            if (request()->ajax()) {
+                $barang = Barang::all();
+
+                $barang->map(function ($item, $key) {
+                    $item['DT_RowIndex'] = $key + 1;
+                    return $item;
+                });
+
+                return datatables()->of($barang)->make(true);
+            }
             return view('staff.data-barang', [
                 'title' => 'Data Barang',
             ]);
         } else if (Auth::check() && Auth::user()->role === 'spv') {
+            if (request()->ajax()) {
+                $barang = Barang::all();
+
+                $barang->map(function ($item, $key) {
+                    $item['DT_RowIndex'] = $key + 1;
+                    return $item;
+                });
+
+                return datatables()->of($barang)->make(true);
+            }
             return view('spv.master-barang', [
                 'title' => 'Data Master Barang'
             ]);
@@ -74,7 +100,6 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        
     }
 
     /**

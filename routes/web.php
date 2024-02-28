@@ -50,7 +50,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth','role:user'])->group(function () {
-    Route::get('/user', [UserController::class, 'index'])->name('user.home');
+    // Route::get('/user', [UserController::class, 'index'])->name('user.home');
+    Route::get('/user', [BarangController::class, 'index'])->name('user.home');
     Route::get('user/pesanan', function () {
         return view('user.pesanan', ['title' => 'Pesanan']);
     })->name('user.pesanan');
