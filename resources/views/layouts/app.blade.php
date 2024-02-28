@@ -34,6 +34,7 @@
                     @yield('content')
                     <div class="content-backdrop fade"></div>
                 </div>
+                @include('sweetalert::alert')
             </div>
         </div>
         <div class="layout-overlay layout-menu-toggle"></div>

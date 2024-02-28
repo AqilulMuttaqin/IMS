@@ -88,7 +88,8 @@ class LokasiController extends Controller
     public function destroy(Lokasi $lokasi)
     {
         $lokasi->delete();
-
+        alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.');
+        // toast('Success Toast','success');
         return redirect()->back();
     }
 }
