@@ -38,6 +38,7 @@ class QrCodeController extends Controller
     {
         $qrCodeContent = $request->input('qrCodeContent');
         $qrCodeName = $request->input('nama');
+        $qrCodeContentWithLineBreak = $qrCodeContent . "\n";
 
         $qrCodesDirectory = storage_path('app/qr_codes');
         if (!file_exists($qrCodesDirectory)) {
@@ -48,7 +49,7 @@ class QrCodeController extends Controller
         $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
 
         if (!file_exists($qrCodeFilePath)) {
-            $qrCode = QrCode::format('png')->size(512)->margin(1)->generate($qrCodeContent);
+            $qrCode = QrCode::format('png')->size(512)->margin(1)->generate($qrCodeContentWithLineBreak);
             file_put_contents($qrCodeFilePath, $qrCode);
         }
 
@@ -61,6 +62,7 @@ class QrCodeController extends Controller
     {
         $qrCodeContent = $request->input('qrCodeContent');
         $qrCodeName = $request->input('nama');
+        $qrCodeContentWithLineBreak = $qrCodeContent . "\n";
 
         $qrCodesDirectory = storage_path('app/qr_codes');
         if (!file_exists($qrCodesDirectory)) {
@@ -71,7 +73,7 @@ class QrCodeController extends Controller
         $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
 
         if (!file_exists($qrCodeFilePath)) {
-            $qrCode = QrCode::format('png')->size(512)->margin(1)->generate($qrCodeContent);
+            $qrCode = QrCode::format('png')->size(512)->margin(1)->generate($qrCodeContentWithLineBreak);
             file_put_contents($qrCodeFilePath, $qrCode);
         }
 
@@ -131,7 +133,7 @@ class QrCodeController extends Controller
                 QrCode::size(515)
                     ->format('png')
                     ->margin(1)
-                    ->generate($barang->kode_js, $qrCodePath);
+                    ->generate($barang->kode_js. "\n", $qrCodePath);
             }
             
             $generatedFiles[] = $barang->kode_js.'-'. $barang->nama . '.png';
@@ -252,7 +254,7 @@ class QrCodeController extends Controller
             if (!file_exists($qrCodeFilePath)) {
                 QrCode::size(512)
                     ->format('png')
-                    ->generate($barang->kode_js, $qrCodeFilePath);
+                    ->generate($barang->kode_js. "\n", $qrCodeFilePath);
             }
 
             $generatedFiles[] = $qrCodeFileName;
