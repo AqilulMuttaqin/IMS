@@ -169,7 +169,6 @@
                         title: "Success",
                         text: "Data Berhasil Disimpan",
                         icon: "success",
-                        timer: 3500
                     });
                 },
                 error: function(xhr, status, error) {}

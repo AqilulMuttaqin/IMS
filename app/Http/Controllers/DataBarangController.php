@@ -16,22 +16,34 @@ class DataBarangController extends Controller
      */
     public function index()
     {
-        if(request()->ajax()){
-            $barang = DataBarang::with('lokasi', 'barang')->get();
-
-            $barang->map(function ($item, $key) {
-                $item['DT_RowIndex'] = $key + 1;
-                return $item;
-            });
-
-            return datatables()->of($barang)->make(true);
-        }
-
         if (Auth::check() && Auth::user()->role === 'admin' ) {
-            return view('staff.data-detail-barang', [
-                'title' => 'Data Detail Barang',
+            if (request()->ajax()) {
+                $barangs = Barang::with('dataBarang.lokasi')->get();
+
+                $barangs->map(function ($barang, $key) {
+                    $barang['DT_RowIndex'] = $key + 1;
+                    $barang['total_qty'] = $barang->dataBarang->sum(function ($dataBarang) {
+                        return $dataBarang->lokasi->where('nama', 'Gudang Utama')->sum('pivot.qty');
+                    });
+                    return $barang;
+                });
+
+                return datatables()->of($barangs)->make(true);
+            }
+            return view('staff.barang-gudang', [
+                'title' => 'Barang Gudang',
             ]);
         } else if (Auth::check() && Auth::user()->role === 'spv') {
+            if(request()->ajax()){
+                $barang = DataBarang::with('lokasi', 'barang')->get();
+    
+                $barang->map(function ($item, $key) {
+                    $item['DT_RowIndex'] = $key + 1;
+                    return $item;
+                });
+    
+                return datatables()->of($barang)->make(true);
+            }
             return view('spv.detail-barang', [
                 'title' => 'Data Detail Barang'
             ]);
