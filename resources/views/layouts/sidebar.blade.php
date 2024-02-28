@@ -57,17 +57,23 @@
                     <div data-i18n="Pesanan">Pesanan</div>
                 </a>
             </li>
-            <li class="menu-item {{ $title === 'Data Barang' ? 'active' : '' }}">
-                <a href="{{ route('staff.barang') }}" class="menu-link">
+            <li class="menu-item {{ $title === 'Data Master Barang' || $title === 'Barang Gudang' ? 'active open' : '' }}">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-data"></i>
                     <div data-i18n="Data Barang">Data Barang</div>
                 </a>
-            </li>
-            <li class="menu-item {{ $title === 'Data Detail Barang' ? 'active' : '' }}">
-                <a href="{{ route('staff.data-barang')}}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-data"></i>
-                    <div data-i18n="Data Barang">Data Detail Barang</div>
-                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ $title === 'Data Master Barang' ? 'active' : '' }}">
+                        <a href="{{ route('staff.barang') }}" class="menu-link">
+                            <div data-i18n="Master Barang">Master Barang</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ $title === 'Barang Gudang' ? 'active' : '' }}">
+                        <a href="{{ route('staff.data-barang') }}" class="menu-link">
+                            <div data-i18n="Barang Gudang">Barang Gudang</div>
+                        </a>
+                    </li>
+                </ul>
             </li>
         @endif
         @if (auth()->user() && auth()->user()->role == 'spv')

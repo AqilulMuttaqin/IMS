@@ -165,12 +165,8 @@
                 success: function(response) {
                     $('#dataLokasi').DataTable().ajax.reload();
                     $('#lokasiModal').modal('hide');
-                    Swal.fire({
-                        title: "Success",
-                        text: "Data Berhasil Disimpan",
-                        icon: "success",
-                        timer: 3500
-                    });
+                    // alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.');
+                    // toast('Success Toast','success');
                 },
                 error: function(xhr, status, error) {}
             });

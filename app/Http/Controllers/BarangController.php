@@ -18,7 +18,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        if (Auth::check() && Auth::user()->role === 'user') {
+        if (Auth::check() && Auth::user()->role === 'user' || Auth::user()->role === 'admin') {
             if (request()->ajax()) {
                 $barangs = Barang::with('dataBarang.lokasi')->get();
 
@@ -32,23 +32,15 @@ class BarangController extends Controller
 
                 return datatables()->of($barangs)->make(true);
             }
-            return view('user.home-user', [
-                'title' => 'Home',
-            ]);
-        } else if (Auth::check() && Auth::user()->role === 'admin') {
-            if (request()->ajax()) {
-                $barang = Barang::all();
-
-                $barang->map(function ($item, $key) {
-                    $item['DT_RowIndex'] = $key + 1;
-                    return $item;
-                });
-
-                return datatables()->of($barang)->make(true);
+            if (Auth::check() && Auth::user()->role === 'user'){
+                return view('user.home-user', [
+                    'title' => 'Home',
+                ]);
+            } else if (Auth::check() && Auth::user()->role === 'admin'){
+                return view('staff.data-barang', [
+                    'title' => 'Data Master Barang',
+                ]);
             }
-            return view('staff.data-barang', [
-                'title' => 'Data Barang',
-            ]);
         } else if (Auth::check() && Auth::user()->role === 'spv') {
             if (request()->ajax()) {
                 $barang = Barang::all();
