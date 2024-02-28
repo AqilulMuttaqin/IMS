@@ -138,12 +138,13 @@
                     <h5 class="modal-title" id="importModalLabel">Import Excel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="importForm">
+                <form id="importForm" method="POST" action="{{ route('spv.import-barang') }}" enctype="multipart/form-data">
+                    @csrf
                     <div class="modal-body">
                         <div class="form-group mb-3">
                             <label for="import">File Excel</label>
-                            <input type="file" class="form-control form-control-user" id="import" name="import"
-                                required autofocus>
+                            <input type="file" class="form-control form-control-user" id="file" name="file"
+                            accept=".xlsx, .xls" required autofocus>
                         </div>
                     </div>
                     <div class="modal-footer">

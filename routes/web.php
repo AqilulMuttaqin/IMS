@@ -90,6 +90,7 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::put('spv/update-lokasi/{id}', [LokasiController::class, 'update'])->name('spv.update-lokasi');
     Route::delete('spv/delete-lokasi/{lokasi}', [LokasiController::class, 'destroy'])->name('spv.hapus-lokasi');
     Route::get('spv/export-barang', [BarangController::class, 'export'])->name('spv.export-barang');
+    Route::post('spv/import-barang', [BarangController::class, 'import'])->name('spv.import-barang');
     // Route::get('/spv/lokasi', function () {
     //     return view('spv.lokasi', ['title' => 'Data Lokasi']);
     // })->name('spv.lokasi');
