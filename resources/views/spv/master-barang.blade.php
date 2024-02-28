@@ -25,7 +25,7 @@
                                 Impor & Ekspor
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"><i class="bx bxs-file-export me-1"></i> Export
+                                <a class="dropdown-item" href="{{ route('spv.export-barang') }}"><i class="bx bxs-file-export me-1"></i> Export
                                     Excel</a>
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal"
                                     style="cursor: pointer;"><i class="bx bxs-file-import me-1"></i> Import Excel</a>

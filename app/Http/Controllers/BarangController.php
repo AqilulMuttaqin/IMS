@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BarangExport;
 use App\Models\Barang;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BarangController extends Controller
 {
@@ -108,5 +110,10 @@ class BarangController extends Controller
         $barang->delete();
 
         return redirect()->back();
+    }
+
+    public function export()
+    {
+        return Excel::download(new BarangExport, 'barang.xlsx');
     }
 }
