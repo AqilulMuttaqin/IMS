@@ -13,13 +13,18 @@ class PesananSeeder extends Seeder
      */
     public function run(): void
     {
-        $pesanan = Pesanan::create([
-            'user_id' => '3',
-        ]);
-
-        $pesanan->barang()->attach('A0001', ['qty' => 2]);
-        $pesanan->barang()->attach('A0002', ['qty' => 1]);
-        $pesanan->barang()->attach('A0003', ['qty' => 3]);
+        for ($i = 0; $i < 10; $i++) {
+            $pesanan = Pesanan::create([
+              'user_id' => 3,
+            ]);
+          
+            for ($j = 0; $j < rand(1, 5); $j++) {
+              $barangId = 'A00' . sprintf('%02d', rand(1, 20));
+              $qty = rand(1, 10);
+          
+              $pesanan->barang()->attach($barangId, ['qty' => $qty]);
+            }
+          }
 
     }
 }
