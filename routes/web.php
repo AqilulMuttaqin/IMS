@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\SPVController;
 use App\Http\Controllers\UserController;
+use App\Models\SPV;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,6 +87,10 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::delete('spv/delete-lokasi/{lokasi}', [LokasiController::class, 'destroy'])->name('spv.hapus-lokasi');
     Route::get('spv/export-barang', [BarangController::class, 'export'])->name('spv.export-barang');
     Route::post('spv/import-barang', [BarangController::class, 'import'])->name('spv.import-barang');
+    Route::get('spv/user', [SPVController::class, 'show_user'])->name('spv.user');
+    Route::post('spv/user-add', [SPVController::class, 'add_user'])->name('spv.tambah-user');
+    Route::put('spv/user-update/{user}', [SPVController::class, 'update_user'])->name('spv.update-user');
+    Route::delete('spv/user-del/{user}', [SPVController::class, 'delete_user'])->name('spv.hapus-user');
     // Route::get('/spv/lokasi', function () {
     //     return view('spv.lokasi', ['title' => 'Data Lokasi']);
     // })->name('spv.lokasi');
