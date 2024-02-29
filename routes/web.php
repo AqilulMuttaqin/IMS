@@ -71,15 +71,10 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('staff/data-barang', [DataBarangController::class, 'index'])->name('staff.data-barang');
     Route::post('staff/add-barang', [BarangController::class, 'store'])->name('staff.tambah-barang');
     Route::delete('staff/delete-barang/{barang}', [BarangController::class, 'destroy'])->name('staff.hapus-barang');
-    Route::get('tes', [DataBarangController::class, 'tes'])->name('tes');
 });
 
 Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('/spv', [SPVController::class, 'index'])->name('spv.dashboard');
-    Route::post('/qr-generate', [QrCodeController::class, 'generate'])->name('qr.generate');
-    Route::post('/qr-download', [QrCodeController::class, 'download'])->name('qr.download');
-    Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch'])->name('download-zip');
-    Route::get('/pdf', [QrCodeController::class, 'generatePdfWithQrCodes'])->name('download-pdf');
     Route::get('spv/master-barang', [BarangController::class, 'index'])->name('spv.master-barang');
     Route::post('spv/add-barang', [BarangController::class, 'store'])->name('spv.tambah-barang');
     Route::put('spv/update-barang/{barang}', [BarangController::class, 'update'])->name('spv.update-barang');
@@ -97,6 +92,14 @@ Route::middleware(['auth','role:spv'])->group(function () {
     // Route::get('/spv/detail-barang', function () {
     //     return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
     // })->name('spv.detail-barang');
+});
+
+Route::middleware(['auth','role:spv,admin'])->group(function () {
+    Route::get('tes', [DataBarangController::class, 'tes'])->name('tes');
+    Route::post('/qr-generate', [QrCodeController::class, 'generate'])->name('qr.generate');
+    Route::post('/qr-download', [QrCodeController::class, 'download'])->name('qr.download');
+    Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch'])->name('download-zip');
+    Route::get('/pdf', [QrCodeController::class, 'generatePdfWithQrCodes'])->name('download-pdf');
 });
 
 require __DIR__.'/auth.php';
