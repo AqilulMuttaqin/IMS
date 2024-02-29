@@ -20,15 +20,6 @@
                                         class="bx bxs-file-pdf me-1"></i> Download PDF</a>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2" id="tambahBtn"
-                            data-bs-toggle="modal" data-bs-target="#barangModal">
-                            <i class="bx bx-plus me-1"></i>
-                            Tambah Data
-                        </button>
-                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="importBtn">
-                            <i class="bx bx-import me-1"></i>
-                            Import Excel
-                        </button>
                     </div>
                 </div>
             </div>
@@ -43,7 +34,6 @@
                             <th class="text-center">Max</th>
                             <th class="text-center">Price($)</th>
                             <th class="text-center" style="width: 90px">QR Code</th>
-                            <th style="width: 30px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,51 +62,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="barangModal" tabindex="-1" role="dialog" aria-labelledby="barangModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="barangModalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="barangForm">
-                        <div class="form-group mb-3">
-                            <label for="nojs">NO. JS</label>
-                            <input type="text" class="form-control form-control-user" id="kode_js" name="kode_js"
-                                required autofocus value="" maxlength="6" minlength="6">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="nama">NAMA</label>
-                            <input type="text" class="form-control form-control-user" id="nama" name="nama"
-                                required autofocus value="">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="stok">MIN</label>
-                            <input type="text" class="form-control form-control-user" id="min_stok" name="min_stok"
-                                required autofocus value="">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="stok">MAX</label>
-                            <input type="text" class="form-control form-control-user" id="max_stok" name="max_stok"
-                                required autofocus value="">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="stok">PRICE</label>
-                            <input type="text" class="form-control form-control-user" id="harga" name="harga"
-                                required autofocus value="">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary" id="submitBtn"
-                        onclick="submitBarangForm()">Save Change</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -173,33 +118,6 @@
                             `;
                         }
                     },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        render: function(data, type, row, meta){
-                            var deleteRoute = "{{ route('staff.hapus-barang', ['barang' => ':barang']) }}";
-                            var deleteUrl = deleteRoute.replace(':barang', row.kode_js);
-                            return `
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#"><i class="bx bx-edit-alt me-1"></i>
-                                            Edit</a>
-                                        <form action="${deleteUrl}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="dropdown-item deleteBtn"><i class="bx bx-trash me-1"></i>Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            `;
-                        }
-                    }
                 ]
             });
 

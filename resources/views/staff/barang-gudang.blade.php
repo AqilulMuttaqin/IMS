@@ -15,7 +15,6 @@
                                 <th>Kode JS</th>
                                 <th>Nama</th>
                                 <th>Stok</th>
-                                <th style="width: 30px;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,41 +44,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="barangModal" tabindex="-1" role="dialog" aria-labelledby="barangModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="barangModalLabel">Tambah Data Barang</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="barangForm">
-                        <div class="form-group mb-3">
-                            <label for="nojs">NO. JS</label>
-                            <input type="text" class="form-control form-control-user" id="nojs" name="nojs"
-                                required autofocus value="" maxlength="6" minlength="6">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="nama">NAMA</label>
-                            <input type="text" class="form-control form-control-user" id="nama" name="nama"
-                                required autofocus value="">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="stok">STOK</label>
-                            <input type="text" class="form-control form-control-user" id="stok" name="stok"
-                                required autofocus value="">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary" id="submitBtn" onclick="submitUserForm()">Save
-                        Change</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('scripts')
