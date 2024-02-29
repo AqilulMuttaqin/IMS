@@ -53,7 +53,7 @@
         <div class="card p-3 pb-0 mb-4">
             <a data-bs-toggle="collapse" href="#pesananMasuk" role="button" aria-expanded="false"
                 aria-controls="pesananMasuk">
-                <h3 class="text-center text-primary">Pesanan Baru
+                <h3 class="text-center text-secondary">Pesanan Baru
                     <i class="arrow bx bx-down-arrow-alt" style="font-size: 1em;"></i>
                 </h3>
             </a>
@@ -132,7 +132,7 @@
         <div class="card p-3 pb-0 mb-4">
             <a data-bs-toggle="collapse" href="#pesananPerluDisiapkan" role="button" aria-expanded="false"
                 aria-controls="pesananPerluDisiapkan">
-                <h3 class="text-center text-primary">Pesanan Perlu Disiapkan
+                <h3 class="text-center text-secondary">Pesanan Perlu Disiapkan
                     <i class="arrow bx bx-right-arrow-alt" style="font-size: 1em;"></i>
                 </h3>
             </a>
@@ -211,7 +211,7 @@
         <div class="card p-3 pb-0 mb-4">
             <a data-bs-toggle="collapse" href="#pesananPerluDikirim" role="button" aria-expanded="false"
                 aria-controls="pesananPerluDikirim">
-                <h3 class="text-center text-primary">Pesanan Perlu Dikirim
+                <h3 class="text-center text-secondary">Pesanan Perlu Dikirim
                     <i class="arrow bx bx-right-arrow-alt" style="font-size: 1em;"></i>
                 </h3>
             </a>
