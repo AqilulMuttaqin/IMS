@@ -48,6 +48,7 @@ class LokasiController extends Controller
         ]);
 
         Lokasi::create($request->all());
+        alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.');
         return redirect()->back();
     }
 
