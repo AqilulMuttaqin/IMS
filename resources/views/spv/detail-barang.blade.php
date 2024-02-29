@@ -25,12 +25,12 @@
                         <thead>
                             <tr>
                                 <th style="width: 20px">No</th>
-                                <th class="text-center">Kode JS</th>
+                                <th>Kode JS</th>
                                 <th>Nama</th>
                                 <th>Invoice Num.</th>
                                 <th>PO Num.</th>
                                 <th>Lokasi</th>
-                                <th class="text-center">Qty</th>
+                                <th>Qty</th>
                                 <th style="width: 30px;">Actions</th>
                             </tr>
                         </thead>
@@ -50,7 +50,15 @@
                     <h5 class="modal-title" id="lokasiModalLabel">Daftar Lokasi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex justify-content-center align-items-center">
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-9">
+                            <div class="text-muted">Lokasi</div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="text-muted">Qty</div>
+                        </div>
+                    </div>
                     <div id="lokasiContainer"></div>
                 </div>
                 <div class="modal-footer">
@@ -112,6 +120,7 @@
                     url: '{{ url()->current() }}',
                     type: 'GET'
                 },
+                order: [[1, 'asc']],
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -182,7 +191,7 @@
 
                 var lokasiHtml = '';
                 $.each(data.lokasi, function(index, lokasi) {
-                    lokasiHtml += '<div>' + (index + 1) + '. ' + lokasi.nama + ' - Qty: ' + lokasi.pivot.qty + '</div>';
+                    lokasiHtml += '<div class="row"><div class="col-sm-9">' + (index + 1) + '. ' + lokasi.nama + '</div><div class="col-sm-3">: ' + lokasi.pivot.qty + '</div></div>';
                 });
 
                 $('#lokasiModalLabel').text('Daftar Lokasi untuk ' + barangNama);

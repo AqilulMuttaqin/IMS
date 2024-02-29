@@ -78,7 +78,9 @@ class SPVController extends Controller
             return datatables()->of($user)->make(true);
         }
 
-        return view('spv.user', ['title' => 'User']);
+        return view('spv.user', [
+            'title' => 'Data User'
+        ]);
     }
 
     public function add_user(Request $request){

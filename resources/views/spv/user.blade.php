@@ -3,33 +3,37 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h5 class="card-header">Data User</h5>
-                </div>
-                <div class="col-sm-8">
-                    <div class="d-flex justify-content-end text-end pt-3 pe-3 mb-3">
-                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2" id="tambahDataBtn">
-                            <i class="bx bx-plus me-1"></i>
-                            Tambah Data
-                        </button>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5>Data User</h5>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="d-flex justify-content-end text-end">
+                            <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2" id="tambahDataBtn">
+                                <i class="bx bx-plus me-1"></i>
+                                Tambah Data
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="table-responsive text-nowrap pt-0 p-3">
-                <table class="table table-striped" id="dataUser">
-                    <thead>
-                        <tr>
-                            <th style="width: 20px">No</th>
-                            <th>NIK</th>
-                            <th>Nama</th>
-                            <th class="text-center">Role</th>
-                            <th style="width: 30px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="dataUser">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px">No</th>
+                                <th>NIK</th>
+                                <th>Nama</th>
+                                <th>Role</th>
+                                <th style="width: 30px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -56,8 +60,8 @@
                             <label for="role">ROLE</label>
                             <select class="form-control form-control-user" id="role" name="role" required>>
                                 <option value="" disabled selected></option>
-                                <option value="spv">SPV</option>
-                                <option value="admin">Admin</option>
+                                <option value="spv">Supervisor</option>
+                                <option value="admin">Staff Gudang</option>
                                 <option value="user">User</option>
                             </select>
                         </div>
@@ -67,9 +71,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer p-0 pt-2 pe-2">
-                    <button type="button" class="btn btn-sm bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm bg-gradient-primary" id="submitBtn" onclick="submitUserForm()">Save Change</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="submitBtn" onclick="submitUserForm()">Save Change</button>
                 </div>
             </div>
         </div>

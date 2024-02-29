@@ -52,10 +52,10 @@
                                 <th style="width: 20px">No</th>
                                 <th>Kode JS</th>
                                 <th>Nama</th>
-                                <th class="text-center">Min</th>
-                                <th class="text-center">Max</th>
-                                <th class="text-center">Price($)</th>
-                                <th class="text-center" style="width: 90px">QR Code</th>
+                                <th>Min</th>
+                                <th>Max</th>
+                                <th>Price($)</th>
+                                <th style="width: 90px">QR Code</th>
                                 <th style="width: 30px;">Actions</th>
                             </tr>
                         </thead>
