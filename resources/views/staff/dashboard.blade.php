@@ -298,7 +298,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-xxl">
+                    <div class="col-xxl" id="modal-body">
                         <div class="row mb-3">
                             <label class="col-sm-8 col-form-label" for="label">Nama/Label Pesanan</label>
                             <div class="col-sm-4">
@@ -389,7 +389,7 @@
                         var card = $('<div class="col-sm-6 col-md-4 col-lg-3 mb-4"></div>');
                         var cardBody = $('<div class="card"></div>');
                         var cardHeader = $('<div class="card-header pb-1"></div>');
-                        var cardTitle = $('<h6 class="text-center">Pesanan Line ' + index + '</h6>');
+                        var cardTitle = $('<h6 class="text-center">Pesanan Line ' + pesanan.id + '</h6>');
                         var hr = $('<hr>');
                         var cardCardBody = $('<div class="card-body"></div>');
                         
@@ -397,7 +397,7 @@
                         var nameLabelCol = $('<div class="col-6"><label for="label">Nama/Label</label></div>');
                         var nameValueCol = $('<div class="col-6"><p id="label">: ' + pesanan.user.name + '</p></div>');
                         var detailLabelCol = $('<div class="col-6"><label for="detail">Detail</label></div>');
-                        var detailValueCol = $('<div class="col-6"><p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail" data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal"><i class="bx bx-show"></i></button></p></div>');
+                        var detailValueCol = $('<div class="col-6"><p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail" data-pesanan-id="'+ pesanan.id+'" data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal"><i class="bx bx-show"></i></button></p></div>');
                         var hr = $('<hr>');
                         var confirmButtonCol = $('<div class="col-12"><button type="button" class="btn btn-warning w-100">Konfirmasi</button></div>');
 
@@ -421,6 +421,58 @@
                     });
                 }
             });
+
         }
+        $(document).on('click', '#btnDetail', function() {
+            var pesananId = $(this).data('pesanan-id');
+            var modalTitle = $('#detailKonfirmasiModal').find('.modal-title');
+            var modalBody = $('#detailKonfirmasiModal').find('#modal-body');
+
+            $.ajax({
+                url: "{{ route('staff.detail-pesanan') }}",
+                method: 'GET',
+                data: {
+                    pesanan_id: pesananId
+                },
+                success: function(response) {
+                    modalTitle.text('Detail Pesanan Line ' + response.id);
+
+                    modalBody.empty();
+                    modalBody.append(`
+                            <div class="row mb-3">
+                                <label class="col-sm-8 col-form-label" for="label">Nama/Label Pesanan</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control text-center" id="label" name="label"
+                                        value="${response.user.name}" disabled>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-8 col-form-label" for="Jumlah"></label>
+                                <div class="col-sm-4">
+                                    <div class="text-muted text-center">Jumlah</div>
+                                </div>
+                            </div>
+                        `);
+
+                    $.each(response.barang, function(index, barang) {
+                        modalBody.append(`
+                            <div class="row mb-3">
+                                <label class="col-sm-8 col-form-label" for="barang-${index}">${barang.nama}</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group number-spinner">
+                                        <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="barang-${index}" name="barang-${index}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+
+                    $('#detailKonfirmasiModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors here
+                }
+            });
+        });
     </script>
 @endsection
