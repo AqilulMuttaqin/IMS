@@ -782,42 +782,40 @@
                 $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
                     'bx-right-arrow-alt');
             });
-            get_data();
-            //60000
-            //300000
+            get_data('pesananMasuk', 'pending');
+
+            get_data('pesananPerluDisiapkan', 'disiapkan');
+
+            get_data('pesananPerluDikirim', 'dikirim');
             setInterval(get_data, 60000);
         });
 
-        function get_data() {
+        function get_data(containerId, status) {
             $.ajax({
                 url: "{{ url()->current() }}",
                 method: 'GET',
-                data: {},
+                data: { status: status }, // Pass the status parameter in the request
                 success: function(response) {
-                    var pesananMasukContainer = $('#pesananMasuk');
-                    pesananMasukContainer.empty();
+                    var container = $('#' + containerId);
+                    container.empty();
 
                     $.each(response, function(index, pesanan) {
                         var card = $('<div class="col-sm-6 col-md-4 col-lg-3 my-2"></div>');
                         var cardBody = $('<div class="card border"></div>');
                         var cardHeader = $('<div class="card-header pb-1"></div>');
-                        var cardTitle = $('<h6 class="text-center">Pesanan Line ' + pesanan.id +
-                            '</h6>');
+                        var cardTitle = $('<h6 class="text-center">Pesanan Line ' + pesanan.id + '</h6>');
                         var hr = $('<hr>');
                         var cardCardBody = $('<div class="card-body"></div>');
 
                         var row = $('<div class="row"></div>');
-                        var nameLabelCol = $(
-                            '<div class="col-6"><label for="label">Nama/Label</label></div>');
-                        var nameValueCol = $('<div class="col-6"><p id="label">: ' + pesanan.user.name +
-                            '</p></div>');
-                        var detailLabelCol = $(
-                            '<div class="col-6"><label for="detail">Detail</label></div>');
+                        var nameLabelCol = $('<div class="col-6"><label for="label">Nama/Label</label></div>');
+                        var nameValueCol = $('<div class="col-6"><p id="label">: ' + pesanan.user.name + '</p></div>');
+                        var detailLabelCol = $('<div class="col-6"><label for="detail">Detail</label></div>');
                         var detailValueCol = $(
                             '<div class="col-6"><p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail" data-pesanan-id="' +
                             pesanan.id +
                             '" data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal"><i class="bx bx-show"></i></button></p></div>'
-                            );
+                        );
                         var hr = $('<hr>');
                         var confirmButtonCol = $(
                             '<div class="col-12"><button type="button" class="btn btn-warning w-100">Konfirmasi</button></div>'
@@ -839,12 +837,12 @@
 
                         card.append(cardBody);
 
-                        pesananMasukContainer.append(card);
+                        container.append(card);
                     });
                 }
             });
-
         }
+
         $(document).on('click', '#btnDetail', function() {
             var pesananId = $(this).data('pesanan-id');
             var modalTitle = $('#detailKonfirmasiModal').find('.modal-title');

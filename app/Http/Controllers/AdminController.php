@@ -19,8 +19,22 @@ class AdminController extends Controller
         $dikirim = Pesanan::where('status', 'dikirim')->count();
 
         if(request()->ajax()){
-            $pesanan = Pesanan::with('user', 'barang')->get();
-
+            $status = request('status');
+            
+            switch ($status) {
+                case 'pending':
+                    $pesanan = Pesanan::with('user', 'barang')->where('status', 'pending')->get();
+                    break;
+                case 'disiapkan':
+                    $pesanan = Pesanan::with('user', 'barang')->where('status', 'disiapkan')->get();
+                    break;
+                case 'dikirim':
+                    $pesanan = Pesanan::with('user', 'barang')->where('status', 'dikirim')->get();
+                    break;
+                default:
+                    return response()->json([]);
+            }
+    
             return response()->json($pesanan);
         }
 

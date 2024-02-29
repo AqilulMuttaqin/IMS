@@ -20,6 +20,5 @@ class PesananSeeder extends Seeder
         $pesanan->barang()->attach('A0001', ['qty' => 2]);
         $pesanan->barang()->attach('A0002', ['qty' => 1]);
         $pesanan->barang()->attach('A0003', ['qty' => 3]);
-
     }
 }
