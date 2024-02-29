@@ -9,21 +9,21 @@
                     <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#menu-1"
                         aria-controls="menu-1" aria-selected="true">
                         <i class="tf-icons bx bx-message-alt-detail"></i> Pesanan Masuk
-                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">1</span>
+                        <span id="pendingNotif" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">0</span>
                     </button>
                 </li>
                 <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#menu-2"
                         aria-controls="menu-2" aria-selected="false">
                         <i class="tf-icons bx bx-store-alt"></i> Perlu Disiapkan
-                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-warning">2</span>
+                        <span id="disiapkanNotif" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-warning">0</span>
                     </button>
                 </li>
                 <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#menu-3"
                         aria-controls="menu-3" aria-selected="false">
                         <i class="tf-icons bx bx-send"></i> Perlu Dikirim
-                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-success">10</span>
+                        <span id="dikirimNotif" class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-success">0</span>
                     </button>
                 </li>
             </ul>
@@ -782,12 +782,13 @@
                 $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
                     'bx-right-arrow-alt');
             });
+
             get_data('pesananMasuk', 'pending');
 
             get_data('pesananPerluDisiapkan', 'disiapkan');
 
             get_data('pesananPerluDikirim', 'dikirim');
-            setInterval(get_data, 60000);
+            //setInterval(updateNotif, 60000);
         });
 
         function get_data(containerId, status) {
@@ -796,10 +797,13 @@
                 method: 'GET',
                 data: { status: status }, // Pass the status parameter in the request
                 success: function(response) {
+                    $('#pendingNotif').text(response.counts.pending);
+                    $('#disiapkanNotif').text(response.counts.disiapkan);
+                    $('#dikirimNotif').text(response.counts.dikirim);
                     var container = $('#' + containerId);
                     container.empty();
 
-                    $.each(response, function(index, pesanan) {
+                    $.each(response.pesanan, function(index, pesanan) { // Access the 'pesanan' property in the response
                         var card = $('<div class="col-sm-6 col-md-4 col-lg-3 my-2"></div>');
                         var cardBody = $('<div class="card border"></div>');
                         var cardHeader = $('<div class="card-header pb-1"></div>');
@@ -838,10 +842,13 @@
                         card.append(cardBody);
 
                         container.append(card);
+
+                        
                     });
                 }
             });
         }
+
 
         $(document).on('click', '#btnDetail', function() {
             var pesananId = $(this).data('pesanan-id');

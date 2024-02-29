@@ -18,8 +18,13 @@ class AdminController extends Controller
         $disiapkan = Pesanan::where('status', 'disiapkan')->count();
         $dikirim = Pesanan::where('status', 'dikirim')->count();
 
-        if(request()->ajax()){
+        if (request()->ajax()) {
             $status = request('status');
+            $counts = [
+                'pending' => Pesanan::where('status', 'pending')->count(),
+                'disiapkan' => Pesanan::where('status', 'disiapkan')->count(),
+                'dikirim' => Pesanan::where('status', 'dikirim')->count(),
+            ];
             
             switch ($status) {
                 case 'pending':
@@ -35,7 +40,7 @@ class AdminController extends Controller
                     return response()->json([]);
             }
     
-            return response()->json($pesanan);
+            return response()->json(['pesanan' => $pesanan, 'counts' => $counts]);
         }
 
         return view('staff.dashboard', 
