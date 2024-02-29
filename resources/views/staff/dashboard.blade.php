@@ -475,7 +475,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-xxl">
+                    <div class="col-xxl" id="modal-body">
                         <div class="row mb-3">
                             <label class="col-sm-8 col-form-label" for="label">Nama/Label Pesanan</label>
                             <div class="col-sm-4">
@@ -565,7 +565,7 @@
                         var card = $('<div class="col-sm-6 col-md-4 col-lg-3 my-2"></div>');
                         var cardBody = $('<div class="card border"></div>');
                         var cardHeader = $('<div class="card-header pb-1"></div>');
-                        var cardTitle = $('<h6 class="text-center">Pesanan Line ' + index + '</h6>');
+                        var cardTitle = $('<h6 class="text-center">Pesanan Line ' + pesanan.id + '</h6>');
                         var hr = $('<hr>');
                         var cardCardBody = $('<div class="card-body"></div>');
 
@@ -604,6 +604,58 @@
                     });
                 }
             });
+
         }
+        $(document).on('click', '#btnDetail', function() {
+            var pesananId = $(this).data('pesanan-id');
+            var modalTitle = $('#detailKonfirmasiModal').find('.modal-title');
+            var modalBody = $('#detailKonfirmasiModal').find('#modal-body');
+
+            $.ajax({
+                url: "{{ route('staff.detail-pesanan') }}",
+                method: 'GET',
+                data: {
+                    pesanan_id: pesananId
+                },
+                success: function(response) {
+                    modalTitle.text('Detail Pesanan Line ' + response.id);
+
+                    modalBody.empty();
+                    modalBody.append(`
+                            <div class="row mb-3">
+                                <label class="col-sm-8 col-form-label" for="label">Nama/Label Pesanan</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control text-center" id="label" name="label"
+                                        value="${response.user.name}" disabled>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-8 col-form-label" for="Jumlah"></label>
+                                <div class="col-sm-4">
+                                    <div class="text-muted text-center">Jumlah</div>
+                                </div>
+                            </div>
+                        `);
+
+                    $.each(response.barang, function(index, barang) {
+                        modalBody.append(`
+                            <div class="row mb-3">
+                                <label class="col-sm-8 col-form-label" for="barang-${index}">${barang.nama}</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group number-spinner">
+                                        <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="barang-${index}" name="barang-${index}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+
+                    $('#detailKonfirmasiModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors here
+                }
+            });
+        });
     </script>
 @endsection

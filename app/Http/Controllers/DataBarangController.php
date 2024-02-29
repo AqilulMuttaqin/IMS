@@ -146,7 +146,10 @@ class DataBarangController extends Controller
         }])->get();
 
         $pesanan = Pesanan::with('user', 'barang')->get();
-        
+
+        $pesanan = Barang::whereHas('pesanan', function ($query) use ($lokasiId) {
+            $query->where('id', $lokasiId);
+        })->get();
         return response()->json($pesanan);
     }
 }

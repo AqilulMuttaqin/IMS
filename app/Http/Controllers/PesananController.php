@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pesanan;
 use App\Http\Requests\StorePesananRequest;
 use App\Http\Requests\UpdatePesananRequest;
+use App\Models\Barang;
+use Illuminate\Http\Request;
 
 class PesananController extends Controller
 {
@@ -73,5 +75,12 @@ class PesananController extends Controller
     public function destroy(Pesanan $pesanan)
     {
         //
+    }
+
+    public function detail(Request $request) {
+        // $pesanan = Barang::whereHas('pesanan', function ($query) use ($id) {
+        //     $query->where('id', $id);});
+        $pesanan = Pesanan::with('barang', 'user')->where('id', $request->input('pesanan_id'))->first();
+        return response()->json($pesanan);
     }
 }
