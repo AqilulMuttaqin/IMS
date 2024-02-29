@@ -3,37 +3,41 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h5 class="card-header">Data Detail Barang</h5>
-                </div>
-                <div class="col-sm-8">
-                    <div class="d-flex justify-content-end text-end pt-3 pe-3 mb-3">
-                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
-                            data-bs-toggle="modal" data-bs-target="#detailBarangModal">
-                            <i class="bx bx-plus me-1"></i>
-                            Tambah Data
-                        </button>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5>Data Detail Barang</h5>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="d-flex justify-content-end text-end">
+                            <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
+                                data-bs-toggle="modal" data-bs-target="#detailBarangModal">
+                                <i class="bx bx-plus me-1"></i>
+                                Tambah Data
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="table-responsive text-nowrap pt-0 p-3">
-                <table class="table table-striped" id="dataDetailBarang">
-                    <thead>
-                        <tr>
-                            <th style="width: 20px">No</th>
-                            <th class="text-center">Kode JS</th>
-                            <th>Nama</th>
-                            <th>Invoice Num.</th>
-                            <th>PO Num.</th>
-                            <th>Lokasi</th>
-                            <th class="text-center">Qty</th>
-                            <th style="width: 30px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="dataDetailBarang">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px">No</th>
+                                <th class="text-center">Kode JS</th>
+                                <th>Nama</th>
+                                <th>Invoice Num.</th>
+                                <th>PO Num.</th>
+                                <th>Lokasi</th>
+                                <th class="text-center">Qty</th>
+                                <th style="width: 30px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

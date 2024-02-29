@@ -3,32 +3,36 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h5 class="card-header">Data Lokasi</h5>
-                </div>
-                <div class="col-sm-8">
-                    <div class="d-flex justify-content-end text-end pt-3 pe-3 mb-3">
-                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2" id="tambahBtn"
-                            data-bs-toggle="modal" data-bs-target="#lokasiModal">
-                            <i class="bx bx-plus me-1"></i>
-                            Tambah Data
-                        </button>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5>Data Lokasi</h5>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="d-flex justify-content-end text-end">
+                            <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
+                                data-bs-toggle="modal" data-bs-target="#lokasiModal">
+                                <i class="bx bx-plus me-1"></i>
+                                Tambah Data
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="table-responsive text-nowrap pt-0 p-3">
-                <table class="table table-striped" id="dataLokasi">
-                    <thead>
-                        <tr>
-                            <th style="width: 20px">No</th>
-                            <th>Nama Lokasi</th>
-                            <th style="width: 90px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="dataLokasi">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px">No</th>
+                                <th>Nama Lokasi</th>
+                                <th style="width: 90px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

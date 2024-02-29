@@ -3,64 +3,66 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h5 class="card-header">Data Master Barang</h5>
-                </div>
-                <div class="col-sm-8">
-                    <div class="d-flex justify-content-end text-end pt-3 pe-3 mb-3">
-                        <div class="dropdown text-end me-2">
-                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                                Download QR Code
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('download-zip') }}"><i
-                                        class="bx bxs-file-archive me-1"></i> Download ZIP</a>
-                                <a class="dropdown-item" href="{{ route('download-pdf') }}" target="_blank"><i
-                                        class="bx bxs-file-pdf me-1"></i> Download PDF</a>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5>Data Master Barang</h5>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="d-flex justify-content-end text-end">
+                            <div class="dropdown text-end me-2">
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle"
+                                    data-bs-toggle="dropdown">
+                                    Download QR Code
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ route('download-zip') }}"><i
+                                            class="bx bxs-file-archive me-1"></i> Download ZIP</a>
+                                    <a class="dropdown-item" href="{{ route('download-pdf') }}" target="_blank"><i
+                                            class="bx bxs-file-pdf me-1"></i> Download PDF</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="dropdown text-end me-2">
-                            <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown">
-                                Impor & Ekspor
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('spv.export-barang') }}"><i class="bx bxs-file-export me-1"></i> Export
-                                    Excel</a>
-                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal"
-                                    style="cursor: pointer;"><i class="bx bxs-file-import me-1"></i> Import Excel</a>
+                            <div class="dropdown text-end me-2">
+                                <button type="button" class="btn btn-sm btn-success dropdown-toggle"
+                                    data-bs-toggle="dropdown">
+                                    Impor & Ekspor
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ route('spv.export-barang') }}"><i
+                                            class="bx bxs-file-export me-1"></i> Export
+                                        Excel</a>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal"
+                                        style="cursor: pointer;"><i class="bx bxs-file-import me-1"></i> Import Excel</a>
+                                </div>
                             </div>
+                            <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
+                                data-bs-toggle="modal" data-bs-target="#barangModal">
+                                <i class="bx bx-plus me-1"></i>
+                                Tambah Data
+                            </button>
                         </div>
-                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2" id="tambahBtn"
-                            data-bs-toggle="modal" data-bs-target="#barangModal">
-                            <i class="bx bx-plus me-1"></i>
-                            Tambah Data
-                        </button>
-                        {{-- <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="importBtn"
-                            data-bs-toggle="modal" data-bs-target="#importModal">
-                            <i class="bx bx-import me-1"></i>
-                            Import Excel
-                        </button> --}}
                     </div>
                 </div>
             </div>
-            <div class="table-responsive text-nowrap pt-0 p-3">
-                <table class="table table-striped" id="dataBarang">
-                    <thead>
-                        <tr>
-                            <th style="width: 20px">No</th>
-                            <th>Kode JS</th>
-                            <th>Nama</th>
-                            <th class="text-center">Min</th>
-                            <th class="text-center">Max</th>
-                            <th class="text-center">Price($)</th>
-                            <th class="text-center" style="width: 90px">QR Code</th>
-                            <th style="width: 30px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped" id="dataBarang">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px">No</th>
+                                <th>Kode JS</th>
+                                <th>Nama</th>
+                                <th class="text-center">Min</th>
+                                <th class="text-center">Max</th>
+                                <th class="text-center">Price($)</th>
+                                <th class="text-center" style="width: 90px">QR Code</th>
+                                <th style="width: 30px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -106,17 +108,17 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="min_stok">MIN</label>
-                            <input type="text" class="form-control form-control-user" id="min_stok" name="min_stok"
+                            <input type="number" class="form-control form-control-user" id="min_stok" name="min_stok"
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="max_stok">MAX</label>
-                            <input type="text" class="form-control form-control-user" id="max_stok" name="max_stok"
+                            <input type="number" class="form-control form-control-user" id="max_stok" name="max_stok"
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="harga">PRICE</label>
-                            <input type="text" class="form-control form-control-user" id="harga" name="harga"
+                            <input type="number" class="form-control form-control-user" id="harga" name="harga"
                                 required autofocus value="">
                         </div>
                     </form>
@@ -138,13 +140,14 @@
                     <h5 class="modal-title" id="importModalLabel">Import Excel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="importForm" method="POST" action="{{ route('spv.import-barang') }}" enctype="multipart/form-data">
+                <form id="importForm" method="POST" action="{{ route('spv.import-barang') }}"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group mb-3">
                             <label for="import">File Excel</label>
                             <input type="file" class="form-control form-control-user" id="file" name="file"
-                            accept=".xlsx, .xls" required autofocus>
+                                accept=".xlsx, .xls" required autofocus>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -155,6 +158,7 @@
             </div>
         </div>
     </div>
+
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -356,11 +360,12 @@
                 success: function(response) {
                     $('#dataBarang').DataTable().ajax.reload();
                     $('#barangModal').modal('hide');
+
                     Swal.fire({
                         title: "Success",
                         text: "Data Berhasil Disimpan",
                         icon: "success",
-                        timer: 3500
+                        timer: 3500,
                     });
                 },
                 error: function(xhr, status, error) {}

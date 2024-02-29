@@ -52,12 +52,17 @@
                 </div>
             </div>
         </div>
-        <div class="mb-4">
-            <h3 class="text-center text-primary">Pesanan Masuk <i class="bx bx-down-arrow-alt" style="font-size: 1em;"></i>
-            </h3>
+
+        <div class="card p-3 pb-0 mb-4">
+            <a data-bs-toggle="collapse" href="#pesananMasuk" role="button" aria-expanded="false"
+                aria-controls="pesananMasuk">
+                <h3 class="text-center text-primary">Pesanan Masuk
+                    <i class="arrow bx bx-down-arrow-alt" style="font-size: 1em;"></i>
+                </h3>
+            </a>
         </div>
 
-        <div class="row">
+        <div class="row collapse show" id="pesananMasuk">
             <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="card">
                     <div class="card-header pb-1">
@@ -111,7 +116,165 @@
                             </div>
                             <div class="col-6">
                                 <p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail"
-                                    data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal">
+                                        data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal">
+                                        <i class="bx bx-show"></i>
+                                    </button>
+                                </p>
+                            </div>
+                            <hr>
+                            <div class="col-12">
+                                <button type="button" class="btn btn-warning w-100">
+                                    Konfirmasi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card p-3 pb-0 mb-4">
+            <a data-bs-toggle="collapse" href="#pesananPerluDisiapkan" role="button" aria-expanded="false"
+                aria-controls="pesananPerluDisiapkan">
+                <h3 class="text-center text-primary">Pesanan Perlu Disiapkan
+                    <i class="arrow bx bx-right-arrow-alt" style="font-size: 1em;"></i>
+                </h3>
+            </a>
+        </div>
+
+        <div class="row collapse" id="pesananPerluDisiapkan">
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-header pb-1">
+                        <h6 class="text-center">Pesanan Line .....</h6>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="label">Nama/Label</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="label">: Pesanan 1</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="detail">Detail</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail"
+                                        data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal">
+                                        <i class="bx bx-show"></i>
+                                    </button>
+                                </p>
+                            </div>
+                            <hr>
+                            <div class="col-12">
+                                <button type="button" class="btn btn-warning w-100">
+                                    Konfirmasi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-header pb-1">
+                        <h6 class="text-center">Pesanan Line .....</h6>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="label">Nama/Label</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="label">: Pesanan 1</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="detail">Detail</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail"
+                                        data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal">
+                                        <i class="bx bx-show"></i>
+                                    </button>
+                                </p>
+                            </div>
+                            <hr>
+                            <div class="col-12">
+                                <button type="button" class="btn btn-warning w-100">
+                                    Konfirmasi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card p-3 pb-0 mb-4">
+            <a data-bs-toggle="collapse" href="#pesananPerluDikirim" role="button" aria-expanded="false"
+                aria-controls="pesananPerluDikirim">
+                <h3 class="text-center text-primary">Pesanan Perlu Dikirim
+                    <i class="arrow bx bx-right-arrow-alt" style="font-size: 1em;"></i>
+                </h3>
+            </a>
+        </div>
+
+        <div class="row collapse" id="pesananPerluDikirim">
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-header pb-1">
+                        <h6 class="text-center">Pesanan Line .....</h6>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="label">Nama/Label</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="label">: Pesanan 1</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="detail">Detail</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail"
+                                        data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal">
+                                        <i class="bx bx-show"></i>
+                                    </button>
+                                </p>
+                            </div>
+                            <hr>
+                            <div class="col-12">
+                                <button type="button" class="btn btn-warning w-100">
+                                    Konfirmasi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-header pb-1">
+                        <h6 class="text-center">Pesanan Line .....</h6>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="label">Nama/Label</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="label">: Pesanan 1</p>
+                            </div>
+                            <div class="col-6">
+                                <label for="detail">Detail</label>
+                            </div>
+                            <div class="col-6">
+                                <p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail"
+                                        data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal">
                                         <i class="bx bx-show"></i>
                                     </button>
                                 </p>
@@ -142,7 +305,8 @@
                         <div class="row mb-3">
                             <label class="col-sm-8 col-form-label" for="label">Nama/Label Pesanan</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control text-center" id="label" name="label" value="pesanan 1" disabled>
+                                <input type="text" class="form-control text-center" id="label" name="label"
+                                    value="pesanan 1" disabled>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -181,4 +345,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#pesananMasuk').on('show.bs.collapse', function() {
+                $(this).prev().find('.arrow').removeClass('bx-right-arrow-alt').addClass(
+                    'bx-down-arrow-alt');
+            });
+            $('#pesananMasuk').on('hide.bs.collapse', function() {
+                $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
+                    'bx-right-arrow-alt');
+            });
+            $('#pesananPerluDisiapkan').on('show.bs.collapse', function() {
+                $(this).prev().find('.arrow').removeClass('bx-right-arrow-alt').addClass(
+                    'bx-down-arrow-alt');
+            });
+            $('#pesananPerluDisiapkan').on('hide.bs.collapse', function() {
+                $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
+                    'bx-right-arrow-alt');
+            });
+            $('#pesananPerluDikirim').on('show.bs.collapse', function() {
+                $(this).prev().find('.arrow').removeClass('bx-right-arrow-alt').addClass(
+                    'bx-down-arrow-alt');
+            });
+            $('#pesananPerluDikirim').on('hide.bs.collapse', function() {
+                $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
+                    'bx-right-arrow-alt');
+            });
+        });
+    </script>
 @endsection
