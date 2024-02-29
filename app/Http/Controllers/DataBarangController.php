@@ -144,6 +144,8 @@ class DataBarangController extends Controller
         })->with(['dataBarang' => function ($query) use ($barang_id) {
             $query->where('id', $barang_id);
         }])->get();
+
+        $pesanan = Pesanan::with('user', 'barang')->get();
         
         return response()->json($pesanan);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Models\Pesanan;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,23 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('staff.dashboard', ['title' => 'Dashboard']);
+        $pending = Pesanan::where('status', 'pending')->count();
+        $disiapkan = Pesanan::where('status', 'disiapkan')->count();
+        $dikirim = Pesanan::where('status', 'dikirim')->count();
+
+        if(request()->ajax()){
+            $pesanan = Pesanan::with('user', 'barang')->get();
+
+            return response()->json($pesanan);
+        }
+
+        return view('staff.dashboard', 
+        [
+            'title' => 'Dashboard',
+            'pending' => $pending,
+            'disiapkan' => $disiapkan,
+            'dikirim' => $dikirim
+        ]);
     }
 
     /**
