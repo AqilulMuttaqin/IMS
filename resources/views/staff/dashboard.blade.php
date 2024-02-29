@@ -7,13 +7,12 @@
                 <div class="card">
                     <div class="card-body d-flex justify-content-between">
                         <div class="me-2">
-                            <span class="fw-semibold d-block mb-1">Profit</span>
-                            <h3 class="card-title mb-2">$12,628</h3>
+                            <span class="fw-semibold d-block mb-1">Jumlah Pesanan Baru</span>
+                            <h3 class="card-title mb-2">2</h3>
                         </div>
                         <div class="card-title d-flex align-items-center justify-content-center">
                             <div class="avatar flex-shrink-0">
-                                <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success"
-                                    class="rounded" />
+                                <img src="{{ url('images/pesanan_masuk.png')}}" class="rounded" />
                             </div>
                         </div>
                     </div>
@@ -23,13 +22,12 @@
                 <div class="card">
                     <div class="card-body d-flex justify-content-between">
                         <div class="me-2">
-                            <span class="fw-semibold d-block mb-1">Profit</span>
-                            <h3 class="card-title mb-2">$12,628</h3>
+                            <span class="fw-semibold d-block mb-1">Pesanan Perlu Disiapkan</span>
+                            <h3 class="card-title mb-2">2</h3>
                         </div>
                         <div class="card-title d-flex align-items-center justify-content-center">
                             <div class="avatar flex-shrink-0">
-                                <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success"
-                                    class="rounded" />
+                                <img src="{{ url('images/pesanan_disiapkan.png')}}" class="rounded" />
                             </div>
                         </div>
                     </div>
@@ -39,13 +37,12 @@
                 <div class="card">
                     <div class="card-body d-flex justify-content-between">
                         <div class="me-2">
-                            <span class="fw-semibold d-block mb-1">Profit</span>
-                            <h3 class="card-title mb-2">$12,628</h3>
+                            <span class="fw-semibold d-block mb-1">Pesanan Perlu Dikirim</span>
+                            <h3 class="card-title mb-2">2</h3>
                         </div>
                         <div class="card-title d-flex align-items-center justify-content-center">
                             <div class="avatar flex-shrink-0">
-                                <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success"
-                                    class="rounded" />
+                                <img src="{{ url('images/pesanan_dikirim.png')}}" class="rounded" />
                             </div>
                         </div>
                     </div>
@@ -56,7 +53,7 @@
         <div class="card p-3 pb-0 mb-4">
             <a data-bs-toggle="collapse" href="#pesananMasuk" role="button" aria-expanded="false"
                 aria-controls="pesananMasuk">
-                <h3 class="text-center text-primary">Pesanan Masuk
+                <h3 class="text-center text-primary">Pesanan Baru
                     <i class="arrow bx bx-down-arrow-alt" style="font-size: 1em;"></i>
                 </h3>
             </a>
