@@ -30,4 +30,9 @@ class Barang extends Model
     {
         return $this->hasMany(DataBarang::class, 'kode_js', 'kode_js');
     }
+
+    public function keranjang()
+    {
+        return $this->belongsToMany(Keranjang::class, 'barang_keranjang', 'kode_js', 'keranjang_id')->withPivot('qty');
+    }
 }
