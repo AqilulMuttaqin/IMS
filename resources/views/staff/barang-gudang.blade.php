@@ -12,9 +12,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 20px">No</th>
-                                <th>Kode JS</th>
+                                {{-- <th>Kode JS</th> --}}
                                 <th>Nama</th>
                                 <th>Stok</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,28 +26,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="qrCodeModalLabel">QR Code</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center align-items-center">
-                    <div id="qrCodeContainer"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary download-qr-code">Download QR Code</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-@endsection
-
-@push('scripts')
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -66,10 +45,10 @@
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
-                    {
-                        data: 'kode_js',
-                        name: 'kode_js'
-                    },
+                    // {
+                    //     data: 'kode_js',
+                    //     name: 'kode_js'
+                    // },
                     {
                         data: 'nama',
                         name: 'nama'
@@ -95,4 +74,4 @@
             });
         });
     </script>
-@endpush
+@endsection

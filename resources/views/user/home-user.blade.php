@@ -3,34 +3,38 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h5 class="card-header">Data Barang Ready</h5>
-                </div>
-                <div class="col-sm-8">
-                    <div class="d-flex justify-content-end text-end pt-3 pe-3 mb-3">
-                        <button type="button" class="btn btn-sm btn-warning d-flex align-items-center" id="showCart"
-                            data-bs-toggle="modal" data-bs-target="#keranjangModal">
-                            <i class="bx bxs-cart-alt me-1"></i>
-                            Lihat Keranjang
-                        </button>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5>Data Barang Ready</h5>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="d-flex justify-content-end text-end">
+                            <button type="button" class="btn btn-sm btn-warning d-flex align-items-center" id="showCart"
+                                data-bs-toggle="modal" data-bs-target="#keranjangModal">
+                                <i class="bx bxs-cart-alt me-1"></i>
+                                Lihat Keranjang
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="table-responsive text-nowrap pt-0 p-3">
-                <table class="table table-striped" id="dataBarangReady">
-                    <thead>
-                        <tr>
-                            <th style="width: 20px">No</th>
-                            <th>Nama</th>
-                            <th>Stok</th>
-                            <th style="width: 30px;">Check Out</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped" id="dataBarangReady">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px">No</th>
+                                <th>Nama</th>
+                                <th>Stok</th>
+                                <th style="width: 30px;">Check Out</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -121,8 +125,8 @@
                                         <button type="button" class="btn btn-sm border" onclick="minValue('jumlah')">
                                             <i class="bx bx-minus"></i>
                                         </button>
-                                        <input type="text" class="form-control text-center" value="1" id="jumlah"
-                                            name="jumlah" oninput="validateInput(this)">
+                                        <input type="text" class="form-control text-center" value="1"
+                                            id="jumlah" name="jumlah" oninput="validateInput(this)">
                                         <button type="button" class="btn btn-sm border" onclick="plusValue('jumlah')">
                                             <i class="bx bx-plus"></i>
                                         </button>

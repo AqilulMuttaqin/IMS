@@ -16,7 +16,7 @@ class DataBarangController extends Controller
      */
     public function index()
     {
-        if (Auth::check() && Auth::user()->role === 'admin' ) {
+        if (Auth::check() && Auth::user()->role === 'user' || Auth::user()->role === 'admin') {
             if (request()->ajax()) {
                 $barangs = Barang::with('dataBarang.lokasi')->get();
 
@@ -29,10 +29,15 @@ class DataBarangController extends Controller
                 });
 
                 return datatables()->of($barangs)->make(true);
+            } if (Auth::check() && Auth::user()->role === 'user'){
+                return view('user.home-user', [
+                    'title' => 'Home',
+                ]);
+            } else if (Auth::check() && Auth::user()->role === 'admin'){
+                return view('staff.barang-gudang', [
+                    'title' => 'Barang Gudang',
+                ]);
             }
-            return view('staff.barang-gudang', [
-                'title' => 'Barang Gudang',
-            ]);
         } else if (Auth::check() && Auth::user()->role === 'spv') {
             if(request()->ajax()){
                 $barang = DataBarang::with('lokasi', 'barang')->get();
