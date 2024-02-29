@@ -42,26 +42,25 @@
         </div>
     </div>
 
-    <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel"
+    <div class="modal fade" id="lokasiModal" tabindex="-1" role="dialog" aria-labelledby="lokasiModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="qrCodeModalLabel">QR Code</h5>
+                    <h5 class="modal-title" id="lokasiModalLabel">Daftar Lokasi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-center align-items-center">
-                    <div id="qrCodeContainer"></div>
+                    <div id="lokasiContainer"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-sm btn-primary download-qr-code">Download QR Code</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="detailBarangModal" tabindex="-1" role="dialog" aria-labelledby="detailBarangModalLabel"
+    <!-- <div class="modal fade" id="detailBarangModal" tabindex="-1" role="dialog" aria-labelledby="detailBarangModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -95,7 +94,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+
+
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -132,19 +133,19 @@
                         name: 'PO_number'
                     },
                     {
-                        data: function(row) {
-                            return row.lokasi.map(function(item) {
-                                return item.nama;
-                            }).join('<br>');
-                        },
-                        name: 'lokasi.nama'
+                        data: null,
+                        name: 'lokasi.nama',
+                        render: function(data, type, row) {
+                            return `
+                            <button class="btn btn-sm btn-primary d-flex align-items-center btn-lihat-lokasi">
+                                <i class="bx bx-show-alt me-1"></i>
+                                Lihat Lokasi
+                            </button>
+                            `;
+                        }
                     },
                     {
-                        data: function(row) {
-                            return row.lokasi.map(function(item) {
-                                return item.pivot.qty;
-                            }).join('<br>');
-                        },
+                        data: 'total_qty',
                         name: 'lokasi.pivot.qty'
                     },
                     {
@@ -170,6 +171,23 @@
                         }
                     }
                 ]
+            });
+
+            $('#dataDetailBarang').on('click', '.btn-lihat-lokasi', function() {
+                var row = $(this).closest('tr');
+                var data = table.row(row).data();
+
+                var dataBarang = data.kode_js;
+                var barangNama = data.barang.nama;
+
+                var lokasiHtml = '';
+                $.each(data.lokasi, function(index, lokasi) {
+                    lokasiHtml += '<div>' + (index + 1) + '. ' + lokasi.nama + ' - Qty: ' + lokasi.pivot.qty + '</div>';
+                });
+
+                $('#lokasiModalLabel').text('Daftar Lokasi untuk ' + barangNama);
+                $('#lokasiContainer').html(lokasiHtml);
+                $('#lokasiModal').modal('show');
             });
         });
     </script>

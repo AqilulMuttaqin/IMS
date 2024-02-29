@@ -6,6 +6,7 @@ use App\Models\DataBarang;
 use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
 use App\Models\Barang;
+use App\Models\Lokasi;
 use App\Models\Pesanan;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +46,16 @@ class DataBarangController extends Controller
                 $barang->map(function ($item, $key) {
                     $item['DT_RowIndex'] = $key + 1;
                     return $item;
+                });
+
+                $barang->each(function ($item) {
+                    $totalQty = 0;
+            
+                    foreach ($item->lokasi as $lokasi) {
+                        $totalQty += $lokasi->pivot->qty;
+                    }
+            
+                    $item->total_qty = $totalQty;
                 });
     
                 return datatables()->of($barang)->make(true);
@@ -104,8 +115,36 @@ class DataBarangController extends Controller
     }
 
     public function tes(){
-        $pesanan = Pesanan::with('barang', 'user')->get();
+        $lokasiId = 1;
+        $barang_id = 2;
+        $pesanan = DataBarang::with('barang', 'lokasi')->get();
 
+        $pesanan->each(function ($item) {
+            $totalQty = 0;
+    
+            foreach ($item->lokasi as $lokasi) {
+                $totalQty += $lokasi->pivot->qty;
+            }
+    
+            $item->total_qty = $totalQty;
+        });
+
+        $dataBarang = DataBarang::whereHas('lokasi', function ($query) use ($lokasiId) {
+            $query->where('lokasi_id', $lokasiId);
+        })->with(['barang', 'lokasi' => function ($query) use ($lokasiId) {
+            $query->where('lokasi_id', $lokasiId);
+        }])->get();
+    
+        $dataBarang->each(function ($item) use ($lokasiId) {
+            $item->qty = $item->lokasi->firstWhere('id', $lokasiId)->pivot->qty;
+        });
+
+        $lokasi = Lokasi::whereHas('dataBarang', function ($query) use ($barang_id) {
+            $query->where('id', $barang_id);
+        })->with(['dataBarang' => function ($query) use ($barang_id) {
+            $query->where('id', $barang_id);
+        }])->get();
+        
         return response()->json($pesanan);
     }
 }
