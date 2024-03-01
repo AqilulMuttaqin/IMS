@@ -41,7 +41,7 @@ class DataBarangController extends Controller
             }
         } else if (Auth::check() && Auth::user()->role === 'spv') {
             if(request()->ajax()){
-                $barang = DataBarang::with('lokasi', 'barang')->get();
+                $barang = DataBarang::with('lokasi', 'barang')->orderBy('kode_js', 'asc')->get();
     
                 $barang->map(function ($item, $key) {
                     $item['DT_RowIndex'] = $key + 1;
