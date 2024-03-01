@@ -35,6 +35,12 @@ class KeranjangController extends Controller
 
                     $keranjang = Keranjang::with('barang')->where('user_id', auth()->user()->id)->first();
                     break;
+                case 'update':
+                    $user = auth()->user();
+                    $keranjang = $user->keranjang()->firstOrFail();
+
+                    $keranjang->barang()->updateExistingPivot(request('kode_js'), ['qty' => request('qty')]);
+                    break;
                 default:
                     return response()->json([]);
             }

@@ -6,7 +6,9 @@ use App\Models\Pesanan;
 use App\Http\Requests\StorePesananRequest;
 use App\Http\Requests\UpdatePesananRequest;
 use App\Models\Barang;
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PesananController extends Controller
 {
@@ -34,7 +36,22 @@ class PesananController extends Controller
      */
     public function create()
     {
-        //
+        $userKeranjang = Keranjang::where('user_id', auth()->id())->firstOrFail();
+
+        $pesanan = new Pesanan();
+        $pesanan->user_id = auth()->id();
+        $pesanan->save();
+
+        $userKeranjang->barang()->each(function ($barang) use ($pesanan) {
+            $qty = $barang->pivot->qty;
+            Log::info('check qty.'.$qty.' barang id.'.$barang->kode_js.' pesanan id.'.$pesanan->id.' user id.'.$pesanan->user_id.'.');
+            $pesanan->barang()->attach($barang->kode_js, ['qty' => $qty]);
+        });
+
+        $userKeranjang->delete();
+
+        alert()->success('Pesanan berhasil dibuat, silahkan tunggu konfirmasi', 'Berhasil');
+        //return response()->json($pesanan);
     }
 
     /**

@@ -99,7 +99,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-primary">Pesan</button>
+                    <button type="submit" class="btn btn-sm btn-primary" id="pesanButton">Pesan</button>
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -149,16 +149,29 @@
         const plusValue = (id) => {
             const inputElement = document.getElementById(id);
             inputElement.value = parseInt(inputElement.value) + 1;
+            if(id !== 'jumlah'){
+                debounceAjaxRequest(id, inputElement.value);
+            }
         }
 
         const minValue = (id) => {
             const inputElement = document.getElementById(id);
             const newValue = parseInt(inputElement.value) - 1;
             inputElement.value = newValue >= 0 ? newValue : 0;
+            if(id !== 'jumlah'){
+                debounceAjaxRequest(id, inputElement.value);
+            }
         }
 
         const validateInput = (input) => {
             input.value = input.value.replace(/[^0-9]/g, '');
+            const id = input.id;
+            const data = input.value;
+            console.log(id);
+            console.log(data);
+            if(id !== 'jumlah'){
+                debounceAjaxRequest(id, data);
+            }
         }
 
         $(document).ready(function() {
@@ -229,8 +242,49 @@
             });
         });
 
+        function togglePesanButtonState(disabled) {
+            $('#pesanButton').prop('disabled', disabled);
+        }
+
+        $(document).ready(function() {
+            $('#pesanButton').on('click', function() {
+                $.ajax({
+                    url: "{{ route('user.pesan') }}",
+                    method: 'GET',
+                    data: { 
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    }
+                });
+            });
+        });
+
         function deleteBarang(kode_js){
             keranjang('delete', kode_js);
+        }
+
+        var debounceTimers = {};
+        var pendingAjaxRequests = [];
+
+        function debounceAjaxRequest(itemId, data) {
+            if (!debounceTimers[itemId]) {
+                pendingAjaxRequests.push(itemId);
+                debounceTimers[itemId] = setTimeout(function () {
+                    keranjang('update', itemId, data);
+                    console.log("Sending AJAX request for item with ID:", itemId);
+                    console.log("Pending AJAX requests:", pendingAjaxRequests);
+                    var index = pendingAjaxRequests.indexOf(itemId);
+                    if (index !== -1) {
+                        pendingAjaxRequests.splice(index, 1);
+                    }
+                    if (pendingAjaxRequests.length === 0) {
+                        togglePesanButtonState(false);
+                    }
+                    delete debounceTimers[itemId];
+                }, 3000);
+                togglePesanButtonState(true);
+            }
         }
 
         function appendKeranjang(response){
@@ -300,7 +354,6 @@
                             timer: 1000
                         });
                     } else if (action === 'delete'){
-                        console.log(response);
                         appendKeranjang(response);
                         Swal.fire({
                             title: "Success",

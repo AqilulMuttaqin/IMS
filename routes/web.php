@@ -61,7 +61,9 @@ Route::middleware(['auth','role:user'])->group(function () {
         return view('user.data-barang', ['title' => 'Data Barang']);
     })->name('user.barang');
     Route::get('/user/keranjang', [KeranjangController::class, 'index'])->name('user.keranjang');
+    Route::get('/user/pesan', [PesananController::class, 'create'])->name('user.pesan');
 });
+
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/staff', [AdminController::class, 'index'])->name('staff.dashboard');
     Route::post('/qr-generate', [QrCodeController::class, 'generate'])->name('qr.generate');
