@@ -366,7 +366,14 @@
             get_data('pesananPerluDisiapkan', 'disiapkan');
 
             get_data('pesananPerluDikirim', 'dikirim');
+            
             //setInterval(updateNotif, 60000);
+
+            setInterval(function() {
+                updateContainers('pesananMasuk', 'pending');
+                updateContainers('pesananPerluDisiapkan', 'disiapkan');
+                updateContainers('pesananPerluDikirim', 'dikirim');
+            }, 300000);
         });
 
         function get_data(containerId, status) {
