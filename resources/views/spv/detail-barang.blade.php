@@ -120,8 +120,8 @@
                     url: '{{ url()->current() }}',
                     type: 'GET'
                 },
-                order: [[1, 'asc']],
-                columns: [{
+                columns: [
+                    {
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
