@@ -33,432 +33,10 @@
                     <div class="row" id="pesananMasuk"></div>
                 </div>
                 <div class="tab-pane fade" id="menu-2" role="tabpanel">
-                    <div class="row" id="pesananPerluDisiapkan">
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="row" id="pesananPerluDisiapkan"></div>
                 </div>
                 <div class="tab-pane fade" id="menu-3" role="tabpanel">
-                    <div class="row" id="pesananPerluDikirim">
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3 my-2">
-                            <div class="card border">
-                                <div class="card-header pb-1">
-                                    <h6 class="text-center">Pesanan Line .....</h6>
-                                    <hr>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="label">Nama/Label</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="label">: Pesanan 1</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="detail">Detail</label>
-                                        </div>
-                                        <div class="col-6">
-                                            <p id="detail">: <button type="button" class="btn btn-sm btn-primary"
-                                                    id="btnDetail" data-bs-toggle="modal"
-                                                    data-bs-target="#detailKonfirmasiModal">
-                                                    <i class="bx bx-show"></i>
-                                                </button>
-                                            </p>
-                                        </div>
-                                        <hr>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-warning w-100">
-                                                Konfirmasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="row" id="pesananPerluDikirim"></div>
                 </div>
             </div>
         </div>
@@ -704,7 +282,7 @@
 
     <div class="modal fade" id="detailKonfirmasiModal" tabindex="-1" role="dialog"
         aria-labelledby="detailKonfirmasiModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="detailKonfirmasiModalLabel">Detail Pesanan Line ...</h5>
@@ -713,7 +291,7 @@
                 <div class="modal-body">
                     <div class="col-xxl" id="modal-body">
                         <div class="row mb-3">
-                            <label class="col-sm-8 col-form-label" for="label">Nama/Label Pesanan</label>
+                            <label class="col-sm-8 col-form-label" for="label">Tanggal Pesan</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control text-center" id="label" name="label"
                                     value="pesanan 1" disabled>
@@ -750,7 +328,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -758,30 +336,30 @@
 
     <script>
         $(document).ready(function() {
-            $('#pesananMasuk').on('show.bs.collapse', function() {
-                $(this).prev().find('.arrow').removeClass('bx-right-arrow-alt').addClass(
-                    'bx-down-arrow-alt');
-            });
-            $('#pesananMasuk').on('hide.bs.collapse', function() {
-                $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
-                    'bx-right-arrow-alt');
-            });
-            $('#pesananPerluDisiapkan').on('show.bs.collapse', function() {
-                $(this).prev().find('.arrow').removeClass('bx-right-arrow-alt').addClass(
-                    'bx-down-arrow-alt');
-            });
-            $('#pesananPerluDisiapkan').on('hide.bs.collapse', function() {
-                $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
-                    'bx-right-arrow-alt');
-            });
-            $('#pesananPerluDikirim').on('show.bs.collapse', function() {
-                $(this).prev().find('.arrow').removeClass('bx-right-arrow-alt').addClass(
-                    'bx-down-arrow-alt');
-            });
-            $('#pesananPerluDikirim').on('hide.bs.collapse', function() {
-                $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
-                    'bx-right-arrow-alt');
-            });
+            // $('#pesananMasuk').on('show.bs.collapse', function() {
+            //     $(this).prev().find('.arrow').removeClass('bx-right-arrow-alt').addClass(
+            //         'bx-down-arrow-alt');
+            // });
+            // $('#pesananMasuk').on('hide.bs.collapse', function() {
+            //     $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
+            //         'bx-right-arrow-alt');
+            // });
+            // $('#pesananPerluDisiapkan').on('show.bs.collapse', function() {
+            //     $(this).prev().find('.arrow').removeClass('bx-right-arrow-alt').addClass(
+            //         'bx-down-arrow-alt');
+            // });
+            // $('#pesananPerluDisiapkan').on('hide.bs.collapse', function() {
+            //     $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
+            //         'bx-right-arrow-alt');
+            // });
+            // $('#pesananPerluDikirim').on('show.bs.collapse', function() {
+            //     $(this).prev().find('.arrow').removeClass('bx-right-arrow-alt').addClass(
+            //         'bx-down-arrow-alt');
+            // });
+            // $('#pesananPerluDikirim').on('hide.bs.collapse', function() {
+            //     $(this).prev().find('.arrow').removeClass('bx-down-arrow-alt').addClass(
+            //         'bx-right-arrow-alt');
+            // });
 
             get_data('pesananMasuk', 'pending');
 
@@ -812,7 +390,7 @@
                         var cardCardBody = $('<div class="card-body"></div>');
 
                         var row = $('<div class="row"></div>');
-                        var nameLabelCol = $('<div class="col-6"><label for="label">Nama/Label</label></div>');
+                        var nameLabelCol = $('<div class="col-6"><label for="label">Tanggal</label></div>');
                         var nameValueCol = $('<div class="col-6"><p id="label">: ' + pesanan.user.name + '</p></div>');
                         var detailLabelCol = $('<div class="col-6"><label for="detail">Detail</label></div>');
                         var detailValueCol = $(
