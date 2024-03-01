@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DataBarangController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
@@ -59,6 +60,7 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::get('user/data-barang', function () {
         return view('user.data-barang', ['title' => 'Data Barang']);
     })->name('user.barang');
+    Route::get('/user/keranjang', [KeranjangController::class, 'index'])->name('user.keranjang');
 });
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/staff', [AdminController::class, 'index'])->name('staff.dashboard');

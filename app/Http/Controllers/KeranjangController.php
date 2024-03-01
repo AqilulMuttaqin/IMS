@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Keranjang;
 use App\Http\Requests\StoreKeranjangRequest;
 use App\Http\Requests\UpdateKeranjangRequest;
+use App\Models\Barang;
+use Illuminate\Http\Request;
 
 class KeranjangController extends Controller
 {
@@ -13,7 +15,33 @@ class KeranjangController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()){
+            $action = request('action');
+            switch ($action) {
+                case 'keranjang':
+                    $keranjang = Keranjang::with('barang')->where('user_id', auth()->user()->id)->first();
+                    break;
+                case 'add':
+                    $user = auth()->user();
+                    $keranjang = $user->keranjang()->firstOrCreate([]);
+                    $barang = Barang::where('kode_js', request('kode_js'))->firstOrFail();
+                    $keranjang->barang()->attach($barang->kode_js, ['qty' => request('qty')]);
+                    break;
+                case 'delete':
+                    $user = auth()->user();
+                    $keranjang = $user->keranjang()->firstOrFail();
+
+                    $keranjang->barang()->detach(request('kode_js'));
+
+                    $keranjang = Keranjang::with('barang')->where('user_id', auth()->user()->id)->first();
+                    break;
+                default:
+                    return response()->json([]);
+            }
+
+            return response()->json($keranjang);
+
+        }
     }
 
     /**
@@ -27,9 +55,17 @@ class KeranjangController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreKeranjangRequest $request)
+    public function store(Request $request)
     {
-        //
+        $user = auth()->user();
+        
+        $keranjang = $user->keranjang()->firstOrCreate([]);
+
+        $barang = Barang::where('kode_js', $request->kode_js)->firstOrFail();
+
+        $keranjang->barang()->attach($barang->kode_js, ['qty' => $request->qty]);
+
+        return response()->json(['message' => 'Barang appended to keranjang successfully']);
     }
 
     /**
