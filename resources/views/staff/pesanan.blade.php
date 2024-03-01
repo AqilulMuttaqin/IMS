@@ -1,51 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- Container Content Data Pesanan -->
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <h5 class="card-header">Data Pesanan</h5>
-            <div class="table-responsive text-nowrap p-3 pt-0">
-                <table class="table table-striped" id="dataPesanan">
-                    <thead>
-                        <tr>
-                            <th style="width: 20px;">No</th>
-                            <th>Nama Pemesan</th>
-                            <th>Barang Pesanan</th>
-                            <th>Qty</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- <tr>
-                                <td class="text-center">1</td>
-                                <td>Albert Cook</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary d-flex align-items-center">
-                                        <i class="bx bx-show-alt me-1"></i>
-                                        Lihat Pesanan
-                                    </button>
-                                </td>
-                                <td><span class="badge bg-label-info me-1">Request</span></td>
-                            </tr>
+            <div class="card-header">
+                <h5>Data Pesanan</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped" id="dataPesanan">
+                        <thead>
                             <tr>
-                                <td class="text-center">2</td>
-                                <td>Jhon Dee</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary d-flex align-items-center">
-                                        <i class="bx bx-show-alt me-1"></i>
-                                        Lihat Pesanan
-                                    </button>
-                                </td>
-                                <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                            </tr> -->
-                    </tbody>
-                </table>
+                                <th style="width: 20px;">No</th>
+                                <th>Nama Pemesan</th>
+                                <th>Barang Pesanan</th>
+                                <th>Qty</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- DataTable Data Pesanan -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-@endsection
 
-@push('scripts')
+    <!-- JavaScript -->
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -60,7 +43,8 @@
                     url: '{{ url()->current() }}',
                     type: 'GET'
                 },
-                columns: [{
+                columns: [
+                    {
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
@@ -117,4 +101,4 @@
             });
         });
     </script>
-@endpush
+@endsection

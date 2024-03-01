@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- Container Content Data Barang Gudang -->
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
             <div class="card-header">
@@ -12,13 +13,13 @@
                         <thead>
                             <tr>
                                 <th style="width: 20px">No</th>
-                                {{-- <th>Kode JS</th> --}}
                                 <th>Nama</th>
                                 <th>Stok</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- DataTable Data Barang Gudang -->
                         </tbody>
                     </table>
                 </div>
@@ -26,6 +27,7 @@
         </div>
     </div>
 
+    <!-- JavaScript -->
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -41,14 +43,11 @@
                     url: '{{ url()->current() }}',
                     type: 'GET'
                 },
-                columns: [{
+                columns: [
+                    {
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
-                    // {
-                    //     data: 'kode_js',
-                    //     name: 'kode_js'
-                    // },
                     {
                         data: 'nama',
                         name: 'nama'
