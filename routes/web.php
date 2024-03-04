@@ -55,9 +55,7 @@ Route::middleware(['auth','role:user'])->group(function () {
     // Route::get('/user', [UserController::class, 'index'])->name('user.home');
     Route::get('/user', [DataBarangController::class, 'index'])->name('user.home');
     Route::get('user/pesanan', [PesananController::class, 'index'])->name('user.pesanan');
-    Route::get('user/data-barang', function () {
-        return view('user.data-barang', ['title' => 'Data Barang']);
-    })->name('user.barang');
+    Route::get('user/data-barang', [DataBarangController::class, 'show'])->name('user.barang');
     Route::get('/user/keranjang', [KeranjangController::class, 'index'])->name('user.keranjang');
     Route::get('/user/pesan', [PesananController::class, 'create'])->name('user.pesan');
     Route::get('/user/pesan1', [PesananController::class, 'store'])->name('user.pesan1');

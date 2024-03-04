@@ -85,9 +85,28 @@ class DataBarangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DataBarang $dataBarang)
+    public function show()
     {
-        //
+        if (request()->ajax()) {
+            $barangs = Barang::whereHas('dataBarang.lokasi', function ($query) {
+                $query->where('id', auth()->user()->lokasi_id);
+            })->with('dataBarang.lokasi')->get();
+        
+            $barangs->map(function ($barang, $key) {
+                $barang['DT_RowIndex'] = $key + 1;
+                $barang['total_qty'] = $barang->dataBarang->sum(function ($dataBarang) {
+                    return $dataBarang->lokasi->where('id', auth()->user()->lokasi_id)->sum('pivot.qty');
+                });
+                return $barang;
+            });
+        
+            return datatables()->of($barangs)->make(true);
+        }
+        
+        return view('user.data-barang', [
+            'title' => 'Data Barang',
+            'lokasi' => Lokasi::where('id', auth()->user()->lokasi_id)->pluck('nama')->first()
+        ]);
     }
 
     /**
