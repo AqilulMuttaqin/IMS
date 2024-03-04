@@ -32,7 +32,7 @@ class DataBarangController extends Controller
                 return datatables()->of($barangs)->make(true);
             } if (Auth::check() && Auth::user()->role === 'user'){
                 return view('user.home-user', [
-                    'title' => 'Home',
+                    'title' => 'Dashboard',
                 ]);
             } else if (Auth::check() && Auth::user()->role === 'admin'){
                 return view('staff.barang-gudang', [

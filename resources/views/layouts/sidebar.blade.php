@@ -13,7 +13,7 @@
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
         @if (auth()->user() && auth()->user()->role == 'user')
-            <li class="menu-item {{ $title === 'Home' ? 'active' : '' }}">
+            <li class="menu-item {{ $title === 'Dashboard' ? 'active' : '' }}">
                 <a href="{{ route('user.home') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Home">Home</div>

@@ -2,8 +2,8 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="./index.html" class="text-nowrap logo-img">
-                <img src="{{ asset('src/assets/images/logos/dark-logo.svg') }}" width="180" alt="" />
+            <a href="#" class="text-nowrap logo-img pt-3">
+                <img src="{{ asset('images/pims.png') }}" width="170" alt="" />
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
@@ -12,6 +12,40 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
+                @if (auth()->user() && auth()->user()->role == 'user')
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Home</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Dashboard' ? 'active' : ''}}" href="{{ route('user.home')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-layout-dashboard"></i>
+                            </span>
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Pages</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Pesanan' ? 'active' : ''}}" href="{{ route('user.pesanan')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-shopping-cart"></i>
+                            </span>
+                            <span class="hide-menu">Data Pesanan</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Data Barang' ? 'active' : ''}}" href="{{ route('user.barang')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Data Barang</span>
+                        </a>
+                    </li>
+                @endif
                 @if (auth()->user() && auth()->user()->role == 'admin')
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
