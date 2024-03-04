@@ -1,38 +1,36 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h5>Data Lokasi</h5>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="d-flex justify-content-end text-end">
-                            <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
-                                data-bs-toggle="modal" data-bs-target="#lokasiModal">
-                                <i class="bx bx-plus me-1"></i>
-                                Tambah Data
-                            </button>
-                        </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h5>Data Lokasi</h5>
+                </div>
+                <div class="col-sm-8">
+                    <div class="d-flex justify-content-end text-end">
+                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
+                            data-bs-toggle="modal" data-bs-target="#lokasiModal">
+                            <i class="ti ti-plus me-1"></i>
+                            Tambah Data
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped" id="dataLokasi">
-                        <thead>
-                            <tr>
-                                <th style="width: 20px">No</th>
-                                <th>Nama Lokasi</th>
-                                <th style="width: 90px;">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-striped" id="dataLokasi">
+                    <thead>
+                        <tr>
+                            <th style="width: 20px">No</th>
+                            <th>Nama Lokasi</th>
+                            <th style="width: 90px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -57,7 +55,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="submitBtn"
-                    onclick="submitLokasiForm()">Submit</button>
+                        onclick="submitLokasiForm()">Submit</button>
                 </div>
             </div>
         </div>
@@ -92,21 +90,21 @@
                         orderable: false,
                         searchable: false,
                         render: function(data, type, row, meta) {
-                            var deleteRoute = "{{ route('spv.hapus-lokasi', ['lokasi' => ':lokasi']) }}";
+                            var deleteRoute =
+                                "{{ route('spv.hapus-lokasi', ['lokasi' => ':lokasi']) }}";
                             var deleteUrl = deleteRoute.replace(':lokasi', row.id);
                             return `
                                 <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    <button type="button" class="btn p-0" data-bs-toggle="dropdown">
+                                        <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <button type="button" class="dropdown-item edit-btn" data-id="${row.id}"><i class="bx bx-edit-alt me-1"></i>
+                                        <button type="button" class="dropdown-item edit-btn" data-id="${row.id}"><i class="ti ti-edit me-1"></i>
                                             Edit</button>
                                         <form action="${deleteUrl}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="dropdown-item deleteBtn"><i class="bx bx-trash me-1"></i>Delete</button>
+                                            <button type="submit" class="dropdown-item deleteBtn"><i class="ti ti-trash me-1"></i>Delete</button>
                                         </form>
                                     </div>
                                 </div>

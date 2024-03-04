@@ -1,75 +1,70 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h5>Data Master Barang</h5>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="d-flex justify-content-end text-end">
-                            <div class="dropdown text-end me-2">
-                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle"
-                                    data-bs-toggle="dropdown">
-                                    Download QR Code
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('download-zip') }}"><i
-                                            class="bx bxs-file-archive me-1"></i> Download ZIP</a>
-                                    <a class="dropdown-item" href="{{ route('download-pdf') }}" target="_blank"><i
-                                            class="bx bxs-file-pdf me-1"></i> Download PDF</a>
-                                </div>
-                            </div>
-                            <div class="dropdown text-end me-2">
-                                <button type="button" class="btn btn-sm btn-success dropdown-toggle"
-                                    data-bs-toggle="dropdown">
-                                    Impor & Ekspor
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('spv.export-barang') }}"><i
-                                            class="bx bxs-file-export me-1"></i> Export
-                                        Excel</a>
-                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal"
-                                        style="cursor: pointer;"><i class="bx bxs-file-import me-1"></i> Import Excel</a>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
-                                data-bs-toggle="modal" data-bs-target="#barangModal">
-                                <i class="bx bx-plus me-1"></i>
-                                Tambah Data
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h5>Data Master Barang</h5>
+                </div>
+                <div class="col-sm-8">
+                    <div class="d-flex justify-content-end text-end">
+                        <div class="dropdown text-end me-2">
+                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                Download QR Code
                             </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('download-zip') }}"><i
+                                        class="ti ti-file-zip me-1"></i> Download ZIP</a>
+                                <a class="dropdown-item" href="{{ route('download-pdf') }}" target="_blank"><i
+                                        class="ti ti-file-text me-1"></i> Download PDF</a>
+                            </div>
                         </div>
+                        <div class="dropdown text-end me-2">
+                            <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                                Impor & Ekspor
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('spv.export-barang') }}"><i
+                                        class="ti ti-file-export me-1"></i> Export
+                                    Excel</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal"
+                                    style="cursor: pointer;"><i class="ti ti-file-import me-1"></i> Import Excel</a>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
+                            data-bs-toggle="modal" data-bs-target="#barangModal">
+                            Tambah Data
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-striped" id="dataBarang">
-                        <thead>
-                            <tr>
-                                <th style="width: 20px">No</th>
-                                <th>Kode JS</th>
-                                <th>Nama</th>
-                                <th>Min</th>
-                                <th>Max</th>
-                                <th>Price($)</th>
-                                <th style="width: 90px">QR Code</th>
-                                <th style="width: 30px;">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-striped" id="dataBarang">
+                    <thead>
+                        <tr>
+                            <th style="width: 20px">No</th>
+                            <th>Kode JS</th>
+                            <th>Nama</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>Price($)</th>
+                            <th style="width: 90px">QR Code</th>
+                            <th style="width: 30px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="qrCodeModalLabel">QR Code</h5>
@@ -88,7 +83,7 @@
 
     <div class="modal fade" id="barangModal" tabindex="-1" role="dialog" aria-labelledby="barangModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="barangModalLabel"></h5>
@@ -208,7 +203,7 @@
                                 <div class="qrcode">
                                     <button class="btn btn-sm btn-primary d-flex align-items-center view-qr-code"
                                         data-id="${row.kode_js}" data-nama="${row.nama}">
-                                        <i class="bx bxs-barcode me-1"></i>
+                                        <i class="ti ti-qrcode me-1"></i>
                                         QR code
                                     </button>
                                 </div>

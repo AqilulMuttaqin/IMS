@@ -1,7 +1,6 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-4 mb-4">
             <div class="card">
@@ -12,8 +11,7 @@
                     </div>
                     <div class="card-title d-flex align-items-center justify-content-center">
                         <div class="avatar flex-shrink-0">
-                            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success"
-                                class="rounded" />
+                            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
                         </div>
                     </div>
                 </div>
@@ -28,8 +26,7 @@
                     </div>
                     <div class="card-title d-flex align-items-center justify-content-center">
                         <div class="avatar flex-shrink-0">
-                            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success"
-                                class="rounded" />
+                            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
                         </div>
                     </div>
                 </div>
@@ -44,8 +41,7 @@
                     </div>
                     <div class="card-title d-flex align-items-center justify-content-center">
                         <div class="avatar flex-shrink-0">
-                            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success"
-                                class="rounded" />
+                            <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
                         </div>
                     </div>
                 </div>

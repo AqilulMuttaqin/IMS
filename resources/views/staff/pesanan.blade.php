@@ -1,29 +1,27 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('content')
     <!-- Container Content Data Pesanan -->
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
-            <div class="card-header">
-                <h5>Data Pesanan</h5>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-striped" id="dataPesanan">
-                        <thead>
-                            <tr>
-                                <th style="width: 20px;">No</th>
-                                <th>Nama Pemesan</th>
-                                <th>Barang Pesanan</th>
-                                <th>Qty</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- DataTable Data Pesanan -->
-                        </tbody>
-                    </table>
-                </div>
+    <div class="card">
+        <div class="card-header">
+            <h5>Data Pesanan</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-striped" id="dataPesanan">
+                    <thead>
+                        <tr>
+                            <th style="width: 20px;">No</th>
+                            <th>Nama Pemesan</th>
+                            <th>Barang Pesanan</th>
+                            <th>Qty</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- DataTable Data Pesanan -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -43,8 +41,7 @@
                     url: '{{ url()->current() }}',
                     type: 'GET'
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
@@ -75,25 +72,25 @@
                             var statusClass;
                             switch (data) {
                                 case "pending":
-                                    statusClass = "bg-label-danger";
+                                    statusClass = "bg-danger";
                                     break;
                                 case "disiapkan":
-                                    statusClass = "bg-label-warning";
+                                    statusClass = "bg-warning";
                                     break;
                                 case "dikirim":
-                                    statusClass = "bg-label-info";
+                                    statusClass = "bg-info";
                                     break;
                                 case "terkirim":
-                                    statusClass = "bg-label-primary";
+                                    statusClass = "bg-primary";
                                     break;
                                 case "selesai":
-                                    statusClass = "bg-label-info";
+                                    statusClass = "bg-info";
                                     break;
                                 default:
                                     statusClass = "";
                             }
                             return `
-                                <td><span class="badge ${statusClass} me-1">`+ data + `</span></td>
+                                <td><span class="badge ${statusClass} me-1">` + data + `</span></td>
                             `;
                         }
                     },

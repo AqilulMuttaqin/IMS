@@ -1,46 +1,44 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h5>Data User</h5>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="d-flex justify-content-end text-end">
-                            <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2" id="tambahDataBtn">
-                                <i class="bx bx-plus me-1"></i>
-                                Tambah Data
-                            </button>
-                        </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h5>Data User</h5>
+                </div>
+                <div class="col-sm-8">
+                    <div class="d-flex justify-content-end text-end">
+                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2"
+                            id="tambahDataBtn">
+                            Tambah Data
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped" id="dataUser">
-                        <thead>
-                            <tr>
-                                <th style="width: 20px">No</th>
-                                <th>NIK</th>
-                                <th>Nama</th>
-                                <th>Role</th>
-                                <th style="width: 30px;">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-striped" id="dataUser">
+                    <thead>
+                        <tr>
+                            <th style="width: 20px">No</th>
+                            <th>NIK</th>
+                            <th>Nama</th>
+                            <th>Role</th>
+                            <th style="width: 30px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="userModalLabel"></h5>
@@ -50,11 +48,13 @@
                     <form id="userForm">
                         <div class="form-group mb-3">
                             <label for="NIK">NIK</label>
-                            <input type="text" class="form-control form-control-user" id="NIK" name="NIK" required autofocus value="" maxlength="6" minlength="6">
+                            <input type="text" class="form-control form-control-user" id="NIK" name="NIK"
+                                required autofocus value="" maxlength="6" minlength="6">
                         </div>
                         <div class="form-group mb-3">
                             <label for="name">NAMA</label>
-                            <input type="text" class="form-control form-control-user" id="name" name="name" required autofocus value="">
+                            <input type="text" class="form-control form-control-user" id="name" name="name"
+                                required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="role">ROLE</label>
@@ -67,13 +67,15 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="password">PASSWORD</label>
-                            <input type="text" class="form-control form-control-user" id="password" name="password" required autofocus value="">
+                            <input type="text" class="form-control form-control-user" id="password" name="password"
+                                required autofocus value="">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitUserForm()">Save Change</button>
+                    <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitUserForm()">Save
+                        Change</button>
                 </div>
             </div>
         </div>
@@ -121,17 +123,16 @@
                             var deleteUrl = deleteRoute.replace(':user', row.NIK);
                             return `
                                 <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    <button type="button" class="btn p-0" data-bs-toggle="dropdown">
+                                        <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <button type="button" class="dropdown-item edit-btn" data-js="${row.NIK}"><i class="bx bx-edit-alt me-1"></i>
+                                        <button type="button" class="dropdown-item edit-btn" data-js="${row.NIK}"><i class="ti ti-edit me-1"></i>
                                             Edit</button>
                                         <form action="${deleteUrl}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="dropdown-item deleteBtn"><i class="bx bx-trash me-1"></i>Delete</button>
+                                            <button type="submit" class="dropdown-item deleteBtn"><i class="ti ti-trash me-1"></i>Delete</button>
                                         </form>
                                     </div>
                                 </div>
@@ -142,57 +143,58 @@
             });
 
             $('#dataUser').on('click', '.confirm-delete', function() {
-                    var row = table.row($(this).closest('tr')).data();
-                    var NIK = row.NIK;
-                    var form = $(this).closest('form');
+                var row = table.row($(this).closest('tr')).data();
+                var NIK = row.NIK;
+                var form = $(this).closest('form');
 
-                    Swal.fire({
-                        title: 'Apakah Anda yakin?',
-                        text: "Anda tidak akan bisa mengembalikannya!",
-                        icon: 'question',
-                        iconColor: 'red',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#aaa',
-                        confirmButtonText: 'Ya! Hapus',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
-                    });
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda tidak akan bisa mengembalikannya!",
+                    icon: 'question',
+                    iconColor: 'red',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#aaa',
+                    confirmButtonText: 'Ya! Hapus',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
                 });
+            });
 
-                $('#dataUser').on('click', '.edit-btn', function() {
-                    var NIK = $(this).data('nik');
-                    var rowData = table.row($(this).parents('tr')).data();
+            $('#dataUser').on('click', '.edit-btn', function() {
+                var NIK = $(this).data('nik');
+                var rowData = table.row($(this).parents('tr')).data();
 
-                    $('#NIK').val(rowData.NIK).prop('disabled', true);
-                    $('#name').val(rowData.name);
-                    $('#role').val(rowData.role);
-                    $('#password').val(rowData.pw);
-                    $('#submitBtn').text('Edit');
-                    $('#userModalLabel').text('Edit Data User');
-                    $('#userForm').attr('action', '{{ route('spv.update-user', ['user' => ':user']) }}'.replace(':user', rowData.NIK));
+                $('#NIK').val(rowData.NIK).prop('disabled', true);
+                $('#name').val(rowData.name);
+                $('#role').val(rowData.role);
+                $('#password').val(rowData.pw);
+                $('#submitBtn').text('Edit');
+                $('#userModalLabel').text('Edit Data User');
+                $('#userForm').attr('action', '{{ route('spv.update-user', ['user' => ':user']) }}'.replace(
+                    ':user', rowData.NIK));
 
-                    $('#userModal').modal('show');
-                });
+                $('#userModal').modal('show');
+            });
 
-                $('#tambahDataBtn').click(function() {
-                    resetFormFields();
-                    $('#NIK').prop('disabled', false);
-                    $('#submitBtn').text('Submit');
-                    $('#userModalLabel').text('Tambah User');
-                    $('#userForm').attr('action', '{{ route('spv.tambah-user') }}');
+            $('#tambahDataBtn').click(function() {
+                resetFormFields();
+                $('#NIK').prop('disabled', false);
+                $('#submitBtn').text('Submit');
+                $('#userModalLabel').text('Tambah User');
+                $('#userForm').attr('action', '{{ route('spv.tambah-user') }}');
 
-                    $('#userModal').modal('show');
-                });
+                $('#userModal').modal('show');
+            });
 
-                function resetFormFields() {
-                    $('#NIK').val('');
-                    $('#name').val('');
-                    $('#role').val('');
-                    $('#password').val('');
-                }
+            function resetFormFields() {
+                $('#NIK').val('');
+                $('#name').val('');
+                $('#role').val('');
+                $('#password').val('');
+            }
         });
 
         function submitUserForm() {
