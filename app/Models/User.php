@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'role',
         'pw',
+        'lokasi_id'
     ];
 
     public function getRedirectRoute()
@@ -45,6 +46,11 @@ class User extends Authenticatable
     public function keranjang()
     {
         return $this->hasOne(Keranjang::class);
+    }
+
+    public function lokasi()
+    {
+        return $this->belongsTo(Lokasi::class);
     }
 
     /**
