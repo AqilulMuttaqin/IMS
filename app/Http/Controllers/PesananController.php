@@ -6,7 +6,9 @@ use App\Models\Pesanan;
 use App\Http\Requests\StorePesananRequest;
 use App\Http\Requests\UpdatePesananRequest;
 use App\Models\Barang;
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PesananController extends Controller
 {
@@ -16,7 +18,13 @@ class PesananController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            $pesanan = Pesanan::with('user', 'barang')->get();
+            $pesanan = Pesanan::with('user', 'barang');
+
+            if (auth()->user()->role === 'admin') {
+                $pesanan = $pesanan->get();
+            } elseif (auth()->user()->role === 'user') {
+                $pesanan = $pesanan->where('user_id', auth()->id())->get();
+            }
 
             $pesanan->map(function ($item, $key) {
                 $item['DT_RowIndex'] = $key + 1;
@@ -26,7 +34,11 @@ class PesananController extends Controller
             return datatables()->of($pesanan)->make(true);
         };
 
-        return view('staff.pesanan', ['title' => 'Pesanan']);
+        if (auth()->user()->role === 'admin') {
+            return view('staff.pesanan', ['title' => 'Pesanan']);
+        } elseif (auth()->user()->role === 'user') {
+            return view('user.pesanan', ['title' => 'Pesanan']);
+        }
     }
 
     /**
@@ -34,15 +46,38 @@ class PesananController extends Controller
      */
     public function create()
     {
-        //
+        $userKeranjang = Keranjang::where('user_id', auth()->id())->firstOrFail();
+
+        $pesanan = new Pesanan();
+        $pesanan->user_id = auth()->id();
+        $pesanan->save();
+
+        $userKeranjang->barang()->each(function ($barang) use ($pesanan) {
+            $qty = $barang->pivot->qty;
+            $pesanan->barang()->attach($barang->kode_js, ['qty' => $qty]);
+        });
+
+        $userKeranjang->delete();
+
+        alert()->success('Pesanan berhasil dibuat, silahkan tunggu konfirmasi', 'Berhasil');
+        //return response()->json($pesanan);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePesananRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode_js' => 'required',
+            'qty' => 'required'
+        ]);
+
+        $pesanan = new Pesanan();
+        $pesanan->user_id = auth()->id();
+        $pesanan->save();
+
+        $pesanan->barang()->attach($request->input('kode_js'), ['qty' => $request->input('qty')]);
     }
 
     /**

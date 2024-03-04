@@ -13,7 +13,7 @@ class Pesanan extends Model
 
     protected $fillable = [
         'user_id',
-    ];
+    ]; 
 
     public function user()
     {

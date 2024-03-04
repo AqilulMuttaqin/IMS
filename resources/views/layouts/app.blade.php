@@ -22,6 +22,8 @@
     <script src="{{ asset('assets/js/jquery-3.6.4.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.dataTables.min.css') }}">
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/js/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/moment-timezone-with-data.min.js') }}"></script>
 </head>
 
 <body>
@@ -39,10 +41,6 @@
         </div>
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <script>
-        new DataTable('#dataBarangUser');
-        new DataTable('#dataStatusPesanan');
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script> -->
     <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
