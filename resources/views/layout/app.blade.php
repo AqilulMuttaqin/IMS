@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modernize Free</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('src/assets/images/logos/favicon.png') }}" />
+    <title>{{ $title }} - Production Inventory SAI</title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo.png') }}" />
     <link rel="stylesheet" href="{{ asset('src/assets/css/styles.min.css') }}" />
     <script src="{{ asset('src/assets/js/jquery-3.6.4.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/jquery.dataTables.min.css') }}">
