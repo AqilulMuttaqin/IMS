@@ -16,17 +16,24 @@
 </head>
 
 <body>
-    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Content Page Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" ata-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Include -->
         @include('layout.side')
+        <!-- Content Page Wrapper -->
         <div class="body-wrapper">
+            <!-- Navbar Include -->
             @include('layout.nav')
+            <!-- Container Content -->
             <div class="container-fluid">
                 @yield('content')
             </div>
+            <!-- Sweetalert -->
             @include('sweetalert::alert')
         </div>
     </div>
+
+    <!-- Scripts -->
     <script src="{{ asset('src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('src/assets/js/app.min.js') }}"></script>

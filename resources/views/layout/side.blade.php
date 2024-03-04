@@ -1,6 +1,7 @@
+<!-- Content Sidebar -->
 <aside class="left-sidebar">
-    <!-- Sidebar scroll-->
     <div>
+        <!-- Brand Sidebar Logo -->
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="#" class="text-nowrap logo-img pt-3">
                 <img src="{{ asset('images/pims.png') }}" width="170" alt="" />
@@ -9,9 +10,10 @@
                 <i class="ti ti-x fs-8"></i>
             </div>
         </div>
-        <!-- Sidebar navigation-->
+        <!-- Sidebar Navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
+                <!-- Sidebar Menu User -->
                 @if (auth()->user() && auth()->user()->role == 'user')
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -46,6 +48,7 @@
                         </a>
                     </li>
                 @endif
+                <!-- Sidebar Menu Admin -->
                 @if (auth()->user() && auth()->user()->role == 'admin')
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -96,6 +99,7 @@
                         </a>
                     </li>
                 @endif
+                <!-- Sidebar Menu SPV -->
                 @if (auth()->user() && auth()->user()->role == 'spv')
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
