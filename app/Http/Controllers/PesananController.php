@@ -58,9 +58,6 @@ class PesananController extends Controller
         });
 
         $userKeranjang->delete();
-
-        alert()->success('Pesanan berhasil dibuat, silahkan tunggu konfirmasi', 'Berhasil');
-        //return response()->json($pesanan);
     }
 
     /**

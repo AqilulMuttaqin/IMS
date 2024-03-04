@@ -1,12 +1,14 @@
 @extends('layout.app')
 
 @section('content')
+    <!-- Container Content Dashboard User -->
     <div class="card">
         <div class="card-header">
             <div class="row">
                 <div class="col-sm-4">
                     <h5>Data Barang Ready</h5>
                 </div>
+                <!-- Button Keranjang Pesanan -->
                 <div class="col-sm-8">
                     <div class="d-flex justify-content-end text-end">
                         <button type="button" class="btn btn-sm btn-warning d-flex align-items-center" id="showCart">
@@ -18,6 +20,7 @@
             </div>
         </div>
         <div class="card-body">
+            <!-- Tabel Barang Ready -->
             <div class="table-responsive text-nowrap">
                 <table class="table table-striped" id="dataBarangReady">
                     <thead>
@@ -29,15 +32,15 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        <!-- DataTable Data Barang Ready -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="keranjangModal" tabindex="-1" role="dialog" aria-labelledby="keranjangModalLabel"
-        aria-hidden="true">
+    <!-- Modal - Isi Keranjang -->
+    <div class="modal fade" id="keranjangModal" tabindex="-1" role="dialog" aria-labelledby="keranjangModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -57,8 +60,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel"
-        aria-hidden="true">
+    <!-- Modal - Tambah Ke-Keranjang / Request Langsung -->
+    <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -97,6 +100,7 @@
         </div>
     </div>
 
+    <!-- JavaScript -->
     <script>
         const plusValue = (id) => {
             const inputElement = document.getElementById(id);
@@ -226,7 +230,13 @@
                     method: 'GET',
                     data: {},
                     success: function(response) {
-                        window.location.reload();
+                        $('#keranjangModal').modal('hide');
+                        Swal.fire({
+                            title: "Success",
+                            text: "Pesanan berhasil dibuat, silahkan tunggu konfirmasi",
+                            icon: "success",
+                            timer: 3500
+                        });
                     }
                 });
             });
@@ -321,17 +331,17 @@
                         $('#tambahModal').modal('hide');
                         Swal.fire({
                             title: "Success",
-                            text: "Barang dimasukan keranjang",
+                            text: "Barang dimasukan ke-keranjang",
                             icon: "success",
-                            timer: 1000
+                            timer: 3500
                         });
                     } else if (action === 'delete') {
                         appendKeranjang(response);
                         Swal.fire({
                             title: "Success",
-                            text: "Barang dimasukan keranjang",
+                            text: "Barang dihapus dari keranjang",
                             icon: "success",
-                            timer: 1000
+                            timer: 3500
                         });
                     }
                 }
@@ -339,7 +349,6 @@
         }
 
         function pesan(kode_js, qty) {
-
             $.ajax({
                 url: "{{ route('user.pesan1') }}",
                 method: 'GET',
@@ -348,11 +357,12 @@
                     qty: qty
                 },
                 success: function(response) {
+                    $('#tambahModal').modal('hide');
                     Swal.fire({
                         title: "Success",
-                        text: "Pesanan Berhasil Dibuat",
+                        text: "Pesanan berhasil dibuat, silahkan tunggu konfirmasi",
                         icon: "success",
-                        timer: 1000
+                        timer: 3500
                     });
                 }
             })
