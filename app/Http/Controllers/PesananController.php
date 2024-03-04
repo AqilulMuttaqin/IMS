@@ -18,7 +18,13 @@ class PesananController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            $pesanan = Pesanan::with('user', 'barang')->get();
+            $pesanan = Pesanan::with('user', 'barang');
+
+            if (auth()->user()->role === 'admin') {
+                $pesanan = $pesanan->get();
+            } elseif (auth()->user()->role === 'user') {
+                $pesanan = $pesanan->where('user_id', auth()->id())->get();
+            }
 
             $pesanan->map(function ($item, $key) {
                 $item['DT_RowIndex'] = $key + 1;
@@ -28,7 +34,11 @@ class PesananController extends Controller
             return datatables()->of($pesanan)->make(true);
         };
 
-        return view('staff.pesanan', ['title' => 'Pesanan']);
+        if (auth()->user()->role === 'admin') {
+            return view('staff.pesanan', ['title' => 'Pesanan']);
+        } elseif (auth()->user()->role === 'user') {
+            return view('user.pesanan', ['title' => 'Pesanan']);
+        }
     }
 
     /**
@@ -44,7 +54,6 @@ class PesananController extends Controller
 
         $userKeranjang->barang()->each(function ($barang) use ($pesanan) {
             $qty = $barang->pivot->qty;
-            Log::info('check qty.'.$qty.' barang id.'.$barang->kode_js.' pesanan id.'.$pesanan->id.' user id.'.$pesanan->user_id.'.');
             $pesanan->barang()->attach($barang->kode_js, ['qty' => $qty]);
         });
 
@@ -57,9 +66,18 @@ class PesananController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePesananRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode_js' => 'required',
+            'qty' => 'required'
+        ]);
+
+        $pesanan = new Pesanan();
+        $pesanan->user_id = auth()->id();
+        $pesanan->save();
+
+        $pesanan->barang()->attach($request->input('kode_js'), ['qty' => $request->input('qty')]);
     }
 
     /**

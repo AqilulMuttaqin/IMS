@@ -139,6 +139,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-warning" id="tambahkan">Tambahkan</button>
+                    <button type="button" class="btn btn-sm btn-danger" id="sbmtPesanLangsung" hidden>Pesan</button>
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -210,7 +211,7 @@
                                 <button type="button" class="btn btn-sm btn-warning" data-id="${row.kode_js}" id="tambahBarang">
                                     <i class="bx bxs-cart-add"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm btn-danger">
+                                <button type="button" class="btn btn-sm btn-danger" data-id="${row.kode_js}" id="pesanLangsung">
                                     Request Langsung
                                 </button>
                             `;
@@ -232,12 +233,33 @@
                 var jumlah = $('#tambahModal').find('#jumlah').val();
                 keranjang('add', barang, jumlah);
             });
+
+            $('#sbmtPesanLangsung').on('click', function() {
+                var barang = $('#tambahModal').find('#barang').val();
+                var jumlah = $('#tambahModal').find('#jumlah').val();
+                pesan(barang, jumlah);
+            });
+
             $('#dataBarangReady').on('click', '#tambahBarang', function() {
                 var id = $(this).data('id');
                 var rowData = table.row($(this).parents('tr')).data();
 
                 $('#tambahModal').find('.modal-title').text(rowData.nama);
                 $('#tambahModal').find('#barang').val(rowData.kode_js);
+                $('#tambahModal').find('#jumlah').val('1');
+                $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', true);
+                $('#tambahModal').find('#tambahkan').prop('hidden', false);
+                $('#tambahModal').modal('show')
+            });
+            $('#dataBarangReady').on('click', '#pesanLangsung', function() {
+                var id = $(this).data('id');
+                var rowData = table.row($(this).parents('tr')).data();
+
+                $('#tambahModal').find('.modal-title').text(rowData.nama);
+                $('#tambahModal').find('#barang').val(rowData.kode_js);
+                $('#tambahModal').find('#jumlah').val('1');
+                $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', false);
+                $('#tambahModal').find('#tambahkan').prop('hidden', true);
                 $('#tambahModal').modal('show')
             });
         });
@@ -362,6 +384,25 @@
                             timer: 1000
                         });
                     }
+                }
+            })
+        }
+        function pesan(kode_js, qty){
+            
+            $.ajax({
+                url: "{{ route('user.pesan1') }}",
+                method: 'GET',
+                data: { 
+                    kode_js: kode_js,
+                    qty: qty
+                },
+                success: function(response) {
+                        Swal.fire({
+                            title: "Success",
+                            text: "Pesanan Berhasil Dibuat",
+                            icon: "success",
+                            timer: 1000
+                        });
                 }
             })
         }
