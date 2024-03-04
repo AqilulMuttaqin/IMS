@@ -19,4 +19,9 @@ class Lokasi extends Model
     {
         return $this->belongsToMany(DataBarang::class)->withPivot('qty');
     }
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

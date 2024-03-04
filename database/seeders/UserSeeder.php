@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('222222'),
                 'role' => 'admin',
                 'pw' => '222222',
+                'lokasi_id' => 1
             ],
 
             //spv
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('333333'),
                 'role' => 'spv',
                 'pw' => '333333',
+                'lokasi_id' => 2
             ],
 
             //user
@@ -40,6 +42,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('111111'),
                 'role' => 'user',
                 'pw' => '111111',
+                'lokasi_id' => 6
             ]
         ]);
     }
