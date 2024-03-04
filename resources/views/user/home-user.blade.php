@@ -1,46 +1,44 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h5>Data Barang Ready</h5>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="d-flex justify-content-end text-end">
-                            <button type="button" class="btn btn-sm btn-warning d-flex align-items-center" id="showCart">
-                                <i class="bx bxs-cart-alt me-1"></i>
-                                Lihat Keranjang
-                            </button>
-                        </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h5>Data Barang Ready</h5>
+                </div>
+                <div class="col-sm-8">
+                    <div class="d-flex justify-content-end text-end">
+                        <button type="button" class="btn btn-sm btn-warning d-flex align-items-center" id="showCart">
+                            <i class="ti ti-shopping-cart me-1"></i>
+                            Lihat Keranjang
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="table-responsive text-nowrap">
-                    <table class="table table-striped" id="dataBarangReady">
-                        <thead>
-                            <tr>
-                                <th style="width: 20px">No</th>
-                                <th>Nama</th>
-                                <th>Stok</th>
-                                <th style="width: 30px;">Check Out</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-    
-                        </tbody>
-                    </table>
-                </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-striped" id="dataBarangReady">
+                    <thead>
+                        <tr>
+                            <th style="width: 20px">No</th>
+                            <th>Nama</th>
+                            <th>Stok</th>
+                            <th style="width: 30px;">Check Out</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <div class="modal fade" id="keranjangModal" tabindex="-1" role="dialog" aria-labelledby="keranjangModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="keranjangModalLabel">Keranjang Anda</h5>
@@ -48,59 +46,12 @@
                 </div>
                 <div class="modal-body">
                     <form id="keranjangForm">
-                        <div class="col-xxl" id="isiKeranjang">
-                            <div class="row mb-3">
-                                <label class="col-sm-6 col-form-label" for="Jumlah"></label>
-                                <div class="col-sm-4">
-                                    <div class="text-muted text-center">Jumlah</div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-6 col-form-label" for="barang-1">Bolpoin</label>
-                                <div class="col-sm-4">
-                                    <div class="input-group number-spinner">
-                                        <button type="button" class="btn btn-sm border" onclick="minValue('barang-1')">
-                                            <i class="bx bx-minus"></i>
-                                        </button>
-                                        <input type="text" class="form-control text-center" value="1" id="barang-1"
-                                            name="barang-1" oninput="validateInput(this)">
-                                        <button type="button" class="btn btn-sm border" onclick="plusValue('barang-1')">
-                                            <i class="bx bx-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button type="button" class="btn btn-danger">
-                                        <i class="bx bx-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-6 col-form-label" for="barang-2">Kertas</label>
-                                <div class="col-sm-4">
-                                    <div class="input-group number-spinner">
-                                        <button type="button" class="btn btn-sm border" onclick="minValue('barang-2')">
-                                            <i class="bx bx-minus"></i>
-                                        </button>
-                                        <input type="text" class="form-control text-center" value="1" id="barang-2"
-                                            name="barang-2" oninput="validateInput(this)">
-                                        <button type="button" class="btn btn-sm border" onclick="plusValue('barang-2')">
-                                            <i class="bx bx-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button type="button" class="btn btn-danger">
-                                        <i class="bx bx-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="col-xxl" id="isiKeranjang"></div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-primary" id="pesanButton">Pesan</button>
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="pesanButton">Pesan</button>
                 </div>
             </div>
         </div>
@@ -108,7 +59,7 @@
 
     <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tambahModalLabel">Nama Barangnya</h5>
@@ -122,14 +73,14 @@
                                 <div class="col-sm-4">
                                     <div class="input-group number-spinner">
                                         <button type="button" class="btn btn-sm border" onclick="minValue('jumlah')">
-                                            <i class="bx bx-minus"></i>
+                                            <i class="ti ti-minus"></i>
                                         </button>
                                         <input type="text" class="form-control text-center" value="1"
                                             id="barang" name="barang" hidden>
                                         <input type="text" class="form-control text-center" value="1"
                                             id="jumlah" name="jumlah" oninput="validateInput(this)">
                                         <button type="button" class="btn btn-sm border" onclick="plusValue('jumlah')">
-                                            <i class="bx bx-plus"></i>
+                                            <i class="ti ti-plus"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -138,9 +89,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-warning" id="tambahkan">Tambahkan</button>
-                    <button type="button" class="btn btn-sm btn-danger" id="sbmtPesanLangsung" hidden>Pesan</button>
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" id="tambahkan">Tambahkan</button>
+                    <button type="button" class="btn btn-primary" id="sbmtPesanLangsung" hidden>Pesan</button>
                 </div>
             </div>
         </div>
@@ -150,7 +101,7 @@
         const plusValue = (id) => {
             const inputElement = document.getElementById(id);
             inputElement.value = parseInt(inputElement.value) + 1;
-            if(id !== 'jumlah'){
+            if (id !== 'jumlah') {
                 debounceAjaxRequest(id, inputElement.value);
             }
         }
@@ -159,7 +110,7 @@
             const inputElement = document.getElementById(id);
             const newValue = parseInt(inputElement.value) - 1;
             inputElement.value = newValue >= 0 ? newValue : 0;
-            if(id !== 'jumlah'){
+            if (id !== 'jumlah') {
                 debounceAjaxRequest(id, inputElement.value);
             }
         }
@@ -170,7 +121,7 @@
             const data = input.value;
             console.log(id);
             console.log(data);
-            if(id !== 'jumlah'){
+            if (id !== 'jumlah') {
                 debounceAjaxRequest(id, data);
             }
         }
@@ -209,7 +160,7 @@
                         render: function(data, meta, row) {
                             return `
                                 <button type="button" class="btn btn-sm btn-warning" data-id="${row.kode_js}" id="tambahBarang">
-                                    <i class="bx bxs-cart-add"></i>
+                                    <i class="ti ti-shopping-cart-plus"></i>
                                 </button>
                                 <button type="button" class="btn btn-sm btn-danger" data-id="${row.kode_js}" id="pesanLangsung">
                                     Request Langsung
@@ -273,8 +224,7 @@
                 $.ajax({
                     url: "{{ route('user.pesan') }}",
                     method: 'GET',
-                    data: { 
-                    },
+                    data: {},
                     success: function(response) {
                         window.location.reload();
                     }
@@ -282,7 +232,7 @@
             });
         });
 
-        function deleteBarang(kode_js){
+        function deleteBarang(kode_js) {
             keranjang('delete', kode_js);
         }
 
@@ -292,7 +242,7 @@
         function debounceAjaxRequest(itemId, data) {
             if (!debounceTimers[itemId]) {
                 pendingAjaxRequests.push(itemId);
-                debounceTimers[itemId] = setTimeout(function () {
+                debounceTimers[itemId] = setTimeout(function() {
                     keranjang('update', itemId, data);
                     console.log("Sending AJAX request for item with ID:", itemId);
                     console.log("Pending AJAX requests:", pendingAjaxRequests);
@@ -309,11 +259,11 @@
             }
         }
 
-        function appendKeranjang(response){
+        function appendKeranjang(response) {
             var modalTitle = $('#keranjangModal').find('.modal-title');
             var modalBody = $('#keranjangModal').find('#isiKeranjang');
             modalBody.empty();
-                        
+
             modalBody.append(`
             <div class="row mb-3">
             <label class="col-sm-6 col-form-label" for="Jumlah"></label>
@@ -331,18 +281,18 @@
                     <div class="col-sm-4">
                         <div class="input-group number-spinner">
                             <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
-                                <i class="bx bx-minus"></i>
+                                <i class="ti ti-minus"></i>
                             </button>
                             <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
                                 name="${barang.kode_js}" oninput="validateInput(this)">
                             <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
-                                <i class="bx bx-plus"></i>
+                                <i class="ti ti-plus"></i>
                             </button>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-danger" onclick="deleteBarang('${barang.kode_js}')">
-                            <i class="bx bx-trash"></i>
+                            <i class="ti ti-trash"></i>
                         </button>
                     </div>
                 </div>
@@ -354,20 +304,20 @@
             $('#keranjangModal').modal('show')
         }
 
-        function keranjang(action, kode_js, qty){
-            
+        function keranjang(action, kode_js, qty) {
+
             $.ajax({
                 url: "{{ route('user.keranjang') }}",
                 method: 'GET',
-                data: { 
+                data: {
                     action: action,
                     kode_js: kode_js,
                     qty: qty
                 },
                 success: function(response) {
-                    if(action === 'keranjang'){
+                    if (action === 'keranjang') {
                         appendKeranjang(response);
-                    } else if (action === 'add'){
+                    } else if (action === 'add') {
                         $('#tambahModal').modal('hide');
                         Swal.fire({
                             title: "Success",
@@ -375,7 +325,7 @@
                             icon: "success",
                             timer: 1000
                         });
-                    } else if (action === 'delete'){
+                    } else if (action === 'delete') {
                         appendKeranjang(response);
                         Swal.fire({
                             title: "Success",
@@ -387,22 +337,23 @@
                 }
             })
         }
-        function pesan(kode_js, qty){
-            
+
+        function pesan(kode_js, qty) {
+
             $.ajax({
                 url: "{{ route('user.pesan1') }}",
                 method: 'GET',
-                data: { 
+                data: {
                     kode_js: kode_js,
                     qty: qty
                 },
                 success: function(response) {
-                        Swal.fire({
-                            title: "Success",
-                            text: "Pesanan Berhasil Dibuat",
-                            icon: "success",
-                            timer: 1000
-                        });
+                    Swal.fire({
+                        title: "Success",
+                        text: "Pesanan Berhasil Dibuat",
+                        icon: "success",
+                        timer: 1000
+                    });
                 }
             })
         }

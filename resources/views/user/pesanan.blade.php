@@ -1,23 +1,12 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h5 class="card-header">Data Status Pesanan</h5>
-                </div>
-                {{-- <div class="col-sm-8">
-                <div class="d-flex justify-content-end text-end pt-3 pe-3 mb-3">
-                    <button type="button" class="btn btn-sm btn-warning d-flex align-items-center" id="showCart"
-                        data-bs-toggle="modal" data-bs-target="#keranjangModal">
-                        <i class="bx bxs-cart-alt me-1"></i>
-                        Lihat Keranjang
-                    </button>
-                </div>
-            </div> --}}
-            </div>
-            <div class="table-responsive text-nowrap pt-0 p-3">
+    <div class="card">
+        <div class="card-header">
+            <h5>Data Status Pesanan</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
                 <table class="table table-striped" id="dataStatusPesanan">
                     <thead>
                         <tr>
@@ -25,41 +14,11 @@
                             <th>Nama Pesanan</th>
                             <th>Tanggal Dibuat</th>
                             <th>Tanggal Selesai</th>
-                            <th class="text-center" style="width: 90px">Status</th>
-                            <th class="text-center" style="width: 90px">Detail Pesanan</th>
+                            <th style="width: 90px">Status</th>
+                            <th style="width: 90px">Detail Pesanan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Pesanan 1</td>
-                            <td class="text-center">
-                                <span class="badge bg-label-warning">
-                                    Ngenteni Dikonfirm
-                                </span>
-                            </td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-info" id="showCart" data-bs-toggle="modal"
-                                    data-bs-target="#statusPesananModal">
-                                    <i class="bx bx-show"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>Pesanan 2</td>
-                            <td class="text-center">
-                                <span class="badge bg-label-primary">
-                                    Sek Proses
-                                </span>
-                            </td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-info" id="showCart" data-bs-toggle="modal"
-                                    data-bs-target="#statusPesananModal">
-                                    <i class="bx bx-show"></i>
-                                </button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -68,7 +27,7 @@
 
     <div class="modal fade" id="statusPesananModal" tabindex="-1" role="dialog" aria-labelledby="statusPesananModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="statusPesananModalLabel">Detail Pesanan Anda</h5>
@@ -79,7 +38,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -95,13 +54,14 @@
             var table = $('#dataStatusPesanan').DataTable({
                 processing: true,
                 serverSide: true,
-                order: [[2, 'desc']],
+                order: [
+                    [2, 'desc']
+                ],
                 ajax: {
                     url: '{{ url()->current() }}',
                     type: 'GET'
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
@@ -112,25 +72,27 @@
                     {
                         data: 'created_at',
                         name: 'created_at',
-                        render: function(data, row, meta){
-                            var formattedDate = moment.utc(data).tz('Asia/Jakarta').format('D MMM YYYY');
+                        render: function(data, row, meta) {
+                            var formattedDate = moment.utc(data).tz('Asia/Jakarta').format(
+                                'D MMM YYYY');
                             return `
-                                <td class="text-center">`+formattedDate+`</td>
+                                <td class="text-center">` + formattedDate + `</td>
                             `;
                         }
                     },
                     {
                         data: 'edited_at',
                         name: 'null',
-                        render: function(data, row, meta){
-                            if(row.status !== 'selesai'){
+                        render: function(data, row, meta) {
+                            if (row.status !== 'selesai') {
                                 return `
                                     <td class="text-center">-</td>
                                 `;
-                            }else{
-                                var formattedDate = moment.utc(data).tz('Asia/Jakarta').format('D MMM YYYY');
+                            } else {
+                                var formattedDate = moment.utc(data).tz('Asia/Jakarta').format(
+                                    'D MMM YYYY');
                                 return `
-                                    <td class="text-center">`+formattedDate+`</td>
+                                    <td class="text-center">` + formattedDate + `</td>
                                 `;
                             };
                         }
@@ -142,25 +104,25 @@
                             var statusClass;
                             switch (data) {
                                 case "pending":
-                                    statusClass = "bg-label-danger";
+                                    statusClass = "bg-danger";
                                     break;
                                 case "disiapkan":
-                                    statusClass = "bg-label-warning";
+                                    statusClass = "bg-warning";
                                     break;
                                 case "dikirim":
-                                    statusClass = "bg-label-info";
+                                    statusClass = "bg-info";
                                     break;
                                 case "terkirim":
-                                    statusClass = "bg-label-primary";
+                                    statusClass = "bg-primary";
                                     break;
                                 case "selesai":
-                                    statusClass = "bg-label-info";
+                                    statusClass = "bg-info";
                                     break;
                                 default:
                                     statusClass = "";
                             }
                             return `
-                                <td><span class="badge ${statusClass} me-1">`+ data + `</span></td>
+                                <td><span class="badge ${statusClass} me-1">` + data + `</span></td>
                             `;
                         }
                     },
@@ -173,7 +135,7 @@
                             return `
                             <td class="text-center">
                                 <button type="button" class="btn btn-sm btn-info" data-id="${row.id}" id="showCart">
-                                    <i class="bx bx-show"></i>
+                                    <i class="ti ti-eye"></i>
                                 </button>
                             </td>
                             `;
@@ -200,7 +162,7 @@
                             </div>
                         </div>
                         `);
-                
+
                 rowData.barang.forEach(function(barang, index) {
                     modalBody.append(`
                         <div class="row mb-3">

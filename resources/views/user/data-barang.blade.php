@@ -1,21 +1,19 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="card">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h5 class="card-header">Data Barang Line {{$lokasi}}</h5>
-                </div>
-            </div>
-            <div class="table-responsive text-nowrap pt-0 p-3">
+    <div class="card">
+        <div class="card-header">
+            <h5>Data Barang Line {{ $lokasi }}</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
                 <table class="table table-striped" id="dataBarangLine">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
                             <th>Kode JS</th>
                             <th>Nama Barang</th>
-                            <th class="text-center">Qty</th>
+                            <th>Qty</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,39 +23,39 @@
         </div>
     </div>
 
-<script>
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-        var table = $('#dataBarangLine').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: '{{ url()->current() }}',
-                type: 'GET'
-            },
-            columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
+            var table = $('#dataBarangLine').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ url()->current() }}',
+                    type: 'GET'
                 },
-                {
-                    data: 'kode_js',
-                    name: 'kode_js'
-                },
-                {
-                    data: 'nama',
-                    name: 'nama'
-                },
-                {
-                    data: 'total_qty',
-                    name: 'total_qty'
-                },
-            ]
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'kode_js',
+                        name: 'kode_js'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'total_qty',
+                        name: 'total_qty'
+                    },
+                ]
+            });
         });
-    });
-</script>
+    </script>
 @endsection
