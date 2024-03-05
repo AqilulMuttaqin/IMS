@@ -81,10 +81,10 @@
                                     statusClass = "bg-info";
                                     break;
                                 case "terkirim":
-                                    statusClass = "bg-primary";
+                                    statusClass = "bg-secondary";
                                     break;
                                 case "selesai":
-                                    statusClass = "bg-info";
+                                    statusClass = "bg-success";
                                     break;
                                 default:
                                     statusClass = "";
