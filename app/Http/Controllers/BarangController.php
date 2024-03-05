@@ -108,6 +108,7 @@ class BarangController extends Controller
     {
         $barang->delete();
 
+        alert()->success('Deleted!','Data Berhasil Dihapus');
         return redirect()->back();
     }
 

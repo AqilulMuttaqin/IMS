@@ -90,7 +90,7 @@ class LokasiController extends Controller
     {
         $lokasi->delete();
 
-        alert()->success('Deleted!','Data berhasil dihapus');
+        alert()->success('Deleted!','Data Berhasil Dihapus');
         return redirect()->back();
     }
 }

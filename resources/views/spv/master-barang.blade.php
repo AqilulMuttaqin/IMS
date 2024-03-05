@@ -74,8 +74,8 @@
                     <div id="qrCodeContainer"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary download-qr-code">Download QR Code</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-primary download-qr-code">Download QR Code</button>
                 </div>
             </div>
         </div>
@@ -221,9 +221,9 @@
                             var deleteUrl = deleteRoute.replace(':barang', row.kode_js);
                             return `
                                 <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                    <button type="button" class="btn p-0"
                                         data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                        <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
                                         <button type="button" class="dropdown-item edit-btn" data-js="${row.kode_js}"><i class="bx bx-edit-alt me-1"></i>
@@ -231,7 +231,7 @@
                                         <form action="${deleteUrl}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="dropdown-item deleteBtn"><i class="bx bx-trash me-1"></i>Delete</button>
+                                            <button type="button" class="dropdown-item deleteBtn"><i class="bx bx-trash me-1"></i>Delete</button>
                                         </form>
                                     </div>
                                 </div>
@@ -329,8 +329,22 @@
             }
 
             $(document).on('click', '.deleteBtn', function() {
-                var formId = $(this).closest('form').attr('id');
-                $('#' + formId).submit();
+                var row = table.row($(this).closest('tr')).data();
+                var kode_js = row.kode_js;
+                var form = $(this).closest('form');
+                Swal.fire({
+                    title: "Anda Yakin?",
+                    text: "Data tidak dapat dikembalikan setelah dihapus!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Hapus"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
 
