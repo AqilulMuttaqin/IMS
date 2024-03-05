@@ -1,12 +1,21 @@
 @extends('layout.app')
 
 @section('content')
+    <style>
+        .nav-pills .nav-link {
+            color: black;
+        }
+
+        .nav-pills .nav-link.active {
+            color: white;
+        }
+    </style>
     <!-- Container Content Dashboard Staff Gudang -->
     <h6 class="text-muted">Data Pesanan</h6>
     <!-- Filled Tabs Menu Pesanan -->
     <div class="card">
         <div class="nav-align-top mb-4">
-            <ul class="nav nav-tabs nav-fill" role="tablist">
+            <ul class="nav nav-pills nav-fill border" role="tablist" style="border-radius: 8px;">
                 <!-- Menu 1 - Pesanan Masuk -->
                 <li class="nav-item">
                     <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#menu-1"
@@ -19,7 +28,7 @@
                 <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#menu-2"
                         aria-controls="menu-2" aria-selected="false">
-                        <i class="tf-icons bx bx-store-alt"></i> Perlu Disiapkan
+                        <i class="ti ti-refresh-alert me-1"></i> Perlu Disiapkan
                         <span id="disiapkanNotif" class="badge rounded-pill bg-warning ms-1">0</span>
                     </button>
                 </li>
@@ -27,7 +36,7 @@
                 <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#menu-3"
                         aria-controls="menu-3" aria-selected="false">
-                        <i class="tf-icons bx bx-send"></i> Perlu Dikirim
+                        <i class="ti ti-send me-1"></i> Perlu Dikirim
                         <span id="dikirimNotif" class="badge rounded-pill bg-primary ms-1">0</span>
                     </button>
                 </li>
@@ -37,7 +46,7 @@
             <div class="card-body">
                 <div class="tab-content">
                     <!-- Content Menu 1 -->
-                    <div class="tab-pane row fade show active" id="menu-1" role="tabpanel">
+                    <div class="tab-pane fade show active" id="menu-1" role="tabpanel">
                         <div class="row" id="pesananMasuk"></div>
                     </div>
                     <!-- Content Menu 2 -->

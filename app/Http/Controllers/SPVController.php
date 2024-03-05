@@ -98,9 +98,6 @@ class SPVController extends Controller
             'pw' => $request->input('password'),
             'role' => $request->input('role'),
         ]);
-
-        alert()->success('Success', 'Data Berhasil Ditambahkan');
-
     }
 
     public function update_user(Request $request, $user){
@@ -123,8 +120,6 @@ class SPVController extends Controller
             'password' => Hash::make($request->input('password'),),
             'pw' => $request->input('password'),
         ]);
-
-        alert()->success('Success', 'Data Berhasil Diedit');
     }
 
     public function delete_user($user){
@@ -136,8 +131,7 @@ class SPVController extends Controller
 
         $user->delete();
 
-        alert()->success('Success', 'Data Berhasil Dihapus');
-
+        alert()->success('Deleted!', 'Data Berhasil dihapus');
         return redirect()->back();
     }
 }

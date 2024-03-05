@@ -94,9 +94,9 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::post('spv/user-add', [SPVController::class, 'add_user'])->name('spv.tambah-user');
     Route::put('spv/user-update/{user}', [SPVController::class, 'update_user'])->name('spv.update-user');
     Route::delete('spv/user-del/{user}', [SPVController::class, 'delete_user'])->name('spv.hapus-user');
-    // Route::get('/spv/lokasi', function () {
-    //     return view('spv.lokasi', ['title' => 'Data Lokasi']);
-    // })->name('spv.lokasi');
+    Route::get('/spv/control-barang', function () {
+        return view('spv.control-barang', ['title' => 'Control Barang']);
+    })->name('spv.control-barang');
     // Route::get('/spv/detail-barang', function () {
     //     return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
     // })->name('spv.detail-barang');

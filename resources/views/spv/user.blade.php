@@ -1,6 +1,7 @@
 @extends('layout.app')
 
 @section('content')
+    <!-- Container Content Data User -->
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -18,6 +19,7 @@
             </div>
         </div>
         <div class="card-body">
+            <!-- Tabel User -->
             <div class="table-responsive text-nowrap">
                 <table class="table table-striped" id="dataUser">
                     <thead>
@@ -30,14 +32,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- DataTable Data User -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
-        aria-hidden="true">
+    <!-- Modal - Tambah dan Edit User -->
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -48,13 +51,11 @@
                     <form id="userForm">
                         <div class="form-group mb-3">
                             <label for="NIK">NIK</label>
-                            <input type="text" class="form-control form-control-user" id="NIK" name="NIK"
-                                required autofocus value="" maxlength="6" minlength="6">
+                            <input type="text" class="form-control form-control-user" id="NIK" name="NIK" required autofocus value="" maxlength="6" minlength="6">
                         </div>
                         <div class="form-group mb-3">
                             <label for="name">NAMA</label>
-                            <input type="text" class="form-control form-control-user" id="name" name="name"
-                                required autofocus value="">
+                            <input type="text" class="form-control form-control-user" id="name" name="name" required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="role">ROLE</label>
@@ -67,20 +68,19 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="password">PASSWORD</label>
-                            <input type="text" class="form-control form-control-user" id="password" name="password"
-                                required autofocus value="">
+                            <input type="text" class="form-control form-control-user" id="password" name="password" required autofocus value="">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitUserForm()">Save
-                        Change</button>
+                    <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitUserForm()">Save Change</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- JavaScript -->
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -132,7 +132,7 @@
                                         <form action="${deleteUrl}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="dropdown-item deleteBtn"><i class="ti ti-trash me-1"></i>Delete</button>
+                                            <button type="button" class="dropdown-item confirm-delete"><i class="ti ti-trash me-1"></i>Delete</button>
                                         </form>
                                     </div>
                                 </div>
@@ -148,14 +148,13 @@
                 var form = $(this).closest('form');
 
                 Swal.fire({
-                    title: 'Apakah Anda yakin?',
-                    text: "Anda tidak akan bisa mengembalikannya!",
-                    icon: 'question',
-                    iconColor: 'red',
+                    title: "Anda Yakin?",
+                    text: "Data tidak dapat dikembalikan setelah dihapus",
+                    icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#aaa',
-                    confirmButtonText: 'Ya! Hapus',
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Hapus"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
