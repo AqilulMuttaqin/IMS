@@ -273,7 +273,7 @@
                     modalBody.empty();
                     modalBody.append(`
                             <div class="row mb-3">
-                                <label class="col-sm-8 col-form-label" for="label">Line</label>
+                                <label class="col-sm-8 col-form-label" for="label">Nama</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control text-center" id="label" name="label" value="${response.user.name}" disabled>
                                 </div>
