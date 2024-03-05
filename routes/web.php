@@ -75,7 +75,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::delete('staff/delete-barang/{barang}', [BarangController::class, 'destroy'])->name('staff.hapus-barang');
     Route::get('staff/detail-pesanan', [PesananController::class, 'detail'])->name('staff.detail-pesanan');
     Route::post('staff/update-pesanan', [PesananController::class, 'update'])->name('staff.update-pesanan');
-    Route::post('staff/tambah-barang', [DataBarangController::class, 'store'])->name('staff.tambah-barang');
+    Route::post('staff/tambah-barang', [DataBarangController::class, 'store'])->name('staff.update-barang');
     Route::get('staff/nama-barang', [AdminController::class, 'barang'])->name('staff.nama-barang');
 });
 

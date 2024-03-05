@@ -101,7 +101,7 @@ class DataBarangController extends Controller
 
         $barang->save();
 
-        alert()->success('Data Barang Berhasil Ditambahkan', 'Sukses');
+        alert()->success('Success', 'Stok Berhasil Ditambahkan');
         return redirect()->back();
     }
 

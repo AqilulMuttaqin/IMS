@@ -1,15 +1,6 @@
 @extends('layout.app')
 
 @section('content')
-    <style>
-        .nav-pills .nav-link {
-            color: black;
-        }
-
-        .nav-pills .nav-link.active {
-            color: white;
-        }
-    </style>
     <!-- Container Content Update Stok -->
     <div class="card">
         <div class="nav-align-top mb-4">

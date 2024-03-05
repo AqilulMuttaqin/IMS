@@ -1,15 +1,6 @@
 @extends('layout.app')
 
 @section('content')
-    <style>
-        .nav-pills .nav-link {
-            color: black;
-        }
-
-        .nav-pills .nav-link.active {
-            color: white;
-        }
-    </style>
     <!-- Container Content Dashboard Staff Gudang -->
     <h6 class="text-muted">Data Pesanan</h6>
     <!-- Filled Tabs Menu Pesanan -->
@@ -201,21 +192,24 @@
                         var card = $('<div class="col-sm-6 col-md-4 col-lg-3 my-2"></div>');
                         var cardBody = $('<div class="card border"></div>');
                         var cardHeader = $('<div class="card-header pb-1"></div>');
-                        var tanggal = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('D MMM YYYY');
-                        var jam = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('HH:MM');
                         var cardTitle = $('<h6 class="text-center">Pesanan ' + pesanan.user.lokasi.nama +
                             '</h6>');
                         var hr = $('<hr>');
                         var cardCardBody = $('<div class="card-body pt-3"></div>');
                         var row = $('<div class="row"></div>');
-                        var nameLabelCol = $(
-                            '<div class="col-6"><label for="label">Tanggal</label></div>');
-                        var nameValueCol = $('<div class="col-6"><p id="label">: ' + pesanan.user.lokasi.nama +
+                        var namaLabelCol = $(
+                            '<div class="col-4"><label for="nama">Nama</label></div>');
+                        var namaValueCol = $('<div class="col-8"><p id="nama">: ' + pesanan.user.name +'</p></div>');
+                        var tanggalLabelCol = $(
+                            '<div class="col-4"><label for="tanggal">Tanggal</label></div>');
+                        var tanggal = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('D MMM YYYY');
+                        var jam = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('HH:MM');
+                        var tanggalValueCol = $('<div class="col-8"><p id="tanggal">: ' + tanggal +
                             '</p></div>');
                         var detailLabelCol = $(
-                            '<div class="col-6"><label for="detail">Detail</label></div>');
+                            '<div class="col-4"><label for="detail">Detail</label></div>');
                         var detailValueCol = $(
-                            '<div class="col-6"><p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail" data-pesanan-id="' +
+                            '<div class="col-8"><p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail" data-pesanan-id="' +
                             pesanan.id +
                             '" data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal"><i class="ti ti-eye"></i></button></p></div>'
                             );
@@ -242,8 +236,10 @@
 
                         cardHeader.append(cardTitle);
                         cardHeader.append(hr);
-                        row.append(nameLabelCol);
-                        row.append(nameValueCol);
+                        row.append(namaLabelCol);
+                        row.append(namaValueCol);
+                        row.append(tanggalLabelCol);
+                        row.append(tanggalValueCol);
                         row.append(detailLabelCol);
                         row.append(detailValueCol);
                         row.append(hr.clone());
