@@ -51,7 +51,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="kodejs" class="form-label">Kode JS</label>
-                                <input type="text" class="form-control" id="kodejs" name="kodejs" required disabled>
+                                <input type="text" class="form-control" id="kodejs" name="kodejs" disabled required>
                             </div>
                             <div class="mb-3">
                                 <label for="po-num" class="form-label">PO Number</label>
@@ -71,8 +71,49 @@
                 </div>
             </div>
         </div>
-        <div class="card-body pb-0 px-0 px-md-4 text-center">
-            
+    </div>
+
+    <div class="modal fade" id="scannerInputModal" tabindex="-1" role="dialog"
+        aria-labelledby="scannerInputModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scannerInputModalLabel">Update Stok</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xxl" id="modal-body">
+                        <<form>
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama Barang</label>
+                                <select id="nama" name="nama" class="form-select" disabled required>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="kodejs" class="form-label">Kode JS</label>
+                                <input type="text" class="form-control" id="kodejs" name="kodejs" disabled required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="po-num" class="form-label">PO Number</label>
+                                <input type="text" class="form-control" id="po-num" name="po-num" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="inc-num" class="form-label">Invoice Number</label>
+                                <input type="text" class="form-control" id="inv-num" name="inv-num" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="qty" class="form-label">QTY</label>
+                                <input type="number" class="form-control" id="qty" name="qty" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                </div>
+            </div>
         </div>
     </div>
 
