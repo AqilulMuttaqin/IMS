@@ -101,9 +101,16 @@ class PesananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePesananRequest $request, Pesanan $pesanan)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'pesanan_id' => 'required',
+            'status' => 'required'
+        ]);
+        $pesanan = Pesanan::findOrFail($request->pesanan_id);
+
+        $pesanan->update(['status' => $request->status]);
+        return response()->json(['status' => 'success']);
     }
 
     /**
