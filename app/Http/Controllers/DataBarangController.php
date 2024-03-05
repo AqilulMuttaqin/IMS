@@ -92,7 +92,7 @@ class DataBarangController extends Controller
         $lokasi = auth()->user()->lokasi_id;
 
         $barang = DataBarang::create([
-            'kode_js' => $request->nama,
+            'kode_js' => $request->kodejs,
             'inv_number' => $request->inv_number,
             'PO_number' => $request->PO_number,
         ]);

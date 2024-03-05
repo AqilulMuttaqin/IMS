@@ -203,13 +203,13 @@
                         var cardHeader = $('<div class="card-header pb-1"></div>');
                         var tanggal = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('D MMM YYYY');
                         var jam = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('HH:MM');
-                        var cardTitle = $('<h6 class="text-center">Pesanan ' + tanggal + '<br>Jam ' + jam +
+                        var cardTitle = $('<h6 class="text-center">Pesanan ' + pesanan.user.lokasi.nama +
                             '</h6>');
                         var hr = $('<hr>');
                         var cardCardBody = $('<div class="card-body pt-3"></div>');
                         var row = $('<div class="row"></div>');
                         var nameLabelCol = $(
-                            '<div class="col-6"><label for="label">Line</label></div>');
+                            '<div class="col-6"><label for="label">Tanggal</label></div>');
                         var nameValueCol = $('<div class="col-6"><p id="label">: ' + pesanan.user.lokasi.nama +
                             '</p></div>');
                         var detailLabelCol = $(

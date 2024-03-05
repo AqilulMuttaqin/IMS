@@ -76,6 +76,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('staff/detail-pesanan', [PesananController::class, 'detail'])->name('staff.detail-pesanan');
     Route::post('staff/update-pesanan', [PesananController::class, 'update'])->name('staff.update-pesanan');
     Route::post('staff/tambah-barang', [DataBarangController::class, 'store'])->name('staff.tambah-barang');
+    Route::get('staff/nama-barang', [AdminController::class, 'barang'])->name('staff.nama-barang');
 });
 
 Route::middleware(['auth','role:spv'])->group(function () {
