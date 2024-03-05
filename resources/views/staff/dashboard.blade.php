@@ -170,7 +170,12 @@
                 },
                 success: function(response) {
                     if (response.status === 'success') {
-                        alert('Pesanan berhasil di' + status);
+                        Swal.fire({
+                            title: "Success",
+                            text: "Pesanan " + status,
+                            icon: "success",
+                            timer:3500
+                        });
                         get_data('pesananMasuk', 'pending');
                         get_data('pesananPerluDisiapkan', 'disiapkan');
                         get_data('pesananPerluDikirim', 'dikirim');
@@ -197,16 +202,16 @@
                         var card = $('<div class="col-sm-6 col-md-4 col-lg-3 my-2"></div>');
                         var cardBody = $('<div class="card border"></div>');
                         var cardHeader = $('<div class="card-header pb-1"></div>');
-                        var cardTitle = $('<h6 class="text-center">Pesanan Dari ' + pesanan.user.lokasi.nama +
+                        var tanggal = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('D MMM YYYY');
+                        var jam = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('HH:MM');
+                        var cardTitle = $('<h6 class="text-center">Pesanan ' + tanggal + '<br>Jam ' + jam +
                             '</h6>');
                         var hr = $('<hr>');
                         var cardCardBody = $('<div class="card-body pt-3"></div>');
                         var row = $('<div class="row"></div>');
                         var nameLabelCol = $(
-                            '<div class="col-6"><label for="label">Tanggal</label></div>');
-                        var tanggal = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('D MMM YYYY');
-                        var jam = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('HH:MM');
-                        var nameValueCol = $('<div class="col-6"><p id="label">: ' + tanggal +'<br>'+ jam +
+                            '<div class="col-6"><label for="label">Line</label></div>');
+                        var nameValueCol = $('<div class="col-6"><p id="label">: ' + pesanan.user.lokasi.nama +
                             '</p></div>');
                         var detailLabelCol = $(
                             '<div class="col-6"><label for="detail">Detail</label></div>');
@@ -273,7 +278,7 @@
                     modalBody.empty();
                     modalBody.append(`
                             <div class="row mb-3">
-                                <label class="col-sm-8 col-form-label" for="label">Tangal Pesanan Masuk</label>
+                                <label class="col-sm-8 col-form-label" for="label">Line</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control text-center" id="label" name="label" value="${response.user.name}" disabled>
                                 </div>
