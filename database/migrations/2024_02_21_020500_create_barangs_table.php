@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('harga', 15, 2);
             $table->integer('min_stok')->default(0);
             $table->integer('max_stok')->default(0);
+            $table->integer('requested_qty')->default(0);
             $table->timestamps();
         });
     }

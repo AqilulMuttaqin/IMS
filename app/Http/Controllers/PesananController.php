@@ -55,6 +55,8 @@ class PesananController extends Controller
         $userKeranjang->barang()->each(function ($barang) use ($pesanan) {
             $qty = $barang->pivot->qty;
             $pesanan->barang()->attach($barang->kode_js, ['qty' => $qty]);
+
+            $barang->update(['requested_qty' => $barang->requested_qty + $qty]);
         });
 
         $userKeranjang->delete();

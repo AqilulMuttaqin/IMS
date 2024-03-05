@@ -85,6 +85,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-8 offset-sm-4 text-danger" id="error-message" style="display:none;"></div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -101,8 +104,17 @@
         const plusValue = (id) => {
             const inputElement = document.getElementById(id);
             inputElement.value = parseInt(inputElement.value) + 1;
-            if (id !== 'jumlah') {
-                debounceAjaxRequest(id, inputElement.value);
+            const maxQty = parseInt($('#jumlah').data('max'));
+            const currentQty = parseInt(inputElement.value);
+            if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+                $('#tambahkan').prop('disabled', true);
+            } else {
+                $('#error-message').hide();
+                $('#tambahkan').prop('disabled', false);
+                if (id !== 'jumlah') {
+                    debounceAjaxRequest(id, inputElement.value);
+                }
             }
         }
 
@@ -110,8 +122,17 @@
             const inputElement = document.getElementById(id);
             const newValue = parseInt(inputElement.value) - 1;
             inputElement.value = newValue >= 0 ? newValue : 0;
-            if (id !== 'jumlah') {
-                debounceAjaxRequest(id, inputElement.value);
+            const maxQty = parseInt($('#jumlah').data('max'));
+            const currentQty = parseInt(newValue);
+            if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+                $('#tambahkan').prop('disabled', true);
+            } else {
+                $('#error-message').hide();
+                $('#tambahkan').prop('disabled', false);
+                if (id !== 'jumlah') {
+                    debounceAjaxRequest(id, inputElement.value);
+                }
             }
         }
 
@@ -121,8 +142,17 @@
             const data = input.value;
             console.log(id);
             console.log(data);
-            if (id !== 'jumlah') {
-                debounceAjaxRequest(id, data);
+            const maxQty = parseInt($('#jumlah').data('max'));
+            const currentQty = parseInt(data);
+            if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+                $('#tambahkan').prop('disabled', true);
+            } else {
+                $('#error-message').hide();
+                $('#tambahkan').prop('disabled', false);
+                if (id !== 'jumlah') {
+                    debounceAjaxRequest(id, data);
+                }
             }
         }
 
@@ -200,6 +230,8 @@
                 $('#tambahModal').find('#jumlah').val('1');
                 $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', true);
                 $('#tambahModal').find('#tambahkan').prop('hidden', false);
+                $('#tambahModal').find('#jumlah').data('max', rowData.total_qty);
+                $('#error-message').hide();
                 $('#tambahModal').modal('show')
             });
             $('#dataBarangReady').on('click', '#pesanLangsung', function() {
@@ -211,6 +243,7 @@
                 $('#tambahModal').find('#jumlah').val('1');
                 $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', false);
                 $('#tambahModal').find('#tambahkan').prop('hidden', true);
+                $('#error-message').hide();
                 $('#tambahModal').modal('show')
             });
         });
