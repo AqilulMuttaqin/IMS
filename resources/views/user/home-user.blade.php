@@ -276,10 +276,13 @@
 
             modalBody.append(`
             <div class="row mb-3">
-            <label class="col-sm-6 col-form-label" for="Jumlah"></label>
-            <div class="col-sm-4">
-            <div class="text-muted text-center">Jumlah</div>
-            </div>
+                <label class="col-sm-4 col-form-label" for="Jumlah"></label>
+                <div class="col-sm-2">
+                    <div class="text-muted text-center">Tukar</div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="text-muted text-center">Jumlah</div>
+                </div>
             </div>
             `);
 
@@ -287,7 +290,12 @@
                 modalBody.append(
                     `
                 <div class="row mb-3">
-                    <label class="col-sm-6 col-form-label" for="${barang.kode_js}">${barang.nama}</label>
+                    <label class="col-sm-4 col-form-label" for="${barang.kode_js}">${barang.nama}</label>
+                    <div class="col-sm-2">
+                        <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                            <input class="form-check-input mt-1" type="checkbox" role="switch" id="flexSwitchCheckDefault" style="width: 80px; height: 28px;">
+                        </div>
+                    </div>
                     <div class="col-sm-4">
                         <div class="input-group number-spinner">
                             <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
