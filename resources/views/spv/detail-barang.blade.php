@@ -7,14 +7,14 @@
                 <div class="col-sm-4">
                     <h5>Data Detail Barang</h5>
                 </div>
-                <div class="col-sm-8">
+                {{-- <div class="col-sm-8">
                     <div class="d-flex justify-content-end text-end">
                         <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
                             data-bs-toggle="modal" data-bs-target="#detailBarangModal">
                             Tambah Data
                         </button>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="card-body">
@@ -159,17 +159,9 @@
                         searchable: false,
                         render: function() {
                             return `
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0" data-bs-toggle="dropdown">
-                                        <i class="ti ti-dots-vertical"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#"><i class="ti ti-edit me-1"></i>
-                                            Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="ti ti-trash me-1"></i>
-                                            Delete</a>
-                                    </div>
-                                </div>
+                                <button type="button" class="btn btn-sm btn-primary">
+                                    <i class="ti ti-edit"></i>
+                                </button>
                             `;
                         }
                     }
@@ -183,11 +175,23 @@
                 var dataBarang = data.kode_js;
                 var barangNama = data.barang.nama;
 
+                var lokasiTotals = {};
+
                 var lokasiHtml = '';
                 $.each(data.lokasi, function(index, lokasi) {
-                    lokasiHtml += '<div class="row"><div class="col-sm-9">' + (index + 1) + '. ' +
-                        lokasi.nama + '</div><div class="col-sm-3">: ' + lokasi.pivot.qty +
-                        '</div></div>';
+                    var lokasiNama = lokasi.nama;
+                    var lokasiQty = lokasi.pivot.qty;
+
+                    if (!lokasiTotals[lokasiNama]) {
+                        lokasiTotals[lokasiNama] = 0;
+                    }
+                    lokasiTotals[lokasiNama] += lokasiQty;
+                });
+
+                var noUrut = 1;
+                $.each(lokasiTotals, function(lokasiNama, total) {
+                    lokasiHtml += '<div class="row"><div class="col-sm-9">' + noUrut + '. ' + lokasiNama + '</div><div class="col-sm-3">: ' + total + '</div></div>';
+                    noUrut++;
                 });
 
                 $('#lokasiModalLabel').text('Daftar Lokasi untuk ' + barangNama);
