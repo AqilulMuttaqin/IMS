@@ -104,7 +104,7 @@
                                         <form action="${deleteUrl}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="dropdown-item deleteBtn"><i class="ti ti-trash me-1"></i>Delete</button>
+                                            <button type="button" class="dropdown-item deleteBtn"><i class="ti ti-trash me-1"></i>Delete</button>
                                         </form>
                                     </div>
                                 </div>
@@ -141,8 +141,22 @@
             }
 
             $(document).on('click', '.deleteBtn', function() {
-                var formId = $(this).closest('form').attr('id');
-                $('#' + formId).submit();
+                var row = table.row($(this).closest('tr')).data();
+                var id = row.id;
+                var form = $(this).closest('form');
+                Swal.fire({
+                    title: "Anda Yakin?",
+                    text: "Data tidak dapat dikembalikan setelah dihapus!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Hapus"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
 
@@ -167,8 +181,12 @@
                 success: function(response) {
                     $('#dataLokasi').DataTable().ajax.reload();
                     $('#lokasiModal').modal('hide');
-                    // alert()->success('SuccessAlert','Lorem ipsum dolor sit amet.');
-                    // toast('Success Toast','success');
+                    Swal.fire({
+                        title: "Success",
+                        text: "Data Berhasil Disimpan",
+                        icon: "success",
+                        timer: 3500
+                    });
                 },
                 error: function(xhr, status, error) {}
             });

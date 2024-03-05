@@ -149,7 +149,7 @@
 
                 Swal.fire({
                     title: "Anda Yakin?",
-                    text: "Data tidak dapat dikembalikan setelah dihapus",
+                    text: "Data tidak dapat dikembalikan setelah dihapus!",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
