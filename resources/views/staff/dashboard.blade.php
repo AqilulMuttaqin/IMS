@@ -192,9 +192,6 @@
                         var card = $('<div class="col-sm-6 col-md-4 col-lg-3 my-2"></div>');
                         var cardBody = $('<div class="card border"></div>');
                         var cardHeader = $('<div class="card-header pb-1"></div>');
-                        var cardTitle = $('<h6 class="text-center">Pesanan Line ' + pesanan.user.lokasi.nama +
-                        var tanggal = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('D MMM YYYY');
-                        var jam = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('HH:MM');
                         var cardTitle = $('<h6 class="text-center">Pesanan ' + pesanan.user.lokasi.nama +
                             '</h6>');
                         var hr = $('<hr>');
