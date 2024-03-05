@@ -23,9 +23,18 @@ class DataBarangController extends Controller
 
                 $barangs->map(function ($barang, $key) {
                     $barang['DT_RowIndex'] = $key + 1;
-                    $barang['total_qty'] = $barang->dataBarang->sum(function ($dataBarang) {
+                    $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
                         return $dataBarang->lokasi->where('nama', 'Gudang Utama')->sum('pivot.qty');
                     });
+                    
+                    if (auth()->user()->role === 'user') {
+                        $requestedQty = $barang->requested_qty;
+                        $adjustedQty = $totalQty - $requestedQty;
+                        $barang['total_qty'] = $adjustedQty < 0 ? 0 : $adjustedQty;
+                    } else {
+                        $barang['total_qty'] = $totalQty;
+                    }
+                    
                     return $barang;
                 });
 
@@ -164,11 +173,11 @@ class DataBarangController extends Controller
             $query->where('id', $barang_id);
         }])->get();
 
-        $pesanan = Pesanan::with('user', 'barang')->get();
-
-        $pesanan = Barang::whereHas('pesanan', function ($query) use ($lokasiId) {
-            $query->where('id', $lokasiId);
-        })->get();
+        $pesanan = Pesanan::with('user.lokasi', 'barang')->get();
+        dd($pesanan);
+        // $pesanan = Barang::whereHas('pesanan', function ($query) use ($lokasiId) {
+        //     $query->where('id', $lokasiId);
+        // })->get();
         return response()->json($pesanan);
     }
 }

@@ -55,6 +55,8 @@ class PesananController extends Controller
         $userKeranjang->barang()->each(function ($barang) use ($pesanan) {
             $qty = $barang->pivot->qty;
             $pesanan->barang()->attach($barang->kode_js, ['qty' => $qty]);
+
+            $barang->update(['requested_qty' => $barang->requested_qty + $qty]);
         });
 
         $userKeranjang->delete();
@@ -96,9 +98,16 @@ class PesananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePesananRequest $request, Pesanan $pesanan)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'pesanan_id' => 'required',
+            'status' => 'required'
+        ]);
+        $pesanan = Pesanan::findOrFail($request->pesanan_id);
+
+        $pesanan->update(['status' => $request->status]);
+        return response()->json(['status' => 'success']);
     }
 
     /**

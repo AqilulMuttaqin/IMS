@@ -28,13 +28,13 @@ class AdminController extends Controller
             
             switch ($status) {
                 case 'pending':
-                    $pesanan = Pesanan::with('user', 'barang')->where('status', 'pending')->get();
+                    $pesanan = Pesanan::with('user.lokasi', 'barang')->where('status', 'pending')->get();
                     break;
                 case 'disiapkan':
-                    $pesanan = Pesanan::with('user', 'barang')->where('status', 'disiapkan')->get();
+                    $pesanan = Pesanan::with('user.lokasi', 'barang')->where('status', 'disiapkan')->get();
                     break;
                 case 'dikirim':
-                    $pesanan = Pesanan::with('user', 'barang')->where('status', 'dikirim')->get();
+                    $pesanan = Pesanan::with('user.lokasi', 'barang')->where('status', 'dikirim')->get();
                     break;
                 default:
                     return response()->json([]);

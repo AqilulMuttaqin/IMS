@@ -19,6 +19,7 @@ class Barang extends Model
         'harga',
         'min_stok',
         'max_stok',
+        'requested_qty'
     ];
 
     public function pesanan()
