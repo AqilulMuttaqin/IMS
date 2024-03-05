@@ -134,6 +134,14 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Control Barang' ? 'active' : ''}}" href="{{ route('spv.control-barang')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-refresh-alert"></i>
+                            </span>
+                            <span class="hide-menu">Control Barang</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link {{ $title === 'Data Lokasi' ? 'active' : ''}}" href="{{ route('spv.lokasi')}}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-map-pin"></i>

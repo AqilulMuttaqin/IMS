@@ -46,7 +46,7 @@
             <div class="card-body">
                 <div class="tab-content">
                     <!-- Content Menu 1 -->
-                    <div class="tab-pane row fade show active" id="menu-1" role="tabpanel">
+                    <div class="tab-pane fade show active" id="menu-1" role="tabpanel">
                         <div class="row" id="pesananMasuk"></div>
                     </div>
                     <!-- Content Menu 2 -->
