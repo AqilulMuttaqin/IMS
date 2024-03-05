@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Barang;
 use App\Models\Pesanan;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -128,9 +129,18 @@ class AdminController extends Controller
         return view('staff.update-stok', ['title' => 'Update Stok']);
     }
 
-    public function barang()
+    public function barang(Request $request)
     {
-        return view('staff.data-barang', ['title' => 'Data Barang']);
+        $barang =Barang::select("kode_js", "nama")
+                        ->where('kode_js', $request->kode_js)
+                        ->first();
+
+        if ($barang) {
+            $status = true;
+        } else {
+            $status = false;
+        }
+        return response()->json(['barang' => $barang, 'status' => $status]);
     }
 
 }

@@ -42,7 +42,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="kodejs" class="form-label">Kode JS</label>
-                                <input type="text" class="form-control" id="kodejs" name="kodejs" placeholder="Input Kode JS ..." disabled required>
+                                <input type="text" class="form-control" id="kodejs" name="kodejs" readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="PO_number" class="form-label">PO Number</label>
@@ -74,16 +74,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-xxl" id="modal-body">
-                        <<form>
-                            <div class="mb-3">
+                        <form method="POST" action="{{ route('staff.tambah-barang') }}">
+                        @csrf
+                            <!-- <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Barang</label>
-                                <select id="nama" name="nama" class="form-select" disabled required>
-                                    <option></option>
+                                <select id="nama" name="nama" class="form-select" readonly required>
                                 </select>
+                            </div> -->
+                            <div class="mb-3">
+                                <label for="namaBarang" class="form-label">Nama Barang</label>
+                                <input type="text" class="form-control" id="namaBarang" name="namaBarang" readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="kodejs" class="form-label">Kode JS</label>
-                                <input type="text" class="form-control" id="kodejs" name="kodejs" disabled required>
+                                <input type="text" class="form-control" id="kodejs" name="kodejs" readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="PO_number" class="form-label">PO Number</label>
@@ -97,12 +101,12 @@
                                 <label for="qty" class="form-label">QTY</label>
                                 <input type="number" class="form-control" id="qty" name="qty" required>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -115,7 +119,29 @@
                 // var scannedData = event.target.value.trim();
                 // document.getElementById('scannerInput').value = scannedData;
                 var scannedData = document.getElementById('scannerInput').value;
-                console.log(scannedData);
+                $.ajax({
+                    url : "{{ route('staff.nama-barang')}}",
+                    type: 'GET',
+                    data: {
+                        kode_js: scannedData,
+                    },
+                    success: function(response){
+                        if (response.status) {
+                            //$('#scannerInputModal').find('#nama').text(response.nama);
+                            $('#scannerInputModal').find('#namaBarang').val(response.barang.nama);
+                            $('#scannerInputModal').find('#kodejs').val(response.barang.kode_js);
+                            
+                            $('#scannerInputModal').modal('show');
+                        } else{
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: "Data tidak ditemukan, Coba Scan Ulang!",
+                                icon: "error",
+                                timer: 3500
+                            });
+                        }
+                    }
+                })
                 $('#scannerInput').val('');
             }
         });
@@ -142,7 +168,6 @@
             }
         }).addClass('form-select');
         $('#nama').on('select2:open', function(e) {
-            console.log('open');
             $('.select2-search__field').focus();
         });
 
