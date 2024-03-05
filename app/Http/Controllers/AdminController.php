@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Models\Barang;
 use App\Models\Pesanan;
 
 class AdminController extends Controller
@@ -112,6 +113,18 @@ class AdminController extends Controller
 
     public function updateStok()
     {
+        if (request()->ajax()) {
+            $barang = [];
+
+            if(request()->has('q')){
+                $search = request()->q;
+                $barang =Barang::select("kode_js", "nama")
+                        ->where('nama', 'LIKE', "%$search%")
+                        ->get();
+            }
+            return response()->json($barang);
+        }
+
         return view('staff.update-stok', ['title' => 'Update Stok']);
     }
 

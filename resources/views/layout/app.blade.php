@@ -11,6 +11,8 @@
     <script src="{{ asset('src/assets/js/jquery-3.6.4.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/jquery.dataTables.min.css') }}">
     <script type="text/javascript" charset="utf8" src="{{ asset('src/assets/js/jquery.dataTables.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/select2.min.css') }}">
+    <script type="text/javascript" charset="utf8" src="{{ asset('src/assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/moment-timezone-with-data.min.js') }}"></script>
 </head>

@@ -46,7 +46,6 @@
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Barang</label>
                                 <select id="nama" name="nama" class="form-select" required>
-                                    <option></option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -126,6 +125,26 @@
                 var scannedData = document.getElementById('scannerInput').value;
                 console.log(scannedData);
                 $('#scannerInput').val('');
+            }
+        });
+
+        $('#nama').select2({
+            placeholder: 'Nama Barang',
+            ajax: {
+                url: '{{ url()->current() }}',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.nama,
+                                id: item.kode_js
+                            }
+                        })
+                    };
+                },
+                cache: true
             }
         });
     </script>
