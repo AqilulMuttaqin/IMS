@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\SPV;
 use App\Http\Requests\StoreSPVRequest;
 use App\Http\Requests\UpdateSPVRequest;
+use App\Models\Lokasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
+use function PHPUnit\Framework\isEmpty;
 
 class SPVController extends Controller
 {
@@ -68,8 +71,9 @@ class SPVController extends Controller
     }
 
     public function show_user(){
+        $lokasi = Lokasi::all();
         if(request()->ajax()){
-            $user = User::all();
+            $user = User::with('lokasi')->get();
             $user->map(function ($item, $key) {
                 $item['DT_RowIndex'] = $key + 1;
                 return $item;
@@ -79,6 +83,7 @@ class SPVController extends Controller
         }
 
         return view('spv.user', [
+            'lokasi' => $lokasi,
             'title' => 'Data User'
         ]);
     }
@@ -98,10 +103,15 @@ class SPVController extends Controller
             'pw' => $request->input('password'),
             'role' => $request->input('role'),
         ]);
+
+        if (!empty($request->input('lokasi'))) {
+            $user->lokasi_id = $request->input('lokasi');
+            $user->save();
+        }
     }
 
-    public function update_user(Request $request, $user){
-
+    public function update_user(Request $request, $user)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string',
@@ -114,13 +124,22 @@ class SPVController extends Controller
             return redirect()->route('admin.data-user')->with('error', 'User not found');
         }
 
-        $user->update([
+        $userData = [
             'name' => $request->input('name'),
             'role' => $request->input('role'),
-            'password' => Hash::make($request->input('password'),),
+            'password' => Hash::make($request->input('password')),
             'pw' => $request->input('password'),
-        ]);
+        ];
+
+        if (!empty($request->input('lokasi'))) {
+            $userData['lokasi_id'] = $request->input('lokasi');
+        }
+
+        $user->update($userData);
+
+        // return redirect()->route('admin.data-user')->with('success', 'User updated successfully');
     }
+
 
     public function delete_user($user){
         $user = User::where('NIK', $user)->first();

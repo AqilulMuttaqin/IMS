@@ -28,6 +28,7 @@
                             <th>NIK</th>
                             <th>Nama</th>
                             <th>Role</th>
+                            <th>Lokasi</th>
                             <th style="width: 30px;">Actions</th>
                         </tr>
                     </thead>
@@ -64,6 +65,15 @@
                                 <option value="spv">Supervisor</option>
                                 <option value="admin">Staff Gudang</option>
                                 <option value="user">User</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="lokasi">LOKASI</label>
+                            <select class="form-control form-control-user" id="lokasi" name="lokasi" required>>
+                                <option value="" disabled selected></option>
+                                @foreach($lokasi as $item)
+                                    <option value="{{ $item->id}}">{{$item->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group mb-3">
@@ -111,6 +121,10 @@
                     {
                         data: 'role',
                         name: 'role'
+                    },
+                    {
+                        data: 'lokasi.nama',
+                        name: 'lokasi.nama'
                     },
                     {
                         data: 'action',
@@ -170,6 +184,7 @@
                 $('#name').val(rowData.name);
                 $('#role').val(rowData.role);
                 $('#password').val(rowData.pw);
+                $('#lokasi').val(rowData.lokasi_id);
                 $('#submitBtn').text('Edit');
                 $('#userModalLabel').text('Edit Data User');
                 $('#userForm').attr('action', '{{ route('spv.update-user', ['user' => ':user']) }}'.replace(
@@ -193,6 +208,7 @@
                 $('#name').val('');
                 $('#role').val('');
                 $('#password').val('');
+                $('#lokasi').val('');
             }
         });
 
