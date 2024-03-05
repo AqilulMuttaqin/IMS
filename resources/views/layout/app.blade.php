@@ -15,6 +15,9 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('src/assets/js/select2.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/moment-timezone-with-data.min.js') }}"></script>
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 </head>
 
 <body>
@@ -43,6 +46,7 @@
     <script src="{{ asset('src/assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('src/assets/libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="{{ asset('src/assets/js/dashboard.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </body>
 
 </html>

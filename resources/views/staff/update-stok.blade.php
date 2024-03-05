@@ -42,7 +42,8 @@
                     </div>
                     <!-- Content Menu 2 -->
                     <div class="tab-pane fade" id="menu-2" role="tabpanel">
-                        <form>
+                        <form method="POST" action="{{ route('staff.tambah-barang') }}">
+                        @csrf
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Barang</label>
                                 <select id="nama" name="nama" class="form-select" required>
@@ -53,12 +54,12 @@
                                 <input type="text" class="form-control" id="kodejs" name="kodejs" disabled required>
                             </div>
                             <div class="mb-3">
-                                <label for="po-num" class="form-label">PO Number</label>
-                                <input type="text" class="form-control" id="po-num" name="po-num" required>
+                                <label for="PO_number" class="form-label">PO Number</label>
+                                <input type="text" class="form-control" id="PO_number" name="PO_number" required>
                             </div>
                             <div class="mb-3">
-                                <label for="inc-num" class="form-label">Invoice Number</label>
-                                <input type="text" class="form-control" id="inv-num" name="inv-num" required>
+                                <label for="inv_number" class="form-label">Invoice Number</label>
+                                <input type="text" class="form-control" id="inv_number" name="inv_number" required>
                             </div>
                             <div class="mb-3">
                                 <label for="qty" class="form-label">QTY</label>
@@ -94,12 +95,12 @@
                                 <input type="text" class="form-control" id="kodejs" name="kodejs" disabled required>
                             </div>
                             <div class="mb-3">
-                                <label for="po-num" class="form-label">PO Number</label>
-                                <input type="text" class="form-control" id="po-num" name="po-num" required>
+                                <label for="PO_number" class="form-label">PO Number</label>
+                                <input type="text" class="form-control" id="PO_number" name="PO_number" required>
                             </div>
                             <div class="mb-3">
-                                <label for="inc-num" class="form-label">Invoice Number</label>
-                                <input type="text" class="form-control" id="inv-num" name="inv-num" required>
+                                <label for="inv_number" class="form-label">Invoice Number</label>
+                                <input type="text" class="form-control" id="inv_number" name="inv_number" required>
                             </div>
                             <div class="mb-3">
                                 <label for="qty" class="form-label">QTY</label>
@@ -129,7 +130,10 @@
         });
 
         $('#nama').select2({
+            theme: 'bootstrap-5',
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
             placeholder: 'Nama Barang',
+            minimumInputLength: 3,
             ajax: {
                 url: '{{ url()->current() }}',
                 dataType: 'json',
@@ -146,6 +150,17 @@
                 },
                 cache: true
             }
+        });
+        $('#nama').on('select2:open', function(e) {
+            console.log('open');
+            $('.select2-search__field').focus();
+        });
+
+        $('#nama').change(function() {
+            var kodejs = $(this).val();
+            var kodeJsField = $('#kodejs');
+            kodeJsField.val(kodejs);
+            //kodeJsField.prop('disabled', false);
         });
     </script>
 @endsection

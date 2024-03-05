@@ -157,7 +157,6 @@
         });
 
         $(document).on('click', '#statusPesanan', function() {
-            console.log('tombol diklik');
             var pesananId = $(this).data('pesanan-id');
             var status = $(this).data('status');
 

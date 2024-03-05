@@ -11,7 +11,7 @@ class StoreDataBarangRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreDataBarangRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'kode_js' => ['required', 'string', 'max:255'],
+            'inv_number' => ['required', 'string', 'max:255'],
+            'PO_number' => ['required', 'string', 'max:255'],
+            'qty' => ['required', 'numeric'],
         ];
     }
 }

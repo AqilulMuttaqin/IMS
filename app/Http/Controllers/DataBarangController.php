@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateDataBarangRequest;
 use App\Models\Barang;
 use App\Models\Lokasi;
 use App\Models\Pesanan;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DataBarangController extends Controller
@@ -86,9 +87,22 @@ class DataBarangController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDataBarangRequest $request)
+    public function store(Request $request)
     {
-        //
+        $lokasi = auth()->user()->lokasi_id;
+
+        $barang = DataBarang::create([
+            'kode_js' => $request->nama,
+            'inv_number' => $request->inv_number,
+            'PO_number' => $request->PO_number,
+        ]);
+
+        $barang->lokasi()->attach($lokasi, ['qty' => $request->qty]);
+
+        $barang->save();
+
+        alert()->success('Data Barang Berhasil Ditambahkan', 'Sukses');
+        return redirect()->back();
     }
 
     /**
