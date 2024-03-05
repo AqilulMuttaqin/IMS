@@ -1,15 +1,6 @@
 @extends('layout.app')
 
 @section('content')
-    <style>
-        .nav-pills .nav-link {
-            color: black;
-        }
-
-        .nav-pills .nav-link.active {
-            color: white;
-        }
-    </style>
     <!-- Container Content Update Stok -->
     <div class="card">
         <div class="nav-align-top mb-4">
@@ -42,7 +33,7 @@
                     </div>
                     <!-- Content Menu 2 -->
                     <div class="tab-pane fade" id="menu-2" role="tabpanel">
-                        <form method="POST" action="{{ route('staff.tambah-barang') }}">
+                        <form method="POST" action="{{ route('staff.update-barang') }}">
                         @csrf
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Barang</label>
@@ -51,19 +42,19 @@
                             </div>
                             <div class="mb-3">
                                 <label for="kodejs" class="form-label">Kode JS</label>
-                                <input type="text" class="form-control" id="kodejs" name="kodejs" disabled required>
+                                <input type="text" class="form-control" id="kodejs" name="kodejs" placeholder="Input Kode JS ..." disabled required>
                             </div>
                             <div class="mb-3">
                                 <label for="PO_number" class="form-label">PO Number</label>
-                                <input type="text" class="form-control" id="PO_number" name="PO_number" required>
+                                <input type="text" class="form-control" id="PO_number" name="PO_number" placeholder="Input PO Number ..." required>
                             </div>
                             <div class="mb-3">
                                 <label for="inv_number" class="form-label">Invoice Number</label>
-                                <input type="text" class="form-control" id="inv_number" name="inv_number" required>
+                                <input type="text" class="form-control" id="inv_number" name="inv_number" placeholder="Input Invoice Number" required>
                             </div>
                             <div class="mb-3">
                                 <label for="qty" class="form-label">QTY</label>
-                                <input type="number" class="form-control" id="qty" name="qty" required>
+                                <input type="number" class="form-control" id="qty" name="qty" placeholder="Input Qty ..." required>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
@@ -131,8 +122,7 @@
 
         $('#nama').select2({
             theme: 'bootstrap-5',
-            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-            placeholder: 'Nama Barang',
+            placeholder: ' Input Nama Barang ...',
             minimumInputLength: 3,
             ajax: {
                 url: '{{ url()->current() }}',
@@ -150,7 +140,7 @@
                 },
                 cache: true
             }
-        });
+        }).addClass('form-select');
         $('#nama').on('select2:open', function(e) {
             console.log('open');
             $('.select2-search__field').focus();
