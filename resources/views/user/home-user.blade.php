@@ -224,6 +224,7 @@
                 var barang = $('#tambahModal').find('#barang').val();
                 var jumlah = $('#tambahModal').find('#jumlah').val();
                 pesan(barang, jumlah);
+                table.draw();
             });
 
             $('#dataBarangReady').on('click', '#tambahBarang', function() {
@@ -271,6 +272,7 @@
                             icon: "success",
                             timer: 3500
                         });
+                        table.draw();
                     }
                 });
             });

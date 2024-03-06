@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BarangSeeder::class);
         $this->call(DataBarangSeeder::class);
         $this->call(DataBarangLokasiSeeder::class);
-        $this->call(PesananSeeder::class);
+        //$this->call(PesananSeeder::class);
         $this->call(KeranjangSeeder::class);
     }
 }
