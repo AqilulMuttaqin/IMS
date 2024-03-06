@@ -96,9 +96,12 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::post('spv/user-add', [SPVController::class, 'add_user'])->name('spv.tambah-user');
     Route::put('spv/user-update/{user}', [SPVController::class, 'update_user'])->name('spv.update-user');
     Route::delete('spv/user-del/{user}', [SPVController::class, 'delete_user'])->name('spv.hapus-user');
-    Route::get('/spv/control-barang', function () {
-        return view('spv.control-barang', ['title' => 'Control Barang']);
-    })->name('spv.control-barang');
+    Route::post('spv/tambah-barang', [DataBarangController::class, 'add'])->name('spv.update-barang');
+    Route::post('spv/mutasi-barang', [DataBarangController::class, 'mutasi'])->name('spv.mutasi-barang');
+    Route::get('/spv/control-barang', [SPVController::class, 'update_stok'])->name('spv.control-barang');
+    Route::get('/spv/get-lokasi', [SPVController::class, 'get_lokasi'])->name('spv.get-lokasi');
+    Route::get('/spv/get-barang', [SPVController::class, 'get_barang'])->name('spv.get-barang');
+    Route::get('/spv/get-qty', [SPVController::class, 'get_qty'])->name('spv.get-qty');
     // Route::get('/spv/detail-barang', function () {
     //     return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
     // })->name('spv.detail-barang');

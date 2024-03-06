@@ -155,8 +155,6 @@
             input.value = input.value.replace(/[^0-9]/g, '');
             const id = input.id;
             const data = input.value;
-            console.log(id);
-            console.log(data);
             const maxQty = parseInt($('#jumlah').data('max'));
             const currentQty = parseInt(data);
             if (currentQty > maxQty) {
