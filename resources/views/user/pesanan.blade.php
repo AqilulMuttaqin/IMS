@@ -57,13 +57,14 @@
                 serverSide: true,
                 scrollX: true,
                 order: [
-                    [2, 'desc']
+                    [3, 'desc']
                 ],
                 ajax: {
                     url: '{{ url()->current() }}',
                     type: 'GET'
                 },
-                columns: [{
+                columns: [
+                    {
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },

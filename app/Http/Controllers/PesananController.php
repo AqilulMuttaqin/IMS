@@ -24,7 +24,7 @@ class PesananController extends Controller
             if (auth()->user()->role === 'admin') {
                 $pesanan = $pesanan->get();
             } elseif (auth()->user()->role === 'user') {
-                $pesanan = $pesanan->where('user_id', auth()->id())->orderby('created_at', 'asc')->get();
+                $pesanan = $pesanan->where('user_id', auth()->id())->orderby('created_at', 'desc')->get();
             }
 
             $pesanan->map(function ($item, $key) {

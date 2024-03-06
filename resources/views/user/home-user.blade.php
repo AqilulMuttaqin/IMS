@@ -71,8 +71,19 @@
                 <div class="modal-body">
                     <form id="keranjangForm">
                         <div class="col-xxl">
-                            <div class="row mb-3">
-                                <label class="col-sm-8 col-form-label" for="jumlah">Jumlah Barang</label>
+                            <div class="row mb-2">
+                                <div class="col-sm-8"></div>
+                                <div class="col-sm-4 text-center">
+                                    <p>Jumlah</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="col-sm-8 col-form-label" for="ket">Keterangan</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="checkbox" unchecked id="ket" data-toggle="toggle" data-on="Tukar" data-off="Request" data-offstyle="success">
+                                </div>
                                 <div class="col-sm-4">
                                     <div class="input-group number-spinner">
                                         <button type="button" class="btn btn-sm border" onclick="minValue('jumlah')">
@@ -95,9 +106,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-warning" id="tambahkan">Tambahkan</button>
                     <button type="button" class="btn btn-primary" id="sbmtPesanLangsung" hidden>Pesan</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -317,7 +328,7 @@
                             <tr class="text-center">
                                 <th style="width: 20px">No</th>
                                 <th>Nama Barang</th>
-                                <th>Tukar</th>
+                                <th>Keterangan</th>
                                 <th style="width: 150px">Qty</th>
                                 <th style="width: 20px">Hapus</th>
                             </tr>
