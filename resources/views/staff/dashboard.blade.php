@@ -56,7 +56,7 @@
     <!-- Modal - Detail Pesanan -->
     <div class="modal fade" id="detailKonfirmasiModal" tabindex="-1" role="dialog"
         aria-labelledby="detailKonfirmasiModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="detailKonfirmasiModalLabel">Detail Pesanan Line ...</h5>
@@ -107,6 +107,58 @@
 
     <!-- JavaScript -->
     <script>
+        const plusValue = (id) => {
+            const inputElement = document.getElementById(id);
+            inputElement.value = parseInt(inputElement.value) + 1;
+            const maxQty = parseInt($('#jumlah').data('max'));
+            const currentQty = parseInt(inputElement.value);
+            if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+                $('#tambahkan').prop('disabled', true);
+            } else {
+                $('#error-message').hide();
+                $('#tambahkan').prop('disabled', false);
+                if (id !== 'jumlah') {
+                    debounceAjaxRequest(id, inputElement.value);
+                }
+            }
+        }
+
+        const minValue = (id) => {
+            const inputElement = document.getElementById(id);
+            const newValue = parseInt(inputElement.value) - 1;
+            inputElement.value = newValue >= 0 ? newValue : 0;
+            const maxQty = parseInt($('#jumlah').data('max'));
+            const currentQty = parseInt(newValue);
+            if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+                $('#tambahkan').prop('disabled', true);
+            } else {
+                $('#error-message').hide();
+                $('#tambahkan').prop('disabled', false);
+                if (id !== 'jumlah') {
+                    debounceAjaxRequest(id, inputElement.value);
+                }
+            }
+        }
+
+        const validateInput = (input) => {
+            input.value = input.value.replace(/[^0-9]/g, '');
+            const id = input.id;
+            const data = input.value;
+            const maxQty = parseInt($('#jumlah').data('max'));
+            const currentQty = parseInt(data);
+            if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+                $('#tambahkan').prop('disabled', true);
+            } else {
+                $('#error-message').hide();
+                $('#tambahkan').prop('disabled', false);
+                if (id !== 'jumlah') {
+                    debounceAjaxRequest(id, data);
+                }
+            }
+        }
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -288,7 +340,8 @@
                                         <th style="width: 20px">No</th>
                                         <th>Nama Barang</th>
                                         <th>Keterangan</th>
-                                        <th>Qty</th>
+                                        <th style="width: 200px">Qty</th>
+                                        <th style="width: 80px">Hapus</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -296,13 +349,37 @@
                     
                     response.barang.forEach(function(barang, index) {
                         modalBody.find('tbody').append(`
-                            <tr class="text-center">
+                            <tr class="text-center align-middle justify-content-center">
                                 <td>${index + 1}</td>
                                 <td>${barang.nama}</td>
-                                <td>Request</td>
-                                <td>${barang.pivot.qty}</td>
+                                <td>
+                                    <input class="form-check-input btn-sm" type="checkbox" id="keterangan_${index}" data-toggle="toggle" disabled>     
+                                </td>
+                                <td>
+                                    <div class="input-group number-spinner">
+                                        <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
+                                            <i class="ti ti-minus"></i>
+                                        </button>
+                                        <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
+                                            name="${barang.kode_js}" oninput="validateInput(this)">
+                                        <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
+                                            <i class="ti ti-plus"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" onclick="deleteBarang('${barang.kode_js}')">
+                                        <i class="ti ti-trash"></i>
+                                    </button>    
+                                </td>
                             </tr>
                         `);
+                        $(`#keterangan_${index}`).bootstrapToggle({
+                            on: 'Tukar',
+                            off: 'Request',
+                            offstyle: 'success',
+                            style: 'slow'
+                        });
                     });
 
                     modalBody.append(`

@@ -41,7 +41,7 @@
 
     <!-- Modal - Isi Keranjang -->
     <div class="modal fade" id="keranjangModal" tabindex="-1" role="dialog" aria-labelledby="keranjangModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="keranjangModalLabel">Keranjang Anda</h5>
@@ -327,8 +327,8 @@
                                 <th style="width: 20px">No</th>
                                 <th>Nama Barang</th>
                                 <th>Keterangan</th>
-                                <th style="width: 150px">Qty</th>
-                                <th style="width: 20px">Hapus</th>
+                                <th style="width: 200px">Qty</th>
+                                <th style="width: 80px">Hapus</th>
                             </tr>
                         </thead>
                         <tbody>

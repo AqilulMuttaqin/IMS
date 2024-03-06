@@ -61,7 +61,7 @@
                     </div>
                     <!-- Content Menu 2 -->
                     <div class="tab-pane fade" id="menu-2" role="tabpanel">
-                        <form method="POST" action="{{ route('spv.update-barang') }}">
+                        <form method="POST" action="{{ route('spv.input-barang') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Barang</label>
@@ -83,7 +83,6 @@
                             <div class="mb-3">
                                 <label for="qty" class="form-label">QTY</label>
                                 <input type="number" class="form-control" id="qty" name="qty" placeholder="Input Qty ..." required>
-                            </div>
                             </div>
                             <div class="mb-3">
                                 <label for="lokasi" class="form-label">LOKASI</label>
