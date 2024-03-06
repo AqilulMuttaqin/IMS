@@ -21,7 +21,7 @@
         <div class="card-body">
             <!-- Tabel User -->
             <div class="table-responsive text-nowrap">
-                <table class="table table-striped" id="dataUser">
+                <table class="table table-striped w-100" id="dataUser">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
@@ -102,6 +102,7 @@
             var table = $('#dataUser').DataTable({
                 processing: false,
                 serverSide: true,
+                scrollX: true,
                 ajax: {
                     url: '{{ url()->current() }}',
                     type: 'GET'
@@ -120,7 +121,16 @@
                     },
                     {
                         data: 'role',
-                        name: 'role'
+                        name: 'role',
+                        render: function(data, type, row, meta) {
+                            if (data === 'spv') {
+                                return 'Supervisor';
+                            } else if (data === 'admin') {
+                                return 'Staff Gudang';
+                            } else {
+                                return 'User';
+                            }
+                        }
                     },
                     {
                         data: 'lokasi.nama',

@@ -98,6 +98,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary edit-detail" data-bs-dismiss="modal">Edit</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -191,29 +192,23 @@
                     $.each(response.pesanan, function(index, pesanan) {
                         var card = $('<div class="col-sm-6 col-md-4 col-lg-3 my-2"></div>');
                         var cardBody = $('<div class="card border"></div>');
-                        var cardHeader = $('<div class="card-header pb-1"></div>');
+                        var cardHeader = $('<div class="card-header pb-0 mb-0"></div>');
                         console.log(pesanan);
-                        var cardTitle = $('<h6 class="text-center">Pesanan ' + pesanan.kode_pesanan +
-                            '</h6>');
+                        var cardTitle = $('<h6 class="text-center">Pesanan ' + pesanan.kode_pesanan + '</h6>');
                         var hr = $('<hr>');
-                        var cardCardBody = $('<div class="card-body pt-3"></div>');
+                        var cardCardBody = $('<div class="card-body pt-0"></div>');
                         var row = $('<div class="row"></div>');
-                        var namaLabelCol = $(
-                            '<div class="col-4"><label for="nama">Nama</label></div>');
+                        var namaLabelCol = $('<div class="col-4"><label for="nama">Nama</label></div>');
                         var namaValueCol = $('<div class="col-8"><p id="nama">: ' + pesanan.user.name +'</p></div>');
-                        var tanggalLabelCol = $(
-                            '<div class="col-4"><label for="tanggal">Tanggal</label></div>');
+                        var tanggalLabelCol = $('<div class="col-4"><label for="tanggal">Tanggal</label></div>');
                         var tanggal = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('D MMM YYYY');
-                        var jam = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('HH:MM');
-                        var tanggalValueCol = $('<div class="col-8"><p id="tanggal">: ' + tanggal +
-                            '</p></div>');
-                        var detailLabelCol = $(
-                            '<div class="col-4"><label for="detail">Detail</label></div>');
-                        var detailValueCol = $(
-                            '<div class="col-8"><p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail" data-pesanan-id="' +
-                            pesanan.id +
-                            '" data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal"><i class="ti ti-eye"></i></button></p></div>'
-                            );
+                        var tanggalValueCol = $('<div class="col-8"><p id="tanggal">: ' + tanggal + '</p></div>');
+                        var lokasiLabelCol = $('<div class="col-4"><label for="lokasi">Line</label></div>');
+                        var lokasiValueCol = $('<div class="col-8"><p id="lokasi">: ' + pesanan.user.lokasi.nama +'</p></div>');
+                        var detailLabelCol = $('<div class="col-4"><label for="detail">Detail</label></div>');
+                        var detailValueCol = $('<div class="col-8"><p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail" data-pesanan-id="'
+                            + pesanan.id + '" data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal"><i class="ti ti-eye"></i></button></p></div>'
+                        );
                         var hr = $('<hr>');
                         var confirmButtonCol = $('<div class="col-12"></div>');
                         var confirmButton = $('<button type="button" id="statusPesanan" class="btn w-100"></button>');
@@ -241,6 +236,8 @@
                         row.append(namaValueCol);
                         row.append(tanggalLabelCol);
                         row.append(tanggalValueCol);
+                        row.append(lokasiLabelCol);
+                        row.append(lokasiValueCol);
                         row.append(detailLabelCol);
                         row.append(detailValueCol);
                         row.append(hr.clone());
@@ -273,31 +270,46 @@
 
                     modalBody.empty();
                     modalBody.append(`
-                            <div class="row mb-3">
-                                <label class="col-sm-8 col-form-label" for="label">Nama</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control text-center" id="label" name="label" value="${response.user.name}" disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-8 col-form-label" for="Jumlah"></label>
-                                <div class="col-sm-4">
-                                    <div class="text-muted text-center">Jumlah</div>
-                                </div>
-                            </div>
-                        `);
-
-                    $.each(response.barang, function(index, barang) {
-                        modalBody.append(`
-                            <div class="row mb-3">
-                                <label class="col-sm-8 col-form-label" for="barang-${index}">${barang.nama}</label>
-                                <div class="col-sm-4">
-                                    <div class="input-group number-spinner"> <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="barang-${index}" name="barang-${index}" disabled>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3 mb-2">Nama</div>
+                            <div class="col-sm-1">:</div>
+                            <div class="col-sm-8">${response.user.name}</div>
+                            <div class="col-sm-3 mb-2">Tanggal</div>
+                            <div class="col-sm-1">:</div>
+                            <div class="col-sm-8">${moment.utc(response.created_at).tz('Asia/Jakarta').format('D MMM YYYY')}</div>
+                            <div class="col-sm-3 mb-2">Kode Pesan</div>
+                            <div class="col-sm-1">:</div>
+                            <div class="col-sm-8">${response.kode_pesanan}</div>
+                        </div>
+                        <div class="table-responsive border text-nowrap" style="border-radius: 10px;">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th style="width: 20px">No</th>
+                                        <th>Nama Barang</th>
+                                        <th>Keterangan</th>
+                                        <th>Qty</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `);
+                    
+                    response.barang.forEach(function(barang, index) {
+                        modalBody.find('tbody').append(`
+                            <tr class="text-center">
+                                <td>${index + 1}</td>
+                                <td>${barang.nama}</td>
+                                <td>Request</td>
+                                <td>${barang.pivot.qty}</td>
+                            </tr>
                         `);
                     });
+
+                    modalBody.append(`
+                                </tbody>
+                            </table>
+                        </div>
+                    `);
 
                     $('#detailKonfirmasiModal').modal('show');
                 },

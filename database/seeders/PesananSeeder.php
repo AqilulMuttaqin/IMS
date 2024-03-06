@@ -14,7 +14,7 @@ class PesananSeeder extends Seeder
     public function run(): void
     {
         $status = ['pending', 'disiapkan', 'dikirim'];
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 0; $i++) {
             $pesanan = Pesanan::create([
               'user_id' => 3,
                 'status' => $status[rand(0, 2)],

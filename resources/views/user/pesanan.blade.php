@@ -7,10 +7,11 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-striped" id="dataStatusPesanan">
+                <table class="table table-striped w-100" id="dataStatusPesanan">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
+                            <th>Kode Pesan</th>
                             <th>Nama Pesanan</th>
                             <th>Tanggal Dibuat</th>
                             <th>Tanggal Selesai</th>
@@ -52,8 +53,9 @@
                 }
             });
             var table = $('#dataStatusPesanan').DataTable({
-                processing: true,
+                processing: false,
                 serverSide: true,
+                scrollX: true,
                 order: [
                     [2, 'desc']
                 ],
@@ -64,6 +66,9 @@
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
+                    },
+                    {
+                        data: null
                     },
                     {
                         data: 'user.name',
@@ -155,34 +160,46 @@
                 modalTitle.text('Detail Pesanan ' + rowData.user.name);
                 modalBody.empty();
                 modalBody.append(`
-                        <div class="row mb-3">
-                            <label class="col-sm-8 col-form-label" for="Jumlah"></label>
-                            <div class="col-sm-4">
-                                <div class="text-muted text-center id="Jumlah"">Jumlah</div>
-                            </div>
-                        </div>
-                        `);
+                    <div class="row mb-3">
+                        <div class="col-sm-3 mb-2">Nama</div>
+                        <div class="col-sm-1">:</div>
+                        <div class="col-sm-8">${rowData.user.name}</div>
+                        <div class="col-sm-3 mb-2">Tanggal</div>
+                        <div class="col-sm-1">:</div>
+                        <div class="col-sm-8">${moment.utc(rowData.created_at).tz('Asia/Jakarta').format('D MMM YYYY')}</div>
+                        <div class="col-sm-3 mb-2">Kode Pesan</div>
+                        <div class="col-sm-1">:</div>
+                        <div class="col-sm-8">${rowData.kode_pesanan}</div>
+                    </div>
+                    <div class="table-responsive border text-nowrap" style="border-radius: 10px;">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr class="text-center">
+                                    <th style="width: 20px">No</th>
+                                    <th>Nama Barang</th>
+                                    <th>Keterangan</th>
+                                    <th>Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `);
 
                 rowData.barang.forEach(function(barang, index) {
-                    modalBody.append(`
-                        <div class="row mb-3">
-                            <label class="col-sm-8 col-form-label" for="barang-${index}">${barang.nama}</label>
-                            <div class="col-sm-4">
-                                <div class="input-group number-spinner">
-                                    <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="barang-${index}"
-                                        name="barang-${index}" oninput="validateInput(this)" disabled>
-                                </div>
-                            </div>
-                        </div>
+                    modalBody.find('tbody').append(`
+                        <tr class="text-center">
+                            <td>${index + 1}</td>
+                            <td>${barang.nama}</td>
+                            <td>Request</td>
+                            <td>${barang.pivot.qty}</td>
+                        </tr>
                     `);
                 });
 
                 modalBody.append(`
-                        <div class="row justify-content-end">
-                            <div class="text-end">
-                            </div>
-                        </div>
-                        `);
+                            </tbody>
+                        </table>
+                    </div>
+                `);
 
                 $('#statusPesananModal').modal('show');
             });
