@@ -168,7 +168,7 @@
                         <div class="col-sm-8">${moment.utc(rowData.created_at).tz('Asia/Jakarta').format('D MMM YYYY')}</div>
                         <div class="col-sm-3 mb-2">Kode Pesan</div>
                         <div class="col-sm-1">:</div>
-                        <div class="col-sm-8">NSAIDN09</div>
+                        <div class="col-sm-8">${rowData.kode_pesanan}</div>
                     </div>
                     <div class="table-responsive border text-nowrap" style="border-radius: 10px;">
                         <table class="table table-sm table-striped">

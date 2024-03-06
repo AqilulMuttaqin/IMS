@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             //admin
             [
-                'name' =>  'Admin',
+                'name' =>  'Granger',
                 'nik' => '222222',
                 'password' => Hash::make('222222'),
                 'role' => 'admin',
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
 
             //spv
             [
-                'name' =>  'SuperVisor',
+                'name' =>  'Anisa',
                 'nik' => '333333',
                 'password' => Hash::make('333333'),
                 'role' => 'spv',
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
 
             //user
             [
-                'name' =>  'User',
+                'name' =>  'Pororo',
                 'nik' => '111111',
                 'password' => Hash::make('111111'),
                 'role' => 'user',
