@@ -98,6 +98,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary edit-detail" data-bs-dismiss="modal">Edit</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -286,6 +287,7 @@
                                     <tr class="text-center">
                                         <th style="width: 20px">No</th>
                                         <th>Nama Barang</th>
+                                        <th>Keterangan</th>
                                         <th>Qty</th>
                                     </tr>
                                 </thead>
@@ -297,6 +299,7 @@
                             <tr class="text-center">
                                 <td>${index + 1}</td>
                                 <td>${barang.nama}</td>
+                                <td>Request</td>
                                 <td>${barang.pivot.qty}</td>
                             </tr>
                         `);
