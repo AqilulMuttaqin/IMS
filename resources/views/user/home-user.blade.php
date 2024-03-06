@@ -328,9 +328,7 @@
                         <td>${index + 1}</td>
                         <td>${barang.nama}</td>
                         <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-toggle="toggle">
-                            </div>    
+                            <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-toggle="toggle">    
                         </td>
                         <td>
                             <div class="input-group number-spinner">
