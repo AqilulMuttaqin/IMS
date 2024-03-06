@@ -118,10 +118,17 @@
                     url: '{{ url()->current() }}',
                     type: 'GET'
                 },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
+                columns: [
+                    {
+                        data: null,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1;
+                        }
                     },
+                    // {
+                    //     data: 'DT_RowIndex',
+                    //     name: 'DT_RowIndex'
+                    // },
                     {
                         data: 'kode_js',
                         name: 'kode_js'

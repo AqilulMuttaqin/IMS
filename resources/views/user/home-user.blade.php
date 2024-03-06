@@ -309,7 +309,7 @@
             modalBody.empty();
 
             modalBody.append(`
-                <div class="table-responsive border text-nowrap" style="border-radius: 10px;">
+                <div class="table-responsive text-nowrap">
                     <table class="table table-sm">
                         <thead>
                             <tr class="text-center">
@@ -323,40 +323,48 @@
                         <tbody>
             `);
 
-            response.barang.forEach(function (barang, index) {
+            if (response.barang && response.barang.length > 0) {
+                response.barang.forEach(function (barang, index) {
+                    modalBody.find('tbody').append(`
+                        <tr class="text-center">
+                            <td>${index + 1}</td>
+                            <td>${barang.nama}</td>
+                            <td>
+                                <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-toggle="toggle">    
+                            </td>
+                            <td>
+                                <div class="input-group number-spinner">
+                                    <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
+                                        <i class="ti ti-minus"></i>
+                                    </button>
+                                    <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
+                                        name="${barang.kode_js}" oninput="validateInput(this)">
+                                    <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
+                                        <i class="ti ti-plus"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="deleteBarang('${barang.kode_js}')">
+                                    <i class="ti ti-trash"></i>
+                                </button>    
+                            </td>
+                        </tr>
+                    `);
+
+                    $(`#keterangan_${index}`).bootstrapToggle({
+                        on: 'Yes',
+                        off: 'No',
+                        offstyle: 'success'
+                    });
+                });
+            } else {
                 modalBody.find('tbody').append(`
-                    <tr class="text-center">
-                        <td>${index + 1}</td>
-                        <td>${barang.nama}</td>
-                        <td>
-                            <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-toggle="toggle">    
-                        </td>
-                        <td>
-                            <div class="input-group number-spinner">
-                                <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
-                                    <i class="ti ti-minus"></i>
-                                </button>
-                                <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
-                                    name="${barang.kode_js}" oninput="validateInput(this)">
-                                <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
-                                    <i class="ti ti-plus"></i>
-                                </button>
-                            </div>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger" onclick="deleteBarang('${barang.kode_js}')">
-                                <i class="ti ti-trash"></i>
-                            </button>    
-                        </td>
+                    <tr>
+                        <td colspan="5" class="text-center">No data available</td>
                     </tr>
                 `);
-
-                $(`#keterangan_${index}`).bootstrapToggle({
-                    on: 'Yes',
-                    off: 'No',
-                    offstyle: 'success'
-                });
-            });
+            }
 
             modalBody.append(`
                         </tbody>
