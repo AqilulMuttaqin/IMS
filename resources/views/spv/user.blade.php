@@ -121,7 +121,16 @@
                     },
                     {
                         data: 'role',
-                        name: 'role'
+                        name: 'role',
+                        render: function(data, type, row, meta) {
+                            if (data === 'spv') {
+                                return 'Supervisor';
+                            } else if (data === 'admin') {
+                                return 'Staff Gudang';
+                            } else {
+                                return 'User';
+                            }
+                        }
                     },
                     {
                         data: 'lokasi.nama',
