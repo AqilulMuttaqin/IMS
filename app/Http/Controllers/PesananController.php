@@ -7,6 +7,7 @@ use App\Http\Requests\StorePesananRequest;
 use App\Http\Requests\UpdatePesananRequest;
 use App\Models\Barang;
 use App\Models\Keranjang;
+use App\Models\TokenCounter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -74,8 +75,9 @@ class PesananController extends Controller
 
         $pesanan = new Pesanan();
         $pesanan->user_id = auth()->id();
+        $pesanan->kode_pesanan = $this->generateUniqueID();
         $pesanan->save();
-
+        
         $pesanan->barang()->attach($request->input('kode_js'), ['qty' => $request->input('qty')]);
     }
 
@@ -123,5 +125,26 @@ class PesananController extends Controller
         //     $query->where('id', $id);});
         $pesanan = Pesanan::with('barang', 'user')->where('id', $request->input('pesanan_id'))->first();
         return response()->json($pesanan);
+    }
+
+    function generateUniqueID() {
+        $currentDate = date('ymd');
+    
+        $tokenCounter = TokenCounter::where('date', $currentDate)->first();
+    
+        if (!$tokenCounter) {
+            $tokenCounter = TokenCounter::create([
+                'date' => $currentDate,
+                'counter' => 1
+            ]);
+        } else {
+            $tokenCounter->increment('counter');
+        }
+    
+        $formattedCounter = str_pad($tokenCounter->counter, 4, '0', STR_PAD_LEFT);
+    
+        $uniqueID = 'IMS-' . $currentDate . '-' . $formattedCounter;
+    
+        return $uniqueID;
     }
 }

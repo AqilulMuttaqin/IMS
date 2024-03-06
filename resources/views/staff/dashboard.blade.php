@@ -192,7 +192,8 @@
                         var card = $('<div class="col-sm-6 col-md-4 col-lg-3 my-2"></div>');
                         var cardBody = $('<div class="card border"></div>');
                         var cardHeader = $('<div class="card-header pb-1"></div>');
-                        var cardTitle = $('<h6 class="text-center">Pesanan ' + pesanan.user.lokasi.nama +
+                        console.log(pesanan);
+                        var cardTitle = $('<h6 class="text-center">Pesanan ' + pesanan.kode_pesanan +
                             '</h6>');
                         var hr = $('<hr>');
                         var cardCardBody = $('<div class="card-body pt-3"></div>');

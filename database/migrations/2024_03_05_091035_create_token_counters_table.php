@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pesanan', function (Blueprint $table) {
+        Schema::create('token_counters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('date');
+            $table->integer('counter');
             $table->timestamps();
-            $table->enum('status',['pending', 'disiapkan', 'dikirim', 'terkirim', 'selesai'])->default('pending');
-            $table->string('kode_pesanan')->unique()->nullable();
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pesanan');
+        Schema::dropIfExists('token_counters');
     }
 };
