@@ -78,11 +78,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <label class="col-sm-8 col-form-label" for="ket">Keterangan</label>
                                 </div>
-                                <div class="col-sm-4">
-                                    <input type="checkbox" unchecked id="ket" data-toggle="toggle" data-on="Tukar" data-off="Request" data-offstyle="success">
+                                <div class="col-sm-5">
+                                    <input type="checkbox" unchecked id="ket" data-toggle="toggle" data-on="Tukar" data-off="Request" data-offstyle="success" data-style="slow">
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="input-group number-spinner">
@@ -368,7 +368,8 @@
                     $(`#keterangan_${index}`).bootstrapToggle({
                         on: 'Tukar',
                         off: 'Request',
-                        offstyle: 'success'
+                        offstyle: 'success',
+                        style: 'slow'
                     });
                 });
             } else {
