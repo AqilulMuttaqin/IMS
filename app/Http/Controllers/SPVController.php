@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SPV;
 use App\Http\Requests\StoreSPVRequest;
 use App\Http\Requests\UpdateSPVRequest;
+use App\Models\Barang;
 use App\Models\Lokasi;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -152,5 +153,71 @@ class SPVController extends Controller
 
         alert()->success('Deleted!', 'Data Berhasil dihapus');
         return redirect()->back();
+    }
+
+    public function update_stok(){
+        if (request()->ajax()) {
+            $barang = [];
+
+            if(request()->has('q')){
+                $search = request()->q;
+                $barang =Barang::select("kode_js", "nama")
+                        ->where('nama', 'LIKE', "%$search%")
+                        ->get();
+            }
+            return response()->json($barang);
+        }
+
+        return view('spv.control-barang', ['title' => 'Control Barang']);
+    }
+
+    public function get_barang(){
+        if (request()->ajax()) {
+            $barang = [];
+
+            if(request()->has('q')){
+                $search = request()->q;
+                $barang =Barang::select("kode_js", "nama")
+                        ->where('nama', 'LIKE', "%$search%")
+                        ->whereHas('dataBarang.lokasi', function ($query) {
+                            $query->where('id', request('lokasi'));
+                        })
+                        ->get();
+            }
+            return response()->json($barang);
+        }
+    }
+
+    public function get_lokasi(){
+        $lokasi = [];
+
+        if(request()->has('q')){
+            $search = request()->q;
+            $lokasi =Lokasi::select("id", "nama")
+                    ->where('nama', 'LIKE', "%$search%")
+                    ->get();
+        }
+        return response()->json($lokasi);
+    }
+
+    public function get_qty(){
+        $barang = Barang::where('kode_js', request('kode_js'))
+            ->with(['dataBarang.lokasi' => function ($query) {
+                $query->where('id', request('lokasi'));
+            }])
+            ->first();
+
+        $totalQty = 0;
+        if ($barang) {
+            foreach ($barang->dataBarang as $dataBarang) {
+                foreach ($dataBarang->lokasi as $lokasi) {
+                    if ($lokasi->id == request('lokasi')) {
+                        $totalQty += $lokasi->pivot->qty;
+                    }
+                }
+            }
+        }
+
+        return response()->json($totalQty);
     }
 }

@@ -194,4 +194,31 @@ class DataBarangController extends Controller
         // })->get();
         return response()->json($pesanan);
     }
+
+    public function add(Request $request)
+    {
+        $lokasi = $request->input('lokasi');
+
+        $barang = DataBarang::create([
+            'kode_js' => $request->kodejs,
+            'inv_number' => $request->inv_number,
+            'PO_number' => $request->PO_number,
+        ]);
+
+        $barang->lokasi()->attach($lokasi, ['qty' => $request->qty]);
+
+        $barang->save();
+
+        alert()->success('Success', 'Stok Berhasil Ditambahkan');
+        return redirect()->back();
+    }
+
+    public function mutasi(Request $request){
+        $barang = Barang::where('kode_js', $request->input('kodejsMutasi'))->firstOrFail();
+        $lokasiAwal = $request->input('lokasiMutasi');
+        $lokasiAkhir = $request->input('lokasiAkhir');
+        $qty = $request->input('qtyMutasi');
+
+        $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty);
+    }
 }
