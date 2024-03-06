@@ -61,13 +61,13 @@ class DataBarangLokasiSeeder extends Seeder
             ['lokasi_id' => 1, 'data_barang_id' => 40, 'qty' => 500],
         ];
 
-        for ($i = 1; $i <= 20; $i++) {
-            $data[] = [
-                'lokasi_id' => rand(2, 10),
-                'data_barang_id' => rand(1, 40),
-                'qty' => rand(1, 10),
-            ];
-        }
+        // for ($i = 1; $i <= 20; $i++) {
+        //     $data[] = [
+        //         'lokasi_id' => rand(2, 10),
+        //         'data_barang_id' => rand(1, 40),
+        //         'qty' => rand(1, 10),
+        //     ];
+        // }
 
         DB::table('data_barang_lokasi')->insert($data);
     }
