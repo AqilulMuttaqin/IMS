@@ -308,51 +308,64 @@
             modalBody.empty();
 
             modalBody.append(`
-            <div class="row mb-3">
-                <label class="col-sm-4 col-form-label" for="Jumlah"></label>
-                <div class="col-sm-2">
-                    <div class="text-muted text-center">Tukar</div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="text-muted text-center">Jumlah</div>
-                </div>
-            </div>
+                <div class="table-responsive border text-nowrap" style="border-radius: 10px;">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr class="text-center">
+                                <th style="width: 20px">No</th>
+                                <th>Nama Barang</th>
+                                <th>Tukar</th>
+                                <th style="width: 150px">Qty</th>
+                                <th style="width: 20px">Hapus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
             `);
 
-            $.each(response.barang, function(index, barang) {
-                modalBody.append(
-                    `
-                <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label" for="${barang.kode_js}">${barang.nama}</label>
-                    <div class="col-sm-2">
-                        <div class="form-check form-switch d-flex align-items-center justify-content-center">
-                            <input class="form-check-input mt-1" type="checkbox" role="switch" id="flexSwitchCheckDefault" style="width: 80px; height: 28px;">
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="input-group number-spinner">
-                            <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
-                                <i class="ti ti-minus"></i>
-                            </button>
-                            <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
-                                name="${barang.kode_js}" oninput="validateInput(this)">
-                            <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
-                                <i class="ti ti-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-danger" onclick="deleteBarang('${barang.kode_js}')">
-                            <i class="ti ti-trash"></i>
-                        </button>
-                    </div>
-                </div>
+            response.barang.forEach(function (barang, index) {
+                modalBody.find('tbody').append(`
+                    <tr class="text-center">
+                        <td>${index + 1}</td>
+                        <td>${barang.nama}</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-toggle="toggle">
+                            </div>    
+                        </td>
+                        <td>
+                            <div class="input-group number-spinner">
+                                <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
+                                    <i class="ti ti-minus"></i>
+                                </button>
+                                <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
+                                    name="${barang.kode_js}" oninput="validateInput(this)">
+                                <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
+                                    <i class="ti ti-plus"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" onclick="deleteBarang('${barang.kode_js}')">
+                                <i class="ti ti-trash"></i>
+                            </button>    
+                        </td>
+                    </tr>
+                `);
 
-                    `
-                );
+                $(`#keterangan_${index}`).bootstrapToggle({
+                    on: 'Yes',
+                    off: 'No',
+                    offstyle: 'success'
+                });
             });
 
-            $('#keranjangModal').modal('show')
+            modalBody.append(`
+                        </tbody>
+                    </table>
+                </div>
+            `);
+
+            $('#keranjangModal').modal('show');
         }
 
         function keranjang(action, kode_js, qty) {
