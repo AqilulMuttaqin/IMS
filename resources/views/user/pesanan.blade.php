@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-striped" id="dataStatusPesanan">
+                <table class="table table-striped w-100" id="dataStatusPesanan">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
@@ -53,8 +53,9 @@
                 }
             });
             var table = $('#dataStatusPesanan').DataTable({
-                processing: true,
+                processing: false,
                 serverSide: true,
+                scrollX: true,
                 order: [
                     [2, 'desc']
                 ],

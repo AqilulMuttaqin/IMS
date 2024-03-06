@@ -19,7 +19,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-striped" id="dataDetailBarang">
+                <table class="table table-striped w-100" id="dataDetailBarang">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
@@ -113,6 +113,7 @@
             var table = $('#dataDetailBarang').DataTable({
                 processing: false,
                 serverSide: true,
+                scrollX: true,
                 ajax: {
                     url: '{{ url()->current() }}',
                     type: 'GET'
