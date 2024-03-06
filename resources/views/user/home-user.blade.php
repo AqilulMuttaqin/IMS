@@ -328,7 +328,7 @@
             if (response.barang && response.barang.length > 0) {
                 response.barang.forEach(function (barang, index) {
                     modalBody.find('tbody').append(`
-                        <tr class="text-center">
+                        <tr class="text-center align-middle justify-content-center">
                             <td>${index + 1}</td>
                             <td>${barang.nama}</td>
                             <td>
@@ -355,8 +355,8 @@
                     `);
 
                     $(`#keterangan_${index}`).bootstrapToggle({
-                        on: 'Yes',
-                        off: 'No',
+                        on: 'Tukar',
+                        off: 'Request',
                         offstyle: 'success'
                     });
                 });

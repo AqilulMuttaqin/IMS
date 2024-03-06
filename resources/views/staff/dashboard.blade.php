@@ -194,7 +194,7 @@
                         var cardBody = $('<div class="card border"></div>');
                         var cardHeader = $('<div class="card-header pb-0 mb-0"></div>');
                         console.log(pesanan);
-                        var cardTitle = $('<h6 class="text-center">Pesanan ' + pesanan.kode_pesanan + '</h6>');
+                        var cardTitle = $('<h6 class="text-center">Kode Pesan <br> ' + pesanan.kode_pesanan + '</h6>');
                         var hr = $('<hr>');
                         var cardCardBody = $('<div class="card-body pt-0"></div>');
                         var row = $('<div class="row"></div>');
@@ -266,7 +266,7 @@
                     pesanan_id: pesananId
                 },
                 success: function(response) {
-                    modalTitle.text('Detail Pesanan Line ' + response.id);
+                    modalTitle.text('Detail Pesanan');
 
                     modalBody.empty();
                     modalBody.append(`

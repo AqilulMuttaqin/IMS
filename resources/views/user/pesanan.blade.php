@@ -68,7 +68,8 @@
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: null
+                        data: 'kode_pesanan',
+                        name: 'kode_pesanan'
                     },
                     {
                         data: 'user.name',

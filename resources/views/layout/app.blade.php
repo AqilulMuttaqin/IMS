@@ -16,7 +16,7 @@
     <script src="{{ asset('src/assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/moment-timezone-with-data.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('src/assets/css/select2-bootstrap-5-theme.min.css') }}" />
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="{{ asset('src/assets/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
     <style>
         .nav-pills .nav-link {
             color: black;
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="{{ asset('src/assets/js/bootstrap-toggle.min.js')}}"></script>
     <script src="{{ asset('src/assets/js/sweetalert2@11.js')}}"></script>
     <script src="{{ asset('src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('src/assets/js/sidebarmenu.js') }}"></script>
