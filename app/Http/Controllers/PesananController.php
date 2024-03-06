@@ -51,6 +51,7 @@ class PesananController extends Controller
 
         $pesanan = new Pesanan();
         $pesanan->user_id = auth()->id();
+        $pesanan->kode_pesanan = $this->generateUniqueID();
         $pesanan->save();
 
         $userKeranjang->barang()->each(function ($barang) use ($pesanan) {
@@ -79,6 +80,9 @@ class PesananController extends Controller
         $pesanan->save();
         
         $pesanan->barang()->attach($request->input('kode_js'), ['qty' => $request->input('qty')]);
+
+        $barang = Barang::where('kode_js', $request->input('kode_js'))->firstOrFail();
+        $barang->update(['requested_qty' => $barang->requested_qty + $request->input('qty')]);
     }
 
     /**
@@ -109,6 +113,18 @@ class PesananController extends Controller
         $pesanan = Pesanan::findOrFail($request->pesanan_id);
 
         $pesanan->update(['status' => $request->status]);
+
+        if ($pesanan->status === 'terkirim') {
+            $lokasiAkhir = $pesanan->user->lokasi_id;
+            
+            $pesanan->barang->each(function ($barang) use ($lokasiAkhir){
+                $lokasiAwal = '1';
+                $qty = $barang->pivot->qty;
+                $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty);
+                $barang->update(['requested_qty' => $barang->requested_qty - $qty]);
+            });
+        }
+
         return response()->json(['status' => 'success']);
     }
 
@@ -143,8 +159,9 @@ class PesananController extends Controller
     
         $formattedCounter = str_pad($tokenCounter->counter, 4, '0', STR_PAD_LEFT);
     
-        $uniqueID = 'IMS-' . $currentDate . '-' . $formattedCounter;
+        $uniqueID = 'SIMS-' . $currentDate . '-' . $formattedCounter;
     
         return $uniqueID;
     }
+
 }
