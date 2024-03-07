@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-striped w-100" id="dataBarang">
+                <table class="table w-100" id="dataBarang">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
@@ -37,6 +37,7 @@
                             <th>Min</th>
                             <th>Max</th>
                             <th>Price($)</th>
+                            <th>Qty</th>
                             <th style="width: 90px">QR Code</th>
                         </tr>
                     </thead>
@@ -44,6 +45,18 @@
                         <!-- DataTable Data Master Barang -->
                     </tbody>
                 </table>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-2 col-md-3 col-sm-12 d-flex">
+                    <p class="fw-bold h6">Keterangan</p>
+                    <p class="fw-bold ms-5">:</p>
+                </div>
+                <div class="col-lg-10 col-md-9 col-sm-12 d-flex">
+                    <span class="badge border border-dark rounded-pill me-2" style="height: 20px; margin-top: 2px; background-color: #ffb0b0"> </span>
+                    <p>Stok Kurang Dari Batas Minimum</p>
+                    <span class="badge border border-dark rounded-pill me-2 ms-4" style="height: 20px; margin-top: 2px; background-color: #cffffd"> </span>
+                    <p>Stok Lebih Dari Batas Maximum</p>
+                </div>
             </div>
         </div>
     </div>
@@ -110,6 +123,10 @@
                         name: 'harga'
                     },
                     {
+                        data: 'total_qty',
+                        name: 'total_qty'
+                    },
+                    {
                         data: 'qr_code',
                         name: 'qr_code',
                         orderable: false,
@@ -125,7 +142,14 @@
                             `;
                         }
                     },
-                ]
+                ],
+                createdRow: function(row, data, dataIndex) {
+                    if (data.total_qty <= data.min_stok) {
+                        $(row).attr('style', 'background-color: #ffb0b0');
+                    } else if (data.total_qty >= data.max_stok) {
+                        $(row).attr('style', 'background-color: #cffffd');
+                    }
+                }
             });
 
             var id;

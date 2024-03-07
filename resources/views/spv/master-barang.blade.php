@@ -8,7 +8,7 @@
                     <h5>Data Master Barang</h5>
                 </div>
                 <div class="col-sm-8">
-                    <div class="d-flex justify-content-end text-end">
+                    <div class="d-flex justify-content-end text-end text-nowrap">
                         <div class="dropdown text-end me-2">
                             <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                                 Download QR Code
@@ -41,6 +41,23 @@
             </div>
         </div>
         <div class="card-body">
+            {{-- <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-4 d-flex justify-content-between">
+                    <p class="fw-bold h6">Keterangan</p>
+                    <p class="fw-bold me-3">:</p>
+                </div>
+                <div class="col-lg-10 col-md-9 col-sm-8 d-flex">
+                    <span class="badge border border-dark rounded-pill me-2" style="height: 20px; margin-top: 2px; background-color: #ffb0b0"> </span>
+                    <p>Stok Kurang Dari Batas Minimum</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-4"></div>
+                <div class="col-lg-10 col-md-9 col-sm-8 d-flex">
+                    <span class="badge border border-dark rounded-pill me-2" style="height: 20px; margin-top: 2px; background-color: #cffffd"> </span>
+                    <p>Stok Lebih Dari Batas Maximum</p>
+                </div>
+            </div> --}}
             <div class="table-responsive text-nowrap">
                 <table class="table w-100" id="dataBarang">
                     <thead>
@@ -59,6 +76,18 @@
                     <tbody>
                     </tbody>
                 </table>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-2 col-md-3 col-sm-12 d-flex">
+                    <p class="fw-bold h6">Keterangan</p>
+                    <p class="fw-bold ms-5">:</p>
+                </div>
+                <div class="col-lg-10 col-md-9 col-sm-12 d-flex">
+                    <span class="badge border border-dark rounded-pill me-2" style="height: 20px; margin-top: 2px; background-color: #ffb0b0"> </span>
+                    <p>Stok Kurang Dari Batas Minimum</p>
+                    <span class="badge border border-dark rounded-pill me-2 ms-4" style="height: 20px; margin-top: 2px; background-color: #cffffd"> </span>
+                    <p>Stok Lebih Dari Batas Maximum</p>
+                </div>
             </div>
         </div>
     </div>
