@@ -42,7 +42,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-striped w-100" id="dataBarang">
+                <table class="table w-100" id="dataBarang">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
@@ -253,7 +253,14 @@
                             `;
                         }
                     }
-                ]
+                ],
+                createdRow: function(row, data, dataIndex) {
+                    if (data.total_qty <= data.min_stok) {
+                        $(row).attr('style', 'background-color: #ffb0b0');
+                    } else if (data.total_qty >= data.max_stok) {
+                        $(row).attr('style', 'background-color: #cffffd');
+                    }
+                }
             });
 
             var id;
