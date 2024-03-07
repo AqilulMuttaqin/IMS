@@ -189,77 +189,48 @@
                 ],
                 order: [[groupColumn, 'asc']], // Order by the grouping column
                 drawCallback: function(settings) {
-                var api = this.api();
-                var rows = api.rows({ page: 'current' }).nodes();
-                var last = null;
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
 
-                api.column(groupColumn, { page: 'current' })
-                    .data()
-                    .each(function(group, i) {
-                        if (last !== group) {
-                            // Calculate sum of total_qty for the current group
-                            var groupSum = api
-                                .rows(function(idx, data, node) {
-                                    return data.barang.nama === group;
-                                })
-                                .data()
-                                .pluck('total_qty')
-                                .reduce(function(sum, qty) {
-                                    return sum + parseInt(qty);
-                                }, 0);
+                    api.column(groupColumn, { page: 'current' })
+                        .data()
+                        .each(function(group, i) {
+                            if (last !== group) {
+                                // Calculate sum of total_qty for the current group
+                                var groupSum = api
+                                    .rows(function(idx, data, node) {
+                                        return data.barang.nama === group;
+                                    })
+                                    .data()
+                                    .pluck('total_qty')
+                                    .reduce(function(sum, qty) {
+                                        return sum + parseInt(qty);
+                                    }, 0);
 
-                            $(rows)
-                                .eq(i)
-                                .before('<tr class="group" style="background-color: #dae2e8"><td colspan="1"></td><td colspan="3">' + group + '</td><td colspan="3">' + groupSum + '</td></tr>');
-
-                            last = group;
-                        }
-                    });
-            }
-            });
-
-            $('#dataDetailBarang tbody').on('click', 'tr.group', function() {
-                var currentOrder = table.order()[0];
-                if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
-                    table.order([groupColumn, 'desc']).draw();
-                } else {
-                    table.order([groupColumn, 'asc']).draw();
+                                $(rows)
+                                    .eq(i)
+                                    
+                                    .before('<tr class="group" style="background-color: #dae2e8"><td colspan="1"></td><td colspan="2">' + group + '</td><td><button data-id="'+group+'" class="btn btn-sm btn-primary d-flex align-items-center btn-lihat-lokasi-total">Lihat Lokasi</button></td><td colspan="3">' + groupSum + '</td></tr>');
+                                last = group;
+                            }
+                        });
                 }
             });
 
+            // $('#dataDetailBarang tbody').on('click', 'tr.group', function() {
+            //     var currentOrder = table.order()[0];
+            //     if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+            //         table.order([groupColumn, 'desc']).draw();
+            //     } else {
+            //         table.order([groupColumn, 'asc']).draw();
+            //     }
+            // });
+
             $('#dataDetailBarang').on('click', '.btn-lihat-lokasi', function() {
-                // var row = $(this).closest('tr');
-                // var data = table.row(row).data();
-
-                // var dataBarang = data.kode_js;
-                // var barangNama = data.barang.nama;
-
-                // var lokasiTotals = {};
-
-                // var lokasiHtml = '';
-                // $.each(data.lokasi, function(index, lokasi) {
-                //     var lokasiNama = lokasi.nama;
-                //     var lokasiQty = lokasi.pivot.qty;
-
-                //     if (!lokasiTotals[lokasiNama]) {
-                //         lokasiTotals[lokasiNama] = 0;
-                //     }
-                //     lokasiTotals[lokasiNama] += lokasiQty;
-                // });
-
-                // var noUrut = 1;
-                // $.each(lokasiTotals, function(lokasiNama, total) {
-                //     lokasiHtml += '<div class="row"><div class="col-sm-9">' + noUrut + '. ' + lokasiNama + '</div><div class="col-sm-3">: ' + total + '</div></div>';
-                //     noUrut++;
-                // });
-
-                // $('#lokasiModalLabel').text('Daftar Lokasi untuk ' + barangNama);
-                // $('#lokasiContainer').html(lokasiHtml);
-                // $('#lokasiModal').modal('show');
 
                 var row = $(this).closest('tr');
                 var data = table.row(row).data();
-
                 var barangNama = data.barang.nama;
 
                 var lokasiTotals = [];
@@ -287,6 +258,32 @@
                         },
                         { data: 'Lokasi' },
                         { data: 'Qty' }
+                    ],
+                    destroy: true
+                });
+
+                $('#lokasiModal').modal('show');
+            });
+
+            $('#dataDetailBarang').on('click', '.btn-lihat-lokasi-total', function() {
+                var group = $(this).data('id');
+
+                $('#lokasiModalLabel').text('Daftar Lokasi untuk ' + group);
+                $('#lokasiTableBody').empty();
+
+                var lokasiTable = $('#lokasiTable').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: "{{ route('spv.getLokasiQty') }}",
+                        data: function(d) {
+                            d.nama = group;
+                        }
+                    },
+                    columns: [
+                        { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                        { data: 'lokasi', name: 'lokasi' },
+                        { data: 'total_qty', name: 'total_qty' }
                     ],
                     destroy: true
                 });

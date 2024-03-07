@@ -102,6 +102,7 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('/spv/get-lokasi', [SPVController::class, 'get_lokasi'])->name('spv.get-lokasi');
     Route::get('/spv/get-barang', [SPVController::class, 'get_barang'])->name('spv.get-barang');
     Route::get('/spv/get-qty', [SPVController::class, 'get_qty'])->name('spv.get-qty');
+    Route::get('/spv/getLokasiQty', [DataBarangController::class, 'getLokasiQty'])->name('spv.getLokasiQty');
     // Route::get('/spv/detail-barang', function () {
     //     return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
     // })->name('spv.detail-barang');
@@ -109,6 +110,7 @@ Route::middleware(['auth','role:spv'])->group(function () {
 
 Route::middleware(['auth','role:spv,admin'])->group(function () {
     Route::get('tes', [DataBarangController::class, 'tes'])->name('tes');
+    Route::get('tes-data', [DataBarangController::class, 'tes_data'])->name('tes-data');
     Route::post('/qr-generate', [QrCodeController::class, 'generate'])->name('qr.generate');
     Route::post('/qr-download', [QrCodeController::class, 'download'])->name('qr.download');
     Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch'])->name('download-zip');
