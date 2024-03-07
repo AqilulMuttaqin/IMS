@@ -51,6 +51,7 @@
                             <th>Min</th>
                             <th>Max</th>
                             <th>Price($)</th>
+                            <th>Qty</th>
                             <th style="width: 90px">QR Code</th>
                             <th style="width: 30px;">Actions</th>
                         </tr>
@@ -195,6 +196,10 @@
                         name: 'harga'
                     },
                     {
+                        data: 'total_qty',
+                        name: 'total_qty'
+                    },
+                    {
                         data: 'qr_code',
                         name: 'qr_code',
                         orderable: false,
@@ -227,12 +232,21 @@
                                         <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <button type="button" class="dropdown-item edit-btn" data-js="${row.kode_js}"><i class="bx bx-edit-alt me-1"></i>
-                                            Edit</button>
+                                        <button type="button" class="dropdown-item detail-btn" data-js="${row.kode_js}">
+                                            <i class="ti ti-eye me-1"></i>
+                                            Detail Lokasi
+                                        </button>
+                                        <button type="button" class="dropdown-item edit-btn" data-js="${row.kode_js}">
+                                            <i class="ti ti-edit me-1"></i>
+                                            Edit
+                                        </button>
                                         <form action="${deleteUrl}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="dropdown-item deleteBtn"><i class="bx bx-trash me-1"></i>Delete</button>
+                                            <button type="button" class="dropdown-item deleteBtn">
+                                                <i class="ti ti-trash me-1"></i>
+                                                Delete
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

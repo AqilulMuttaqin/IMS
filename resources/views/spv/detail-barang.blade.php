@@ -48,7 +48,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-9">
                             <div class="text-muted">Lokasi</div>
                         </div>
@@ -56,7 +56,19 @@
                             <div class="text-muted">Qty</div>
                         </div>
                     </div>
-                    <div id="lokasiContainer"></div>
+                    <div id="lokasiContainer"></div> --}}
+                    <div class="table-responsive text-nowrap">
+                        <table id="lokasiTable" class="table table-striped w-100">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Lokasi</th>
+                                    <th>Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lokasiTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -216,33 +228,69 @@
             });
 
             $('#dataDetailBarang').on('click', '.btn-lihat-lokasi', function() {
+                // var row = $(this).closest('tr');
+                // var data = table.row(row).data();
+
+                // var dataBarang = data.kode_js;
+                // var barangNama = data.barang.nama;
+
+                // var lokasiTotals = {};
+
+                // var lokasiHtml = '';
+                // $.each(data.lokasi, function(index, lokasi) {
+                //     var lokasiNama = lokasi.nama;
+                //     var lokasiQty = lokasi.pivot.qty;
+
+                //     if (!lokasiTotals[lokasiNama]) {
+                //         lokasiTotals[lokasiNama] = 0;
+                //     }
+                //     lokasiTotals[lokasiNama] += lokasiQty;
+                // });
+
+                // var noUrut = 1;
+                // $.each(lokasiTotals, function(lokasiNama, total) {
+                //     lokasiHtml += '<div class="row"><div class="col-sm-9">' + noUrut + '. ' + lokasiNama + '</div><div class="col-sm-3">: ' + total + '</div></div>';
+                //     noUrut++;
+                // });
+
+                // $('#lokasiModalLabel').text('Daftar Lokasi untuk ' + barangNama);
+                // $('#lokasiContainer').html(lokasiHtml);
+                // $('#lokasiModal').modal('show');
+
                 var row = $(this).closest('tr');
                 var data = table.row(row).data();
-
-                var dataBarang = data.kode_js;
+                
                 var barangNama = data.barang.nama;
 
-                var lokasiTotals = {};
-
-                var lokasiHtml = '';
+                var lokasiTotals = [];
                 $.each(data.lokasi, function(index, lokasi) {
                     var lokasiNama = lokasi.nama;
                     var lokasiQty = lokasi.pivot.qty;
 
-                    if (!lokasiTotals[lokasiNama]) {
-                        lokasiTotals[lokasiNama] = 0;
-                    }
-                    lokasiTotals[lokasiNama] += lokasiQty;
-                });
-
-                var noUrut = 1;
-                $.each(lokasiTotals, function(lokasiNama, total) {
-                    lokasiHtml += '<div class="row"><div class="col-sm-9">' + noUrut + '. ' + lokasiNama + '</div><div class="col-sm-3">: ' + total + '</div></div>';
-                    noUrut++;
+                    lokasiTotals.push({
+                        Lokasi: lokasiNama,
+                        Qty: lokasiQty
+                    });
                 });
 
                 $('#lokasiModalLabel').text('Daftar Lokasi untuk ' + barangNama);
-                $('#lokasiContainer').html(lokasiHtml);
+                $('#lokasiTableBody').empty();
+
+                var lokasiTable = $('#lokasiTable').DataTable({
+                    data: lokasiTotals,
+                    columns: [
+                        {
+                            data: null,
+                            render: function(data, type, row, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { data: 'Lokasi' },
+                        { data: 'Qty' }
+                    ],
+                    destroy: true
+                });
+
                 $('#lokasiModal').modal('show');
             });
         });
