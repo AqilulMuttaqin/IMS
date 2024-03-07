@@ -59,12 +59,12 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailKonfirmasiModalLabel">Detail Pesanan Line ...</h5>
+                    <h5 class="modal-title" id="detailKonfirmasiModalLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="col-xxl" id="modal-body">
-                        <div class="row mb-3">
+                        {{-- <div class="row mb-3">
                             <label class="col-sm-8 col-form-label" for="label">Tanggal Pesan</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control text-center" id="label" name="label"
@@ -94,7 +94,7 @@
                                         name="barang-2" disabled>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -341,7 +341,7 @@
                                         <th>Nama Barang</th>
                                         <th>Keterangan</th>
                                         <th style="width: 200px">Qty</th>
-                                        <th style="width: 80px">Hapus</th>
+                                        <th style="width: 20px">Hapus</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -353,14 +353,14 @@
                                 <td>${index + 1}</td>
                                 <td>${barang.nama}</td>
                                 <td>
-                                    <input class="form-check-input btn-sm" type="checkbox" id="keterangan_${index}" data-toggle="toggle" disabled>     
+                                    <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-toggle="toggle" disabled>     
                                 </td>
                                 <td>
                                     <div class="input-group number-spinner">
                                         <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
                                             <i class="ti ti-minus"></i>
                                         </button>
-                                        <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
+                                        <input type="text" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
                                             name="${barang.kode_js}" oninput="validateInput(this)">
                                         <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
                                             <i class="ti ti-plus"></i>
@@ -368,7 +368,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger" onclick="deleteBarang('${barang.kode_js}')">
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="deleteBarang('${barang.kode_js}')">
                                         <i class="ti ti-trash"></i>
                                     </button>    
                                 </td>

@@ -327,8 +327,8 @@
                                 <th style="width: 20px">No</th>
                                 <th>Nama Barang</th>
                                 <th>Keterangan</th>
-                                <th style="width: 200px">Qty</th>
-                                <th style="width: 80px">Hapus</th>
+                                <th style="width: 180px">Qty</th>
+                                <th style="width: 20px">Hapus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -348,7 +348,7 @@
                                     <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
                                         <i class="ti ti-minus"></i>
                                     </button>
-                                    <input type="text" class="form-control text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
+                                    <input type="text" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
                                         name="${barang.kode_js}" oninput="validateInput(this)">
                                     <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
                                         <i class="ti ti-plus"></i>
@@ -356,7 +356,7 @@
                                 </div>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" onclick="deleteBarang('${barang.kode_js}')">
+                                <button type="button" class="btn btn-sm btn-danger" onclick="deleteBarang('${barang.kode_js}')">
                                     <i class="ti ti-trash"></i>
                                 </button>    
                             </td>

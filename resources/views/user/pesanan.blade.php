@@ -15,8 +15,9 @@
                             <th>Nama Pesanan</th>
                             <th>Tanggal Dibuat</th>
                             <th>Tanggal Selesai</th>
-                            <th style="width: 90px">Status</th>
-                            <th style="width: 90px">Detail Pesanan</th>
+                            <th style="width: 100px">Status</th>
+                            <th style="width: 30px">Detail</th>
+                            <th class="text-center" style="width: 30px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -134,15 +135,29 @@
                         }
                     },
                     {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
+                        data: 'detail',
+                        name: 'detail',
                         render: function(data, row, meta) {
                             return `
                             <td class="text-center">
                                 <button type="button" class="btn btn-sm btn-info" data-id="${row.id}" id="showCart">
                                     <i class="ti ti-eye"></i>
+                                </button>
+                            </td>
+                            `;
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        render: function(data, row, meta) {
+                            return `
+                            <td class="text-center">
+                                <button type="button" class="btn btn-sm btn-danger" data-id="${row.id}" id="cancel">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-sm btn-warning" data-id="${row.id}" id="konfirmasi">
+                                    Konfirmasi
                                 </button>
                             </td>
                             `;
