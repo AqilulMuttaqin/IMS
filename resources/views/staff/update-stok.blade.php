@@ -42,7 +42,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="kodejs" class="form-label">Kode JS</label>
-                                <input type="text" class="form-control" id="kodejs" name="kodejs" readonly required>
+                                <input type="text" class="form-control" id="kodejs" name="kodejs" placeholder="Input Kode JS" readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="PO_number" class="form-label">PO Number</label>
