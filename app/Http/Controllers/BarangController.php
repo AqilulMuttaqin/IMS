@@ -19,14 +19,28 @@ class BarangController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $barang = Barang::all();
+            // $barang = Barang::all();
 
-            $barang->map(function ($item, $key) {
-                $item['DT_RowIndex'] = $key + 1;
-                return $item;
+            // $barang->map(function ($item, $key) {
+            //     $item['DT_RowIndex'] = $key + 1;
+            //     return $item;
+            // });
+
+            // return datatables()->of($barang)->make(true);
+            $barangs = Barang::with('dataBarang.lokasi')->get();
+
+            $barangs->map(function ($barang, $key) {
+                $barang['DT_RowIndex'] = $key + 1;
+                $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
+                    return $dataBarang->lokasi->sum('pivot.qty');
+                });
+
+                $barang['total_qty'] = max(0, $totalQty);
+
+                return $barang;
             });
 
-            return datatables()->of($barang)->make(true);
+            return datatables()->of($barangs)->make(true);
         }
         if (Auth::check() && Auth::user()->role === 'spv') {
             return view('spv.master-barang', [
