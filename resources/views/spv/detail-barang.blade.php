@@ -210,7 +210,7 @@
 
                             $(rows)
                                 .eq(i)
-                                .before('<tr class="group"><td colspan="1"></td><td colspan="3">' + group + '</td><td colspan="3">' + groupSum + '</td></tr>');
+                                .before('<tr class="group" style="background-color: #ebf5ff"><td colspan="1"></td><td colspan="3">' + group + '</td><td colspan="3">' + groupSum + '</td></tr>');
 
                             last = group;
                         }
@@ -259,7 +259,7 @@
 
                 var row = $(this).closest('tr');
                 var data = table.row(row).data();
-                
+
                 var barangNama = data.barang.nama;
 
                 var lokasiTotals = [];
