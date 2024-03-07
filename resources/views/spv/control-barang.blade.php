@@ -38,11 +38,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="kodejsMutasi" class="form-label">Kode JS</label>
-                                <input type="text" class="form-control" id="kodejsMutasi" name="kodejsMutasi" readonly required>
+                                <input type="text" class="form-control" id="kodejsMutasi" name="kodejsMutasi" placeholder="Input Kode JS ..." readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="jumlah" class="form-label">Jumlah di Lokasi</label>
-                                <input type="number" class="form-control" id="jumlah" name="jumlah" readonly>
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Input Jumlah di Lokasi ..." readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="qtyMutasi" class="form-label">QTY Untuk Mutasi</label>
@@ -70,7 +70,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="kodejs" class="form-label">Kode JS</label>
-                                <input type="text" class="form-control" id="kodejs" name="kodejs" readonly required>
+                                <input type="text" class="form-control" id="kodejs" name="kodejs" placeholder="Input Kode JS ..." readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="PO_number" class="form-label">PO Number</label>
