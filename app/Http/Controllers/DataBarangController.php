@@ -156,6 +156,37 @@ class DataBarangController extends Controller
         //
     }
 
+    public function getLokasiQty()
+    {
+        $barang = Barang::where('nama', request('nama'))->firstOrFail();
+        $lokasiQuantities = [];
+
+        foreach ($barang->dataBarang as $dataBarang) {
+            foreach ($dataBarang->lokasi as $lokasi) {
+                $lokasiName = $lokasi->nama;
+                $qty = $lokasi->pivot->qty;
+
+                if (!isset($lokasiQuantities[$lokasiName])) {
+                    $lokasiQuantities[$lokasiName] = 0;
+                }
+
+                $lokasiQuantities[$lokasiName] += $qty;
+            }
+        }
+
+        $data = [];
+        $index = 1;
+        foreach ($lokasiQuantities as $location => $quantity) {
+            $data[] = [
+                'DT_RowIndex' => $index++,
+                'lokasi' => $location,
+                'total_qty' => $quantity
+            ];
+        }
+
+        return datatables()->of($data)->make(true);
+    }
+
     public function tes(){
         $lokasiId = 1;
         $barang_id = 2;
@@ -220,5 +251,26 @@ class DataBarangController extends Controller
         $qty = $request->input('qtyMutasi');
 
         $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty);
+    }
+
+    public function tes_data(){
+        $barang = DataBarang::with('lokasi', 'barang')->orderBy('kode_js', 'asc')->get();
+    
+                $barang->map(function ($item, $key) {
+                    $item['DT_RowIndex'] = $key + 1;
+                    return $item;
+                });
+
+                $barang->each(function ($item) {
+                    $totalQty = 0;
+            
+                    foreach ($item->lokasi as $lokasi) {
+                        $totalQty += $lokasi->pivot->qty;
+                    }
+            
+                    $item->total_qty = $totalQty;
+                });
+    
+                return datatables()->of($barang)->make(true);
     }
 }
