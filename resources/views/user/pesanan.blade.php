@@ -137,7 +137,7 @@
                     {
                         data: 'detail',
                         name: 'detail',
-                        render: function(data, row, meta) {
+                        render: function(data, type, row, meta) {
                             return `
                             <td class="text-center">
                                 <button type="button" class="btn btn-sm btn-info" data-id="${row.id}" id="showCart">
@@ -150,24 +150,98 @@
                     {
                         data: 'action',
                         name: 'action',
-                        render: function(data, row, meta) {
-                            return `
-                            <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-danger" data-id="${row.id}" id="cancel">
-                                    Cancel
-                                </button>
-                                <button type="button" class="btn btn-sm btn-warning" data-id="${row.id}" id="konfirmasi">
-                                    Konfirmasi
-                                </button>
-                            </td>
-                            `;
+                        render: function(data, type, row, meta) {
+                            if (row.status === "selesai") {
+                                return null;
+                            } else if (row.status === "pending") {
+                                return `
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-sm btn-danger" data-id="${row.id}" id="cancel">
+                                        Cancel
+                                    </button>
+                                </td>
+                                `;
+                            } else {
+                                return `
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-sm btn-warning" data-id="${row.id}" id="konfirmasi">
+                                        Konfirmasi
+                                    </button>
+                                </td>
+                                `;
+                            }
                         }
                     }
                 ]
             });
 
+            $('#dataStatusPesanan').on('click', '#cancel', function(){
+                var id = $(this).data('id');
+                Swal.fire({
+                    title: 'Batalkan Pesanan',
+                    text: "Apakah anda yakin ingin membatalkan pesanan ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Batalkan'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('user.update-pesanan') }}",
+                            type: 'POST',
+                            data: {
+                                pesanan_id: id,
+                                status: 'batal'
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Berhasil!',
+                                    'Pesanan berhasil dibatalkan.',
+                                    'success'
+                                );
+                                table.ajax.reload();
+                            }
+                        });
+                    }
+                });                
+            });
+
+            $('#dataStatusPesanan').on('click', '#konfirmasi', function(){
+                var id = $(this).data('id');
+                Swal.fire({
+                    title: 'Konfirmasi Pesanan',
+                    text: "Apakah anda yakin ingin mengkonfirmasi pesanan ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Konfirmasi'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('user.update-pesanan') }}",
+                            type: 'POST',
+                            data: {
+                                pesanan_id: id,
+                                status: 'selesai'
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Berhasil!',
+                                    'Pesanan berhasil dikonfirmasi.',
+                                    'success'
+                                );
+                                table.ajax.reload();
+                            }
+                        });
+                    }
+                });
+            });
+
             $('#dataStatusPesanan').on('click', '#showCart', function() {
                 var id = $(this).data('id');
+                console.log(id);
                 var rowData = table.row($(this).parents('tr')).data();
 
                 var pesananId = $(this).data('pesanan-id');

@@ -112,9 +112,16 @@ class PesananController extends Controller
         ]);
         $pesanan = Pesanan::findOrFail($request->pesanan_id);
 
+        if ($request->status === 'batal') {
+            $pesanan->barang->each(function ($barang) {
+                $barang->update(['requested_qty' => $barang->requested_qty - $barang->pivot->qty]);
+            });
+            $pesanan->delete();
+        };
+
         $pesanan->update(['status' => $request->status]);
 
-        if ($pesanan->status === 'terkirim') {
+        if ($pesanan->status === 'terkirim' || $pesanan->status === 'selesai') {
             $lokasiAkhir = $pesanan->user->lokasi_id;
             
             $pesanan->barang->each(function ($barang) use ($lokasiAkhir){
