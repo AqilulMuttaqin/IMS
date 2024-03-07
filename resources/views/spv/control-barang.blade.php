@@ -112,12 +112,6 @@
             $('#submit').prop('disabled', false);
         }
     };
-    $(document).ready(function () {
-        $('.nav-link').on('show.bs.tab', function (event) {
-            var target = $(event.target).attr('data-bs-target');
-            $(target).find('.select2').select2();
-        });
-    });
     const select2Elements = [
         { id: 'lokasi', url: "{{ route('spv.get-lokasi') }}" },
         { id: 'lokasiMutasi', url: "{{ route('spv.get-lokasi') }}" },
@@ -181,7 +175,7 @@
         placeholder: ' Input Barang ...',
         minimumInputLength: 3,
         ajax: {
-            url: "{{ route('spv.get-barang') }}",
+            url: '{{ url()->current() }}',
             dataType: 'json',
             delay: 250,
             processResults: function (data) {

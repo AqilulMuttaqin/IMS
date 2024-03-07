@@ -19,7 +19,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-striped w-100" id="dataDetailBarang">
+                <table class="table w-100" id="dataDetailBarang">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
@@ -109,8 +109,9 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
+            var groupColumn = 2;
             var table = $('#dataDetailBarang').DataTable({
+                columnDefs: [{ visible: false, targets: [groupColumn, 1] }],
                 processing: false,
                 serverSide: true,
                 scrollX: true,
@@ -173,7 +174,45 @@
                             `;
                         }
                     }
-                ]
+                ],
+                order: [[groupColumn, 'asc']], // Order by the grouping column
+                drawCallback: function(settings) {
+                var api = this.api();
+                var rows = api.rows({ page: 'current' }).nodes();
+                var last = null;
+
+                api.column(groupColumn, { page: 'current' })
+                    .data()
+                    .each(function(group, i) {
+                        if (last !== group) {
+                            // Calculate sum of total_qty for the current group
+                            var groupSum = api
+                                .rows(function(idx, data, node) {
+                                    return data.barang.nama === group;
+                                })
+                                .data()
+                                .pluck('total_qty')
+                                .reduce(function(sum, qty) {
+                                    return sum + parseInt(qty);
+                                }, 0);
+
+                            $(rows)
+                                .eq(i)
+                                .before('<tr class="group"><td colspan="1"></td><td colspan="3">' + group + '</td><td colspan="3">' + groupSum + '</td></tr>');
+
+                            last = group;
+                        }
+                    });
+            }
+            });
+
+            $('#dataDetailBarang tbody').on('click', 'tr.group', function() {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                    table.order([groupColumn, 'desc']).draw();
+                } else {
+                    table.order([groupColumn, 'asc']).draw();
+                }
             });
 
             $('#dataDetailBarang').on('click', '.btn-lihat-lokasi', function() {

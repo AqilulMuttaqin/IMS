@@ -327,7 +327,7 @@
                                 <th style="width: 20px">No</th>
                                 <th>Nama Barang</th>
                                 <th>Keterangan</th>
-                                <th style="width: 200px">Qty</th>
+                                <th style="width: 180px">Qty</th>
                                 <th style="width: 80px">Hapus</th>
                             </tr>
                         </thead>
