@@ -11,7 +11,6 @@
                     <div class="d-flex justify-content-end text-end">
                         <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
                             data-bs-toggle="modal" data-bs-target="#lokasiModal">
-                            <i class="ti ti-plus me-1"></i>
                             Tambah Data
                         </button>
                     </div>
@@ -141,10 +140,10 @@
                 $('#nama').val('');
             }
 
-            $(document).on('click', '.deleteBtn', function() {
-                var row = table.row($(this).closest('tr')).data();
-                var id = row.id;
+            $('#dataLokasi').on('click', '.deleteBtn', function() {
                 var form = $(this).closest('form');
+                var deleteUrl = form.attr('action');
+
                 Swal.fire({
                     title: "Anda Yakin?",
                     text: "Data tidak dapat dikembalikan setelah dihapus!",
@@ -155,7 +154,34 @@
                     confirmButtonText: "Ya, Hapus"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        form.submit();
+                        $.ajax({
+                            type: 'POST',
+                            url: deleteUrl,
+                            data: form.serialize(),
+                            success: function(response) {
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    text: 'Data berhasil dihapus',
+                                    icon: 'success',
+                                    timer: 3500
+                                });
+                                table.ajax.reload();
+                            },
+                            error: function(error) {
+                                console.error('Error deleting user:', error);
+
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    icon: 'error',
+                                    text: 'Terjadi kesalahan saat menghapus data!',
+                                    timer: 3500
+                                });
+                            }
+                        });
                     }
                 });
             });
@@ -183,7 +209,9 @@
                     $('#dataLokasi').DataTable().ajax.reload();
                     $('#lokasiModal').modal('hide');
                     Swal.fire({
-                        title: "Success",
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
                         text: "Data Berhasil Disimpan",
                         icon: "success",
                         timer: 3500

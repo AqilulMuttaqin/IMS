@@ -403,7 +403,9 @@
                     } else if (action === 'add') {
                         $('#tambahModal').modal('hide');
                         Swal.fire({
-                            title: "Success",
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
                             text: "Barang dimasukan ke-keranjang",
                             icon: "success",
                             timer: 3500
@@ -411,7 +413,9 @@
                     } else if (action === 'delete') {
                         appendKeranjang(response);
                         Swal.fire({
-                            title: "Success",
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
                             text: "Barang dihapus dari keranjang",
                             icon: "success",
                             timer: 3500
@@ -432,7 +436,9 @@
                 success: function(response) {
                     $('#tambahModal').modal('hide');
                     Swal.fire({
-                        title: "Success",
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
                         text: "Pesanan berhasil dibuat, silahkan tunggu konfirmasi",
                         icon: "success",
                         timer: 3500

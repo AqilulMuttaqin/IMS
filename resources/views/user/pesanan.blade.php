@@ -198,11 +198,14 @@
                                 status: 'batal'
                             },
                             success: function(response) {
-                                Swal.fire(
-                                    'Berhasil!',
-                                    'Pesanan berhasil dibatalkan.',
-                                    'success'
-                                );
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    text: 'Pesanan berhasil dibatalkan',
+                                    icon: 'success',
+                                    timer: 3500
+                                });
                                 table.ajax.reload();
                             }
                         });
@@ -230,11 +233,14 @@
                                 status: 'selesai'
                             },
                             success: function(response) {
-                                Swal.fire(
-                                    'Berhasil!',
-                                    'Pesanan berhasil dikonfirmasi.',
-                                    'success'
-                                );
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    text: 'Pesanan berhasil dikonfirmasi',
+                                    icon: 'success',
+                                    timer: 3500
+                                });
                                 table.ajax.reload();
                             }
                         });

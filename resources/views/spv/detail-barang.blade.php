@@ -4,17 +4,17 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <h5>Data Detail Barang</h5>
                 </div>
-                {{-- <div class="col-sm-8">
+                <div class="col-sm-7">
                     <div class="d-flex justify-content-end text-end">
-                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
-                            data-bs-toggle="modal" data-bs-target="#detailBarangModal">
-                            Tambah Data
+                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="exportBtn">
+                            <i class="ti ti-file-export me-1"></i>
+                            Export Excel
                         </button>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -29,7 +29,6 @@
                             <th>PO Num.</th>
                             <th>Lokasi</th>
                             <th>Qty</th>
-                            <th style="width: 30px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -172,19 +171,6 @@
                     {
                         data: 'total_qty',
                         name: 'lokasi.pivot.qty'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        render: function() {
-                            return `
-                                <button type="button" class="btn btn-sm btn-primary">
-                                    <i class="ti ti-edit"></i>
-                                </button>
-                            `;
-                        }
                     }
                 ],
                 order: [[groupColumn, 'asc']], // Order by the grouping column
@@ -211,7 +197,7 @@
                                 $(rows)
                                     .eq(i)
                                     
-                                    .before('<tr class="group" style="background-color: #dae2e8"><td colspan="1"></td><td colspan="2">' + group + '</td><td><button data-id="'+group+'" class="btn btn-sm btn-primary d-flex align-items-center btn-lihat-lokasi-total">Lihat Lokasi</button></td><td colspan="3">' + groupSum + '</td></tr>');
+                                    .before('<tr class="group" style="background-color: #dae2e8"><td colspan="1"></td><td colspan="2">' + group + '</td><td><button data-id="'+group+'" class="btn btn-sm btn-success d-flex align-items-center btn-lihat-lokasi-total">Lihat Lokasi</button></td><td colspan="1">' + groupSum + '</td></tr>');
                                 last = group;
                             }
                         });

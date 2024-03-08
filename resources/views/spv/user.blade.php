@@ -167,9 +167,8 @@
             });
 
             $('#dataUser').on('click', '.confirm-delete', function() {
-                var row = table.row($(this).closest('tr')).data();
-                var NIK = row.NIK;
                 var form = $(this).closest('form');
+                var deleteUrl = form.attr('action');
 
                 Swal.fire({
                     title: "Anda Yakin?",
@@ -181,7 +180,34 @@
                     confirmButtonText: "Ya, Hapus"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        form.submit();
+                        $.ajax({
+                            type: 'POST',
+                            url: deleteUrl,
+                            data: form.serialize(),
+                            success: function(response) {
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    text: 'Data berhasil dihapus',
+                                    icon: 'success',
+                                    timer: 3500
+                                });
+                                table.ajax.reload();
+                            },
+                            error: function(error) {
+                                console.error('Error deleting user:', error);
+
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    icon: 'error',
+                                    text: 'Terjadi kesalahan saat menghapus data!',
+                                    timer: 3500
+                                });
+                            }
+                        });
                     }
                 });
             });
@@ -263,7 +289,9 @@
                     $('#dataUser').DataTable().ajax.reload();
                     $('#userModal').modal('hide');
                     Swal.fire({
-                        title: "Success",
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
                         text: "Data Berhasil Disimpan",
                         icon: "success",
                         timer: 3500
