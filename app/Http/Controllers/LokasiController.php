@@ -88,9 +88,10 @@ class LokasiController extends Controller
      */
     public function destroy(Lokasi $lokasi)
     {
-        $lokasi->delete();
+        if (!$lokasi) {
+            return redirect()->back()->with('error', 'User not found');
+        }
 
-        alert()->success('Deleted!','Data Berhasil Dihapus');
-        return redirect()->back();
+        $lokasi->delete();
     }
 }

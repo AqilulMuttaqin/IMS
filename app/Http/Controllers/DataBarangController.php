@@ -240,7 +240,7 @@ class DataBarangController extends Controller
 
         $barang->save();
 
-        alert()->success('Success', 'Stok Berhasil Ditambahkan');
+        toast()->success('Stok Berhasil ditambahkan');
         return redirect()->back();
     }
 
@@ -251,6 +251,9 @@ class DataBarangController extends Controller
         $qty = $request->input('qtyMutasi');
 
         $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty);
+
+        toast()->success('Mutasi Berhasil');
+        return redirect()->back();
     }
 
     public function tes_data(){

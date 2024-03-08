@@ -150,9 +150,6 @@ class SPVController extends Controller
         }
 
         $user->delete();
-
-        alert()->success('Deleted!', 'Data Berhasil dihapus');
-        return redirect()->back();
     }
 
     public function update_stok(){
