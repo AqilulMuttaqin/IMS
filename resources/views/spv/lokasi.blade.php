@@ -11,7 +11,6 @@
                     <div class="d-flex justify-content-end text-end">
                         <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
                             data-bs-toggle="modal" data-bs-target="#lokasiModal">
-                            <i class="ti ti-plus me-1"></i>
                             Tambah Data
                         </button>
                     </div>
