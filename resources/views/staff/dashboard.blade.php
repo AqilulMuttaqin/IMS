@@ -200,6 +200,45 @@
             }, 300000);
         });
 
+        $(document).on('click', '#rejectPesanan', function() {
+            var pesananId = $(this).data('pesanan-id');
+            var status = $(this).data('status');
+
+            Swal.fire({
+                    title: 'Tolak Pesanan',
+                    text: "Apakah anda yakin ingin menolak pesanan ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Batalkan'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('staff.update-pesanan') }}",
+                            method: 'POST',
+                            data: {
+                                pesanan_id: pesananId,
+                                status: status
+                            },
+                            success: function(response) {
+                                if (response.status === 'success') {
+                                    Swal.fire({
+                                        title: "Success",
+                                        text: "Pesanan " + status,
+                                        icon: "success",
+                                        timer:3500
+                                    });
+                                    get_data('pesananMasuk', 'pending');
+                                    get_data('pesananPerluDisiapkan', 'disiapkan');
+                                    get_data('pesananPerluDikirim', 'dikirim');
+                                }
+                            }
+                        });
+                    }
+                });          
+        });
+
         $(document).on('click', '#statusPesanan', function() {
             var pesananId = $(this).data('pesanan-id');
             var status = $(this).data('status');
@@ -262,24 +301,38 @@
                             + pesanan.id + '" data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal"><i class="ti ti-eye"></i></button></p></div>'
                         );
                         var hr = $('<hr>');
-                        var confirmButtonCol = $('<div class="col-12"></div>');
+                        //var confirmButtonCol = $('<div class="col-12"></div>');
+                        var actionButtonCol = $('<div class="col-12 d-flex"></div>');
                         var confirmButton = $('<button type="button" id="statusPesanan" class="btn w-100"></button>');
+                        var rejectButton = $('<button type="button" id="rejectPesanan" class="btn w-100"></button>');
 
                         if (containerId === 'pesananMasuk') {
-                            confirmButton.text('Konfirmasi');
+                            confirmButton.text('Terima');
                             confirmButton.addClass('btn-success');
                             confirmButton.data('status', 'disiapkan');
                             confirmButton.data('pesanan-id', pesanan.id);
+                            
+                            rejectButton.text('Tolak');
+                            rejectButton.addClass('btn-danger');
+                            rejectButton.data('status', 'ditolak');
+                            rejectButton.data('pesanan-id', pesanan.id);
+                            
+                            actionButtonCol.append(rejectButton);
+                            actionButtonCol.append(confirmButton);
                         } else if (containerId === 'pesananPerluDisiapkan') {
                             confirmButton.text('Kirim');
                             confirmButton.addClass('btn-warning');
                             confirmButton.data('status', 'dikirim');
                             confirmButton.data('pesanan-id', pesanan.id);
+                            
+                            actionButtonCol.append(confirmButton);
                         } else if (containerId === 'pesananPerluDikirim') {
                             confirmButton.text('Selesai');
                             confirmButton.addClass('btn-primary');
                             confirmButton.data('status', 'terkirim');
                             confirmButton.data('pesanan-id', pesanan.id);
+                            
+                            actionButtonCol.append(confirmButton);
                         }
 
                         cardHeader.append(cardTitle);
@@ -293,8 +346,9 @@
                         row.append(detailLabelCol);
                         row.append(detailValueCol);
                         row.append(hr.clone());
-                        confirmButtonCol.append(confirmButton);
-                        row.append(confirmButtonCol);
+                        //confirmButtonCol.append(confirmButton);
+                        // row.append(confirmButtonCol);
+                        row.append(actionButtonCol);
                         cardCardBody.append(row);
                         cardBody.append(cardHeader);
                         cardBody.append(cardCardBody);
