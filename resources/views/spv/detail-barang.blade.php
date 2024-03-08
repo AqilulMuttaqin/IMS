@@ -4,17 +4,17 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <h5>Data Detail Barang</h5>
                 </div>
-                {{-- <div class="col-sm-8">
+                <div class="col-sm-7">
                     <div class="d-flex justify-content-end text-end">
-                        <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
-                            data-bs-toggle="modal" data-bs-target="#detailBarangModal">
-                            Tambah Data
+                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="exportBtn">
+                            <i class="ti ti-file-export me-1"></i>
+                            Export Excel
                         </button>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
         <div class="card-body">
