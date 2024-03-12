@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-            $table->enum('status',['pending', 'disiapkan', 'dikirim', 'terkirim', 'selesai'])->default('pending');
+            $table->enum('status',['pending', 'disiapkan', 'dikirim', 'terkirim', 'selesai', 'ditolak', 'batal'])->default('pending');
             $table->string('kode_pesanan')->unique()->nullable();
         });
     }

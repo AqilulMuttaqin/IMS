@@ -183,7 +183,6 @@
                         .data()
                         .each(function(group, i) {
                             if (last !== group) {
-                                // Calculate sum of total_qty for the current group
                                 var groupSum = api
                                     .rows(function(idx, data, node) {
                                         return data.barang.nama === group;

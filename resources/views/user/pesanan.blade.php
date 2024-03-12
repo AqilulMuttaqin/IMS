@@ -126,6 +126,9 @@
                                 case "selesai":
                                     statusClass = "bg-success";
                                     break;
+                                case "ditolak":
+                                    statusClass = "bg-danger";
+                                    break;
                                 default:
                                     statusClass = "";
                             }
