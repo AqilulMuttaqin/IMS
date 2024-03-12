@@ -26,7 +26,7 @@
                 <!-- Item Dropdown Profile -->
                 <li class="nav-item dropdown">
                     <!-- Navbar Item Profile -->
-                    <a class="nav-link d-flex align-items-center gap-2" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown">
+                    <a class="nav-link d-flex align-items-center gap-1" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown">
                         <i class="ti ti-user fs-6"></i>
                         <p class="mb-0 fs-3 me-2">{{ ucwords($userData['name']) }}</p>
                         <img src="{{ asset('src/assets/images/profile/user-1.jpg') }}" alt="" width="35" height="35" class="rounded-circle">
