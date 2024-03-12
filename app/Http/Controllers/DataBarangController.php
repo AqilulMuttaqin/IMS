@@ -26,7 +26,7 @@ class DataBarangController extends Controller
                 $barangs->map(function ($barang, $key) {
                     $barang['DT_RowIndex'] = $key + 1;
                     $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
-                        return $dataBarang->lokasi->where('nama', 'Gudang Utama')->sum('pivot.qty');
+                        return $dataBarang->lokasi->where('nama', 'GUDANG PRODUKSI')->sum('pivot.qty');
                     });
                     
                     if (auth()->user()->role === 'user') {

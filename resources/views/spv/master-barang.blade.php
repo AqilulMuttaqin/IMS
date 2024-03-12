@@ -68,6 +68,7 @@
                             <th>Min</th>
                             <th>Max</th>
                             <th>Price($)</th>
+                            <th>Kategori</th>
                             <th>Qty</th>
                             <th style="width: 90px">QR Code</th>
                             <th style="width: 30px;">Actions</th>
@@ -146,6 +147,14 @@
                             <input type="number" class="form-control form-control-user" id="harga" name="harga"
                                 required autofocus value="">
                         </div>
+                        <div class="form-group mb-3">
+                            <label for="kategori">KATEGORI</label>
+                            <select name="kategori" id="kategori" class="form-control form-control-user" required>
+                                <option value="" disabled selected></option>
+                                <option value="tukar">Tukar</option>
+                                <option value="request">Request</option>
+                            </select>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -223,6 +232,10 @@
                     {
                         data: 'harga',
                         name: 'harga'
+                    },
+                    {
+                        data: 'kategori',
+                        name: 'kategori'
                     },
                     {
                         data: 'total_qty',
@@ -354,6 +367,7 @@
                 $('#min_stok').val(rowData.min_stok);
                 $('#max_stok').val(rowData.max_stok);
                 $('#harga').val(rowData.harga);
+                $('#kategori').val(rowData.kategori);
                 $('#submitBtn').text('Edit');
                 $('#barangModalLabel').text('Edit Data Barang');
                 $('#barangForm').attr('action', '{{ route('spv.update-barang', ['barang' => ':barang']) }}'
@@ -377,12 +391,29 @@
                 $('#min_stok').val('');
                 $('#max_stok').val('');
                 $('#harga').val('');
+                $('#kategori').val('');
             }
 
             $(document).on('click', '.deleteBtn', function() {
-                var row = table.row($(this).closest('tr')).data();
-                var kode_js = row.kode_js;
+                // var row = table.row($(this).closest('tr')).data();
+                // var kode_js = row.kode_js;
+                // var form = $(this).closest('form');
+                // Swal.fire({
+                //     title: "Anda Yakin?",
+                //     text: "Data tidak dapat dikembalikan setelah dihapus!",
+                //     icon: "warning",
+                //     showCancelButton: true,
+                //     confirmButtonColor: "#3085d6",
+                //     cancelButtonColor: "#d33",
+                //     confirmButtonText: "Ya, Hapus"
+                // }).then((result) => {
+                //     if (result.isConfirmed) {
+                //         form.submit();
+                //     }
+                // });
                 var form = $(this).closest('form');
+                var deleteUrl = form.attr('action');
+
                 Swal.fire({
                     title: "Anda Yakin?",
                     text: "Data tidak dapat dikembalikan setelah dihapus!",
@@ -393,7 +424,34 @@
                     confirmButtonText: "Ya, Hapus"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        form.submit();
+                        $.ajax({
+                            type: 'POST',
+                            url: deleteUrl,
+                            data: form.serialize(),
+                            success: function(response) {
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    text: 'Data berhasil dihapus',
+                                    icon: 'success',
+                                    timer: 3500
+                                });
+                                table.ajax.reload();
+                            },
+                            error: function(error) {
+                                console.error('Error deleting user:', error);
+
+                                Swal.fire({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    icon: 'error',
+                                    text: 'Terjadi kesalahan saat menghapus data!',
+                                    timer: 3500
+                                });
+                            }
+                        });
                     }
                 });
             });
@@ -422,7 +480,9 @@
                     $('#barangModal').modal('hide');
 
                     Swal.fire({
-                        title: "Success",
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
                         text: "Data Berhasil Disimpan",
                         icon: "success",
                         timer: 3500,

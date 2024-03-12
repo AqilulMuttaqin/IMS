@@ -109,6 +109,9 @@ class BarangController extends Controller
             'kode_js' => 'required',
             'nama' => 'required',
             'harga' => 'required',
+            'min_stok' => 'required',
+            'max_stok' => 'required',
+            'kategori' => 'required',
         ]);
 
         $barang = Barang::find($kode_js);
@@ -121,9 +124,6 @@ class BarangController extends Controller
     public function destroy(Barang $barang)
     {
         $barang->delete();
-
-        alert()->success('Deleted!','Data Berhasil Dihapus');
-        return redirect()->back();
     }
 
     public function export()
