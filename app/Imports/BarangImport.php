@@ -22,6 +22,7 @@ class BarangImport
         $minWireColumnIndex = array_search('min_stok', $columnNames);
         $maxColumnIndex = array_search('max_stok', $columnNames);
         $hargaColumnIndex = array_search('Price($)', $columnNames);
+        $kategoriColumnIndex = array_search('Kategori', $columnNames);
 
         $importedCount = 0;
         $skippedRows = [];
@@ -48,6 +49,9 @@ class BarangImport
             if ($row[$hargaColumnIndex] === null) {
                 $emptyColumns[] = 'Price($)';
             }
+            if ($row[$kategoriColumnIndex] === null) {
+                $emptyColumns[] = 'Kategori';
+            }
 
             if (!empty($emptyColumns)) {
                 $skippedRows[] = [
@@ -64,6 +68,7 @@ class BarangImport
                     'min_stok' => $row[$minWireColumnIndex],
                     'max_stok' => $row[$maxColumnIndex],
                     'harga' => $row[$hargaColumnIndex],
+                    'kategori' => $row[$kategoriColumnIndex],
                 ]
             );
             $importedCount++;
