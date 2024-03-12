@@ -14,7 +14,6 @@
                             <th style="width: 20px;">No</th>
                             <th>Nama</th>
                             <th>Stok</th>
-                            <th style="width: 30px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,19 +53,19 @@
                         data: 'total_qty',
                         name: 'total_qty'
                     },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        render: function() {
-                            return `
-                                <button type="button" class="btn btn-sm btn-primary">
-                                    <i class="ti ti-edit"></i>
-                                </button>
-                            `;
-                        }
-                    }
+                    // {
+                    //     data: 'action',
+                    //     name: 'action',
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     render: function() {
+                    //         return `
+                    //             <button type="button" class="btn btn-sm btn-primary">
+                    //                 <i class="ti ti-edit"></i>
+                    //             </button>
+                    //         `;
+                    //     }
+                    // }
                 ]
             });
         });
