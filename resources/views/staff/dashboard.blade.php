@@ -98,7 +98,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary edit-detail" data-bs-dismiss="modal">Edit</button>
+                    <button type="button" class="btn btn-primary edit-detail" hidden>save</button>
+                    <button type="button" class="btn btn-primary edit-detail" >Edit</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -411,12 +412,12 @@
                                 </td>
                                 <td>
                                     <div class="input-group number-spinner">
-                                        <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
+                                        <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')" disabled>
                                             <i class="ti ti-minus"></i>
                                         </button>
                                         <input type="text" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
                                             name="${barang.kode_js}" oninput="validateInput(this)">
-                                        <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
+                                        <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')" disabled>
                                             <i class="ti ti-plus"></i>
                                         </button>
                                     </div>
