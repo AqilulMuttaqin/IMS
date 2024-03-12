@@ -204,7 +204,7 @@
                         render: function(data, meta, row) {
                             return `
                                 <button type="button" class="btn btn-sm btn-warning" data-id="${row.kode_js}" id="tambahBarang">
-                                    <i class="ti ti-shopping-cart-plus"></i>
+                                    + Keranjang
                                 </button>
                                 <button type="button" class="btn btn-sm btn-danger" data-id="${row.kode_js}" id="pesanLangsung">
                                     Request Langsung
