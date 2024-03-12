@@ -232,7 +232,8 @@
             $('#sbmtPesanLangsung').on('click', function() {
                 var barang = $('#tambahModal').find('#barang').val();
                 var jumlah = $('#tambahModal').find('#jumlah').val();
-                pesan(barang, jumlah);
+                var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
+                pesan(barang, jumlah, keterangan);
                 table.draw();
             });
 
@@ -425,13 +426,14 @@
             })
         }
 
-        function pesan(kode_js, qty) {
+        function pesan(kode_js, qty, keterangan) {
             $.ajax({
                 url: "{{ route('user.pesan1') }}",
                 method: 'GET',
                 data: {
                     kode_js: kode_js,
-                    qty: qty
+                    qty: qty,
+                    keterangan: keterangan
                 },
                 success: function(response) {
                     $('#tambahModal').modal('hide');

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('pesanan_id')->constrained('pesanan')->onDelete('cascade');
             $table->string('kode_js');
             $table->integer('qty');
+            $table->enum('keterangan' , ['request', 'tukar'])->default('request');
             $table->timestamps();
             $table->foreign('kode_js')->references('kode_js')->on('barang');
         });

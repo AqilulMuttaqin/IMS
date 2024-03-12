@@ -71,7 +71,8 @@ class PesananController extends Controller
     {
         $request->validate([
             'kode_js' => 'required',
-            'qty' => 'required'
+            'qty' => 'required',
+            'keterangan' => 'required'
         ]);
 
         $pesanan = new Pesanan();
@@ -79,7 +80,7 @@ class PesananController extends Controller
         $pesanan->kode_pesanan = $this->generateUniqueID();
         $pesanan->save();
         
-        $pesanan->barang()->attach($request->input('kode_js'), ['qty' => $request->input('qty')]);
+        $pesanan->barang()->attach($request->input('kode_js'), ['qty' => $request->input('qty'), 'keterangan' => $request->input('keterangan')]);
 
         $barang = Barang::where('kode_js', $request->input('kode_js'))->firstOrFail();
         $barang->update(['requested_qty' => $barang->requested_qty + $request->input('qty')]);
