@@ -35,7 +35,7 @@ Route::get('/', function () {
     } elseif ($user->role === 'spv') {
         return redirect()->route('spv.dashboard');
     } elseif ($user->role === 'user') {
-        return redirect()->route('user.dashboard');
+        return redirect()->route('user.home');
     }
 
     return redirect()->route('login');

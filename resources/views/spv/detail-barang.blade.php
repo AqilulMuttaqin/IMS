@@ -183,21 +183,22 @@
                         .data()
                         .each(function(group, i) {
                             if (last !== group) {
-                                var groupSum = api
-                                    .rows(function(idx, data, node) {
-                                        return data.barang.nama === group;
-                                    })
-                                    .data()
-                                    .pluck('total_qty')
-                                    .reduce(function(sum, qty) {
-                                        return sum + parseInt(qty);
-                                    }, 0);
+                                // var groupSum = api
+                                //     .rows(function(idx, data, node) {
+                                //         return data.barang.nama === group;
+                                //     })
+                                //     .data()
+                                //     .pluck('total_qty')
+                                //     .reduce(function(sum, qty) {
+                                //         return sum + parseInt(qty);
+                                //     }, 0);
 
                                 $(rows)
                                     .eq(i)
                                     
-                                    .before('<tr class="group" style="background-color: #dae2e8"><td colspan="1"></td><td colspan="2">' + group + '</td><td><button data-id="'+group+'" class="btn btn-sm btn-success d-flex align-items-center btn-lihat-lokasi-total">Lihat Lokasi</button></td><td colspan="1">' + groupSum + '</td></tr>');
-                                last = group;
+                                    // .before('<tr class="group" style="background-color: #dae2e8"><td colspan="1"></td><td colspan="2">' + group + '</td><td><button data-id="'+group+'" class="btn btn-sm btn-success d-flex align-items-center btn-lihat-lokasi-total">Lihat Lokasi</button></td><td colspan="1">' + groupSum + '</td></tr>');
+                                    .before('<tr class="group" style="background-color: #dae2e8"><td colspan="1"></td><td colspan="2">' + group + '</td><td colspan="2"><button data-id="'+group+'" class="btn btn-sm btn-success d-flex align-items-center btn-lihat-lokasi-total">Lihat Lokasi</button></td></tr>');
+                                    last = group;
                             }
                         });
                 }

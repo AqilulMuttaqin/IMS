@@ -125,7 +125,7 @@
                         <div class="form-group mb-3">
                             <label for="kode_js">NO. JS</label>
                             <input type="text" class="form-control form-control-user" id="kode_js" name="kode_js"
-                                required autofocus value="" maxlength="6" minlength="6">
+                                required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="nama">NAMA</label>

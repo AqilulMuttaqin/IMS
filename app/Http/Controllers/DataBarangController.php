@@ -10,6 +10,7 @@ use App\Models\Lokasi;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\DataTables;
 
 class DataBarangController extends Controller
 {
@@ -68,7 +69,7 @@ class DataBarangController extends Controller
                     $item->total_qty = $totalQty;
                 });
     
-                return datatables()->of($barang)->make(true);
+                return DataTables::of($barang)->make(true);
             }
             return view('spv.detail-barang', [
                 'title' => 'Data Detail Barang'
