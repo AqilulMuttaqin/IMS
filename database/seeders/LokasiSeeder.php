@@ -15,7 +15,7 @@ class LokasiSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['nama' => 'GUDANG UTAMA'],
+            ['nama' => 'GUDANG PRODUKSI'],
             ['nama' => 'DEPARTEMENT PRODUKSI'],
             ['nama' => 'TWIST'],
             ['nama' => 'PA 841W'],
