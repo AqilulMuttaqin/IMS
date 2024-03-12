@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary edit-detail" hidden>save</button>
+                    <button type="button" class="btn btn-primary save-detail">save</button>
                     <button type="button" class="btn btn-primary edit-detail" >Edit</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -110,6 +110,7 @@
     <script>
         const plusValue = (id) => {
             const inputElement = document.getElementById(id);
+            const pesananId = inputElement.dataset.pesanan;
             inputElement.value = parseInt(inputElement.value) + 1;
             const maxQty = parseInt($('#jumlah').data('max'));
             const currentQty = parseInt(inputElement.value);
@@ -120,13 +121,14 @@
                 $('#error-message').hide();
                 $('#tambahkan').prop('disabled', false);
                 if (id !== 'jumlah') {
-                    debounceAjaxRequest(id, inputElement.value);
+                    debounceAjaxRequest('update', pesananId, id, inputElement.value);
                 }
             }
         }
 
         const minValue = (id) => {
             const inputElement = document.getElementById(id);
+            const pesananId = inputElement.dataset.pesanan;
             const newValue = parseInt(inputElement.value) - 1;
             inputElement.value = newValue >= 0 ? newValue : 0;
             const maxQty = parseInt($('#jumlah').data('max'));
@@ -138,7 +140,7 @@
                 $('#error-message').hide();
                 $('#tambahkan').prop('disabled', false);
                 if (id !== 'jumlah') {
-                    debounceAjaxRequest(id, inputElement.value);
+                    debounceAjaxRequest('update', pesananId, id, inputElement.value);
                 }
             }
         }
@@ -147,6 +149,7 @@
             input.value = input.value.replace(/[^0-9]/g, '');
             const id = input.id;
             const data = input.value;
+            const pesananId = input.dataset.pesanan;
             const maxQty = parseInt($('#jumlah').data('max'));
             const currentQty = parseInt(data);
             if (currentQty > maxQty) {
@@ -156,10 +159,20 @@
                 $('#error-message').hide();
                 $('#tambahkan').prop('disabled', false);
                 if (id !== 'jumlah') {
-                    debounceAjaxRequest(id, data);
+                    debounceAjaxRequest('update', pesananId, id, data);
                 }
             }
         }
+
+        function handleCheckboxChange(checkbox) {
+            const barangId = checkbox.dataset.barang;
+            const pesananId = checkbox.dataset.pesanan;
+            var isChecked = checkbox.checked;
+            isChecked ? (isChecked = 'tukar') : (isChecked = 'request');
+
+            debounceAjaxRequest('update-keterangan', pesananId, barangId,null ,isChecked);
+        }
+
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -199,6 +212,27 @@
                 updateContainers('pesananPerluDisiapkan', 'disiapkan');
                 updateContainers('pesananPerluDikirim', 'dikirim');
             }, 300000);
+
+            $('.edit-detail').on('click', function() {
+                $('.save-detail').show();
+                $('.edit-detail').hide();
+                $('.plusmin').prop('disabled', false);
+                $('input[type="checkbox"]').bootstrapToggle('enable');
+            });
+            $('.save-detail').on('click', function() {
+                $('.edit-detail').show();
+                $('.save-detail').hide();
+                $('.plusmin').prop('disabled', true);
+                $('input[type="checkbox"]').bootstrapToggle('disable');
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    text: "Perubahan Disimpan!",
+                    icon: "success",
+                    timer: 2500
+                });
+            });
         });
 
         $(document).on('click', '#rejectPesanan', function() {
@@ -403,27 +437,29 @@
                     `);
                     
                     response.barang.forEach(function(barang, index) {
+                        var isChecked = (barang.pivot.keterangan === 'tukar') ? 'checked' : '';
+
                         modalBody.find('tbody').append(`
                             <tr class="text-center align-middle justify-content-center">
                                 <td>${index + 1}</td>
                                 <td>${barang.nama}</td>
                                 <td>
-                                    <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-toggle="toggle" disabled>     
+                                    <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-pesanan="${response.id}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} disabled onchange="handleCheckboxChange(this)">     
                                 </td>
                                 <td>
                                     <div class="input-group number-spinner">
-                                        <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')" disabled>
+                                        <button type="button" class="btn btn-sm border plusmin" data-pesanan="${response.id}" onclick="minValue('${barang.kode_js}')" disabled>
                                             <i class="ti ti-minus"></i>
                                         </button>
-                                        <input type="text" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
-                                            name="${barang.kode_js}" oninput="validateInput(this)">
-                                        <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')" disabled>
+                                        <input type="text" class="form-control form-control-sm text-center plusmin" value="${barang.pivot.qty}" id="${barang.kode_js}"
+                                            name="${barang.kode_js}" data-pesanan="${response.id}" oninput="validateInput(this)" disabled>
+                                        <button type="button" class="btn btn-sm border plusmin" data-pesanan="${response.id}" onclick="plusValue('${barang.kode_js}')" disabled>
                                             <i class="ti ti-plus"></i>
                                         </button>
                                     </div>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-danger" onclick="deleteBarang('${barang.kode_js}')">
+                                    <button type="button" class="btn btn-sm btn-danger plusmin" data-barang="${barang.kode_js}" data-pesanan="${response.id}" onclick="deleteBarang(this)" disabled>
                                         <i class="ti ti-trash"></i>
                                     </button>    
                                 </td>
@@ -443,6 +479,8 @@
                         </div>
                     `);
 
+                    $('.save-detail').hide();
+                    $('.edit-detail').show();
                     $('#detailKonfirmasiModal').modal('show');
                 },
                 error: function(xhr, status, error) {
@@ -450,5 +488,68 @@
                 }
             });
         });
+
+        function deleteBarang(button){
+            var pesanan = button.dataset.pesanan;
+            var kode_js = button.dataset.barang;
+
+            console.log(pesanan, kode_js);
+            //var kode_js = $(button).data('barang');
+            Pesanan('delete', pesanan, kode_js);
+        }
+        
+        function toggleSaveButtonState(disabled) {
+            $('.save-detail').prop('disabled', disabled);
+        }
+
+        var debounceTimers = {};
+        var pendingAjaxRequests = [];
+
+        function debounceAjaxRequest(action ,pesanan, itemId, data, keterangan) {
+            if (!debounceTimers[itemId]) {
+                pendingAjaxRequests.push(itemId);
+                debounceTimers[itemId] = setTimeout(function() {
+                    Pesanan(action, pesanan, itemId, data, keterangan);
+                    console.log("Sending AJAX request for item with ID:", itemId);
+                    console.log("Pending AJAX requests:", pendingAjaxRequests);
+                    var index = pendingAjaxRequests.indexOf(itemId);
+                    if (index !== -1) {
+                        pendingAjaxRequests.splice(index, 1);
+                    }
+                    if (pendingAjaxRequests.length === 0) {
+                        toggleSaveButtonState(false);
+                    }
+                    delete debounceTimers[itemId];
+                }, 3000);
+                toggleSaveButtonState(true);
+            }
+        }
+
+        function Pesanan(action, pesanan, kode_js, qty, keterangan) {
+            $.ajax({
+                url: "{{ route('staff.edit-pesanan') }}",
+                method: 'GET',
+                data: {
+                    pesanan: pesanan,
+                    action: action,
+                    kode_js: kode_js,
+                    qty: qty,
+                    keterangan: keterangan
+                },
+                success: function(response) {
+                    if (action === 'delete') {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            text: "Barang dihapus dari Pesanan",
+                            icon: "success",
+                            timer: 3500
+                        });
+                        $('#detailKonfirmasiModal').modal('hide');
+                    }
+                }
+            })
+            }
     </script>
 @endsection

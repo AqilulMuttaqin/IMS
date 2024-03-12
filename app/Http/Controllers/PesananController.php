@@ -99,7 +99,46 @@ class PesananController extends Controller
      */
     public function edit(Pesanan $pesanan)
     {
-        //
+        if(request()->ajax()){
+            $action = request('action');
+            switch ($action) {
+                case 'delete':
+                    $pesanan = Pesanan::where('id', request('pesanan'))->firstOrFail();
+
+                    $barang = $pesanan->barang()->where('barang.kode_js', request('kode_js'))->first();
+                    if ($barang) {
+                        $barang->update(['requested_qty' => $barang->requested_qty - $barang->pivot->qty]);
+                    }
+                    $pesanan->barang()->detach(request('kode_js'));
+
+                    $pesanan = Pesanan::with('barang')->where('id', request('pesanan'))->first();
+                    break;
+                case 'update':
+                    $pesanan = Pesanan::where('id', request('pesanan'))->firstOrFail();
+
+                    $existingQty = $pesanan->barang()->where('barang.kode_js', request('kode_js'))->first()->pivot->qty;
+
+                    $pesanan->barang()->updateExistingPivot(request('kode_js'), ['qty' => request('qty')]);
+
+                    $qtyDifference = request('qty') - $existingQty;
+
+                    $barang = Barang::where('kode_js', request('kode_js'))->first();
+                    if ($barang) {
+                        $barang->update(['requested_qty' => $barang->requested_qty + $qtyDifference]);
+                    }
+                    break;
+                case 'update-keterangan':
+                    $pesanan = Pesanan::where('id', request('pesanan'))->firstOrFail();
+
+                    $pesanan->barang()->updateExistingPivot(request('kode_js'), ['keterangan' => request('keterangan')]);
+                    break;
+                default:
+                    return response()->json([]);
+            }
+
+            return response()->json($pesanan);
+
+        }
     }
 
     /**
