@@ -25,7 +25,7 @@ class KeranjangController extends Controller
                     $user = auth()->user();
                     $keranjang = $user->keranjang()->firstOrCreate([]);
                     $barang = Barang::where('kode_js', request('kode_js'))->firstOrFail();
-                    $keranjang->barang()->attach($barang->kode_js, ['qty' => request('qty')]);
+                    $keranjang->barang()->attach($barang->kode_js, ['qty' => request('qty'), 'keterangan' => request('keterangan')]);
                     break;
                 case 'delete':
                     $user = auth()->user();
@@ -40,6 +40,12 @@ class KeranjangController extends Controller
                     $keranjang = $user->keranjang()->firstOrFail();
 
                     $keranjang->barang()->updateExistingPivot(request('kode_js'), ['qty' => request('qty')]);
+                    break;
+                case 'update-keterangan':
+                    $user = auth()->user();
+                    $keranjang = $user->keranjang()->firstOrFail();
+
+                    $keranjang->barang()->updateExistingPivot(request('kode_js'), ['keterangan' => request('keterangan')]);
                     break;
                 default:
                     return response()->json([]);

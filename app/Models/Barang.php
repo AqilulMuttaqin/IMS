@@ -35,7 +35,7 @@ class Barang extends Model
 
     public function keranjang()
     {
-        return $this->belongsToMany(Keranjang::class, 'barang_keranjang', 'kode_js', 'keranjang_id')->withPivot('qty');
+        return $this->belongsToMany(Keranjang::class, 'barang_keranjang', 'kode_js', 'keranjang_id')->withPivot('qty', 'keterangan');
     }
 
     public function moveToLocation(string $lokasiAwal, $lokasiAkhir, $qty): void

@@ -128,7 +128,7 @@
                 $('#error-message').hide();
                 $('#tambahkan').prop('disabled', false);
                 if (id !== 'jumlah') {
-                    debounceAjaxRequest(id, inputElement.value);
+                    debounceAjaxRequest('update' ,id, inputElement.value);
                 }
             }
         }
@@ -146,7 +146,7 @@
                 $('#error-message').hide();
                 $('#tambahkan').prop('disabled', false);
                 if (id !== 'jumlah') {
-                    debounceAjaxRequest(id, inputElement.value);
+                    debounceAjaxRequest( 'update',id, inputElement.value);
                 }
             }
         }
@@ -164,9 +164,17 @@
                 $('#error-message').hide();
                 $('#tambahkan').prop('disabled', false);
                 if (id !== 'jumlah') {
-                    debounceAjaxRequest(id, data);
+                    debounceAjaxRequest('update',id, data);
                 }
             }
+        }
+
+        function handleCheckboxChange(checkbox) {
+            const barangId = checkbox.dataset.barang;
+            var isChecked = checkbox.checked;
+            isChecked ? (isChecked = 'tukar') : (isChecked = 'request');
+
+            debounceAjaxRequest('update-keterangan', barangId,null ,isChecked);
         }
 
         $(document).ready(function() {
@@ -226,7 +234,8 @@
             $('#tambahkan').on('click', function() {
                 var barang = $('#tambahModal').find('#barang').val();
                 var jumlah = $('#tambahModal').find('#jumlah').val();
-                keranjang('add', barang, jumlah);
+                var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
+                keranjang('add', barang, jumlah, keterangan);
             });
 
             $('#sbmtPesanLangsung').on('click', function() {
@@ -247,6 +256,12 @@
                 $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', true);
                 $('#tambahModal').find('#tambahkan').prop('hidden', false);
                 $('#tambahModal').find('#jumlah').data('max', rowData.total_qty);
+                var kategori = rowData.kategori;
+                if (kategori === 'tukar') {
+                    $('#ket').bootstrapToggle('on');
+                } else {
+                    $('#ket').bootstrapToggle('off');
+                }
                 $('#error-message').hide();
                 $('#tambahModal').modal('show')
             });
@@ -295,11 +310,11 @@
         var debounceTimers = {};
         var pendingAjaxRequests = [];
 
-        function debounceAjaxRequest(itemId, data) {
+        function debounceAjaxRequest(action ,itemId, data, keterangan) {
             if (!debounceTimers[itemId]) {
                 pendingAjaxRequests.push(itemId);
                 debounceTimers[itemId] = setTimeout(function() {
-                    keranjang('update', itemId, data);
+                    keranjang(action, itemId, data, keterangan);
                     console.log("Sending AJAX request for item with ID:", itemId);
                     console.log("Pending AJAX requests:", pendingAjaxRequests);
                     var index = pendingAjaxRequests.indexOf(itemId);
@@ -337,12 +352,13 @@
 
             if (response.barang && response.barang.length > 0) {
                 response.barang.forEach(function (barang, index) {
+                    var isChecked = (barang.pivot.keterangan === 'tukar') ? 'checked' : '';
                     modalBody.find('tbody').append(`
                         <tr class="text-center align-middle justify-content-center">
                             <td>${index + 1}</td>
                             <td>${barang.nama}</td>
                             <td>
-                                <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-toggle="toggle">    
+                                <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} onchange="handleCheckboxChange(this)">    
                             </td>
                             <td>
                                 <div class="input-group number-spinner">
@@ -388,7 +404,7 @@
             $('#keranjangModal').modal('show');
         }
 
-        function keranjang(action, kode_js, qty) {
+        function keranjang(action, kode_js, qty, keterangan) {
 
             $.ajax({
                 url: "{{ route('user.keranjang') }}",
@@ -396,7 +412,8 @@
                 data: {
                     action: action,
                     kode_js: kode_js,
-                    qty: qty
+                    qty: qty,
+                    keterangan: keterangan
                 },
                 success: function(response) {
                     if (action === 'keranjang') {

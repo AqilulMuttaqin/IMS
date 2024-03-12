@@ -56,7 +56,7 @@ class PesananController extends Controller
 
         $userKeranjang->barang()->each(function ($barang) use ($pesanan) {
             $qty = $barang->pivot->qty;
-            $pesanan->barang()->attach($barang->kode_js, ['qty' => $qty]);
+            $pesanan->barang()->attach($barang->kode_js, ['qty' => $qty, 'keterangan' => $barang->pivot->keterangan]);
 
             $barang->update(['requested_qty' => $barang->requested_qty + $qty]);
         });
@@ -118,6 +118,12 @@ class PesananController extends Controller
                 $barang->update(['requested_qty' => $barang->requested_qty - $barang->pivot->qty]);
             });
             $pesanan->delete();
+        };
+
+        if ($request->status === 'ditolak') {
+            $pesanan->barang->each(function ($barang) {
+                $barang->update(['requested_qty' => $barang->requested_qty - $barang->pivot->qty]);
+            });
         };
 
         $pesanan->update(['status' => $request->status]);
