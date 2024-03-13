@@ -174,7 +174,7 @@
             const barangId = checkbox.dataset.barang;
             const pesananId = checkbox.dataset.pesanan;
             var isChecked = checkbox.checked;
-            isChecked ? (isChecked = 'tukar') : (isChecked = 'request');
+            isChecked ? (isChecked = 'Tukar') : (isChecked = 'Request');
 
             $('#ket').text(isChecked);
 
@@ -468,7 +468,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="jumlah-qty">${barang.pivot.qty}</div>
+                                    <div class="jumlah-qty">${barang.pivot.qty} ${barang.satuan}</div>
                                     <div class="input-group number-spinner" hidden>
                                         <button type="button" class="btn btn-sm border" data-pesanan="${response.id}" onclick="minValue('${barang.kode_js}')">
                                             <i class="ti ti-minus"></i>

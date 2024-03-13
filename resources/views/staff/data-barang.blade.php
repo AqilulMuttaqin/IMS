@@ -18,7 +18,7 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('download-zip') }}"><i
                                         class="ti ti-file-zip me-1"></i> Download ZIP</a>
-                                <a class="dropdown-item" href="{{ route('download-pdf') }}"><i
+                                <a class="dropdown-item" href="{{ route('download-pdf') }}" target="_blank"><i
                                         class="ti ti-file-text me-1"></i> Download PDF</a>
                             </div>
                         </div>
@@ -34,9 +34,11 @@
                             <th style="width: 20px">No</th>
                             <th>Kode JS</th>
                             <th>Nama</th>
+                            <th>Satuan</th>
                             <th>Min</th>
                             <th>Max</th>
                             <th>Price($)</th>
+                            <th>Kategori</th>
                             <th>Qty</th>
                             <th style="width: 90px">QR Code</th>
                         </tr>
@@ -111,6 +113,10 @@
                         name: 'nama'
                     },
                     {
+                        data: 'satuan',
+                        name: 'satuan'
+                    },
+                    {
                         data: 'min_stok',
                         name: 'min_stok'
                     },
@@ -121,6 +127,10 @@
                     {
                         data: 'harga',
                         name: 'harga'
+                    },
+                    {
+                        data: 'kategori',
+                        name: 'kategori'
                     },
                     {
                         data: 'total_qty',
@@ -204,6 +214,7 @@
                     }
                 });
             });
+
             $('#tambahBtn').click(function() {
                 resetFormFields();
                 $('#submitBtn').text('Submit');

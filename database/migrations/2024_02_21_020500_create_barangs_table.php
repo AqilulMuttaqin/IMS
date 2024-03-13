@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('barang', function (Blueprint $table) {
             $table->string('kode_js')->unique()->primary();
             $table->string('nama');
+            $table->string('satuan');
             $table->decimal('harga', 15, 2);
             $table->integer('min_stok')->default(0);
             $table->integer('max_stok')->default(0);
+            $table->enum('kategori', ['request', 'tukar']);
             $table->integer('requested_qty')->default(0);
             $table->timestamps();
         });

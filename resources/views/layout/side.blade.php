@@ -67,11 +67,11 @@
                         <span class="hide-menu">Pages</span>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link {{ $title === 'Update Stok' ? 'active' : ''}}" href="{{ route('staff.update-stok')}}" aria-expanded="false">
+                        <a class="sidebar-link {{ $title === 'Barang Gudang' ? 'active' : ''}}" href="{{ route('staff.data-barang')}}" aria-expanded="false">
                             <span>
-                                <i class="ti ti-refresh"></i>
+                                <i class="ti ti-building-warehouse"></i>
                             </span>
-                            <span class="hide-menu">Update Stok</span>
+                            <span class="hide-menu">Barang Gudang</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -83,19 +83,19 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Update Stok' ? 'active' : ''}}" href="{{ route('staff.update-stok')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-refresh"></i>
+                            </span>
+                            <span class="hide-menu">Update Stok</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link {{ $title === 'Data Master Barang' ? 'active' : ''}}" href="{{ route('staff.barang')}}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-article"></i>
                             </span>
                             <span class="hide-menu">Master Barang</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link {{ $title === 'Barang Gudang' ? 'active' : ''}}" href="{{ route('staff.data-barang')}}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-building-warehouse"></i>
-                            </span>
-                            <span class="hide-menu">Barang Gudang</span>
                         </a>
                     </li>
                 @endif

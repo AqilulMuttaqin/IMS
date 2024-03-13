@@ -47,11 +47,13 @@
                     },
                     {
                         data: 'nama',
-                        name: 'nama'
+                        name: 'nama',
                     },
                     {
-                        data: 'total_qty',
-                        name: 'total_qty'
+                        data: null,
+                        render: function(data, type, row) {
+                            return `${row.total_qty} ${row.satuan}`;
+                        }
                     },
                     // {
                     //     data: 'action',

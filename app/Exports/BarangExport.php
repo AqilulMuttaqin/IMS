@@ -29,6 +29,7 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
             'min_stok',
             'max_stok',
             'Price($)',
+            'Kategori',
         ];
     }
 
@@ -42,15 +43,15 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
             ],
         ];
 
-        $sheet->getStyle('A1:E1')->applyFromArray($styleArray);
-        $sheet->getStyle('A2:E' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
+        $sheet->getStyle('A1:F1')->applyFromArray($styleArray);
+        $sheet->getStyle('A2:F' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
     }
 
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:E1';
+                $cellRange = 'A1:F1';
 
                 $event->sheet->getStyle($cellRange)->applyFromArray([
                     'font' => ['bold' => true],
@@ -61,7 +62,7 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
 
                 //$event->sheet->getDelegate()->getAutoFilter()->setRange($cellRange);
 
-                foreach (range('A','E') as $column) {
+                foreach (range('A','F') as $column) {
                     $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
                 }
             },

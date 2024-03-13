@@ -12,7 +12,7 @@
                         <tr>
                             <th style="width: 20px">No</th>
                             <th>Kode Pesan</th>
-                            <th>Nama Pesanan</th>
+                            <th>Nama</th>
                             <th>Tanggal Dibuat</th>
                             <th>Tanggal Selesai</th>
                             <th style="width: 100px">Status</th>
@@ -289,8 +289,8 @@
                         <tr class="text-center">
                             <td>${index + 1}</td>
                             <td>${barang.nama}</td>
-                            <td>Request</td>
-                            <td>${barang.pivot.qty}</td>
+                            <td>${barang.pivot.keterangan.charAt(0).toUpperCase() + barang.pivot.keterangan.slice(1)}</td>
+                            <td>${barang.pivot.qty} ${barang.satuan}</td>
                         </tr>
                     `);
                 });

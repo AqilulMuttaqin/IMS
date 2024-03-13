@@ -27,6 +27,7 @@
                         <tr>
                             <th style="width: 20px">No</th>
                             <th>Nama</th>
+                            <th>Satuan</th>
                             <th>Stok</th>
                             <th style="width: 30px;">Check Out</th>
                         </tr>
@@ -77,7 +78,7 @@
                             <div class="row mb-2">
                                 <div class="col-sm-8"></div>
                                 <div class="col-sm-4 text-center">
-                                    <p>Jumlah</p>
+                                    <p class="satuan"></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -204,6 +205,10 @@
                         name: 'nama'
                     },
                     {
+                        data: 'satuan',
+                        name: 'satuan'
+                    },
+                    {
                         data: 'total_qty',
                         name: 'total_qty'
                     },
@@ -259,6 +264,7 @@
                 $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', true);
                 $('#tambahModal').find('#tambahkan').prop('hidden', false);
                 $('#tambahModal').find('#jumlah').data('max', rowData.total_qty);
+                $('#tambahModal').find('.satuan').text('Jumlah (' +  rowData.satuan.toUpperCase() + ')');
                 var kategori = rowData.kategori;
                 if (kategori === 'tukar') {
                     $('#ket').bootstrapToggle('on');
@@ -277,6 +283,7 @@
                 $('#tambahModal').find('#jumlah').val('1');
                 $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', false);
                 $('#tambahModal').find('#tambahkan').prop('hidden', true);
+                $('#tambahModal').find('.satuan').text('Jumlah (' +  rowData.satuan.toUpperCase() + ')');
                 $('#error-message').hide();
                 $('#tambahModal').modal('show')
             });
@@ -372,7 +379,7 @@
                     modalBody.find('tbody').append(`
                         <tr class="text-center align-middle justify-content-center">
                             <td>${index + 1}</td>
-                            <td>${barang.nama}</td>
+                            <td>${barang.nama}<br>(${barang.satuan})</td>
                             <td>
                                 <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} onchange="handleCheckboxChange(this)">    
                             </td>

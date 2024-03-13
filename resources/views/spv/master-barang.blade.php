@@ -65,6 +65,7 @@
                             <th style="width: 20px">No</th>
                             <th>Kode JS</th>
                             <th>Nama</th>
+                            <th>Satuan</th>
                             <th>Min</th>
                             <th>Max</th>
                             <th>Price($)</th>
@@ -220,6 +221,10 @@
                     {
                         data: 'nama',
                         name: 'nama'
+                    },
+                    {
+                        data: 'satuan',
+                        name: 'satuan'
                     },
                     {
                         data: 'min_stok',
