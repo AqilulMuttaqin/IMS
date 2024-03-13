@@ -132,6 +132,13 @@ class PesananController extends Controller
 
                     $pesanan->barang()->updateExistingPivot(request('kode_js'), ['keterangan' => request('keterangan')]);
                     break;
+                case 'catatan':
+                    $pesanan = Pesanan::where('id', request('pesanan'))->firstOrFail();
+
+                    $pesanan->update(['catatan' => request('catatan')]);
+
+                    $pesanan->save();
+                    break;
                 default:
                     return response()->json([]);
             }
