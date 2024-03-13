@@ -117,7 +117,7 @@
             inputElement.value = parseInt(inputElement.value) + 1;
             const maxQty = parseInt($('#jumlah').data('max'));
             const currentQty = parseInt(inputElement.value);
-            $('.jumlah-qty').text(currentQty);
+            $('#jumlah-qty-'+id).text(currentQty);
             if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
                 $('#tambahkan').prop('disabled', true);
@@ -136,8 +136,8 @@
             const newValue = parseInt(inputElement.value) - 1;
             inputElement.value = newValue >= 0 ? newValue : 0;
             const maxQty = parseInt($('#jumlah').data('max'));
-            $('.jumlah-qty').text(currentQty);
             const currentQty = parseInt(newValue);
+            $('#jumlah-qty-'+id).text(currentQty);
             if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
                 $('#tambahkan').prop('disabled', true);
@@ -157,7 +157,7 @@
             const pesananId = input.dataset.pesanan;
             const maxQty = parseInt($('#jumlah').data('max'));
             const currentQty = parseInt(data);
-            $('.jumlah-qty').text(currentQty);
+            $('#jumlah-qty-'+id).text(currentQty);
             if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
                 $('#tambahkan').prop('disabled', true);
@@ -176,7 +176,7 @@
             var isChecked = checkbox.checked;
             isChecked ? (isChecked = 'Tukar') : (isChecked = 'Request');
 
-            $('#ket').text(isChecked);
+            $('#ket-'+barangId).text(isChecked);
 
             debounceAjaxRequest('update-keterangan', pesananId, barangId,null ,isChecked);
         }
@@ -233,23 +233,52 @@
                 $('.form-note').prop('hidden', false);
             });
             $('.save-detail').on('click', function() {
-                $('.edit-detail').show();
-                $('.save-detail').hide();
-                $('.ket').prop('hidden', true);
-                $('#ket').prop('hidden', false);
-                $('.jumlah-qty').prop('hidden', false);
-                $('.number-spinner').prop('hidden', true);
-                $('.hps').prop('hidden', true);
-                $('.note').prop('hidden', false);
-                $('.form-note').prop('hidden', true);
-                Swal.fire({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    text: "Perubahan Disimpan!",
-                    icon: "success",
-                    timer: 2500
-                });
+                var textarea = document.getElementById("note");
+                var catatan = textarea.value;
+                var pesanan = textarea.dataset.id;
+                var oldCatatan = textarea.dataset.old;
+                //$('.spinner-border').prop('hidden', true);
+
+                if(catatan === oldCatatan){
+                    $('.edit-detail').show();
+                    $('.save-detail').hide();
+                    $('.ket').prop('hidden', true);
+                    $('#ket').prop('hidden', false);
+                    $('.jumlah-qty').prop('hidden', false);
+                    $('.number-spinner').prop('hidden', true);
+                    $('.hps').prop('hidden', true);
+                    $('.note').prop('hidden', false);
+                    $('.form-note').prop('hidden', true);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        text: "Perubahan Disimpan!",
+                        icon: "success",
+                        timer: 2500
+                    });
+                } else {
+                    debounceAjaxRequest('catatan', pesanan, null, null, null, catatan, function() {
+                        //$('.spinner-border').prop('hidden', false);
+                        $('.edit-detail').show();
+                        $('.save-detail').hide();
+                        $('.ket').prop('hidden', true);
+                        $('#ket').prop('hidden', false);
+                        $('.jumlah-qty').prop('hidden', false);
+                        $('.number-spinner').prop('hidden', true);
+                        $('.hps').prop('hidden', true);
+                        $('.note').prop('hidden', false);
+                        $('.form-note').prop('hidden', true);
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            text: "Perubahan Disimpan!",
+                            icon: "success",
+                            timer: 2500
+                        });
+                    });
+                }
             });
         });
 
@@ -462,13 +491,13 @@
                                 <td>${index + 1}</td>
                                 <td>${barang.nama}</td>
                                 <td>
-                                    <div id="ket">${barang.pivot.keterangan.charAt(0).toUpperCase() + barang.pivot.keterangan.slice(1)}</div>
+                                    <div id="ket-${barang.kode_js}">${barang.pivot.keterangan.charAt(0).toUpperCase() + barang.pivot.keterangan.slice(1)}</div>
                                     <div class="ket" hidden>
                                         <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-pesanan="${response.id}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} onchange="handleCheckboxChange(this)">
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="jumlah-qty">${barang.pivot.qty} ${barang.satuan}</div>
+                                    <div class="jumlah-qty" id="jumlah-qty-${barang.kode_js}">${barang.pivot.qty} ${barang.satuan}</div>
                                     <div class="input-group number-spinner" hidden>
                                         <button type="button" class="btn btn-sm border" data-pesanan="${response.id}" onclick="minValue('${barang.kode_js}')">
                                             <i class="ti ti-minus"></i>
@@ -503,7 +532,7 @@
                             <p class="note">* Note: Pengurangan barang disesuaikan dengan stok yang ada</p>
                             <div class="form-group form-note" hidden>
                                 <label for="note" class="form-label">* NOTE</label>
-                                <textarea class="form-control" id="note" aria-describedby="note" rows="4" cols="50"></textarea>
+                                <textarea class="form-control" id="note" aria-describedby="note" rows="4" data-id="${response.id}" data-old="${response.catatan}" cols="50">${response.catatan}</textarea>
                             </div>
                         </div>
                     `);
@@ -535,7 +564,7 @@
         var debounceTimers = {};
         var pendingAjaxRequests = [];
 
-        function debounceAjaxRequest(action, pesanan, itemId, data, keterangan) {
+        function debounceAjaxRequest(action, pesanan, itemId, data, keterangan, catatan, callback) {
             if (!debounceTimers[itemId] || debounceTimers[itemId].data !== data) {
                 if (debounceTimers[itemId]) {
                     clearTimeout(debounceTimers[itemId].timer);
@@ -548,7 +577,10 @@
                 debounceTimers[itemId] = {
                     data: data,
                     timer: setTimeout(function() {
-                        Pesanan(action, pesanan, itemId, data, keterangan);
+                        Pesanan(action, pesanan, itemId, data, keterangan, catatan, function() {
+                        if (callback && typeof callback === "function") {
+                            callback();
+                        }});
                         console.log("Sending AJAX request for item with ID:", itemId);
                         console.log("Pending AJAX requests:", pendingAjaxRequests);
                         var index = pendingAjaxRequests.indexOf(itemId);
@@ -567,7 +599,8 @@
             }
         }
 
-        function Pesanan(action, pesanan, kode_js, qty, keterangan) {
+        function Pesanan(action, pesanan, kode_js, qty, keterangan, catatan, callback) 
+        {
             $.ajax({
                 url: "{{ route('staff.edit-pesanan') }}",
                 method: 'GET',
@@ -576,7 +609,8 @@
                     action: action,
                     kode_js: kode_js,
                     qty: qty,
-                    keterangan: keterangan
+                    keterangan: keterangan,
+                    catatan: catatan
                 },
                 success: function(response) {
                     if (action === 'delete') {
@@ -590,8 +624,11 @@
                         });
                         $('#detailKonfirmasiModal').modal('hide');
                     }
+                    if (callback && typeof callback === "function") {
+                        callback(response);
+                    }
                 }
             })
-            }
+        }
     </script>
 @endsection
