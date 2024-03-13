@@ -17,6 +17,7 @@ return new class extends Migration
             $table->timestamps();
             $table->enum('status',['pending', 'disiapkan', 'dikirim', 'terkirim', 'selesai', 'ditolak', 'batal'])->default('pending');
             $table->string('kode_pesanan')->unique()->nullable();
+            $table->text('catatan')->nullable();
         });
     }
 

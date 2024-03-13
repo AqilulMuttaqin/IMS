@@ -14,7 +14,8 @@ class Pesanan extends Model
     protected $fillable = [
         'user_id',
         'status',
-        'kode_pesanan'
+        'kode_pesanan',
+        'catatan'
     ]; 
 
     public function user()
