@@ -98,7 +98,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary save-detail">save</button>
+                    <button type="button" class="btn btn-primary save-detail">
+                        <span class="spinner-border spinner-border-sm" aria-hidden="true" hidden></span>
+                        save
+                    </button>
                     <button type="button" class="btn btn-primary edit-detail" >Edit</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -500,27 +503,40 @@
         
         function toggleSaveButtonState(disabled) {
             $('.save-detail').prop('disabled', disabled);
+            $('.spinner-border').prop('hidden', !disabled);
         }
 
         var debounceTimers = {};
         var pendingAjaxRequests = [];
 
-        function debounceAjaxRequest(action ,pesanan, itemId, data, keterangan) {
-            if (!debounceTimers[itemId]) {
-                pendingAjaxRequests.push(itemId);
-                debounceTimers[itemId] = setTimeout(function() {
-                    Pesanan(action, pesanan, itemId, data, keterangan);
-                    console.log("Sending AJAX request for item with ID:", itemId);
-                    console.log("Pending AJAX requests:", pendingAjaxRequests);
-                    var index = pendingAjaxRequests.indexOf(itemId);
-                    if (index !== -1) {
-                        pendingAjaxRequests.splice(index, 1);
-                    }
-                    if (pendingAjaxRequests.length === 0) {
-                        toggleSaveButtonState(false);
-                    }
-                    delete debounceTimers[itemId];
-                }, 3000);
+        function debounceAjaxRequest(action, pesanan, itemId, data, keterangan) {
+            if (!debounceTimers[itemId] || debounceTimers[itemId].data !== data) {
+                if (debounceTimers[itemId]) {
+                    clearTimeout(debounceTimers[itemId].timer);
+                }
+
+                const existingIndex = pendingAjaxRequests.indexOf(itemId);
+                if (existingIndex === -1) {
+                    pendingAjaxRequests.push(itemId);
+                }
+                debounceTimers[itemId] = {
+                    data: data,
+                    timer: setTimeout(function() {
+                        Pesanan(action, pesanan, itemId, data, keterangan);
+                        console.log("Sending AJAX request for item with ID:", itemId);
+                        console.log("Pending AJAX requests:", pendingAjaxRequests);
+                        var index = pendingAjaxRequests.indexOf(itemId);
+                        if (index !== -1) {
+                            pendingAjaxRequests.splice(index, 1);
+                        }
+                        if (pendingAjaxRequests.length === 0) {
+                            toggleSaveButtonState(false);
+                        }
+                        delete debounceTimers[itemId];
+                    }, 3000)
+                };
+            }
+            if (pendingAjaxRequests.length > 0) {
                 toggleSaveButtonState(true);
             }
         }
