@@ -17,7 +17,7 @@ class BarangSeeder extends Seeder
     {
         $data = [
             ['kode_js' => 'A0001', 'nama' => 'Bolpoint', 'harga' => 10000, 'min_stok' => 10, 'max_stok' => 1000, 'kategori' => 'tukar'],
-            ['kode_js' => 'A0002', 'nama' => 'Pensil', 'harga' => 5000, 'min_stok' => 5, 'max_stok' => 500, 'kategori' => 'tukar'],
+            ['kode_js' => 'A0002', 'nama' => 'Pensil', 'harga' => 5000, 'min_stok' => 5, 'max_stok' => 500, 'kategori' => 'request'],
             ['kode_js' => 'A0003', 'nama' => 'Kertas', 'harga' => 20000, 'min_stok' => 20, 'max_stok' => 2000, 'kategori' => 'request'],
             ['kode_js' => 'A0004', 'nama' => 'Penggaris', 'harga' => 8000, 'min_stok' => 8, 'max_stok' => 800, 'kategori' => 'tukar'],
             ['kode_js' => 'A0005', 'nama' => 'Stapler', 'harga' => 15000, 'min_stok' => 15, 'max_stok' => 1500, 'kategori' => 'tukar'],
