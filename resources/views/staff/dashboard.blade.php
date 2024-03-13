@@ -117,6 +117,7 @@
             inputElement.value = parseInt(inputElement.value) + 1;
             const maxQty = parseInt($('#jumlah').data('max'));
             const currentQty = parseInt(inputElement.value);
+            $('.jumlah-qty').text(currentQty);
             if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
                 $('#tambahkan').prop('disabled', true);
@@ -135,6 +136,7 @@
             const newValue = parseInt(inputElement.value) - 1;
             inputElement.value = newValue >= 0 ? newValue : 0;
             const maxQty = parseInt($('#jumlah').data('max'));
+            $('.jumlah-qty').text(currentQty);
             const currentQty = parseInt(newValue);
             if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
@@ -155,6 +157,7 @@
             const pesananId = input.dataset.pesanan;
             const maxQty = parseInt($('#jumlah').data('max'));
             const currentQty = parseInt(data);
+            $('.jumlah-qty').text(currentQty);
             if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
                 $('#tambahkan').prop('disabled', true);
@@ -172,6 +175,8 @@
             const pesananId = checkbox.dataset.pesanan;
             var isChecked = checkbox.checked;
             isChecked ? (isChecked = 'tukar') : (isChecked = 'request');
+
+            $('#ket').text(isChecked);
 
             debounceAjaxRequest('update-keterangan', pesananId, barangId,null ,isChecked);
         }
@@ -219,14 +224,24 @@
             $('.edit-detail').on('click', function() {
                 $('.save-detail').show();
                 $('.edit-detail').hide();
-                $('.plusmin').prop('disabled', false);
-                $('input[type="checkbox"]').bootstrapToggle('enable');
+                $('.ket').prop('hidden', false);
+                $('#ket').prop('hidden', true);
+                $('.jumlah-qty').prop('hidden', true);
+                $('.number-spinner').prop('hidden', false);
+                $('.hps').prop('hidden', false);
+                $('.note').prop('hidden', true);
+                $('.form-note').prop('hidden', false);
             });
             $('.save-detail').on('click', function() {
                 $('.edit-detail').show();
                 $('.save-detail').hide();
-                $('.plusmin').prop('disabled', true);
-                $('input[type="checkbox"]').bootstrapToggle('disable');
+                $('.ket').prop('hidden', true);
+                $('#ket').prop('hidden', false);
+                $('.jumlah-qty').prop('hidden', false);
+                $('.number-spinner').prop('hidden', true);
+                $('.hps').prop('hidden', true);
+                $('.note').prop('hidden', false);
+                $('.form-note').prop('hidden', true);
                 Swal.fire({
                     toast: true,
                     position: 'top-end',
@@ -342,7 +357,7 @@
                         //var confirmButtonCol = $('<div class="col-12"></div>');
                         var actionButtonCol = $('<div class="col-12 d-flex"></div>');
                         var confirmButton = $('<button type="button" id="statusPesanan" class="btn w-100"></button>');
-                        var rejectButton = $('<button type="button" id="rejectPesanan" class="btn w-100"></button>');
+                        var rejectButton = $('<button type="button" id="rejectPesanan" class="btn w-100 me-1"></button>');
 
                         if (containerId === 'pesananMasuk') {
                             confirmButton.text('Terima');
@@ -433,7 +448,7 @@
                                         <th>Nama Barang</th>
                                         <th>Keterangan</th>
                                         <th style="width: 200px">Qty</th>
-                                        <th style="width: 20px">Hapus</th>
+                                        <th class="hps" hidden style="width: 20px">Hapus</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -447,22 +462,26 @@
                                 <td>${index + 1}</td>
                                 <td>${barang.nama}</td>
                                 <td>
-                                    <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-pesanan="${response.id}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} disabled onchange="handleCheckboxChange(this)">     
+                                    <div id="ket">${barang.pivot.keterangan.charAt(0).toUpperCase() + barang.pivot.keterangan.slice(1)}</div>
+                                    <div class="ket" hidden>
+                                        <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-pesanan="${response.id}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} onchange="handleCheckboxChange(this)">
+                                    </div>
                                 </td>
                                 <td>
-                                    <div class="input-group number-spinner">
-                                        <button type="button" class="btn btn-sm border plusmin" data-pesanan="${response.id}" onclick="minValue('${barang.kode_js}')" disabled>
+                                    <div class="jumlah-qty">${barang.pivot.qty}</div>
+                                    <div class="input-group number-spinner" hidden>
+                                        <button type="button" class="btn btn-sm border" data-pesanan="${response.id}" onclick="minValue('${barang.kode_js}')">
                                             <i class="ti ti-minus"></i>
                                         </button>
-                                        <input type="text" class="form-control form-control-sm text-center plusmin" value="${barang.pivot.qty}" id="${barang.kode_js}"
+                                        <input type="text" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
                                             name="${barang.kode_js}" data-pesanan="${response.id}" oninput="validateInput(this)" disabled>
-                                        <button type="button" class="btn btn-sm border plusmin" data-pesanan="${response.id}" onclick="plusValue('${barang.kode_js}')" disabled>
+                                        <button type="button" class="btn btn-sm border" data-pesanan="${response.id}" onclick="plusValue('${barang.kode_js}')">
                                             <i class="ti ti-plus"></i>
                                         </button>
                                     </div>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-danger plusmin" data-barang="${barang.kode_js}" data-pesanan="${response.id}" onclick="deleteBarang(this)" disabled>
+                                    <button type="button" class="btn btn-sm btn-danger hps" hidden data-barang="${barang.kode_js}" data-pesanan="${response.id}" onclick="deleteBarang(this)">
                                         <i class="ti ti-trash"></i>
                                     </button>    
                                 </td>
@@ -479,6 +498,13 @@
                     modalBody.append(`
                                 </tbody>
                             </table>
+                        </div>
+                        <div>
+                            <p class="note">* Note: Pengurangan barang disesuaikan dengan stok yang ada</p>
+                            <div class="form-group form-note" hidden>
+                                <label for="note" class="form-label">* NOTE</label>
+                                <textarea class="form-control" id="note" aria-describedby="note" rows="4" cols="50"></textarea>
+                            </div>
                         </div>
                     `);
 
