@@ -89,20 +89,15 @@
                         }
                     },
                     {
-                        data: 'edited_at',
-                        name: 'null',
-                        render: function(data, row, meta) {
-                            if (row.status !== 'selesai') {
-                                return `
-                                    <td class="text-center">-</td>
-                                `;
+                        data: 'updated_at',
+                        name: 'updated_at',
+                        render: function(data, type, row, meta) {
+                            if (row.status === 'selesai') {
+                                var formattedDate = moment.utc(data).tz('Asia/Jakarta').format('D MMM YYYY');
+                                return `<td class="text-center">` + formattedDate + `</td>`;
                             } else {
-                                var formattedDate = moment.utc(data).tz('Asia/Jakarta').format(
-                                    'D MMM YYYY');
-                                return `
-                                    <td class="text-center">` + formattedDate + `</td>
-                                `;
-                            };
+                                return `<td class="text-center">-</td>`;
+                            }
                         }
                     },
                     {

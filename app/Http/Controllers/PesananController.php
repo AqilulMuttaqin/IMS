@@ -22,9 +22,11 @@ class PesananController extends Controller
             $pesanan = Pesanan::with('user', 'barang');
 
             if (auth()->user()->role === 'admin') {
-                $pesanan = $pesanan->get();
-            } elseif (auth()->user()->role === 'user') {
+                $pesanan = $pesanan->orderby('created_at', 'desc')->get();
+            } else if (auth()->user()->role === 'user') {
                 $pesanan = $pesanan->where('user_id', auth()->id())->orderby('created_at', 'desc')->get();
+            } else if (auth()->user()->role === 'spv') {
+                $pesanan = $pesanan->where('status', 'selesai')->orderby('created_at', 'desc')->get();
             }
 
             $pesanan->map(function ($item, $key) {
@@ -37,8 +39,10 @@ class PesananController extends Controller
 
         if (auth()->user()->role === 'admin') {
             return view('staff.pesanan', ['title' => 'Pesanan']);
-        } elseif (auth()->user()->role === 'user') {
+        } else if (auth()->user()->role === 'user') {
             return view('user.pesanan', ['title' => 'Pesanan']);
+        } else if (auth()->user()->role === 'spv') {
+            return view('spv.history-pesanan', ['title' => 'History Pesanan']);
         }
     }
 
