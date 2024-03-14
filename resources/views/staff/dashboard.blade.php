@@ -529,10 +529,10 @@
                             </table>
                         </div>
                         <div>
-                            <p class="note">* Note: ${response.catatan}</p>
+                            <p class="note">* Note: ${response.catatan ? response.catatan : "-"}</p>
                             <div class="form-group form-note" hidden>
                                 <label for="note" class="form-label">* NOTE</label>
-                                <textarea class="form-control" id="note" aria-describedby="note" rows="4" data-id="${response.id}" data-old="${response.catatan}" cols="50">${response.catatan}</textarea>
+                                <textarea class="form-control" id="note" aria-describedby="note" placeholder="Tambahkan catatan untuk pemesan" rows="4" data-id="${response.id}" data-old="${response.catatan}" cols="50">${response.catatan ? response.catatan : ""}</textarea>
                             </div>
                         </div>
                     `);

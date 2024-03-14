@@ -300,7 +300,7 @@
                         </table>
                     </div>
                     <div>
-                        <p>* Note: ${rowData.catatan}</p>
+                        <p>* Note: ${rowData.catatan? rowData.catatan: "-"}</p>
                     </div>
                 `);
 
