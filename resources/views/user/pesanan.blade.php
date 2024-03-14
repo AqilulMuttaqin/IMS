@@ -299,6 +299,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <div>
+                        <p>* Note: ${rowData.catatan}</p>
+                    </div>
                 `);
 
                 $('#statusPesananModal').modal('show');
