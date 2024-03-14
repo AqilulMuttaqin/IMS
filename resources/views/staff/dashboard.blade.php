@@ -267,7 +267,7 @@
                         $('.jumlah-qty').prop('hidden', false);
                         $('.number-spinner').prop('hidden', true);
                         $('.hps').prop('hidden', true);
-                        $('.note').prop('hidden', false);
+                        $('.note').prop('hidden', false).text('* Note: ' + catatan);
                         $('.form-note').prop('hidden', true);
                         Swal.fire({
                             toast: true,
@@ -529,7 +529,7 @@
                             </table>
                         </div>
                         <div>
-                            <p class="note">* Note: Pengurangan barang disesuaikan dengan stok yang ada</p>
+                            <p class="note">* Note: ${response.catatan}</p>
                             <div class="form-group form-note" hidden>
                                 <label for="note" class="form-label">* NOTE</label>
                                 <textarea class="form-control" id="note" aria-describedby="note" rows="4" data-id="${response.id}" data-old="${response.catatan}" cols="50">${response.catatan}</textarea>
