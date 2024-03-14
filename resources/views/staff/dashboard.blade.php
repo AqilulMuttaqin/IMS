@@ -225,7 +225,7 @@
                 $('.save-detail').show();
                 $('.edit-detail').hide();
                 $('.ket').prop('hidden', false);
-                $('#ket').prop('hidden', true);
+                $('.textKeterangan').prop('hidden', true);
                 $('.jumlah-qty').prop('hidden', true);
                 $('.number-spinner').prop('hidden', false);
                 $('.hps').prop('hidden', false);
@@ -243,7 +243,7 @@
                     $('.edit-detail').show();
                     $('.save-detail').hide();
                     $('.ket').prop('hidden', true);
-                    $('#ket').prop('hidden', false);
+                    $('.textKeterangan').prop('hidden', false);
                     $('.jumlah-qty').prop('hidden', false);
                     $('.number-spinner').prop('hidden', true);
                     $('.hps').prop('hidden', true);
@@ -491,7 +491,7 @@
                                 <td>${index + 1}</td>
                                 <td>${barang.nama}</td>
                                 <td>
-                                    <div id="ket-${barang.kode_js}">${barang.pivot.keterangan.charAt(0).toUpperCase() + barang.pivot.keterangan.slice(1)}</div>
+                                    <div class="textKeterangan" id="ket-${barang.kode_js}">${barang.pivot.keterangan.charAt(0).toUpperCase() + barang.pivot.keterangan.slice(1)}</div>
                                     <div class="ket" hidden>
                                         <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-pesanan="${response.id}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} onchange="handleCheckboxChange(this)">
                                     </div>
