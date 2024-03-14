@@ -101,6 +101,9 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('/spv/get-barang', [SPVController::class, 'get_barang'])->name('spv.get-barang');
     Route::get('/spv/get-qty', [SPVController::class, 'get_qty'])->name('spv.get-qty');
     Route::get('/spv/getLokasiQty', [DataBarangController::class, 'getLokasiQty'])->name('spv.getLokasiQty');
+    Route::get('/spv/history-pesanan', function () {
+        return view('spv.history-pesanan', ['title' => 'History Pesanan']);
+    })->name('spv.history-pesanan');
     // Route::get('/spv/detail-barang', function () {
     //     return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
     // })->name('spv.detail-barang');
