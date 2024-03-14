@@ -38,7 +38,7 @@ class Barang extends Model
         return $this->belongsToMany(Keranjang::class, 'barang_keranjang', 'kode_js', 'keranjang_id')->withPivot('qty', 'keterangan');
     }
 
-    public function moveToLocation(string $lokasiAwal, $lokasiAkhir, $qty): void
+    public function moveToLocation(string $lokasiAwal, $lokasiAkhir, $qty, $remark): void
     {
         $availableDataBarang = $this->dataBarang()
             ->with('lokasi')
@@ -49,6 +49,11 @@ class Barang extends Model
             ->get();
 
         $remainingQuantity = $qty;
+
+        if($remark === "tukar"){
+            $lokasiScrap = Lokasi::where('nama', 'SIAP SCRAP')->pluck('id');
+            $this->moveToLocation($lokasiAkhir, $lokasiScrap, $qty, 'moving');
+        }
 
         foreach ($availableDataBarang as $dataBarang) {
             if ($dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty >= $remainingQuantity) {
@@ -87,7 +92,6 @@ class Barang extends Model
         }
 
         if ($remainingQuantity > 0) {
-            // Not enough available quantity, throw an exception or handle appropriately
             throw new \Exception("Insufficient quantity available for moving.");
         }
     }

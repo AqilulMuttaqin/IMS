@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('perubahan', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->foreignId('id_data_barang')->constrained('data_barang')->onDelete('cascade');
-            $table->string('lokasi_awal');
-            $table->string('lokasi_akhir');
+            $table->foreignId('lokasi_awal_id')->nullable()->constrained('locations')->onDelete('set null');
+            $table->foreignId('lokasi_akhir_id')->nullable()->constrained('locations')->onDelete('set null');
+            $table->enum('remark', ['Keluar', 'Masuk']);
             $table->integer('qty');
             $table->integer('qty_awal');
             $table->integer('qty_akhir');
+            $table->timestamps();
         });
     }
 
