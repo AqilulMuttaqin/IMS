@@ -134,6 +134,14 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'History Pesanan' ? 'active' : ''}}" href="{{ route('spv.history-pesanan')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-shopping-cart"></i>
+                            </span>
+                            <span class="hide-menu">History Pesanan</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link {{ $title === 'Control Barang' ? 'active' : ''}}" href="{{ route('spv.control-barang')}}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-refresh-alert"></i>
