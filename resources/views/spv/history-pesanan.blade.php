@@ -20,7 +20,7 @@
         <div class="card-body">
             <div class="row align-items-center mb-3">
                 <div class="col-auto d-flex">
-                    <label for="start-date">Filter Data Pesanan :</label>
+                    <div class="label">Filter Data Pesanan : </div>
                 </div>
                 <div class="col-auto d-flex align-items-center">
                     <label for="start_date" class="me-1">Start,</label>

@@ -30,7 +30,7 @@ class PesananController extends Controller
             } else if (auth()->user()->role === 'spv') {
                 $start_date = Carbon::parse(request('start_date'))->startOfDay();
                 $end_date = Carbon::parse(request('end_date'))->endOfDay();
-                $pesanan = $pesanan->whereBetween('updated_at', [$start_date, $end_date])->where('status', 'selesai')->orderby('created_at', 'desc')->get();
+                $pesanan = $pesanan->whereBetween('updated_at', [$start_date, $end_date])->where('status', 'selesai')->orderby('created_at', 'asc')->get();
             }
 
             $pesanan->map(function ($item, $key) {
