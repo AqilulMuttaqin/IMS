@@ -7,17 +7,30 @@
                 <div class="col-sm-5">
                     <h5>Data History Pesanan</h5>
                 </div>
-                {{-- <div class="col-sm-7">
-                <div class="d-flex justify-content-end text-end">
-                    <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="exportBtn">
-                        <i class="ti ti-file-export me-1"></i>
-                        Export Excel
-                    </button>
+                <div class="col-sm-7">
+                    <div class="d-flex justify-content-end text-end">
+                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="exportBtn">
+                            <i class="ti ti-file-export me-1"></i>
+                            Export Excel
+                        </button>
+                    </div>
                 </div>
-            </div> --}}
             </div>
         </div>
         <div class="card-body">
+            <div class="row align-items-center mb-3">
+                <div class="col-auto d-flex">
+                    <label for="start-date">Filter Data Pesanan :</label>
+                </div>
+                <div class="col-auto d-flex align-items-center">
+                    <label for="start_date" class="me-1">Start,</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date" value="{{$today}}">
+                </div>
+                <div class="col-auto d-flex align-items-center">
+                    <label for="end_date" class="me-1">End,</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date" value="{{$today}}">
+                </div>
+            </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-striped w-100" id="dataHistoryPesanan">
                     <thead>
@@ -73,7 +86,10 @@
                 ],
                 ajax: {
                     url: '{{ url()->current() }}',
-                    type: 'GET'
+                    data: function(d) {
+                        d.start_date = $('#start_date').val();
+                        d.end_date = $('#end_date').val();
+                    }
                 },
                 columns: [
                     {
@@ -129,6 +145,10 @@
                         }
                     }
                 ]
+            });
+
+            $('#start_date, #end_date').on('change', function() {
+                table.draw();
             });
 
             $('#dataHistoryPesanan').on('click', '#showCart', function() {
