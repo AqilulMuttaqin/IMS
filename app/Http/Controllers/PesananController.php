@@ -190,7 +190,8 @@ class PesananController extends Controller
             $pesanan->barang->each(function ($barang) use ($lokasiAkhir){
                 $lokasiAwal = '1';
                 $qty = $barang->pivot->qty;
-                $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty);
+                $remark = $barang->pivot->keterangan;
+                $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty, $remark);
                 $barang->update(['requested_qty' => $barang->requested_qty - $qty]);
             });
         }

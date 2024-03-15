@@ -33,6 +33,12 @@ class DataBarangController extends Controller
                         $requestedQty = $barang->requested_qty;
                         $adjustedQty = $totalQty - $requestedQty;
                         $barang['total_qty'] = $adjustedQty < 0 ? 0 : $adjustedQty;
+
+                        $total_on_loc = $barang->dataBarang->sum(function ($dataBarang) {
+                            return $dataBarang->lokasi->where('id', auth()->user()->lokasi_id)->sum('pivot.qty');
+                        });
+
+                        $barang['qty_on_loc'] = $total_on_loc < 0 ? 0 : $total_on_loc;
                     } else {
                         $barang['total_qty'] = $totalQty;
                     }
@@ -42,6 +48,17 @@ class DataBarangController extends Controller
 
                 return datatables()->of($barangs)->make(true);
             } if (Auth::check() && Auth::user()->role === 'user'){
+                $barang = Barang::whereHas('dataBarang.lokasi', function ($query) {
+                    $query->where('id', auth()->user()->lokasi_id);
+                })->with('dataBarang.lokasi')->get();
+                
+                $barangArray = $barang->mapWithKeys(function ($barang) {
+                    return [
+                        $barang->kode_js => $barang->dataBarang->sum(function ($dataBarang) {
+                            return $dataBarang->lokasi->where('id', auth()->user()->lokasi_id)->sum('pivot.qty');
+                        })
+                    ];
+                })->toArray();
                 return view('user.home-user', [
                     'title' => 'Dashboard',
                 ]);
@@ -250,7 +267,7 @@ class DataBarangController extends Controller
         $lokasiAkhir = $request->input('lokasiAkhir');
         $qty = $request->input('qtyMutasi');
 
-        $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty);
+        $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty, 'mutasi');
 
         toast()->success('Mutasi Berhasil');
         return redirect()->back();
@@ -276,4 +293,5 @@ class DataBarangController extends Controller
     
                 return datatables()->of($barang)->make(true);
     }
+
 }
