@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePesananRequest;
 use App\Models\Barang;
 use App\Models\Keranjang;
 use App\Models\TokenCounter;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -18,13 +19,18 @@ class PesananController extends Controller
      */
     public function index()
     {
+        $today = Carbon::now()->toDateString();
         if(request()->ajax()){
             $pesanan = Pesanan::with('user', 'barang');
 
             if (auth()->user()->role === 'admin') {
-                $pesanan = $pesanan->get();
-            } elseif (auth()->user()->role === 'user') {
+                $pesanan = $pesanan->orderby('created_at', 'desc')->get();
+            } else if (auth()->user()->role === 'user') {
                 $pesanan = $pesanan->where('user_id', auth()->id())->orderby('created_at', 'desc')->get();
+            } else if (auth()->user()->role === 'spv') {
+                $start_date = Carbon::parse(request('start_date'))->startOfDay();
+                $end_date = Carbon::parse(request('end_date'))->endOfDay();
+                $pesanan = $pesanan->whereBetween('updated_at', [$start_date, $end_date])->where('status', 'selesai')->orderby('created_at', 'asc')->get();
             }
 
             $pesanan->map(function ($item, $key) {
@@ -37,8 +43,10 @@ class PesananController extends Controller
 
         if (auth()->user()->role === 'admin') {
             return view('staff.pesanan', ['title' => 'Pesanan']);
-        } elseif (auth()->user()->role === 'user') {
+        } else if (auth()->user()->role === 'user') {
             return view('user.pesanan', ['title' => 'Pesanan']);
+        } else if (auth()->user()->role === 'spv') {
+            return view('spv.history-pesanan', ['title' => 'History Pesanan', 'today' => $today]);
         }
     }
 

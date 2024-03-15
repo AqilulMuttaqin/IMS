@@ -231,6 +231,7 @@
                 $('.hps').prop('hidden', false);
                 $('.note').prop('hidden', true);
                 $('.form-note').prop('hidden', false);
+                $('.qty').css('width', '200px');
             });
             $('.save-detail').on('click', function() {
                 var textarea = document.getElementById("note");
@@ -249,6 +250,7 @@
                     $('.hps').prop('hidden', true);
                     $('.note').prop('hidden', false);
                     $('.form-note').prop('hidden', true);
+                    $('.qty').css('width', 'auto');
                     Swal.fire({
                         toast: true,
                         position: 'top-end',
@@ -263,12 +265,13 @@
                         $('.edit-detail').show();
                         $('.save-detail').hide();
                         $('.ket').prop('hidden', true);
-                        $('#ket').prop('hidden', false);
+                        $('.textKeterangan').prop('hidden', false);
                         $('.jumlah-qty').prop('hidden', false);
                         $('.number-spinner').prop('hidden', true);
                         $('.hps').prop('hidden', true);
                         $('.note').prop('hidden', false).text('* Note: ' + catatan);
                         $('.form-note').prop('hidden', true);
+                        $('.qty').css('width', 'auto');
                         Swal.fire({
                             toast: true,
                             position: 'top-end',
@@ -476,7 +479,7 @@
                                         <th style="width: 20px">No</th>
                                         <th>Nama Barang</th>
                                         <th>Keterangan</th>
-                                        <th style="width: 200px">Qty</th>
+                                        <th class="qty">Qty</th>
                                         <th class="hps" hidden style="width: 20px">Hapus</th>
                                     </tr>
                                 </thead>
