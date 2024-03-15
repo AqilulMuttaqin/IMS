@@ -172,10 +172,10 @@
                         <div class="col-sm-7">Ini Lokasi</div>
                         <div class="col-sm-4 mb-2">Tanggal Pesan</div>
                         <div class="col-sm-1">:</div>
-                        <div class="col-sm-7">${moment.utc(rowData.created_at).tz('Asia/Jakarta').format('D MMM YYYY - HH:mm')}</div>
+                        <div class="col-sm-7">${moment.utc(rowData.created_at).tz('Asia/Jakarta').format('D MMM YYYY')}</div>
                         <div class="col-sm-4 mb-2">Tanggal Selesai</div>
                         <div class="col-sm-1">:</div>
-                        <div class="col-sm-7">${moment.utc(rowData.updated_at).tz('Asia/Jakarta').format('D MMM YYYY - HH:mm')}</div>
+                        <div class="col-sm-7">${moment.utc(rowData.updated_at).tz('Asia/Jakarta').format('D MMM YYYY')}</div>
                         <div class="col-sm-4 mb-2">Kode Pesan</div>
                         <div class="col-sm-1">:</div>
                         <div class="col-sm-7">${rowData.kode_pesanan}</div>
