@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\HistoryPesananExport;
 use App\Models\Pesanan;
 use App\Http\Requests\StorePesananRequest;
 use App\Http\Requests\UpdatePesananRequest;
@@ -11,6 +12,7 @@ use App\Models\TokenCounter;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PesananController extends Controller
 {
@@ -230,6 +232,18 @@ class PesananController extends Controller
         $uniqueID = 'SIMS-' . $currentDate . '-' . $formattedCounter;
     
         return $uniqueID;
+    }
+
+    public function exportHistory (Request $request) {
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $start_date = $request->input('start_date');
+            $end_date = $request->input('end_date');
+            $filename = 'History Pesanan Selesai (' . Carbon::parse($start_date)->format('d-m-Y') . ' - ' . Carbon::parse($end_date)->format('d-m-Y') . ').xlsx';
+
+            $export = new HistoryPesananExport($start_date, $end_date);
+            
+            return Excel::download($export, $filename);
+        }
     }
 
 }
