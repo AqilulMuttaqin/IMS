@@ -142,6 +142,14 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'In-Out Barang' ? 'active' : ''}}" href="{{ route('spv.in-out')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-history-toggle"></i>
+                            </span>
+                            <span class="hide-menu">In-Out Barang</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link {{ $title === 'Control Barang' ? 'active' : ''}}" href="{{ route('spv.control-barang')}}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-refresh-alert"></i>
