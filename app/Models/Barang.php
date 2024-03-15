@@ -49,45 +49,66 @@ class Barang extends Model
             ->get();
 
         $remainingQuantity = $qty;
+        
+        if($this->kategori !== "request"){
+            if($remark === "tukar"){
+                $lokasiScrap = Lokasi::where('nama', 'SIAP SCRAP')->pluck('id');
+                $this->moveToLocation($lokasiAkhir, $lokasiScrap, $qty, 'moving');
+            }
 
-        if($remark === "tukar"){
-            $lokasiScrap = Lokasi::where('nama', 'SIAP SCRAP')->pluck('id');
-            $this->moveToLocation($lokasiAkhir, $lokasiScrap, $qty, 'moving');
-        }
+            foreach ($availableDataBarang as $dataBarang) {
+                if ($dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty >= $remainingQuantity) {
+                    $newQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty - $remainingQuantity;
+                    if ($newQuantity > 0) {
+                        $dataBarang->lokasi()->updateExistingPivot($lokasiAwal, ['qty' => $newQuantity]);
+                    } else {
+                        $dataBarang->lokasi()->detach($lokasiAwal);
+                    }
 
-        foreach ($availableDataBarang as $dataBarang) {
-            if ($dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty >= $remainingQuantity) {
-                $newQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty - $remainingQuantity;
-                if ($newQuantity > 0) {
-                    $dataBarang->lokasi()->updateExistingPivot($lokasiAwal, ['qty' => $newQuantity]);
+                    $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
+                    if ($existingBarang) {
+                        $existingBarang->pivot->qty += $remainingQuantity;
+                        $existingBarang->pivot->save();
+                    } else {
+                        $dataBarang->lokasi()->attach($lokasiAkhir, ['qty' => $remainingQuantity]);
+                    }
+
+                    $remainingQuantity = 0;
+                    break;
                 } else {
+                    $movedQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty;
+
                     $dataBarang->lokasi()->detach($lokasiAwal);
-                }
 
-                $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
-                if ($existingBarang) {
-                    $existingBarang->pivot->qty += $remainingQuantity;
-                    $existingBarang->pivot->save();
+                    $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
+                    if ($existingBarang) {
+                        $existingBarang->pivot->qty += $movedQuantity;
+                        $existingBarang->pivot->save();
+                    } else {
+                        $dataBarang->lokasi()->attach($lokasiAkhir, ['qty' => $movedQuantity]);
+                    }
+
+                    $remainingQuantity -= $movedQuantity;
+                }
+            }
+        } else {
+            foreach ($availableDataBarang as $dataBarang) {
+                if ($dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty >= $remainingQuantity) {
+                    $newQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty - $remainingQuantity;
+                    if ($newQuantity > 0) {
+                        $dataBarang->lokasi()->updateExistingPivot($lokasiAwal, ['qty' => $newQuantity]);
+                    } else {
+                        $dataBarang->lokasi()->detach($lokasiAwal);
+                    }
+
+                    $remainingQuantity = 0;
+                    break;
                 } else {
-                    $dataBarang->lokasi()->attach($lokasiAkhir, ['qty' => $remainingQuantity]);
+                    $movedQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty;
+
+                    $dataBarang->lokasi()->detach($lokasiAwal);
+                    $remainingQuantity -= $movedQuantity;
                 }
-
-                $remainingQuantity = 0;
-                break;
-            } else {
-                $movedQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty;
-
-                $dataBarang->lokasi()->detach($lokasiAwal);
-
-                $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
-                if ($existingBarang) {
-                    $existingBarang->pivot->qty += $movedQuantity;
-                    $existingBarang->pivot->save();
-                } else {
-                    $dataBarang->lokasi()->attach($lokasiAkhir, ['qty' => $movedQuantity]);
-                }
-
-                $remainingQuantity -= $movedQuantity;
             }
         }
 
