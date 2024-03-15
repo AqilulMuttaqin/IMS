@@ -105,8 +105,8 @@
                         name: 'user.name'
                     },
                     {
-                        data: null,
-                        name: null
+                        data: 'lokasi.nama',
+                        name: 'lokasi.nama'
                     },
                     {
                         data: 'created_at',

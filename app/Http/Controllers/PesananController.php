@@ -23,7 +23,7 @@ class PesananController extends Controller
     {
         $today = Carbon::now()->toDateString();
         if(request()->ajax()){
-            $pesanan = Pesanan::with('user', 'barang',);
+            $pesanan = Pesanan::with('user', 'barang', 'lokasi');
 
             if (auth()->user()->role === 'admin') {
                 $pesanan = $pesanan->orderby('created_at', 'desc')->get();

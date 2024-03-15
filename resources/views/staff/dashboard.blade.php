@@ -506,7 +506,7 @@
                                             <i class="ti ti-minus"></i>
                                         </button>
                                         <input type="text" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
-                                            name="${barang.kode_js}" data-pesanan="${response.id}" oninput="validateInput(this)" disabled>
+                                            name="${barang.kode_js}" data-pesanan="${response.id}" oninput="validateInput(this)">
                                         <button type="button" class="btn btn-sm border" data-pesanan="${response.id}" onclick="plusValue('${barang.kode_js}')">
                                             <i class="ti ti-plus"></i>
                                         </button>

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('perubahan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_data_barang')->constrained('data_barang')->onDelete('cascade');
+            $table->foreignId('data_barang_id')->constrained('data_barang')->onDelete('cascade');
             $table->foreignId('lokasi_awal_id')->nullable()->constrained('lokasi')->onDelete('set null');
             $table->foreignId('lokasi_akhir_id')->nullable()->constrained('lokasi')->onDelete('set null');
             $table->enum('remark', ['Keluar', 'Masuk']);

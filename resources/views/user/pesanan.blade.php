@@ -159,7 +159,7 @@
                                     </button>
                                 </td>
                                 `;
-                            } else {
+                            } else if (row.status !== "ditolak"){
                                 return `
                                 <td class="text-center">
                                     <button type="button" class="btn btn-sm btn-warning" data-id="${row.id}" id="konfirmasi">

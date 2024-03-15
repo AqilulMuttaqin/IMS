@@ -9,11 +9,21 @@ class Perubahan extends Model
 {
     protected $table = 'perubahan';
 
+    protected $fillable =[
+        'data_barang_id',
+        'lokasi_awal_id',
+        'lokasi_akhir_id',
+        'remark',
+        'qty',
+        'qty_awal',
+        'qty_akhir'
+    ];
+
     use HasFactory;
 
     public function data_barang()
     {
-        return $this->belongsTo(DataBarang::class, 'id_data_barang');
+        return $this->belongsTo(DataBarang::class, 'data_barang_id');
     }
 
     public function lokasiAwal()
