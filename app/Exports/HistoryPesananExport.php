@@ -25,7 +25,7 @@ class HistoryPesananExport implements WithMultipleSheets
     {
         $sheets = [];
         
-        $query = Pesanan::with(['users', 'lokasi', 'barang_pesanan']);
+        $query = Pesanan::with(['user', 'lokasi']);
 
         if ($this->startDate && $this->endDate) {
             $start_date = Carbon::parse($this->startDate)->startOfDay();

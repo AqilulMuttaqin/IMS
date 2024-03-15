@@ -33,8 +33,8 @@ class HistoryPesananSheet implements FromCollection, WithHeadings, WithTitle, Wi
 
     public function collection()
     {
-        $query = Pesanan::with(['users', 'lokasi', 'barang_pesanan'])
-            ->where('pesanan.id_lokasi', $this->lokasi->id);
+        $query = Pesanan::with(['user', 'lokasi'])
+            ->where('pesanan.lokasi_id', $this->lokasi->id);
         
         if ($this->startDate && $this->endDate) {
             $start_date = Carbon::parse($this->startDate)->startOfDay();
@@ -50,7 +50,7 @@ class HistoryPesananSheet implements FromCollection, WithHeadings, WithTitle, Wi
         foreach ($pesanan as $p) {
             $data[] = [
                 'Kode Pesan' => $p->kode_pesanan,
-                'Nama Pemesan' => $p->users->name,
+                'Nama Pemesan' => $p->user->name,
                 'Lokasi' => $p->lokasi->nama,
                 'Tanggal Pesan' => Date::dateTimeToExcel($p->created_at),
                 'Tanggal Selesai' => Date::dateTimeToExcel($p->updated_at),
@@ -86,8 +86,8 @@ class HistoryPesananSheet implements FromCollection, WithHeadings, WithTitle, Wi
             ],
         ];
 
-        $sheet->getStyle('A1:M1')->applyFromArray($styleArray);
-        $sheet->getStyle('A2:M' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
+        $sheet->getStyle('A1:E1')->applyFromArray($styleArray);
+        $sheet->getStyle('A2:E' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
     }
 
     public function columnFormats(): array
@@ -101,7 +101,7 @@ class HistoryPesananSheet implements FromCollection, WithHeadings, WithTitle, Wi
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:M1';
+                $cellRange = 'A1:E1';
 
                 $event->sheet->getStyle($cellRange)->applyFromArray([
                     'font' => ['bold' => true],
@@ -112,7 +112,7 @@ class HistoryPesananSheet implements FromCollection, WithHeadings, WithTitle, Wi
 
                 //$event->sheet->getDelegate()->getAutoFilter()->setRange($cellRange);
 
-                foreach (range('A','M') as $column) {
+                foreach (range('A','E') as $column) {
                     $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
                 }
                 $event->sheet->getStyle('A:A')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_DDMMYYYY);
