@@ -86,7 +86,7 @@
                                     <label class="col-sm-8 col-form-label" for="ket">Keterangan</label>
                                 </div>
                                 <div class="col-sm-5">
-                                    <input type="checkbox" unchecked id="ket" data-toggle="toggle" data-on="Tukar" data-off="Request" data-offstyle="success" data-style="slow">
+                                    <input type="checkbox" unchecked id="ket" data-toggle="toggle" data-on="Tukar" data-off="Request" data-offstyle="success" data-style="slow" data-barang="jumlah" onchange="handleCheckboxChange(this)">
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="input-group number-spinner">
@@ -123,14 +123,29 @@
         const plusValue = (id) => {
             const inputElement = document.getElementById(id);
             inputElement.value = parseInt(inputElement.value) + 1;
-            const maxQty = parseInt($('#jumlah').data('max'));
+            const maxQty = parseInt($('#' + id).data('max'));
+            const maxQtyLoc = parseInt($('#' + id).data('max-loc'));
             const currentQty = parseInt(inputElement.value);
-            if (currentQty > maxQty) {
-                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+            var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
+            var keterangan2 = $('#keterangan_'+ id).prop('checked') ? 'tukar' : 'request';
+            if (currentQty > maxQtyLoc && keterangan === 'tukar' || currentQty > maxQtyLoc && keterangan2 === 'tukar') {
+                $('#error-message').text('Jumlah Di lokasi tidak cukup untuk tukar, kurangi atau ubah ke request!').show();
+                $('#error-message-' + id).text('Jumlah Di lokasi tidak cukup!').show();
                 $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
+            } else if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();  
+                $('#error-message-' + id).text('Jumlah melebihi stok yang tersedia').show();  
+                $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
             } else {
                 $('#error-message').hide();
+                $('#error-message-' + id).hide();
                 $('#tambahkan').prop('disabled', false);
+                $('#sbmtPesanLangsung').prop('disabled', false);
+                $('#pesanButton').prop('disabled', false);
                 if (id !== 'jumlah') {
                     debounceAjaxRequest('update' ,id, inputElement.value);
                 }
@@ -141,14 +156,30 @@
             const inputElement = document.getElementById(id);
             const newValue = parseInt(inputElement.value) - 1;
             inputElement.value = newValue >= 0 ? newValue : 0;
-            const maxQty = parseInt($('#jumlah').data('max'));
+            const maxQty = parseInt($('#' + id).data('max'));
+            const maxQtyLoc = parseInt($('#' + id).data('max-loc'));
             const currentQty = parseInt(newValue);
-            if (currentQty > maxQty) {
-                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+            var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
+            var keterangan2 = $('#keterangan_'+ id).prop('checked') ? 'tukar' : 'request';
+
+            if (currentQty > maxQtyLoc && keterangan === 'tukar' || currentQty > maxQtyLoc && keterangan2 === 'tukar') {
+                $('#error-message').text('Jumlah Di lokasi tidak cukup untuk tukar, kurangi atau ubah ke request!').show();
+                $('#error-message-' + id).text('Jumlah Di lokasi tidak cukup!').show();
                 $('#tambahkan').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+            } else if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+                $('#error-message-' + id).text('Jumlah melebihi stok yang tersedia').show();  
+                $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
             } else {
                 $('#error-message').hide();
+                $('#error-message-' + id).hide();
                 $('#tambahkan').prop('disabled', false);
+                $('#sbmtPesanLangsung').prop('disabled', false);
+                $('#pesanButton').prop('disabled', false);
                 if (id !== 'jumlah') {
                     debounceAjaxRequest( 'update',id, inputElement.value);
                 }
@@ -159,14 +190,33 @@
             input.value = input.value.replace(/[^0-9]/g, '');
             const id = input.id;
             const data = input.value;
-            const maxQty = parseInt($('#jumlah').data('max'));
+            const maxQty = parseInt($('#'+ id).data('max'));
+            const maxQtyLoc = parseInt($('#'+ id).data('max-loc'));
             const currentQty = parseInt(data);
-            if (currentQty > maxQty) {
-                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+
+
+            var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
+            var keterangan2 = $('#keterangan_'+ id).prop('checked') ? 'tukar' : 'request';
+
+            if (currentQty > maxQtyLoc && keterangan === 'tukar' || currentQty > maxQtyLoc && keterangan2 === 'tukar') {
+                $('#error-message').text('Jumlah Di lokasi tidak cukup untuk tukar, kurangi atau ubah ke request!').show();
+                $('#error-message-' + id).text('Jumlah Di lokasi tidak cukup!').show();
                 $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
+            } else if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+                
+                $('#error-message-' + id).text('Jumlah melebihi stok yang tersedia').show();  
+                $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
             } else {
                 $('#error-message').hide();
+                $('#error-message-' + id).hide();
                 $('#tambahkan').prop('disabled', false);
+                $('#sbmtPesanLangsung').prop('disabled', false);
+                $('#pesanButton').prop('disabled', false);
                 if (id !== 'jumlah') {
                     debounceAjaxRequest('update',id, data);
                 }
@@ -178,7 +228,36 @@
             var isChecked = checkbox.checked;
             isChecked ? (isChecked = 'tukar') : (isChecked = 'request');
 
-            debounceAjaxRequest('update-keterangan', barangId,null ,isChecked);
+            const inputElement = document.getElementById(barangId);
+            const maxQty = parseInt($('#' + barangId).data('max'));
+            const maxQtyLoc = parseInt($('#' + barangId).data('max-loc'));
+            const currentQty = parseInt(inputElement.value);
+            var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
+            var keterangan2 = $('#keterangan_'+ barangId).prop('checked') ? 'tukar' : 'request';
+
+            if (currentQty > maxQtyLoc && keterangan === 'tukar' || currentQty > maxQtyLoc && keterangan2 === 'tukar') {
+                $('#error-message').text('Jumlah Di lokasi tidak cukup untuk tukar, kurangi atau ubah ke request!').show();
+                $('#error-message-' + barangId).text('Jumlah Di lokasi tidak cukup!').show();
+                $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
+            } else if (currentQty > maxQty) {
+                $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
+                
+                $('#error-message-' + barangId).text('Jumlah melebihi stok yang tersedia').show();  
+                $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
+            } else {
+                $('#error-message').hide();
+                $('#error-message-' + barangId).hide();
+                $('#tambahkan').prop('disabled', false);
+                $('#sbmtPesanLangsung').prop('disabled', false);
+                $('#pesanButton').prop('disabled', false);
+                if (barangId !== 'jumlah') {
+                    debounceAjaxRequest('update-keterangan', barangId,null ,isChecked);
+                }
+            }
         }
 
         $(document).ready(function() {
@@ -260,10 +339,11 @@
 
                 $('#tambahModal').find('.modal-title').text(rowData.nama);
                 $('#tambahModal').find('#barang').val(rowData.kode_js);
-                $('#tambahModal').find('#jumlah').val('1');
+                $('#tambahModal').find('#jumlah').val('0');
                 $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', true);
                 $('#tambahModal').find('#tambahkan').prop('hidden', false);
                 $('#tambahModal').find('#jumlah').data('max', rowData.total_qty);
+                $('#tambahModal').find('#jumlah').data('max-loc', rowData.qty_on_loc);
                 $('#tambahModal').find('.satuan').text('Jumlah (' +  rowData.satuan.toUpperCase() + ')');
                 var kategori = rowData.kategori;
                 if (kategori === 'tukar') {
@@ -272,6 +352,7 @@
                     $('#ket').bootstrapToggle('off');
                 }
                 $('#error-message').hide();
+                $('#tambahModal').find('#tambahkan').prop('disabled', true);
                 $('#tambahModal').modal('show')
             });
             $('#dataBarangReady').on('click', '#pesanLangsung', function() {
@@ -280,10 +361,18 @@
 
                 $('#tambahModal').find('.modal-title').text(rowData.nama);
                 $('#tambahModal').find('#barang').val(rowData.kode_js);
-                $('#tambahModal').find('#jumlah').val('1');
+                $('#tambahModal').find('#jumlah').val('0');
                 $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', false);
                 $('#tambahModal').find('#tambahkan').prop('hidden', true);
+                $('#tambahModal').find('#jumlah').data('max-loc', rowData.qty_on_loc);
                 $('#tambahModal').find('.satuan').text('Jumlah (' +  rowData.satuan.toUpperCase() + ')');
+                var kategori = rowData.kategori;
+                if (kategori === 'tukar') {
+                    $('#ket').bootstrapToggle('on');
+                } else {
+                    $('#ket').bootstrapToggle('off');
+                }
+                $('#tambahModal').find('#sbmtPesanLangsung').prop('disabled', true);
                 $('#error-message').hide();
                 $('#tambahModal').modal('show')
             });
@@ -381,7 +470,7 @@
                             <td>${index + 1}</td>
                             <td>${barang.nama}<br>(${barang.satuan})</td>
                             <td>
-                                <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} onchange="handleCheckboxChange(this)">    
+                                <input class="form-check-input" type="checkbox" id="keterangan_${barang.kode_js}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} onchange="handleCheckboxChange(this)">    
                             </td>
                             <td>
                                 <div class="input-group number-spinner">
@@ -389,7 +478,7 @@
                                         <i class="ti ti-minus"></i>
                                     </button>
                                     <input type="text" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
-                                        name="${barang.kode_js}" oninput="validateInput(this)">
+                                        name="${barang.kode_js}" data-max="${barang.total_qty}" data-max-loc="${barang.qty_on_loc}" oninput="validateInput(this)">
                                     <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
                                         <i class="ti ti-plus"></i>
                                     </button>
@@ -401,9 +490,12 @@
                                 </button>    
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="5" class="text-center text-danger" id="error-message-${barang.kode_js}" style="display:none;"></td>
+                        </tr>
                     `);
 
-                    $(`#keterangan_${index}`).bootstrapToggle({
+                    $(`#keterangan_${barang.kode_js}`).bootstrapToggle({
                         on: 'Tukar',
                         off: 'Request',
                         offstyle: 'success',
