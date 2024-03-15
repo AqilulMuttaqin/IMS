@@ -169,7 +169,7 @@
                         <div class="col-sm-7">${rowData.user.name}</div>
                         <div class="col-sm-4 mb-2">Lokasi</div>
                         <div class="col-sm-1">:</div>
-                        <div class="col-sm-7">Ini Lokasi</div>
+                        <div class="col-sm-7">${rowData.lokasi.nama}</div>
                         <div class="col-sm-4 mb-2">Tanggal Pesan</div>
                         <div class="col-sm-1">:</div>
                         <div class="col-sm-7">${moment.utc(rowData.created_at).tz('Asia/Jakarta').format('D MMM YYYY')}</div>
