@@ -182,9 +182,11 @@ class PesananController extends Controller
             });
         };
 
+        $oldStatus = $pesanan->status;
+
         $pesanan->update(['status' => $request->status]);
 
-        if ($pesanan->status === 'terkirim' || $pesanan->status === 'selesai') {
+        if ($pesanan->status === 'terkirim' || $pesanan->status === 'selesai' && $oldStatus !== 'terkirim') {
             $lokasiAkhir = $pesanan->user->lokasi_id;
             
             $pesanan->barang->each(function ($barang) use ($lokasiAkhir){
