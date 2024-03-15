@@ -252,13 +252,16 @@
                 var modalTitle = $('#statusPesananModal').find('.modal-title');
                 var modalBody = $('#statusPesananModal').find('#modal-body');
 
-                modalTitle.text('Detail Pesanan ' + rowData.user.name);
+                modalTitle.text('Detail Pesanan');
                 modalBody.empty();
                 modalBody.append(`
                     <div class="row mb-3">
                         <div class="col-sm-3 mb-2">Nama</div>
                         <div class="col-sm-1">:</div>
                         <div class="col-sm-8">${rowData.user.name}</div>
+                        <div class="col-sm-3 mb-2">Lokasi</div>
+                        <div class="col-sm-1">:</div>
+                        <div class="col-sm-8">${rowData.lokasi.nama}</div>
                         <div class="col-sm-3 mb-2">Tanggal</div>
                         <div class="col-sm-1">:</div>
                         <div class="col-sm-8">${moment.utc(rowData.created_at).tz('Asia/Jakarta').format('D MMM YYYY')}</div>

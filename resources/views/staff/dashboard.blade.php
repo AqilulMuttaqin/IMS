@@ -465,6 +465,9 @@
                             <div class="col-sm-3 mb-2">Nama</div>
                             <div class="col-sm-1">:</div>
                             <div class="col-sm-8">${response.user.name}</div>
+                            <div class="col-sm-3 mb-2">Lokasi</div>
+                            <div class="col-sm-1">:</div>
+                            <div class="col-sm-8">${response.lokasi.nama}</div>
                             <div class="col-sm-3 mb-2">Tanggal</div>
                             <div class="col-sm-1">:</div>
                             <div class="col-sm-8">${moment.utc(response.created_at).tz('Asia/Jakarta').format('D MMM YYYY')}</div>

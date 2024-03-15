@@ -214,7 +214,7 @@ class PesananController extends Controller
     public function detail(Request $request) {
         // $pesanan = Barang::whereHas('pesanan', function ($query) use ($id) {
         //     $query->where('id', $id);});
-        $pesanan = Pesanan::with('barang', 'user')->where('id', $request->input('pesanan_id'))->first();
+        $pesanan = Pesanan::with('barang', 'user', 'lokasi')->where('id', $request->input('pesanan_id'))->first();
         return response()->json($pesanan);
     }
 
