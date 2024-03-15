@@ -347,9 +347,11 @@
                 $('#tambahModal').find('.satuan').text('Jumlah (' +  rowData.satuan.toUpperCase() + ')');
                 var kategori = rowData.kategori;
                 if (kategori === 'tukar') {
+                    $('#ket').bootstrapToggle('enable');
                     $('#ket').bootstrapToggle('on');
                 } else {
                     $('#ket').bootstrapToggle('off');
+                    $('#ket').bootstrapToggle('disable');
                 }
                 $('#error-message').hide();
                 $('#tambahModal').find('#tambahkan').prop('disabled', true);
@@ -368,9 +370,11 @@
                 $('#tambahModal').find('.satuan').text('Jumlah (' +  rowData.satuan.toUpperCase() + ')');
                 var kategori = rowData.kategori;
                 if (kategori === 'tukar') {
+                    $('#ket').bootstrapToggle('enable');
                     $('#ket').bootstrapToggle('on');
                 } else {
                     $('#ket').bootstrapToggle('off');
+                    $('#ket').bootstrapToggle('disable');
                 }
                 $('#tambahModal').find('#sbmtPesanLangsung').prop('disabled', true);
                 $('#error-message').hide();
@@ -465,12 +469,13 @@
             if (response.barang && response.barang.length > 0) {
                 response.barang.forEach(function (barang, index) {
                     var isChecked = (barang.pivot.keterangan === 'tukar') ? 'checked' : '';
+                    var isRequest = (barang.kategori === 'request') ? 'disabled' : '';
                     modalBody.find('tbody').append(`
                         <tr class="text-center align-middle justify-content-center">
                             <td>${index + 1}</td>
                             <td>${barang.nama}<br>(${barang.satuan})</td>
                             <td>
-                                <input class="form-check-input" type="checkbox" id="keterangan_${barang.kode_js}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} onchange="handleCheckboxChange(this)">    
+                                <input class="form-check-input" type="checkbox" id="keterangan_${barang.kode_js}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} ${isRequest} onchange="handleCheckboxChange(this)">    
                             </td>
                             <td>
                                 <div class="input-group number-spinner">
