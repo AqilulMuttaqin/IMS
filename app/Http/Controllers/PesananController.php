@@ -23,7 +23,7 @@ class PesananController extends Controller
     {
         $today = Carbon::now()->toDateString();
         if(request()->ajax()){
-            $pesanan = Pesanan::with('user', 'barang');
+            $pesanan = Pesanan::with('user', 'barang',);
 
             if (auth()->user()->role === 'admin') {
                 $pesanan = $pesanan->orderby('created_at', 'desc')->get();
@@ -61,6 +61,7 @@ class PesananController extends Controller
 
         $pesanan = new Pesanan();
         $pesanan->user_id = auth()->id();
+        $pesanan->lokasi_id = auth()->user()->lokasi_id;
         $pesanan->kode_pesanan = $this->generateUniqueID();
         $pesanan->save();
 
@@ -87,6 +88,7 @@ class PesananController extends Controller
 
         $pesanan = new Pesanan();
         $pesanan->user_id = auth()->id();
+        $pesanan->lokasi_id = auth()->user()->lokasi_id;
         $pesanan->kode_pesanan = $this->generateUniqueID();
         $pesanan->save();
         
@@ -187,7 +189,7 @@ class PesananController extends Controller
         $pesanan->update(['status' => $request->status]);
 
         if ($pesanan->status === 'terkirim' || $pesanan->status === 'selesai' && $oldStatus !== 'terkirim') {
-            $lokasiAkhir = $pesanan->user->lokasi_id;
+            $lokasiAkhir = $pesanan->lokasi_id;
             
             $pesanan->barang->each(function ($barang) use ($lokasiAkhir){
                 $lokasiAwal = '1';

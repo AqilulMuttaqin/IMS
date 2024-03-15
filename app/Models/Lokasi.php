@@ -24,4 +24,9 @@ class Lokasi extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function pesanan()
+    {
+        return $this->hasMany(Pesanan::class);
+    }
 }

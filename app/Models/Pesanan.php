@@ -15,12 +15,17 @@ class Pesanan extends Model
         'user_id',
         'status',
         'kode_pesanan',
+        'lokasi_id',
         'catatan'
     ]; 
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function lokasi(){
+        return $this->belongsTo(Lokasi::class);
     }
 
     public function barang()

@@ -48,17 +48,6 @@ class DataBarangController extends Controller
 
                 return datatables()->of($barangs)->make(true);
             } if (Auth::check() && Auth::user()->role === 'user'){
-                $barang = Barang::whereHas('dataBarang.lokasi', function ($query) {
-                    $query->where('id', auth()->user()->lokasi_id);
-                })->with('dataBarang.lokasi')->get();
-                
-                $barangArray = $barang->mapWithKeys(function ($barang) {
-                    return [
-                        $barang->kode_js => $barang->dataBarang->sum(function ($dataBarang) {
-                            return $dataBarang->lokasi->where('id', auth()->user()->lokasi_id)->sum('pivot.qty');
-                        })
-                    ];
-                })->toArray();
                 return view('user.home-user', [
                     'title' => 'Dashboard',
                 ]);

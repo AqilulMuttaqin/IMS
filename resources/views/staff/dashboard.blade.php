@@ -380,7 +380,7 @@
                         var tanggal = moment.utc(pesanan.created_at).tz('Asia/Jakarta').format('D MMM YYYY');
                         var tanggalValueCol = $('<div class="col-8"><p id="tanggal">: ' + tanggal + '</p></div>');
                         var lokasiLabelCol = $('<div class="col-4"><label for="lokasi">Line</label></div>');
-                        var lokasiValueCol = $('<div class="col-8"><p id="lokasi">: ' + pesanan.user.lokasi.nama +'</p></div>');
+                        var lokasiValueCol = $('<div class="col-8"><p id="lokasi">: ' + pesanan.lokasi.nama +'</p></div>');
                         var detailLabelCol = $('<div class="col-4"><label for="detail">Detail</label></div>');
                         var detailValueCol = $('<div class="col-8"><p id="detail">: <button type="button" class="btn btn-sm btn-primary" id="btnDetail" data-pesanan-id="'
                             + pesanan.id + '" data-bs-toggle="modal" data-bs-target="#detailKonfirmasiModal"><i class="ti ti-eye"></i></button></p></div>'
