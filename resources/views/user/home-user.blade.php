@@ -366,6 +366,7 @@
                 $('#tambahModal').find('#jumlah').val('0');
                 $('#tambahModal').find('#sbmtPesanLangsung').prop('hidden', false);
                 $('#tambahModal').find('#tambahkan').prop('hidden', true);
+                $('#tambahModal').find('#jumlah').data('max', rowData.total_qty);
                 $('#tambahModal').find('#jumlah').data('max-loc', rowData.qty_on_loc);
                 $('#tambahModal').find('.satuan').text('Jumlah (' +  rowData.satuan.toUpperCase() + ')');
                 var kategori = rowData.kategori;
