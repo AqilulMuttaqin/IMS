@@ -53,8 +53,8 @@ class Barang extends Model
         
         if($this->kategori !== "request"){
             if($remark === "tukar"){
-                $lokasiScrap = Lokasi::where('nama', 'SIAP SCRAP')->pluck('id');
-                $this->moveToLocation($lokasiAkhir, $lokasiScrap, $qty, 'moving');
+                $lokasiScrap = Lokasi::where('nama', 'SIAP SCRAP')->pluck('id')->first();
+                $this->moveToLocation($lokasiAkhir, $lokasiScrap, $qty, 'Siap Scrap');
             }
 
             foreach ($availableDataBarang as $dataBarang) {
@@ -66,15 +66,20 @@ class Barang extends Model
                         'lokasi_akhir_id' => $lokasiAkhir,
                         'remark' => $remark,
                         'qty' => $remainingQuantity,
-                        'qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty,
                     ]);
+                    if(request()->remark !== 'Siap Scrap'){
+                        $record->update(['qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
+                    }
+
                     if ($newQuantity > 0) {
                         $dataBarang->lokasi()->updateExistingPivot($lokasiAwal, ['qty' => $newQuantity]);
                     } else {
                         $dataBarang->lokasi()->detach($lokasiAwal);
                     }
-
-                    $record->update(['qty_akhir' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
+                    if(request()->remark !== 'Siap Scrap'){
+                        $record->update(['qty_akhir' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
+                    }
+                    
                     $record->save();
 
                     $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();

@@ -26,12 +26,12 @@ class Perubahan extends Model
         return $this->belongsTo(DataBarang::class, 'data_barang_id');
     }
 
-    public function lokasiAwal()
+    public function lokasi_awal()
     {
         return $this->belongsTo(Lokasi::class, 'lokasi_awal_id');
     }
 
-    public function lokasiAkhir()
+    public function lokasi_akhir()
     {
         return $this->belongsTo(Lokasi::class, 'lokasi_akhir_id');
     }

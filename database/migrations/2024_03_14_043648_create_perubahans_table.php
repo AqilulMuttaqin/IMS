@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('data_barang_id')->constrained('data_barang')->onDelete('cascade');
             $table->foreignId('lokasi_awal_id')->nullable()->constrained('lokasi')->onDelete('set null');
             $table->foreignId('lokasi_akhir_id')->nullable()->constrained('lokasi')->onDelete('set null');
-            $table->string('remark');
+            $table->enum('remark', ['Keluar', 'Masuk']);
             $table->integer('qty');
-            $table->integer('qty_awal')->nullable();
-            $table->integer('qty_akhir')->nullable();
+            $table->integer('qty_awal');
+            $table->integer('qty_akhir');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Perubahan;
 use App\Http\Requests\StorePerubahanRequest;
 use App\Http\Requests\UpdatePerubahanRequest;
+use Carbon\Carbon;
 
 class PerubahanController extends Controller
 {
@@ -14,7 +15,13 @@ class PerubahanController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            $perubahan = Perubahan::with('data_barang', 'lokasiAwal', 'lokasiAkhir');
+            $perubahan = Perubahan::with('data_barang.barang', 'lokasi_awal', 'lokasi_akhir');
+
+            if(request()->filled('start_date') && request()->filled('end_date')){
+                $start_date = Carbon::parse(request('start_date'))->startOfDay();
+                $end_date = Carbon::parse(request('end_date'))->endOfDay();
+                $perubahan = $perubahan->whereBetween('created_at', [$start_date, $end_date]);
+            }
             return datatables()->of($perubahan->limit(10))->make(true);
         }
         

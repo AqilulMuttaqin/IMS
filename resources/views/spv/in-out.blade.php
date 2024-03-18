@@ -33,14 +33,18 @@
                 </div>
             </div>
             <div class="table-responsive text-nowrap">
-                <table class="table table-striped w-100" id="dataInOutPesanan">
+                <table class="table table-striped w-100" id="dataHistoriPesanan">
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
-                            <th>-------</th>
-                            <th>-------</th>
-                            <th>-------</th>
-                            <th>-------</th>
+                            <th>Tanggal</th>
+                            <th>Barang</th>
+                            <th>Remark</th>
+                            <th>Lokasi Awal</th>
+                            <th>Lokasi Akhir</th>
+                            <th>Qty</th>
+                            <th>Sebelum</th>
+                            <th>Sesudah</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,4 +53,71 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var table = $('#dataHistoriPesanan').DataTable({
+                processing: false,
+                serverSide: true,
+                scrollX: true,
+                ajax: {
+                    url: '{{ url()->current() }}',
+                    data: function(d) {
+                        d.start_date = $('#start_date').val();
+                        d.end_date = $('#end_date').val();
+                    }
+                },
+                columns: [
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        render: function(data, row, meta) {
+                            var formattedDate = moment.utc(data).tz('Asia/Jakarta').format(
+                                'D MMM YYYY');
+                            return `
+                                <td class="text-center">` + formattedDate + `</td>
+                            `;
+                        }
+                    },
+                    {
+                        data: 'data_barang.barang.nama',
+                        name: 'data_barang.barang.nama'
+                    },
+                    {
+                        data: 'remark',
+                        name: 'remark'
+                    },
+                    {
+                        data: 'lokasi_awal.nama',
+                        name: 'lokasi_awal.nama'
+                    },
+                    {
+                        data: 'lokasi_akhir.nama',
+                        name: 'lokasi_akhir.nama'
+                    },
+                    {
+                        data: 'qty',
+                        name: 'qty'
+                    },
+                    {
+                        data: 'qty_awal',
+                        name: 'qty_awal'
+                    },
+                    {
+                        data: 'qty_akhir',
+                        name: 'qty_akhir'
+                    },
+                ],
+            })
+        });
+    </script>
 @endsection
