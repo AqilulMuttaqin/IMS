@@ -112,6 +112,7 @@ class BarangController extends Controller
             'min_stok' => 'required',
             'max_stok' => 'required',
             'kategori' => 'required',
+            'satuan' => 'required'
         ]);
 
         $barang = Barang::find($kode_js);

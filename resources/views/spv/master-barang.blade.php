@@ -136,17 +136,22 @@
                         <div class="form-group mb-3">
                             <label for="min_stok">MIN</label>
                             <input type="number" class="form-control form-control-user" id="min_stok" name="min_stok"
-                                required autofocus value="">
+                            required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="max_stok">MAX</label>
                             <input type="number" class="form-control form-control-user" id="max_stok" name="max_stok"
-                                required autofocus value="">
+                            required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="harga">PRICE</label>
                             <input type="number" class="form-control form-control-user" id="harga" name="harga"
-                                required autofocus value="">
+                            required autofocus value="">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="satuan">SATUAN</label>
+                            <input type="text" class="form-control form-control-user" id="satuan" name="satuan"
+                                required value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="kategori">KATEGORI</label>
@@ -373,6 +378,7 @@
                 $('#max_stok').val(rowData.max_stok);
                 $('#harga').val(rowData.harga);
                 $('#kategori').val(rowData.kategori);
+                $('#satuan').val(rowData.satuan);
                 $('#submitBtn').text('Edit');
                 $('#barangModalLabel').text('Edit Data Barang');
                 $('#barangForm').attr('action', '{{ route('spv.update-barang', ['barang' => ':barang']) }}'

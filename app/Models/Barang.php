@@ -20,6 +20,7 @@ class Barang extends Model
         'min_stok',
         'max_stok',
         'requested_qty',
+        'satuan',
         'kategori'
     ];
 
