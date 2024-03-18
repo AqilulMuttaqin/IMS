@@ -36,12 +36,14 @@
                     <thead>
                         <tr>
                             <th style="width: 20px">No</th>
-                            <th>Kode Pesan</th>
-                            <th>Nama</th>
-                            <th>Lokasi</th>
-                            <th>Tanggal Pesan</th>
-                            <th>Tanggal Selesai</th>
-                            <th>Detail</th>
+                            <th>Kode Pesanan</th>
+                            <th>Kode JS</th>
+                            <th>Nama Barang</th>
+                            <th>Nama Pemesan</th>
+                            <th>Tanggal</th>
+                            <th>Lokasi Asal</th>
+                            <th>Lokasi Tujuan</th>
+                            <th>Qty</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,9 +83,6 @@
                 processing: false,
                 serverSide: true,
                 scrollX: true,
-                order: [
-                    [3, 'desc']
-                ],
                 ajax: {
                     url: '{{ url()->current() }}',
                     data: function(d) {
@@ -97,20 +96,24 @@
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'kode_pesanan',
-                        name: 'kode_pesanan'
+                        data: 'pesanan.kode_pesanan',
+                        name: 'pesanan.kode_pesanan'
                     },
                     {
-                        data: 'user.name',
-                        name: 'user.name'
+                        data: 'barang.kode_js',
+                        name: 'barang.kode_js'
                     },
                     {
-                        data: 'lokasi.nama',
-                        name: 'lokasi.nama'
+                        data: 'barang.nama',
+                        name: 'barang.nama'
                     },
                     {
-                        data: 'created_at',
-                        name: 'created_at',
+                        data: 'pesanan.user.name',
+                        name: 'pesanan.user.name'
+                    },
+                    {
+                        data: 'pesanan.updated_at',
+                        name: 'pesanan.updated_at',
                         render: function(data, row, meta) {
                             var formattedDate = moment.utc(data).tz('Asia/Jakarta').format(
                                 'D MMM YYYY');
@@ -120,30 +123,17 @@
                         }
                     },
                     {
-                        data: 'updated_at',
-                        name: 'updated_at',
-                        render: function(data, type, row, meta) {
-                            if (row.status === 'selesai') {
-                                var formattedDate = moment.utc(data).tz('Asia/Jakarta').format('D MMM YYYY');
-                                return `<td class="text-center">` + formattedDate + `</td>`;
-                            } else {
-                                return `<td class="text-center">-</td>`;
-                            }
-                        }
+                        data: 'pesanan.lokasi_id',
+                        name: 'pesanan.lokasi_id'
                     },
                     {
-                        data: 'detail',
-                        name: 'detail',
-                        render: function(data, type, row, meta) {
-                            return `
-                            <td class="text-center">
-                                <button type="button" class="btn btn-sm btn-info" data-id="${row.id}" id="showCart">
-                                    <i class="ti ti-eye"></i>
-                                </button>
-                            </td>
-                            `;
-                        }
-                    }
+                        data: 'pesanan.lokasi.nama',
+                        name: 'pesanan.lokasi.nama'
+                    },
+                    {
+                        data: 'qty',
+                        name: 'qty'
+                    },
                 ]
             });
 
