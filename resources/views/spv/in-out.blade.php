@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-7">
                     <div class="d-flex justify-content-end text-end">
-                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="exportBtn">
+                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" href="{{ route('spv.export-perubahan') }}" id="exportBtn">
                             <i class="ti ti-file-export me-1"></i>
                             Export Excel
                         </button>

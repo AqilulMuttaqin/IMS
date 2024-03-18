@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PerubahanExport;
 use App\Models\Perubahan;
 use App\Http\Requests\StorePerubahanRequest;
 use App\Http\Requests\UpdatePerubahanRequest;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PerubahanController extends Controller
 {
@@ -74,5 +76,10 @@ class PerubahanController extends Controller
     public function destroy(Perubahan $perubahan)
     {
         //
+    }
+
+    public function export()
+    {
+        return Excel::download(new PerubahanExport, 'History.xlsx');
     }
 }
