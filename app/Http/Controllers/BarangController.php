@@ -137,6 +137,7 @@ class BarangController extends Controller
         $request->validate([
             'file' => 'required|mimes:xlsx,xls',
         ]);
+        
         $importer = new BarangImport();
         $importResult = $importer->import(request()->file('file'));
 
