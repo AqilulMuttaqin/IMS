@@ -5,6 +5,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DataBarangController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\PerubahanController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrCodeController;
@@ -103,9 +104,7 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('/spv/getLokasiQty', [DataBarangController::class, 'getLokasiQty'])->name('spv.getLokasiQty');
     Route::get('/spv/history-pesanan',[PesananController::class, 'index'])->name('spv.history-pesanan');
     Route::get('spv/export-history-pesanan', [PesananController::class, 'exportHistory'])->name('spv.export-history-pesanan');
-    Route::get('/spv/in-out', function () {
-        return view('spv.in-out', ['title' => 'In-Out Barang']);
-    })->name('spv.in-out');
+    Route::get('/spv/in-out', [PerubahanController::class, 'index'])->name('spv.in-out');
     // Route::get('/spv/detail-barang', function () {
     //     return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
     // })->name('spv.detail-barang');
