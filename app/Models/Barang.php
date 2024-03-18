@@ -60,11 +60,22 @@ class Barang extends Model
             foreach ($availableDataBarang as $dataBarang) {
                 if ($dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty >= $remainingQuantity) {
                     $newQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty - $remainingQuantity;
+                    $record = Perubahan::create([
+                        'data_barang_id' => $dataBarang->id,
+                        'lokasi_awal_id' => $lokasiAwal,
+                        'lokasi_akhir_id' => $lokasiAkhir,
+                        'remark' => $remark,
+                        'qty' => $remainingQuantity,
+                        'qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty,
+                    ]);
                     if ($newQuantity > 0) {
                         $dataBarang->lokasi()->updateExistingPivot($lokasiAwal, ['qty' => $newQuantity]);
                     } else {
                         $dataBarang->lokasi()->detach($lokasiAwal);
                     }
+
+                    $record->update(['qty_akhir' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
+                    $record->save();
 
                     $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
                     if ($existingBarang) {
@@ -78,8 +89,19 @@ class Barang extends Model
                     break;
                 } else {
                     $movedQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty;
+                    $record = Perubahan::create([
+                        'data_barang_id' => $dataBarang->id,
+                        'lokasi_awal_id' => $lokasiAwal,
+                        'lokasi_akhir_id' => $lokasiAkhir,
+                        'remark' => $remark,
+                        'qty' => $movedQuantity,
+                        'qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty,
+                    ]);
 
                     $dataBarang->lokasi()->detach($lokasiAwal);
+
+                    $record->update(['qty_akhir' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
+                    $record->save();
 
                     $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
                     if ($existingBarang) {
@@ -96,12 +118,22 @@ class Barang extends Model
             foreach ($availableDataBarang as $dataBarang) {
                 if ($dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty >= $remainingQuantity) {
                     $newQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty - $remainingQuantity;
+                    $record = Perubahan::create([
+                        'data_barang_id' => $dataBarang->id,
+                        'lokasi_awal_id' => $lokasiAwal,
+                        'remark' => $remark,
+                        'qty' => $remainingQuantity,
+                        'qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty,
+                    ]);
                     if ($newQuantity > 0) {
                         $dataBarang->lokasi()->updateExistingPivot($lokasiAwal, ['qty' => $newQuantity]);
                     } else {
                         $dataBarang->lokasi()->detach($lokasiAwal);
                     }
 
+                    $record->update(['qty_akhir' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
+                    $record->save();
+                    
                     $remainingQuantity = 0;
                     break;
                 } else {

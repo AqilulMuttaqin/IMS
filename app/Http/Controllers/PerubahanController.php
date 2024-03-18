@@ -13,7 +13,12 @@ class PerubahanController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()){
+            $perubahan = Perubahan::with('data_barang', 'lokasiAwal', 'lokasiAkhir');
+            return datatables()->of($perubahan->limit(10))->make(true);
+        }
+        
+        return view('spv.in-out', ['title' => 'In-Out Barang']);
     }
 
     /**
