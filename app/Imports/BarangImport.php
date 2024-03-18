@@ -19,8 +19,8 @@ class BarangImport
         $columnNames = $data[0];
         $kodejsColumnIndex = array_search('Kode JS', $columnNames);
         $namaColumnIndex = array_search('Nama Barang', $columnNames);
-        $minWireColumnIndex = array_search('min_stok', $columnNames);
-        $maxColumnIndex = array_search('max_stok', $columnNames);
+        $minWireColumnIndex = array_search('Min_stok', $columnNames);
+        $maxColumnIndex = array_search('Max_stok', $columnNames);
         $hargaColumnIndex = array_search('Price($)', $columnNames);
         $kategoriColumnIndex = array_search('Kategori', $columnNames);
         $satuanColumnIndex = array_search('Satuan', $columnNames);
