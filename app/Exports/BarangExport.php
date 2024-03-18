@@ -18,7 +18,24 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
     */
     public function collection()
     {
-        return Barang::all();
+
+        $barang = Barang::all();
+
+        $data = [];
+
+        foreach ($barang as $key => $value) {
+            $data[] = [
+                'Kode JS' => $value->kode_js,
+                'Nama Barang' => $value->nama,
+                'Min_stok' => $value->min_stok,
+                'Max_stok' => $value->max_stok,
+                'Satuan' => $value->satuan,
+                'Kategori' => $value->kategori,
+                'Price($)' => $value->harga
+            ];
+        }
+
+        return collect($data);
     }
 
     public function headings(): array
@@ -26,10 +43,11 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
         return [
             'Kode JS',
             'Nama Barang',
-            'min_stok',
-            'max_stok',
-            'Price($)',
+            'Min_stok',
+            'Max_stok',
+            'Satuan',
             'Kategori',
+            'Price($)'
         ];
     }
 
@@ -43,26 +61,26 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
             ],
         ];
 
-        $sheet->getStyle('A1:F1')->applyFromArray($styleArray);
-        $sheet->getStyle('A2:F' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
+        $sheet->getStyle('A1:G1')->applyFromArray($styleArray);
+        $sheet->getStyle('A2:G' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
     }
 
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:F1';
+                $cellRange = 'A1:G1';
 
                 $event->sheet->getStyle($cellRange)->applyFromArray([
                     'font' => ['bold' => true],
-                    'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => '5181cf']],
+                    'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'f0e6ad']],
                 ]);
                 
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setBold(true);
 
                 //$event->sheet->getDelegate()->getAutoFilter()->setRange($cellRange);
 
-                foreach (range('A','F') as $column) {
+                foreach (range('A','G') as $column) {
                     $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
                 }
             },
