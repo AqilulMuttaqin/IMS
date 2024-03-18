@@ -20,9 +20,9 @@
                             <div class="card-body">
                                 <!-- Logo dan Judul Project -->
                                 <a href="#" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                                    <img src="{{ asset('images/shin-pims.png') }}" width="250" alt="">
+                                    <img src="{{ asset('images/shin-psc.png') }}" width="250" alt="">
                                 </a>
-                                <p class="text-center">Production Inventory Management System</p>
+                                <p class="text-center">Production Stationery Control</p>
                                 <!-- Form Login -->
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
