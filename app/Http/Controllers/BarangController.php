@@ -137,11 +137,8 @@ class BarangController extends Controller
         $request->validate([
             'file' => 'required|mimes:xlsx,xls',
         ]);
-
-        $filePath = $request->file('file')->getRealPath();
-
         $importer = new BarangImport();
-        $importResult = $importer->import($filePath);
+        $importResult = $importer->import(request()->file('file'));
 
         if ($importResult['skipped_rows'] == null) {
             //alert()->success('Success', $importResult['imported_count'] . ' Data Berhasil Ditambah');
