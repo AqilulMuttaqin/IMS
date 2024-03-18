@@ -366,8 +366,8 @@
                     container.empty();
 
                     $.each(response.pesanan, function(index, pesanan) {
-                        var card = $('<div class="col-sm-6 col-md-4 col-lg-3 my-2"></div>');
-                        var cardBody = $('<div class="card border"></div>');
+                        var card = $('<div class="col-sm-6 col-md-4 col-lg-3 p-0 px-2"></div>');
+                        var cardBody = $('<div class="card border p-0"></div>');
                         var cardHeader = $('<div class="card-header pb-0 mb-0"></div>');
                         console.log(pesanan);
                         var cardTitle = $('<h6 class="text-center">Kode Pesan <br> ' + pesanan.kode_pesanan + '</h6>');
