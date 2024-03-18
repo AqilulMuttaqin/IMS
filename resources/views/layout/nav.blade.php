@@ -35,7 +35,7 @@
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
                             <div class="d-flex align-items-center gap-2 dropdown-item">
-                                <i class="ti ti-user fs-6"></i>
+                                <i class="ti ti-users fs-6"></i>
                                 @if ($userData['role'] === 'user')
                                     <p class="mb-0 fs-3">User</p>
                                 @elseif($userData['role'] === 'admin')
