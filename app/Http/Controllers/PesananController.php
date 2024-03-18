@@ -7,6 +7,7 @@ use App\Models\Pesanan;
 use App\Http\Requests\StorePesananRequest;
 use App\Http\Requests\UpdatePesananRequest;
 use App\Models\Barang;
+use App\Models\BarangPesanan;
 use App\Models\Keranjang;
 use App\Models\TokenCounter;
 use Carbon\Carbon;
@@ -50,6 +51,28 @@ class PesananController extends Controller
         } else if (auth()->user()->role === 'spv') {
             return view('spv.history-pesanan', ['title' => 'History Pesanan', 'today' => $today]);
         }
+    }
+
+    public function historyPesanan()
+    {
+        $today = Carbon::now()->toDateString();
+        if(request()->ajax()){
+            $start_date = Carbon::parse(request('start_date'))->startOfDay();
+            $end_date = Carbon::parse(request('end_date'))->endOfDay();
+            $barangPesanan = BarangPesanan::with('barang', 'pesanan', 'pesanan.user', 'pesanan.lokasi')
+                ->whereHas('pesanan', function ($query) use ($start_date, $end_date) {
+                    $query->whereBetween('updated_at', [$start_date, $end_date])->where('status', 'selesai')->orderBy('created_at', 'asc');
+                })->get();
+                
+            $barangPesanan->map(function ($item, $key) {
+                $item['DT_RowIndex'] = $key + 1;
+                return $item;
+            });
+                
+            return datatables()->of($barangPesanan)->make(true);
+        }
+            
+        return view('spv.history-pesanan', ['title' => 'History Pesanan', 'today' => $today]);
     }
 
     /**
