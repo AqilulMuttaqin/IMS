@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-7">
                     <div class="d-flex justify-content-end text-end">
-                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" href="{{ route('spv.export-perubahan') }}" id="exportBtn">
+                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="exportBtn" onclick="submitExport()">
                             <i class="ti ti-file-export me-1"></i>
                             Export Excel
                         </button>
@@ -119,5 +119,10 @@
                 ],
             })
         });
+
+        function submitExport(){
+            const exportLink = "{{ route('spv.export-perubahan') }}";
+            window.location.href = exportLink;
+        }
     </script>
 @endsection
