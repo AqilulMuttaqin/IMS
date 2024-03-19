@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
 use App\Models\Barang;
 use App\Models\Lokasi;
+use App\Models\Perubahan;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,9 +105,25 @@ class DataBarangController extends Controller
             'PO_number' => $request->PO_number,
         ]);
 
+        $cekBarang = Barang::where('kode_js', $request->kodejs)->first();
+
+        $totalQty = $cekBarang->dataBarang->sum(function ($dataBarang) use ($lokasi) {
+            return $dataBarang->lokasi->where('id', $lokasi)->sum('pivot.qty');
+        });
+
         $barang->lokasi()->attach($lokasi, ['qty' => $request->qty]);
 
         $barang->save();
+
+        Perubahan::create([
+            'data_barang_id' => $barang->id,
+            'lokasi_awal_id' => null,
+            'lokasi_akhir_id' => $lokasi,
+            'remark' => "Barang Masuk",
+            'qty' => $request->qty,
+            'qty_awal' => $totalQty,
+            'qty_akhir' => $totalQty + $request->qty,
+        ]);
 
         alert()->success('Success', 'Stok Berhasil Ditambahkan');
         return redirect()->back();
@@ -242,9 +259,25 @@ class DataBarangController extends Controller
             'PO_number' => $request->PO_number,
         ]);
 
+        $cekBarang = Barang::where('kode_js', $request->kodejs)->first();
+
+        $totalQty = $cekBarang->dataBarang->sum(function ($dataBarang) use ($lokasi) {
+            return $dataBarang->lokasi->where('id', $lokasi)->sum('pivot.qty');
+        });
+
         $barang->lokasi()->attach($lokasi, ['qty' => $request->qty]);
 
         $barang->save();
+
+        Perubahan::create([
+            'data_barang_id' => $barang->id,
+            'lokasi_awal_id' => null,
+            'lokasi_akhir_id' => $lokasi,
+            'remark' => "Barang Masuk",
+            'qty' => $request->qty,
+            'qty_awal' => $totalQty,
+            'qty_akhir' => $totalQty + $request->qty
+        ]);
 
         toast()->success('Stok Berhasil ditambahkan');
         return redirect()->back();
@@ -255,7 +288,7 @@ class DataBarangController extends Controller
         $lokasiAwal = $request->input('lokasiMutasi');
         $lokasiAkhir = $request->input('lokasiAkhir');
         $qty = $request->input('qtyMutasi');
-        $remark = $request->input('remark') !== "Option" ? $request->input('remark') : $request->input('otherRemarkInput');
+        $remark = $request->input('remark') !== "Other" ? $request->input('remark') : $request->input('otherRemark');
 
         $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty, $remark);
 

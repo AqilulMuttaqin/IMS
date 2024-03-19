@@ -113,11 +113,17 @@
                     },
                     {
                         data: 'lokasi_awal.nama',
-                        name: 'lokasi_awal.nama'
+                        name: 'lokasi_awal.nama',
+                        render: function(data) {
+                            return data ? data : "N/A";
+                        }
                     },
                     {
                         data: 'lokasi_akhir.nama',
-                        name: 'lokasi_akhir.nama'
+                        name: 'lokasi_akhir.nama',
+                        render: function(data) {
+                            return data ? data : "N/A";
+                        }
                     },
                     {
                         data: 'qty',

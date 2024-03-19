@@ -74,7 +74,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-xxl" id="modal-body">
-                        <form method="POST" action="{{ route('staff.tambah-barang') }}">
+                        <form method="POST" action="{{ route('staff.update-barang') }}">
                         @csrf
                             <!-- <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Barang</label>
