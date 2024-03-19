@@ -38,7 +38,10 @@
                         <tr>
                             <th style="width: 20px">No</th>
                             <th>Tanggal</th>
+                            <th>Kode JS</th>
                             <th>Barang</th>
+                            <th>INV Num</th>
+                            <th>PO Num</th>
                             <th>Remark</th>
                             <th>Lokasi Awal</th>
                             <th>Lokasi Akhir</th>
@@ -89,8 +92,20 @@
                         }
                     },
                     {
+                        data: 'data_barang.kode_js',
+                        name: 'data_barang.kode_js'
+                    },
+                    {
                         data: 'data_barang.barang.nama',
                         name: 'data_barang.barang.nama'
+                    },
+                    {
+                        data: 'data_barang.inv_number',
+                        name: 'data_barang.inv_number'
+                    },
+                    {
+                        data: 'data_barang.PO_number',
+                        name: 'data_barang.PO_number'
                     },
                     {
                         data: 'remark',
