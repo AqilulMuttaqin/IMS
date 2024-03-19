@@ -38,6 +38,7 @@
                         <tr>
                             <th style="width: 20px">No</th>
                             <th>Tanggal</th>
+                            <th>Kode JS</th>
                             <th>Barang</th>
                             <th>Remark</th>
                             <th>Lokasi Awal</th>
@@ -87,6 +88,10 @@
                                 <td class="text-center">` + formattedDate + `</td>
                             `;
                         }
+                    },
+                    {
+                        data: 'data_barang.barang.kode_js',
+                        name: 'data_barang.barang.kode_js'
                     },
                     {
                         data: 'data_barang.barang.nama',

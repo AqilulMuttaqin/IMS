@@ -11,7 +11,9 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class PerubahanSheet implements FromCollection, WithHeadings, WithTitle, WithStyles, WithEvents
@@ -45,7 +47,7 @@ class PerubahanSheet implements FromCollection, WithHeadings, WithTitle, WithSty
 
         foreach($history as $key => $value){
             $data[] = [
-                'Tanggal' => $value->created_at,
+                'Tanggal' => Date::dateTimeToExcel($value->created_at),
                 'Kode JS' => $value->data_barang->kode_js,
                 'Nama Barang' => $value->data_barang->barang->nama,
                 'Invoice Number' => $value->data_barang->inv_number,
@@ -114,6 +116,8 @@ class PerubahanSheet implements FromCollection, WithHeadings, WithTitle, WithSty
                 foreach (range('A','K') as $column) {
                     $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
                 }
+
+                $event->sheet->getStyle('A:A')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_DDMMYYYY);
             },
         ];
     }

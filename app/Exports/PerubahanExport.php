@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Perubahan;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
@@ -25,7 +26,10 @@ class PerubahanExport implements WithMultipleSheets
         $sheets = [];
 
         if ($this->startDate && $this->endDate) {
-            $lokasi = Perubahan::whereBetween('created_at', [$this->startDate, $this->endDate])->pluck('lokasi_awal_id')->unique();
+            $start_date = Carbon::parse($this->startDate)->startOfDay();
+            $end_date = Carbon::parse($this->endDate)->endOfDay();
+
+            $lokasi = Perubahan::whereBetween('created_at', [$start_date, $end_date])->pluck('lokasi_awal_id')->unique();
             foreach($lokasi as $lokasiId){
                 $sheets[] = new PerubahanSheet($lokasiId, $this->startDate, $this->endDate);
             };
