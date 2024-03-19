@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Barang;
 use App\Models\Perubahan;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -17,17 +18,28 @@ class PerubahanSheet implements FromCollection, WithHeadings, WithTitle, WithSty
 {
     protected $lokasi;
     protected $lokasiNama;
+    protected $startDate;
+    protected $endDate;
     
-    public function __construct(int $lokasi)
+    public function __construct(int $lokasi, $startDate, $endDate)
     {
         $this->lokasi = $lokasi;
         $this->lokasiNama = Perubahan::find($lokasi)->lokasi_awal->nama;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
     }
 
     public function collection()
     {
         $query = Perubahan::with('data_barang.barang', 'lokasi_awal', 'lokasi_akhir')->where('lokasi_awal_id', $this->lokasi);
 
+        if ($this->startDate && $this->endDate) {
+            $start_date = Carbon::parse($this->startDate)->startOfDay();
+            $end_date = Carbon::parse($this->endDate)->endOfDay();
+    
+            $query->whereBetween('perubahan.created_at', [$start_date, $end_date]);
+        }
+        
         $history = $query->get();
         $data = [];
 

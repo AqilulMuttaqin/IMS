@@ -7,6 +7,7 @@ use App\Models\Perubahan;
 use App\Http\Requests\StorePerubahanRequest;
 use App\Http\Requests\UpdatePerubahanRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PerubahanController extends Controller
@@ -24,7 +25,7 @@ class PerubahanController extends Controller
                 $end_date = Carbon::parse(request('end_date'))->endOfDay();
                 $perubahan = $perubahan->whereBetween('created_at', [$start_date, $end_date]);
             }
-            
+
             return datatables()->of($perubahan->limit(10))->make(true);
         }
         
@@ -79,8 +80,22 @@ class PerubahanController extends Controller
         //
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new PerubahanExport, 'History.xlsx');
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $start_date = $request->input('start_date');
+            $end_date = $request->input('end_date');
+            $filename = 'Histori Perubahan Barang ' . Carbon::parse($start_date)->format('d-m-Y') . ' sampai ' . Carbon::parse($end_date)->format('d-m-Y') . '.xlsx';
+            
+            $export = new PerubahanExport($start_date, $end_date);
+            
+            return Excel::download($export, $filename);
+            
+        } else {
+            $filename = 'Histori Perubahan Barang.xlsx';
+            $export = new PerubahanExport(null, null);
+            
+            return Excel::download($export, $filename);
+        }
     }
 }

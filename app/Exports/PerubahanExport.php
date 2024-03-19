@@ -8,6 +8,15 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class PerubahanExport implements WithMultipleSheets
 {
+    protected $startDate;
+    protected $endDate;
+
+    public function __construct($startDate, $endDate)
+    {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
@@ -15,11 +24,17 @@ class PerubahanExport implements WithMultipleSheets
     {
         $sheets = [];
 
-        $lokasi = Perubahan::all()->pluck('lokasi_awal_id')->unique();
-
-        foreach($lokasi as $lokasiId){
-            $sheets[] = new PerubahanSheet($lokasiId);
-        };
+        if ($this->startDate && $this->endDate) {
+            $lokasi = Perubahan::whereBetween('created_at', [$this->startDate, $this->endDate])->pluck('lokasi_awal_id')->unique();
+            foreach($lokasi as $lokasiId){
+                $sheets[] = new PerubahanSheet($lokasiId, $this->startDate, $this->endDate);
+            };
+        } else {
+            $lokasi = Perubahan::all()->pluck('lokasi_awal_id')->unique();
+            foreach($lokasi as $lokasiId){
+                $sheets[] = new PerubahanSheet($lokasiId, null, null);
+            };
+        }
 
         return $sheets;
     }
