@@ -331,9 +331,13 @@
                         nama: nama
                     },
                     success: function(response) {
+                        // $('#qrCodeContainer').html(
+                        //     '<img style="width: 100%; height: auto;" src="data:image/svg;base64,' +
+                        //     response + '">');
                         $('#qrCodeContainer').html(
-                            '<img style="width: 100%; height: auto;" src="data:image/png;base64,' +
-                            response + '">');
+                            '<div>' +
+                            response + 
+                            '</div>');
                         $('#qrCodeModal').modal('show');
                     }
                 });
@@ -357,7 +361,7 @@
 
                         var link = document.createElement('a');
                         link.href = url;
-                        link.download = '' + nama + '.png';
+                        link.download = '' + nama + '.svg';
                         document.body.appendChild(link);
 
                         link.click();
