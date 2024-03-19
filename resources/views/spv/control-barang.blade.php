@@ -52,6 +52,19 @@
                                 <div class="col-sm-8 offset-sm-4 text-danger" id="error-message" style="display:none;"></div>
                             </div>
                             <div class="mb-3">
+                                <label for="remark" class="form-label">REMARKS</label>
+                                <select id="remark" name="remark" class="form-select" onchange="toggleInput(this);" required>
+                                    <option value="Mutasi">Mutasi</option>
+                                    <option value="Adjust Stock">Adjust Stock</option>
+                                    <option value="Adjust Stock STO">Adjust Stock STO</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div id="otherRemark" class="mb-3" style="display: none;">
+                                <label for="otherRemarkInput" class="form-label">Other Remark</label>
+                                <input type="text" id="otherRemarkInput" name="otherRemark" class="form-control">
+                            </div>
+                            <div class="mb-3">
                                 <label for="lokasiAkhir" class="form-label">LOKASI AKHIR</label>
                                 <select id="lokasiAkhir" name="lokasiAkhir" class="form-select" required>
                                 </select>
@@ -98,6 +111,17 @@
     </div>
 
 <script>
+    function toggleInput(select) {
+        var otherRemarkInput = document.getElementById("otherRemarkInput");
+        if (select.value === "Other") {
+            otherRemarkInput.value = "";
+            otherRemarkInput.parentNode.style.display = "block";
+        } else {
+            otherRemarkInput.value = "";
+            otherRemarkInput.parentNode.style.display = "none";
+        }
+    };
+    
     const validateInput = (input) => {
         input.value = input.value.replace(/[^0-9]/g, '');
         const id = input.id;

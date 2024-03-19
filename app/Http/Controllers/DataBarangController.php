@@ -255,8 +255,9 @@ class DataBarangController extends Controller
         $lokasiAwal = $request->input('lokasiMutasi');
         $lokasiAkhir = $request->input('lokasiAkhir');
         $qty = $request->input('qtyMutasi');
+        $remark = $request->input('remark') !== "Option" ? $request->input('remark') : $request->input('otherRemarkInput');
 
-        $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty, 'mutasi');
+        $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty, $remark);
 
         toast()->success('Mutasi Berhasil');
         return redirect()->back();
