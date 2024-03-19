@@ -45,15 +45,15 @@ class QrCodeController extends Controller
             mkdir($qrCodesDirectory, 0755, true);
         }
 
-        $qrCodeFileName = $qrCodeContent.'-'.$qrCodeName . '.png';
+        $qrCodeFileName = $qrCodeContent.'-'.$qrCodeName . '.svg';
         $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
 
         if (!file_exists($qrCodeFilePath)) {
-            $qrCode = QrCode::format('png')->size(512)->margin(1)->generate($qrCodeContentWithLineBreak);
+            $qrCode = QrCode::format('svg')->size(280)->margin(1)->generate($qrCodeContentWithLineBreak);
             file_put_contents($qrCodeFilePath, $qrCode);
         }
 
-        $base64Image = base64_encode(file_get_contents($qrCodeFilePath));
+        $base64Image = file_get_contents($qrCodeFilePath);
 
         return response()->json($base64Image);
     }
@@ -69,19 +69,19 @@ class QrCodeController extends Controller
             mkdir($qrCodesDirectory, 0755, true);
         }
 
-        $qrCodeFileName = $qrCodeContent.'-'.$qrCodeName . '.png';
+        $qrCodeFileName = $qrCodeContent.'-'.$qrCodeName . '.svg';
         $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
 
         if (!file_exists($qrCodeFilePath)) {
-            $qrCode = QrCode::format('png')->size(512)->margin(1)->generate($qrCodeContentWithLineBreak);
+            $qrCode = QrCode::format('svg')->size(280)->margin(1)->generate($qrCodeContentWithLineBreak);
             file_put_contents($qrCodeFilePath, $qrCode);
         }
 
         $file = file_get_contents($qrCodeFilePath);
 
         return response($file, 200, [
-            'Content-Type' => 'image/png',
-            'Content-Disposition' => 'attachment; filename="qr-code.png"'
+            'Content-Type' => 'image/svg',
+            'Content-Disposition' => 'attachment; filename="qr-code.svg"'
         ]);
     }
 
@@ -127,16 +127,16 @@ class QrCodeController extends Controller
         $qrCodePaths = [];
         $generatedFiles = [];
         foreach ($barangs as $barang) {
-            $qrCodePath = $tempDir . '/' . $barang->kode_js.'-'. $barang->nama . '.png';
+            $qrCodePath = $tempDir . '/' . $barang->kode_js.'-'. $barang->nama . '.svg';
             
             if (!file_exists($qrCodePath)) {
                 QrCode::size(515)
-                    ->format('png')
+                    ->format('svg')
                     ->margin(1)
                     ->generate($barang->kode_js. "\n", $qrCodePath);
             }
             
-            $generatedFiles[] = $barang->kode_js.'-'. $barang->nama . '.png';
+            $generatedFiles[] = $barang->kode_js.'-'. $barang->nama . '.svg';
             $qrCodePaths[] = $qrCodePath;
         }
 
@@ -248,19 +248,19 @@ class QrCodeController extends Controller
                 $html .= '<div class="qr-code-row">';
             }
 
-            $qrCodeFileName = $barang->kode_js.'-'. $barang->nama . '.png';
+            $qrCodeFileName = $barang->kode_js.'-'. $barang->nama . '.svg';
             $qrCodeFilePath = $qrCodesDirectory . '/' . $qrCodeFileName;
 
             if (!file_exists($qrCodeFilePath)) {
-                QrCode::size(512)
-                    ->format('png')
+                QrCode::size(280)
+                    ->format('svg')
                     ->generate($barang->kode_js. "\n", $qrCodeFilePath);
             }
 
             $generatedFiles[] = $qrCodeFileName;
 
             $imageData = base64_encode(file_get_contents($qrCodeFilePath));
-            $src = 'data:image/png;base64,' . $imageData;
+            $src = 'data:image/svg;base64,' . $imageData;
 
             $html .= "<div class='qr-code-item'>";
             $html .= "<img src='$src' style='width: 100%; height: auto;' />";
