@@ -41,7 +41,7 @@ class Barang extends Model
 
     public function moveToLocation(string $lokasiAwal, $lokasiAkhir, $qty, $remark): void
     {
-        $namaLokasiAkhir = Lokasi::where('lokasi_id', $lokasiAkhir)->pluck('nama')->first();
+        $namaLokasiAkhir = Lokasi::where('id', $lokasiAkhir)->pluck('nama')->first();
         $availableDataBarang = $this->dataBarang()
             ->with('lokasi')
             ->whereHas('lokasi', function ($query) use ($lokasiAwal) {
