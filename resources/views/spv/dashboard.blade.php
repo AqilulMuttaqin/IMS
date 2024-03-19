@@ -56,6 +56,14 @@
             <div id="chart" style="height: 40px"></div>
         </div>
     </div>
+    <div class="card w-100">
+        <div class="card-body">
+            <div class="mb-3 mb-sm-0">
+                <h5 class="card-title fw-semibold">Sales Overview</h5>
+            </div>
+            <div id="chart2" style="height: 40px"></div>
+        </div>
+    </div>
     <div class="card">
         <div class="card-header">
             <div class="row">
