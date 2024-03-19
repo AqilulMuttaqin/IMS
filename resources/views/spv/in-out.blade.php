@@ -46,8 +46,8 @@
                             <th>Lokasi Awal</th>
                             <th>Lokasi Akhir</th>
                             <th>Qty</th>
-                            <th>Sebelum</th>
-                            <th>Sesudah</th>
+                            <!-- <th>Sebelum</th>
+                            <th>Sesudah</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -129,14 +129,14 @@
                         data: 'qty',
                         name: 'qty'
                     },
-                    {
-                        data: 'qty_awal',
-                        name: 'qty_awal'
-                    },
-                    {
-                        data: 'qty_akhir',
-                        name: 'qty_akhir'
-                    },
+                    // {
+                    //     data: 'qty_awal',
+                    //     name: 'qty_awal'
+                    // },
+                    // {
+                    //     data: 'qty_akhir',
+                    //     name: 'qty_akhir'
+                    // },
                 ],
             })
             $('#start_date, #end_date').on('change', function() {
