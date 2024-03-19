@@ -60,7 +60,7 @@
     <script src="{{ asset('src/assets/js/app.min.js') }}"></script>
     <script src="{{ asset('src/assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('src/assets/libs/simplebar/dist/simplebar.js') }}"></script>
-    <script src="{{ asset('src/assets/js/dashboard.js') }}"></script>
+    <script src="{{ asset('src/assets/js/dashboard.js?v=1.1') }}"></script>
 </body>
 
 </html>

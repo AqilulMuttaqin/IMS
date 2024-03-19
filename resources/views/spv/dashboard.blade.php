@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-4 mb-4">
             <div class="card">
                 <div class="card-body d-flex justify-content-between">
@@ -46,6 +46,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div> --}}
+    <div class="card w-100">
+        <div class="card-body">
+            <div class="mb-3 mb-sm-0">
+                <h5 class="card-title fw-semibold">Sales Overview</h5>
+            </div>
+            <div id="chart" style="height: 40px"></div>
         </div>
     </div>
 @endsection
