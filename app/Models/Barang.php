@@ -41,6 +41,7 @@ class Barang extends Model
 
     public function moveToLocation(string $lokasiAwal, $lokasiAkhir, $qty, $remark): void
     {
+        $namaLokasiAkhir = Lokasi::where('lokasi_id', $lokasiAkhir)->pluck('nama')->first();
         $availableDataBarang = $this->dataBarang()
             ->with('lokasi')
             ->whereHas('lokasi', function ($query) use ($lokasiAwal) {
@@ -51,86 +52,92 @@ class Barang extends Model
 
         $remainingQuantity = $qty;
         
-        if($this->kategori !== "request"){
-            
-            foreach ($availableDataBarang as $dataBarang) {
-                if ($dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty >= $remainingQuantity) {
-                    $newQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty - $remainingQuantity;
-                    $record = Perubahan::create([
-                        'data_barang_id' => $dataBarang->id,
-                        'lokasi_awal_id' => $lokasiAwal,
-                        'lokasi_akhir_id' => $lokasiAkhir,
-                        'remark' => $remark,
-                        'qty' => $remainingQuantity,
-                    ]);
-                    
-                    if(request()->remark !== 'Siap Scrap'){
-                        $record->update(['qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
-                    }
-                    
-                    if ($newQuantity > 0) {
-                        $dataBarang->lokasi()->updateExistingPivot($lokasiAwal, ['qty' => $newQuantity]);
+        if($namaLokasiAkhir !== "SCRAP"){
+            if($this->kategori !== "request"){
+                foreach ($availableDataBarang as $dataBarang) {
+                    if ($dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty >= $remainingQuantity) {
+                        $newQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty - $remainingQuantity;
+                        $record = Perubahan::create([
+                            'data_barang_id' => $dataBarang->id,
+                            'lokasi_awal_id' => $lokasiAwal,
+                            'lokasi_akhir_id' => $lokasiAkhir,
+                            'remark' => $remark,
+                            'qty' => $remainingQuantity,
+                        ]);
+                        
+                        if(request()->remark !== 'Siap Scrap'){
+                            $record->update(['qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
+                        }
+                        
+                        if ($newQuantity > 0) {
+                            $dataBarang->lokasi()->updateExistingPivot($lokasiAwal, ['qty' => $newQuantity]);
+                        } else {
+                            $dataBarang->lokasi()->detach($lokasiAwal);
+                        }
+                        if(request()->remark !== 'Siap Scrap'){
+                            $record->update(['qty_akhir' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
+                        }
+                        
+                        $record->save();
+                        
+                        $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
+                        if ($existingBarang) {
+                            $existingBarang->pivot->qty += $remainingQuantity;
+                            $existingBarang->pivot->save();
+                        } else {
+                            $dataBarang->lokasi()->attach($lokasiAkhir, ['qty' => $remainingQuantity]);
+                        }
+                        
+                        $remainingQuantity = 0;
+                        break;
                     } else {
+                        $movedQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty;
+                        $record = Perubahan::create([
+                            'data_barang_id' => $dataBarang->id,
+                            'lokasi_awal_id' => $lokasiAwal,
+                            'lokasi_akhir_id' => $lokasiAkhir,
+                            'remark' => $remark,
+                            'qty' => $movedQuantity,
+                            'qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty,
+                        ]);
+                        
                         $dataBarang->lokasi()->detach($lokasiAwal);
+                        
+                        $record->update(['qty_akhir' => 0]);
+                        $record->save();
+                        
+                        $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
+                        if ($existingBarang) {
+                            $existingBarang->pivot->qty += $movedQuantity;
+                            $existingBarang->pivot->save();
+                        } else {
+                            $dataBarang->lokasi()->attach($lokasiAkhir, ['qty' => $movedQuantity]);
+                        }
+                        
+                        $remainingQuantity -= $movedQuantity;
                     }
-                    if(request()->remark !== 'Siap Scrap'){
-                        $record->update(['qty_akhir' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
-                    }
-                    
-                    $record->save();
-                    
-                    $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
-                    if ($existingBarang) {
-                        $existingBarang->pivot->qty += $remainingQuantity;
-                        $existingBarang->pivot->save();
-                    } else {
-                        $dataBarang->lokasi()->attach($lokasiAkhir, ['qty' => $remainingQuantity]);
-                    }
-                    
-                    $remainingQuantity = 0;
-                    break;
-                } else {
-                    $movedQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty;
-                    $record = Perubahan::create([
-                        'data_barang_id' => $dataBarang->id,
-                        'lokasi_awal_id' => $lokasiAwal,
-                        'lokasi_akhir_id' => $lokasiAkhir,
-                        'remark' => $remark,
-                        'qty' => $movedQuantity,
-                        'qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty,
-                    ]);
-                    
-                    $dataBarang->lokasi()->detach($lokasiAwal);
-                    
-                    $record->update(['qty_akhir' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
-                    $record->save();
-                    
-                    $existingBarang = $dataBarang->lokasi()->where('lokasi_id', $lokasiAkhir)->first();
-                    if ($existingBarang) {
-                        $existingBarang->pivot->qty += $movedQuantity;
-                        $existingBarang->pivot->save();
-                    } else {
-                        $dataBarang->lokasi()->attach($lokasiAkhir, ['qty' => $movedQuantity]);
-                    }
-                    
-                    $remainingQuantity -= $movedQuantity;
                 }
+                if($remark === "tukar"){
+                    $lokasiScrap = Lokasi::where('nama', 'SIAP SCRAP')->pluck('id')->first();
+                    $this->moveToLocation($lokasiAkhir, $lokasiScrap, $qty, 'Siap Scrap');
+                }
+            } else {
+                $lokasiScrap = Lokasi::where('nama', 'SCRAP')->pluck('id')->first();
+                $this->moveToLocation($lokasiAkhir, $lokasiScrap, $qty, 'Request');
             }
-            if($remark === "tukar"){
-                $lokasiScrap = Lokasi::where('nama', 'SIAP SCRAP')->pluck('id')->first();
-                $this->moveToLocation($lokasiAkhir, $lokasiScrap, $qty, 'Siap Scrap');
-            }
-        } else {
+        } else{
             foreach ($availableDataBarang as $dataBarang) {
                 if ($dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty >= $remainingQuantity) {
                     $newQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty - $remainingQuantity;
                     $record = Perubahan::create([
                         'data_barang_id' => $dataBarang->id,
                         'lokasi_awal_id' => $lokasiAwal,
+                        'lokasi_akhir_id' => $lokasiAkhir,
                         'remark' => $remark,
                         'qty' => $remainingQuantity,
                         'qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty,
                     ]);
+
                     if ($newQuantity > 0) {
                         $dataBarang->lokasi()->updateExistingPivot($lokasiAwal, ['qty' => $newQuantity]);
                     } else {
@@ -144,8 +151,20 @@ class Barang extends Model
                     break;
                 } else {
                     $movedQuantity = $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty;
+                    $record = Perubahan::create([
+                        'data_barang_id' => $dataBarang->id,
+                        'lokasi_awal_id' => $lokasiAwal,
+                        'lokasi_akhir_id' => $lokasiAkhir,
+                        'remark' => $remark,
+                        'qty' => $remainingQuantity,
+                        'qty_awal' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty,
+                    ]);
 
                     $dataBarang->lokasi()->detach($lokasiAwal);
+
+                    $record->update(['qty_akhir' => $dataBarang->lokasi()->where('lokasi_id', $lokasiAwal)->first()->pivot->qty]);
+                    $record->save();
+
                     $remainingQuantity -= $movedQuantity;
                 }
             }
