@@ -118,10 +118,16 @@
                     },
                 ],
             })
+            $('#start_date, #end_date').on('change', function() {
+                table.draw();
+            });
         });
 
+
         function submitExport(){
-            const exportLink = "{{ route('spv.export-perubahan') }}";
+            const startDate = document.getElementById('start_date').value;
+            const endDate = document.getElementById('end_date').value;
+            const exportLink = `{{ route('spv.export-perubahan') }}?start_date=${startDate}&end_date=${endDate}`;
             window.location.href = exportLink;
         }
     </script>

@@ -24,6 +24,7 @@ class PerubahanController extends Controller
                 $end_date = Carbon::parse(request('end_date'))->endOfDay();
                 $perubahan = $perubahan->whereBetween('created_at', [$start_date, $end_date]);
             }
+            
             return datatables()->of($perubahan->limit(10))->make(true);
         }
         
