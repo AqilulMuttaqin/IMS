@@ -118,6 +118,7 @@ Route::middleware(['auth','role:spv,admin'])->group(function () {
     Route::post('/qr-download', [QrCodeController::class, 'download'])->name('qr.download');
     Route::get('/qr-download-batch', [QrCodeController::class, 'downloadBatch'])->name('download-zip');
     Route::get('/pdf', [QrCodeController::class, 'generatePdfWithQrCodes'])->name('download-pdf');
+    Route::get('/export-data-barang', [DataBarangController::class, 'export'])->name('export-data-barang');
 });
 
 require __DIR__.'/auth.php';
