@@ -40,9 +40,9 @@ class DataBarangTotalSheet implements FromCollection, WithHeadings, WithTitle, W
                 'Kode JS' => $value->kode_js,
                 'Nama Barang' => $value->nama,
                 'Satuan' => $value->satuan,
-                'Min' => $value->min,
-                'Max' => $value->max,
-                'Price$' => $value->price,
+                'Min' => $value->min_stok,
+                'Max' => $value->max_stok,
+                'Price$' => $value->harga,
                 'Qty' => $value->total_qty,
             ];
         }

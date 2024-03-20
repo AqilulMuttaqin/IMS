@@ -48,12 +48,12 @@ class DataBarangSheet implements FromCollection, WithHeadings, WithTitle, WithSt
                 'No.' => $key + 1,
                 'Kode JS' => $value->kode_js,
                 'Nama Barang' => $value->barang->nama,
-                'Invoice Number' => $value->barang->inv_number,
+                'Invoice Number' => $value->inv_number,
                 'PO Number' => $value->PO_number,
                 'Satuan' => $value->barang->satuan,
-                'Min' => $value->barang->min,
-                'Max' => $value->barang->max,
-                'Price$' => $value->barang->price,
+                'Min' => $value->barang->min_stok,
+                'Max' => $value->barang->max_stok,
+                'Price$' => $value->barang->harga,
                 'Qty' => $value->qty,
             ];
         }
