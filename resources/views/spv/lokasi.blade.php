@@ -32,7 +32,7 @@
                 </table>
             </div>
             <div class="note">
-                <p class="text-danger">* Note: Data Lokasi (GUDANG PRODUKSI & SIAP SCRAP) tidak boleh diubah!!!</p>
+                <p class="text-danger">* Note: Data Lokasi (GUDANG PRODUKSI, SIAP SCRAP & SCRAP) tidak boleh diubah!!!</p>
             </div>
         </div>
     </div>

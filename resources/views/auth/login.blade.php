@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login - Production Stationery Control SAI</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo.png') }}" />
-    <link rel="stylesheet" href="{{ asset('src/assets/css/styles.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('src/assets/css/styles.min.css?v=1.1') }}" />
 </head>
 
 <body>

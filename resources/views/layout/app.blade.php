@@ -7,7 +7,7 @@
     <title>{{ $title }} - Production Stationery Control SAI</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo.png') }}" />
-    <link rel="stylesheet" href="{{ asset('src/assets/css/styles.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('src/assets/css/styles.min.css?v=1.1') }}" />
     <script src="{{ asset('src/assets/js/jquery-3.6.4.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('src/assets/css/jquery.dataTables.min.css') }}">
     <script type="text/javascript" charset="utf8" src="{{ asset('src/assets/js/jquery.dataTables.js') }}"></script>
@@ -60,7 +60,7 @@
     <script src="{{ asset('src/assets/js/app.min.js') }}"></script>
     <script src="{{ asset('src/assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('src/assets/libs/simplebar/dist/simplebar.js') }}"></script>
-    <script src="{{ asset('src/assets/js/dashboard.js?v=1.1') }}"></script>
+    
 </body>
 
 </html>
