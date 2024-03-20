@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="d-flex justify-content-end text-end">
-                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="exportBtn">
+                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="exportBtn" onclick="submitExport()">
                             <i class="ti ti-file-export me-1"></i>
                             Export Excel
                         </button>
@@ -38,6 +38,18 @@
 
     <!-- JavaScript -->
     <script>
+        function submitExport(){
+            fetch("{{ route('get-lokasi') }}")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const exportLink = `{{ route('export-data-barang') }}?lokasi=${data}`;
+                    window.location.href = exportLink;
+                })
+                .catch(error => {
+                    console.error('Error fetching lokasi:', error);
+                });
+        }
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
