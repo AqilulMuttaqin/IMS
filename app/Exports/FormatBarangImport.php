@@ -19,14 +19,7 @@ class FormatBarangImport implements FromCollection, WithTitle, WithStyles, WithE
     public function collection()
     {
         return collect([
-            'Kode JS',
-            'Nama Barang',
-            'Min Stok',
-            'Max Stok',
-            'Faktur Pajak',
-            'Price($)',
-            'Kategori',
-            'Satuan',
+            ['Kode JS', 'Nama Barang', 'Min Stok', 'Max Stok', 'Faktur Pajak', 'Price($)', 'Kategori', 'Satuan']
         ]);
     }
 
@@ -45,15 +38,15 @@ class FormatBarangImport implements FromCollection, WithTitle, WithStyles, WithE
             ],
         ];
 
-        $sheet->getStyle('A1:G1')->applyFromArray($styleArray);
-        $sheet->getStyle('A2:G' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
+        $sheet->getStyle('A1:H1')->applyFromArray($styleArray);
+        $sheet->getStyle('A2:H' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
     }
 
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:G1';
+                $cellRange = 'A1:H1';
 
                 $event->sheet->getStyle($cellRange)->applyFromArray([
                     'font' => ['bold' => true],
@@ -62,7 +55,7 @@ class FormatBarangImport implements FromCollection, WithTitle, WithStyles, WithE
                 
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setBold(true);
 
-                foreach (range('A','G') as $column) {
+                foreach (range('A','H') as $column) {
                     $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
                 }
             },

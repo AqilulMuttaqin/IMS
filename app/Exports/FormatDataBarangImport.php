@@ -19,11 +19,7 @@ class FormatDataBarangImport implements FromCollection, WithTitle, WithStyles, W
     public function collection()
     {
         return collect([
-            'Kode JS',
-            'Invoice Number',
-            'PO Number',
-            'Qty',
-            'Lokasi'
+            ['Kode JS', 'Invoice Number', 'PO Number', 'Qty', 'Lokasi']
         ]);
     }
 
