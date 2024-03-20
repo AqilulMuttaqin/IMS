@@ -114,6 +114,7 @@ class DataBarangSheet implements FromCollection, WithHeadings, WithTitle, WithSt
                 }
 
                 //$event->sheet->getStyle('A:A')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_DDMMYYYY);
+                $event->sheet->getStyle('I')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
             },
         ];
     }
