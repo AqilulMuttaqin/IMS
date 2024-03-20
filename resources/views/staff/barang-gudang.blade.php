@@ -4,7 +4,19 @@
     <!-- Container Content Data Barang Gudang -->
     <div class="card">
         <div class="card-header">
-            <h5>Data Barang</h5>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5>Data Barang</h5>
+                </div>
+                <div class="col-sm-6">
+                    <div class="d-flex justify-content-end text-end">
+                        <button type="button" class="btn btn-sm btn-success d-flex align-items-center" id="exportBtn">
+                            <i class="ti ti-file-export me-1"></i>
+                            Export Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
