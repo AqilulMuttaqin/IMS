@@ -60,7 +60,12 @@ class DataBarangImport
 
             if ($barang) {
                 $lokasiId = Lokasi::where('nama', $row[$lokasiColumnIndex])->value('id');
-                $barang->lokasi()->sync([$lokasiId => ['qty' => $row[$qtyColumnIndex]]]);
+
+                if ($barang->lokasi()->where('lokasi_id', $lokasiId)->exists()) {
+                    $barang->lokasi()->updateExistingPivot($lokasiId, ['qty' => $row[$qtyColumnIndex]]);
+                } else {
+                    $barang->lokasi()->attach($lokasiId, ['qty' => $row[$qtyColumnIndex]]);
+                }
             } else {
                 $barang = DataBarang::create([
                     'kode_js' => $row[$kodejsColumnIndex],
