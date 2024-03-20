@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DataBarangExport;
 use App\Models\DataBarang;
 use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
@@ -11,6 +12,7 @@ use App\Models\Perubahan;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class DataBarangController extends Controller
@@ -296,25 +298,24 @@ class DataBarangController extends Controller
         return redirect()->back();
     }
 
-    public function tes_data(){
-        $barang = DataBarang::with('lokasi', 'barang')->orderBy('kode_js', 'asc')->get();
-    
-                $barang->map(function ($item, $key) {
-                    $item['DT_RowIndex'] = $key + 1;
-                    return $item;
-                });
+    public function export()
+    {
+        return Excel::download(new DataBarangExport, 'Data-Barang.xlsx');
+    }
 
-                $barang->each(function ($item) {
-                    $totalQty = 0;
-            
-                    foreach ($item->lokasi as $lokasi) {
-                        $totalQty += $lokasi->pivot->qty;
-                    }
-            
-                    $item->total_qty = $totalQty;
-                });
+    public function tes_data(){
+        $lokasiId = 1;
+        $dataBarang = DataBarang::whereHas('lokasi', function ($query) use ($lokasiId) {
+            $query->where('lokasi_id', $lokasiId);
+        })->with(['barang', 'lokasi' => function ($query) use ($lokasiId) {
+            $query->where('lokasi_id', $lokasiId);
+        }])->get();
     
-                return datatables()->of($barang)->make(true);
+        $dataBarang->each(function ($item) use ($lokasiId) {
+            $item->qty = $item->lokasi->firstWhere('id', $lokasiId)->pivot->qty;
+        });
+
+        return response()->json($dataBarang);
     }
 
 }

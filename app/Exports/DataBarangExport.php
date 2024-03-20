@@ -15,7 +15,7 @@ class DataBarangExport implements WithMultipleSheets
 
         $sheets[] = new DataBarangTotalSheet();
 
-        $lokasi = Lokasi::all()->pluck('id');
+        $lokasi = Lokasi::whereHas('dataBarang')->pluck('id');
 
         foreach($lokasi as $lokasiId){
             $sheets[] = new DataBarangSheet($lokasiId);
