@@ -133,14 +133,14 @@
                             <span class="hide-menu">Detail Barang</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a class="sidebar-link {{ $title === 'History Pesanan' ? 'active' : ''}}" href="{{ route('spv.history-pesanan')}}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-shopping-cart"></i>
                             </span>
                             <span class="hide-menu">History Pesanan</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ $title === 'In-Out Barang' ? 'active' : ''}}" href="{{ route('spv.in-out')}}" aria-expanded="false">
                             <span>
