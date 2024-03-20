@@ -51,6 +51,7 @@ class DataBarangSheet implements FromCollection, WithHeadings, WithTitle, WithSt
                 'Invoice Number' => $value->inv_number,
                 'PO Number' => $value->PO_number,
                 'Satuan' => $value->barang->satuan,
+                'Faktur Pajak' => $value->barang->faktur_pajak,
                 'Min' => $value->barang->min_stok,
                 'Max' => $value->barang->max_stok,
                 'Price$' => $value->barang->harga,
@@ -70,6 +71,7 @@ class DataBarangSheet implements FromCollection, WithHeadings, WithTitle, WithSt
             'Invoice Number',
             'PO Number',
             'Satuan',
+            'Faktur Pajak',
             'Min',
             'Max',
             'Price$',
@@ -92,15 +94,15 @@ class DataBarangSheet implements FromCollection, WithHeadings, WithTitle, WithSt
             ],
         ];
 
-        $sheet->getStyle('A1:J1')->applyFromArray($styleArray);
-        $sheet->getStyle('A2:J' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
+        $sheet->getStyle('A1:K1')->applyFromArray($styleArray);
+        $sheet->getStyle('A2:K' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
     }
 
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:J1';
+                $cellRange = 'A1:K1';
 
                 $event->sheet->getStyle($cellRange)->applyFromArray([
                     'font' => ['bold' => true],
@@ -109,12 +111,12 @@ class DataBarangSheet implements FromCollection, WithHeadings, WithTitle, WithSt
                 
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setBold(true);
 
-                foreach (range('A','J') as $column) {
+                foreach (range('A','K') as $column) {
                     $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
                 }
 
                 //$event->sheet->getStyle('A:A')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_DDMMYYYY);
-                $event->sheet->getStyle('I')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                $event->sheet->getStyle('J')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
             },
         ];
     }

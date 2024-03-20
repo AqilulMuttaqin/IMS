@@ -27,8 +27,9 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
             $data[] = [
                 'Kode JS' => $value->kode_js,
                 'Nama Barang' => $value->nama,
-                'Min_stok' => $value->min_stok,
-                'Max_stok' => $value->max_stok,
+                'Min Stok' => $value->min_stok,
+                'Max Stok' => $value->max_stok,
+                'Faktur Pajak' => $value->faktur_pajak,
                 'Satuan' => $value->satuan,
                 'Kategori' => $value->kategori,
                 'Price($)' => $value->harga
@@ -43,8 +44,9 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
         return [
             'Kode JS',
             'Nama Barang',
-            'Min_stok',
-            'Max_stok',
+            'Min Stok',
+            'Max Stok',
+            'Faktur Pajak',
             'Satuan',
             'Kategori',
             'Price($)'
@@ -61,15 +63,15 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
             ],
         ];
 
-        $sheet->getStyle('A1:G1')->applyFromArray($styleArray);
-        $sheet->getStyle('A2:G' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
+        $sheet->getStyle('A1:H1')->applyFromArray($styleArray);
+        $sheet->getStyle('A2:H' . ($sheet->getHighestRow()))->applyFromArray($styleArray);
     }
 
     public function registerEvents(): array
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:G1';
+                $cellRange = 'A1:H1';
 
                 $event->sheet->getStyle($cellRange)->applyFromArray([
                     'font' => ['bold' => true],
@@ -80,7 +82,7 @@ class BarangExport implements FromCollection, WithHeadings, WithStyles, WithEven
 
                 //$event->sheet->getDelegate()->getAutoFilter()->setRange($cellRange);
 
-                foreach (range('A','G') as $column) {
+                foreach (range('A','H') as $column) {
                     $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
                 }
             },

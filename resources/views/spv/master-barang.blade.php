@@ -66,6 +66,7 @@
                             <th>Kode JS</th>
                             <th>Nama</th>
                             <th>Satuan</th>
+                            <th>Faktur Pajak</th>
                             <th>Min</th>
                             <th>Max</th>
                             <th>Price($)</th>
@@ -124,7 +125,7 @@
                 <div class="modal-body">
                     <form id="barangForm">
                         <div class="form-group mb-3">
-                            <label for="kode_js">NO. JS</label>
+                            <label for="kode_js">KODE JS</label>
                             <input type="text" class="form-control form-control-user" id="kode_js" name="kode_js"
                                 required autofocus value="">
                         </div>
@@ -134,24 +135,49 @@
                                 required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="min_stok">MIN</label>
-                            <input type="number" class="form-control form-control-user" id="min_stok" name="min_stok"
-                            required autofocus value="">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label for="min_stok">MIN</label>
+                                    <input type="number" class="form-control form-control-user" id="min_stok" name="min_stok"
+                                    required autofocus value="">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="max_stok">MAX</label>
+                                    <input type="number" class="form-control form-control-user" id="max_stok" name="max_stok"
+                                    required autofocus value="">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="satuan">SATUAN</label>
+                                    <select name="satuan" id="satuan" class="form-control form-control-user" required>
+                                        <option value="" disabled selected></option>
+                                        <option value="botol">Botol</option>
+                                        <option value="kg">Kg</option>
+                                        <option value="lembar">Lembar</option>
+                                        <option value="pack">Pack</option>
+                                        <option value="pasang">Pasang</option>
+                                        <option value="pcs">Pcs</option>
+                                        <option value="rim">Rim</option>
+                                        <option value="roll">Roll</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="max_stok">MAX</label>
-                            <input type="number" class="form-control form-control-user" id="max_stok" name="max_stok"
-                            required autofocus value="">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="harga">PRICE</label>
-                            <input type="number" class="form-control form-control-user" id="harga" name="harga"
-                            required autofocus value="">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="satuan">SATUAN</label>
-                            <input type="text" class="form-control form-control-user" id="satuan" name="satuan"
-                                required value="">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="harga">PRICE</label>
+                                    <input type="number" class="form-control form-control-user" id="harga" name="harga"
+                                    required autofocus value="">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="faktur_pajak">FAKTUR PAJAK</label>
+                                    <select name="faktur_pajak" id="faktur_pajak" class="form-control form-control-user">
+                                        <option value="" disabled selected></option>
+                                        <option value="FP01">FP01</option>
+                                        <option value="FP07">FP07</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group mb-3">
                             <label for="kategori">KATEGORI</label>
@@ -232,6 +258,10 @@
                         name: 'satuan'
                     },
                     {
+                        data: 'faktur_pajak',
+                        name: 'faktur_pajak'
+                    },
+                    {
                         data: 'min_stok',
                         name: 'min_stok'
                     },
@@ -284,10 +314,6 @@
                                         <i class="ti ti-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <button type="button" class="dropdown-item detail-btn" data-js="${row.kode_js}">
-                                            <i class="ti ti-eye me-1"></i>
-                                            Detail Lokasi
-                                        </button>
                                         <button type="button" class="dropdown-item edit-btn" data-js="${row.kode_js}">
                                             <i class="ti ti-edit me-1"></i>
                                             Edit
@@ -383,6 +409,7 @@
                 $('#harga').val(rowData.harga);
                 $('#kategori').val(rowData.kategori);
                 $('#satuan').val(rowData.satuan);
+                $('#faktur_pajak').val(rowData.faktur_pajak);
                 $('#submitBtn').text('Edit');
                 $('#barangModalLabel').text('Edit Data Barang');
                 $('#barangForm').attr('action', '{{ route('spv.update-barang', ['barang' => ':barang']) }}'
@@ -407,6 +434,8 @@
                 $('#max_stok').val('');
                 $('#harga').val('');
                 $('#kategori').val('');
+                $('#satuan').val('');
+                $('#faktur_pajak').val('');
             }
 
             $(document).on('click', '.deleteBtn', function() {

@@ -35,6 +35,7 @@
                             <th>Kode JS</th>
                             <th>Nama</th>
                             <th>Satuan</th>
+                            <th>Faktur Pajak</th>
                             <th>Min</th>
                             <th>Max</th>
                             <th>Price($)</th>
@@ -115,6 +116,10 @@
                     {
                         data: 'satuan',
                         name: 'satuan'
+                    },
+                    {
+                        data: 'faktur_pajak',
+                        name: 'faktur_pajak'
                     },
                     {
                         data: 'min_stok',
