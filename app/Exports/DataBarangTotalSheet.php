@@ -31,8 +31,8 @@ class DataBarangTotalSheet implements FromCollection, WithHeadings, WithTitle, W
         $barangs->map(function ($barang) {
 
             if($this->lokasi !== null){
-                $barang->dataBarang = $barang->dataBarang->filter(function ($dataBarang) {
-                    return $dataBarang->lokasi->contains('id', $this->lokasi);
+                $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
+                    return $dataBarang->lokasi->where('id', $this->lokasi)->sum('pivot.qty');
                 });
             } else {
                 $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
