@@ -16,17 +16,29 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class DataBarangTotalSheet implements FromCollection, WithHeadings, WithTitle, WithStyles, WithEvents
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
+    
+    protected $lokasi;
+
+    public function __construct($lokasi)
+    {
+        $this->lokasi = $lokasi;
+    }
+
     public function collection()
     {
         $barangs = Barang::with('dataBarang.lokasi')->get();
 
-        $barangs->map(function ($barang, $key) {
-            $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
-                return $dataBarang->lokasi->sum('pivot.qty');
-            });
+        $barangs->map(function ($barang) {
+
+            if($this->lokasi !== null){
+                $barang->dataBarang = $barang->dataBarang->filter(function ($dataBarang) {
+                    return $dataBarang->lokasi->contains('id', $this->lokasi);
+                });
+            } else {
+                $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
+                    return $dataBarang->lokasi->sum('pivot.qty');
+                });
+            }
 
             $barang['total_qty'] = max(0, $totalQty);
 
