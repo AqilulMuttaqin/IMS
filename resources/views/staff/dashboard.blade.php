@@ -296,7 +296,7 @@
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Batalkan'
+                    confirmButtonText: 'Tolak'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
