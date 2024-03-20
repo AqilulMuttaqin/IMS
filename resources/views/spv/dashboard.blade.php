@@ -56,14 +56,6 @@
             <div id="chart" style="height: 40px"></div>
         </div>
     </div>
-    <div class="card w-100">
-        <div class="card-body">
-            <div class="mb-3 mb-sm-0">
-                <h5 class="card-title fw-semibold">Sales Overview</h5>
-            </div>
-            <div id="chart2" style="height: 40px"></div>
-        </div>
-    </div>
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -82,17 +74,63 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table w-100" id="dataDetailBarang">
+                <table class="table table-striped w-100" id="dataDetailBarang">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
+                            <th colspan="3"></th>
+                            <th colspan="2">Week 1</th>
+                            <th colspan="2">Week 2</th>
+                            <th colspan="2">Week 3</th>
+                            <th colspan="2">Week 4</th>
+                            <th colspan="2">Week 5</th>
+                        </tr>
+                        <tr class="text-center">
                             <th style="width: 20px">No</th>
                             <th>Kode JS</th>
                             <th>Nama</th>
                             <th>In</th>
                             <th>Out</th>
+                            <th>In</th>
+                            <th>Out</th>
+                            <th>In</th>
+                            <th>Out</th>
+                            <th>In</th>
+                            <th>Out</th>
+                            <th>In</th>
+                            <th>Out</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="text-center">
+                            <td>1</td>
+                            <td>Tes</td>
+                            <td>Tes</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td>2</td>
+                            <td>Tes</td>
+                            <td>Tes</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                            <td>20</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
