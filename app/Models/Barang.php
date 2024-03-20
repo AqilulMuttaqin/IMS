@@ -21,7 +21,8 @@ class Barang extends Model
         'max_stok',
         'requested_qty',
         'satuan',
-        'kategori'
+        'kategori',
+        'faktur_pajak'
     ];
 
     public function pesanan()

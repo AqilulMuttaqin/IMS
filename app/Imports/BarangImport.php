@@ -19,8 +19,9 @@ class BarangImport
         $columnNames = $data[0];
         $kodejsColumnIndex = array_search('Kode JS', $columnNames);
         $namaColumnIndex = array_search('Nama Barang', $columnNames);
-        $minWireColumnIndex = array_search('Min_stok', $columnNames);
-        $maxColumnIndex = array_search('Max_stok', $columnNames);
+        $minWireColumnIndex = array_search('Min Stok', $columnNames);
+        $maxColumnIndex = array_search('Max Stok', $columnNames);
+        $fakturPajakColumnIndex = array_search('Faktur Pajak', $columnNames);
         $hargaColumnIndex = array_search('Price($)', $columnNames);
         $kategoriColumnIndex = array_search('Kategori', $columnNames);
         $satuanColumnIndex = array_search('Satuan', $columnNames);
@@ -47,6 +48,9 @@ class BarangImport
             if ($row[$maxColumnIndex] === null) {
                 $emptyColumns[] = 'max_stok';
             }
+            if ($row[$fakturPajakColumnIndex] === null) {
+                $emptyColumns[] = 'Faktur Pajak';
+            }
             if ($row[$hargaColumnIndex] === null) {
                 $emptyColumns[] = 'Price($)';
             }
@@ -71,6 +75,7 @@ class BarangImport
                     'nama' => $row[$namaColumnIndex],
                     'min_stok' => $row[$minWireColumnIndex],
                     'max_stok' => $row[$maxColumnIndex],
+                    'faktur_pajak' => $row[$fakturPajakColumnIndex],
                     'harga' => $row[$hargaColumnIndex],
                     'kategori' => $row[$kategoriColumnIndex],
                     'satuan' => $row[$satuanColumnIndex],
