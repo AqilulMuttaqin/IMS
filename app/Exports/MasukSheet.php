@@ -16,24 +16,20 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PerubahanSheet implements FromCollection, WithHeadings, WithTitle, WithStyles, WithEvents
+class MasukSheet implements FromCollection, WithHeadings, WithTitle, WithStyles, WithEvents
 {
-    protected $lokasi;
-    protected $lokasiNama;
     protected $startDate;
     protected $endDate;
     
-    public function __construct(int $lokasi, $startDate, $endDate)
+    public function __construct($startDate, $endDate)
     {
-        $this->lokasi = $lokasi;
-        $this->lokasiNama = Perubahan::find($lokasi)->lokasi_awal->nama;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
     }
 
     public function collection()
     {
-        $query = Perubahan::with('data_barang.barang', 'lokasi_awal', 'lokasi_akhir')->where('lokasi_awal_id', $this->lokasi);
+        $query = Perubahan::with('data_barang.barang', 'lokasi_awal', 'lokasi_akhir')->whereNull('lokasi_awal_id');
 
         if ($this->startDate !== null && $this->endDate !== null) {
             $start_date = Carbon::parse($this->startDate)->startOfDay();
@@ -83,7 +79,7 @@ class PerubahanSheet implements FromCollection, WithHeadings, WithTitle, WithSty
 
     public function title(): string
     {
-        return $this->lokasiNama;
+        return 'Barang Masuk';
     }
 
     public function styles(Worksheet $sheet)

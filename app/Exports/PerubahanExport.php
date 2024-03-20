@@ -25,16 +25,22 @@ class PerubahanExport implements WithMultipleSheets
     {
         $sheets = [];
 
-        if ($this->startDate && $this->endDate) {
+        if ($this->startDate !== null && $this->endDate !== null) {
             $start_date = Carbon::parse($this->startDate)->startOfDay();
             $end_date = Carbon::parse($this->endDate)->endOfDay();
 
-            $lokasi = Perubahan::whereBetween('created_at', [$start_date, $end_date])->pluck('lokasi_awal_id')->unique();
+            $lokasi = Perubahan::whereBetween('created_at', [$start_date, $end_date])->whereNotNull('lokasi_awal_id')->pluck('lokasi_awal_id')->unique();
+
+            $sheets[] = new MasukSheet($this->startDate, $this->endDate);
+
             foreach($lokasi as $lokasiId){
                 $sheets[] = new PerubahanSheet($lokasiId, $this->startDate, $this->endDate);
             };
         } else {
-            $lokasi = Perubahan::all()->pluck('lokasi_awal_id')->unique();
+            $lokasi = Perubahan::whereNotNull('lokasi_awal_id')->pluck('lokasi_awal_id')->unique();
+            
+            $sheets[] = new MasukSheet(null, null);
+
             foreach($lokasi as $lokasiId){
                 $sheets[] = new PerubahanSheet($lokasiId, null, null);
             };
