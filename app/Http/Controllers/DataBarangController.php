@@ -6,6 +6,7 @@ use App\Exports\DataBarangExport;
 use App\Models\DataBarang;
 use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
+use App\Imports\DataBarangImport;
 use App\Models\Barang;
 use App\Models\Lokasi;
 use App\Models\Perubahan;
@@ -307,6 +308,48 @@ class DataBarangController extends Controller
             return Excel::download(new DataBarangExport($lokasi), 'Data-Barang-Gudang '. $today .' .xlsx');
         } else{
             return Excel::download(new DataBarangExport(null), 'Data-Barang '. $today .'.xlsx');
+        }
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+        
+        $importer = new DataBarangImport();
+        $importResult = $importer->import(request()->file('file'));
+
+        if ($importResult['skipped_rows'] == null) {
+            alert()->success('Success', $importResult['imported_count'] . ' Data Berhasil Ditambah');
+
+            return redirect()->back()->with('success', 'Wire loss data imported successfully.')
+                ->with('imported_count', $importResult['imported_count'])
+                ->with('skipped_rows', $importResult['skipped_rows']);
+        } else {
+            $importedCount = $importResult['imported_count'];
+            $skippedRowCount = count($importResult['skipped_rows']);
+
+            $emptyColumns = [];
+            $emptyRows = [];
+            foreach ($importResult['skipped_rows'] as $skippedRow) {
+                $emptyRows[] = $skippedRow['row'];
+                $emptyColumns = array_merge($emptyColumns, $skippedRow['empty_columns']);
+            }
+
+            // $uniqueEmptyColumns = array_unique($emptyColumns);
+
+            $errorMessage = $importedCount . ' Data Tersimpan, ' . $skippedRowCount . ' Data Gagal Ditambahkan';
+            // if (!empty($uniqueEmptyColumns)) {
+            //     $errorMessage .= ', Kolom kosong: ' . implode(', ', $uniqueEmptyColumns);
+            // }
+            if (!empty($emptyRows)) {
+                $errorMessage .= ', Baris kosong: ' . implode(', ', $emptyRows);
+            }
+
+            alert()->error('Error', $errorMessage)->persistent(true);
+
+            return redirect()->back()->with('error', $errorMessage);
         }
     }
 
