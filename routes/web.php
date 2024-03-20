@@ -121,6 +121,8 @@ Route::middleware(['auth','role:spv,admin'])->group(function () {
     Route::get('/pdf', [QrCodeController::class, 'generatePdfWithQrCodes'])->name('download-pdf');
     Route::get('/export-data-barang', [DataBarangController::class, 'export'])->name('export-data-barang');
     Route::get('/auth-user', function () {return auth()->user()->lokasi_id;})->name('get-lokasi');
+    Route::get('/format-import-barang', [BarangController::class, 'import_format'])->name('format-import-barang');
+    Route::get('/format-import-dataBarang', [DataBarangController::class, 'import_format'])->name('format-import-dataBarang');
 });
 
 require __DIR__.'/auth.php';

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\DataBarangExport;
+use App\Exports\FormatDataBarangImport;
 use App\Models\DataBarang;
 use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
@@ -309,6 +310,11 @@ class DataBarangController extends Controller
         } else{
             return Excel::download(new DataBarangExport(null), 'Data-Barang '. $today .'.xlsx');
         }
+    }
+
+    public function import_format()
+    {
+        return Excel::download(new FormatDataBarangImport, 'Format Input Data Barang.xlsx');
     }
 
     public function import(Request $request)

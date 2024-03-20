@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\BarangExport;
+use App\Exports\FormatBarangImport;
 use App\Models\Barang;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
@@ -130,6 +131,11 @@ class BarangController extends Controller
     public function export()
     {
         return Excel::download(new BarangExport, 'barang.xlsx');
+    }
+
+    public function import_format()
+    {
+        return Excel::download(new FormatBarangImport, 'Format Input Master Barang.xlsx');
     }
 
     public function import(Request $request)
