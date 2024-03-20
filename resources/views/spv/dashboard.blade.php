@@ -49,10 +49,10 @@
         </div>
     </div> --}}
     <div class="card w-100">
+        <div class="card-header">
+            <h5>Sales Overview</h5>
+        </div>
         <div class="card-body">
-            <div class="mb-3 mb-sm-0">
-                <h5 class="card-title fw-semibold">Sales Overview</h5>
-            </div>
             <div id="chart" style="height: 40px"></div>
         </div>
     </div>
