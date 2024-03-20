@@ -75,10 +75,17 @@
                     <!-- Content Menu 2 -->
                     <div class="tab-pane fade" id="menu-2" role="tabpanel">
                         <div class="d-flex justify-content-end text-end">
-                            <button type="button" class="btn btn-sm btn-success d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#importModal">
-                                <i class="ti ti-file-import me-1"></i>
-                                Import Excel
-                            </button>
+                            <div class="dropdown text-end me-2">
+                                <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                                    Import & Ekspor
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="">
+                                        <i class="ti ti-file-download me-1"></i> Format Import</a>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal"
+                                        style="cursor: pointer;"><i class="ti ti-file-import me-1"></i> Import Excel</a>
+                                </div>
+                            </div>
                         </div>
                         <form method="POST" action="{{ route('spv.input-barang') }}">
                             @csrf
