@@ -29,7 +29,7 @@
                             <th>Nama</th>
                             <th>Satuan</th>
                             <th>Stok</th>
-                            <th style="width: 30px;">Check Out</th>
+                            <th style="width: 90px;">Check Out</th>
                         </tr>
                     </thead>
                     <tbody>
