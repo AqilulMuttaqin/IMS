@@ -74,6 +74,12 @@
                     </div>
                     <!-- Content Menu 2 -->
                     <div class="tab-pane fade" id="menu-2" role="tabpanel">
+                        <div class="d-flex justify-content-end text-end">
+                            <button type="button" class="btn btn-sm btn-success d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#importModal">
+                                <i class="ti ti-file-import me-1"></i>
+                                Import Excel
+                            </button>
+                        </div>
                         <form method="POST" action="{{ route('spv.input-barang') }}">
                             @csrf
                             <div class="mb-3">
@@ -106,6 +112,33 @@
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="importForm" method="POST" action="{{ route('spv.import-barang') }}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="import">File Excel</label>
+                            <input type="file" class="form-control form-control-user" id="file" name="file"
+                                accept=".xlsx, .xls" required autofocus>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" id="submitBtn">Import</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

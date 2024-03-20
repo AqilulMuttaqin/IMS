@@ -9,6 +9,17 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="d-flex justify-content-end text-end">
+                        <div class="dropdown text-end me-2">
+                            <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                                Import & Ekspor
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="">
+                                    <i class="ti ti-file-export me-1"></i> Export Excel</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal" style="cursor: pointer;">
+                                    <i class="ti ti-file-import me-1"></i> Import Excel</a>
+                            </div>
+                        </div>
                         <button type="button" class="btn btn-sm btn-primary d-flex align-items-center" id="tambahBtn"
                             data-bs-toggle="modal" data-bs-target="#lokasiModal">
                             Tambah Data
@@ -59,6 +70,33 @@
                     <button type="button" class="btn btn-primary" id="submitBtn"
                         onclick="submitLokasiForm()">Submit</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="importForm" method="POST" action="{{ route('spv.import-barang') }}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="import">File Excel</label>
+                            <input type="file" class="form-control form-control-user" id="file" name="file"
+                                accept=".xlsx, .xls" required autofocus>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" id="submitBtn">Import</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
