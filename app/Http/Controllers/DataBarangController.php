@@ -10,6 +10,7 @@ use App\Models\Barang;
 use App\Models\Lokasi;
 use App\Models\Perubahan;
 use App\Models\Pesanan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -298,9 +299,15 @@ class DataBarangController extends Controller
         return redirect()->back();
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new DataBarangExport, 'Data-Barang.xlsx');
+        $today = Carbon::now()->format('d-m-Y');
+        if ($request->filled('lokasi')){
+            $lokasi = $request->input('lokasi');
+            return Excel::download(new DataBarangExport($lokasi), 'Data-Barang-Gudang '. $today .' .xlsx');
+        } else{
+            return Excel::download(new DataBarangExport(null), 'Data-Barang '. $today .'.xlsx');
+        }
     }
 
     public function tes_data(){
