@@ -140,6 +140,10 @@
                 $('#tambahkan').prop('disabled', true);
                 $('#sbmtPesanLangsung').prop('disabled', true);
                 $('#pesanButton').prop('disabled', true);
+            } else if (currentQty == 0) {
+                $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
             } else {
                 $('#error-message').hide();
                 $('#error-message-' + id).hide();
@@ -171,6 +175,10 @@
             } else if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
                 $('#error-message-' + id).text('Jumlah melebihi stok yang tersedia').show();  
+                $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
+            } else if (currentQty == 0) {
                 $('#tambahkan').prop('disabled', true);
                 $('#sbmtPesanLangsung').prop('disabled', true);
                 $('#pesanButton').prop('disabled', true);
@@ -208,6 +216,10 @@
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
                 
                 $('#error-message-' + id).text('Jumlah melebihi stok yang tersedia').show();  
+                $('#tambahkan').prop('disabled', true);
+                $('#sbmtPesanLangsung').prop('disabled', true);
+                $('#pesanButton').prop('disabled', true);
+            } else if (currentQty == 0) {
                 $('#tambahkan').prop('disabled', true);
                 $('#sbmtPesanLangsung').prop('disabled', true);
                 $('#pesanButton').prop('disabled', true);
