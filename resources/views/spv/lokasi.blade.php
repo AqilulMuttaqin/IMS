@@ -14,7 +14,7 @@
                                 Import & Ekspor
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="">
+                                <a class="dropdown-item" href="{{ route('export-lokasi') }}">
                                     <i class="ti ti-file-export me-1"></i> Export Excel</a>
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal" style="cursor: pointer;">
                                     <i class="ti ti-file-import me-1"></i> Import Excel</a>

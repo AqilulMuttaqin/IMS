@@ -123,6 +123,7 @@ Route::middleware(['auth','role:spv,admin'])->group(function () {
     Route::get('/auth-user', function () {return auth()->user()->lokasi_id;})->name('get-lokasi');
     Route::get('/format-import-barang', [BarangController::class, 'import_format'])->name('format-import-barang');
     Route::get('/format-import-dataBarang', [DataBarangController::class, 'import_format'])->name('format-import-dataBarang');
+    Route::get('/export-lokasi', [LokasiController::class, 'export'])->name('export-lokasi');
 });
 
 require __DIR__.'/auth.php';

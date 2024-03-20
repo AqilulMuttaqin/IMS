@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LokasiExport;
 use App\Models\Lokasi;
 use App\Http\Requests\StoreLokasiRequest;
 use App\Http\Requests\UpdateLokasiRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LokasiController extends Controller
 {
@@ -93,5 +95,10 @@ class LokasiController extends Controller
         }
 
         $lokasi->delete();
+    }
+
+    public function export()
+    {
+        return Excel::download(new LokasiExport, 'Lokasi.xlsx');
     }
 }
