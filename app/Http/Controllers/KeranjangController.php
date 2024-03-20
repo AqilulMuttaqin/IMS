@@ -51,23 +51,25 @@ class KeranjangController extends Controller
                     return response()->json([]);
             }
 
-            $keranjang->barang->map(function ($barang) {
-                $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
-                    return $dataBarang->lokasi->where('nama', 'GUDANG PRODUKSI')->sum('pivot.qty');
+            if($keranjang){
+                $keranjang->barang->map(function ($barang) {
+                    $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
+                        return $dataBarang->lokasi->where('nama', 'GUDANG PRODUKSI')->sum('pivot.qty');
+                    });
+                    
+                    $requestedQty = $barang->requested_qty;
+                    $adjustedQty = $totalQty - $requestedQty;
+                    $barang['total_qty'] = $adjustedQty < 0 ? 0 : $adjustedQty;
+            
+                    $total_on_loc = $barang->dataBarang->sum(function ($dataBarang) {
+                        return $dataBarang->lokasi->where('id', auth()->user()->lokasi_id)->sum('pivot.qty');
+                    });
+            
+                    $barang['qty_on_loc'] = $total_on_loc < 0 ? 0 : $total_on_loc;
+            
+                    return $barang;
                 });
-                
-                $requestedQty = $barang->requested_qty;
-                $adjustedQty = $totalQty - $requestedQty;
-                $barang['total_qty'] = $adjustedQty < 0 ? 0 : $adjustedQty;
-        
-                $total_on_loc = $barang->dataBarang->sum(function ($dataBarang) {
-                    return $dataBarang->lokasi->where('id', auth()->user()->lokasi_id)->sum('pivot.qty');
-                });
-        
-                $barang['qty_on_loc'] = $total_on_loc < 0 ? 0 : $total_on_loc;
-        
-                return $barang;
-            });
+            };
 
             return response()->json($keranjang);
 
