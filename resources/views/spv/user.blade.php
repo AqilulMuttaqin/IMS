@@ -302,6 +302,7 @@
             var role = $('#role').val();
 
             if (!nikInput || !name || !role || !lokasi || !passwordInput) {
+                console.log(nikInput, name, role, lokasi, passwordInput);
                 Swal.fire({
                     toast: true,
                     position: "top-end",
