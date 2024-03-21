@@ -143,4 +143,21 @@ class AdminController extends Controller
         return response()->json(['barang' => $barang, 'status' => $status]);
     }
 
+    public function input_sto()
+    {
+        if (request()->ajax()) {
+            $barang = [];
+
+            if(request()->has('q')){
+                $search = request()->q;
+                $barang =Barang::select("kode_js", "nama")
+                        ->where('nama', 'LIKE', "%$search%")
+                        ->get();
+            }
+            return response()->json($barang);
+        }
+
+        return view('staff.input-sto', ['title' => 'Input Data STO']);
+    }
+
 }

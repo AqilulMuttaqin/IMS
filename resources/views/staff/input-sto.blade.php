@@ -95,6 +95,38 @@
     </div>
 
     <script>
+        document.addEventListener('keypress', function(event) {
+            if (event.keyCode === 13) {
+                // var scannedData = event.target.value.trim();
+                // document.getElementById('scannerInput').value = scannedData;
+                var scannedData = document.getElementById('scannerInputSTO').value;
+                $.ajax({
+                    url : "{{ route('staff.nama-barang')}}",
+                    type: 'GET',
+                    data: {
+                        kode_js: scannedData,
+                    },
+                    success: function(response){
+                        if (response.status) {
+                            //$('#scannerInputModal').find('#nama').text(response.nama);
+                            $('#scannerInputSTOModal').find('#namaBarang').val(response.barang.nama);
+                            $('#scannerInputSTOModal').find('#kodejs').val(response.barang.kode_js);
+                            
+                            $('#scannerInputSTOModal').modal('show');
+                        } else{
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: "Data tidak ditemukan, Coba Scan Ulang!",
+                                icon: "error",
+                                timer: 3500
+                            });
+                        }
+                    }
+                })
+                $('#scannerInputSTO').val('');
+            }
+        });
+
         $('#nama').select2({
             theme: 'bootstrap-5',
             placeholder: ' Input Nama Barang ...',
