@@ -50,9 +50,19 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            //$user = User::where('NIK', auth()->user()->NIK )->first();
+            $user = auth()->user();
+            $lokasi = $request->get('lokasi');
+            $user->update(['lokasi_id' => $lokasi]); 
+
+            $user->save();
+            return response()->json(['message' => 'Data Berhasil Disimpan']);
+        }
+
+        return abort(404);
     }
 
     /**

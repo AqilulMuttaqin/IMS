@@ -93,5 +93,46 @@
             cache: true
         }
     }).addClass('form-select');
+
+    function submitUserForm() {
+            var lokasi = $('#user-lokasi').val();
+
+            var actionUrl = "{{ route('user.update-lokasi') }}"
+            var method = 'PUT';
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: actionUrl,
+                type: method,
+                data: {
+                    lokasi: lokasi,
+                },
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function(response) {
+                    
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        text: "Data Berhasil Disimpan",
+                        icon: "success",
+                        timer: 3500
+                    });
+                },
+                error: function(error) {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        text: "Error!!",
+                        icon: "error",
+                        timer: 3500
+                    });
+                }
+            });
+        }
 </script>
 @endsection
