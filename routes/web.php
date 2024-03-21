@@ -76,6 +76,12 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('staff/tambah-barang', [DataBarangController::class, 'store'])->name('staff.update-barang');
     Route::get('staff/nama-barang', [AdminController::class, 'barang'])->name('staff.nama-barang');
     Route::get('staff/edit-pesanan', [PesananController::class, 'edit'])->name('staff.edit-pesanan');
+    Route::get('staff/input-sto', function () {
+        return view('staff.input-sto', ['title' => 'Input Data STO']);
+    })->name('staff.input-sto');
+    Route::get('staff/hasil-sto', function () {
+        return view('staff.hasil-sto', ['title' => 'Data Hasil STO']);
+    })->name('staff.hasil-sto');
 });
 
 Route::middleware(['auth','role:spv'])->group(function () {
