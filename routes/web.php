@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/get-lokasi', [SPVController::class, 'get_lokasi'])->name('spv.get-lokasi');
 });
 
 Route::middleware(['auth','role:user'])->group(function () {
@@ -120,7 +121,6 @@ Route::middleware(['auth','role:spv'])->group(function () {
 });
 
 Route::middleware(['auth','role:spv,admin'])->group(function () {
-    Route::get('/get-lokasi', [SPVController::class, 'get_lokasi'])->name('spv.get-lokasi');
     Route::get('tes', [DataBarangController::class, 'tes'])->name('tes');
     Route::get('tes-data', [DataBarangController::class, 'tes_data'])->name('tes-data');
     Route::post('/qr-generate', [QrCodeController::class, 'generate'])->name('qr.generate');

@@ -66,4 +66,29 @@
             </div>
         </div>
     </div>
+
+<script>
+    $('#user-lokasi').select2({
+        theme: 'bootstrap-5',
+        placeholder: ' Lokasi ...',
+        minimumInputLength: 3,
+        dropdownParent: $('#editModal'),
+        ajax: {
+            url: "{{ route('spv.get-lokasi') }}",
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.nama,
+                            id: item.id
+                        }
+                    })
+                };
+            },
+            cache: true
+        }
+    }).addClass('form-select');
+</script>
 @endsection
