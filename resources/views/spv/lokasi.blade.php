@@ -260,7 +260,16 @@
                         timer: 3500
                     });
                 },
-                error: function(xhr, status, error) {}
+                error: function(error) {
+                    Swal.fire({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        text: "Error!! Duplicate Lokasi",
+                        icon: "error",
+                        timer: 3500
+                    })
+                }
             });
         }
     </script>
