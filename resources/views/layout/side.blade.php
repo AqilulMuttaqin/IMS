@@ -47,6 +47,14 @@
                             <span class="hide-menu">Data Barang</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Profile' ? 'active' : ''}}" href="{{ route('user.profile')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-article"></i>
+                            </span>
+                            <span class="hide-menu">Profile</span>
+                        </a>
+                    </li>
                 @endif
                 <!-- Sidebar Menu Admin -->
                 @if (auth()->user() && auth()->user()->role == 'admin')

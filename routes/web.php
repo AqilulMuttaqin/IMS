@@ -61,6 +61,9 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::get('/user/pesan', [PesananController::class, 'create'])->name('user.pesan');
     Route::get('/user/pesan1', [PesananController::class, 'store'])->name('user.pesan1');
     Route::post('user/update-pesanan', [PesananController::class, 'update'])->name('user.update-pesanan');
+    Route::get('user/profile', function () {
+        return view('user.profile', ['title' => 'Profile']);
+    })->name('user.profile');
 });
 
 Route::middleware(['auth','role:admin'])->group(function () {

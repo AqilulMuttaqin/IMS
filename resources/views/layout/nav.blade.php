@@ -54,10 +54,10 @@
                                 @endif
                             </div>
                             @if (auth()->user() && auth()->user()->role == 'user')
-                                <a class="edit-btn">
+                                <a href="{{ route('user.profile')}}">
                                     <div class="d-flex align-items-center gap-2 dropdown-item" style="cursor: pointer">
                                         <i class="ti ti-user fs-6"></i>
-                                        Profile (Edit)
+                                        Profile
                                     </div>
                                 </a>
                             @endif
@@ -75,7 +75,7 @@
     </nav>
 </header>
 
-<!-- <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
+{{-- <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -114,7 +114,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div> --}}
 
 <script>
     $('.edit-btn').on('click', function() {
