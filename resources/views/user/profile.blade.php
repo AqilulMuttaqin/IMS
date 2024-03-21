@@ -1,6 +1,9 @@
 @extends('layout.app')
 
 @section('content')
+    @php
+        $userData = session('user');
+    @endphp
     <div class="card">
         <div class="card-header">
             <h5>Profile</h5>
@@ -12,28 +15,28 @@
                     <p>:</p>
                 </div>
                 <div class="col-sm-8">
-                    <p>Tes</p>
+                    <p>{{ ucwords($userData['NIK']) }}</p>
                 </div>
                 <div class="col-sm-4 d-flex justify-content-between">
                     <p>Nama</p>
                     <p>:</p>
                 </div>
                 <div class="col-sm-8">
-                    <p>Tes</p>
+                    <p>{{ ucwords($userData['name']) }}</p>
                 </div>
                 <div class="col-sm-4 d-flex justify-content-between">
                     <p>Role</p>
                     <p>:</p>
                 </div>
                 <div class="col-sm-8">
-                    <p>Tes</p>
+                    <p>{{ ucwords($userData['role']) }}</p>
                 </div>
                 <div class="col-sm-4 d-flex justify-content-between">
                     <p>Lokasi</p>
                     <p>:</p>
                 </div>
                 <div class="col-sm-8">
-                    <p>Tes</p>
+                    <p>{{ ucwords($userData['lokasi']['nama']) }}</p>
                 </div>
             </div>
             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal">
