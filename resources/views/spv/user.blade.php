@@ -17,7 +17,8 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="">
                                     <i class="ti ti-file-export me-1"></i> Export Excel</a>
-                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal" style="cursor: pointer;">
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#importModal"
+                                    style="cursor: pointer;">
                                     <i class="ti ti-file-import me-1"></i> Import Excel</a>
                                 <a class="dropdown-item" href="">
                                     <i class="ti ti-file-download me-1"></i> Format Import</a>
@@ -54,7 +55,8 @@
     </div>
 
     <!-- Modal - Tambah dan Edit User -->
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -65,11 +67,13 @@
                     <form id="userForm">
                         <div class="form-group mb-3">
                             <label for="NIK">NIK</label>
-                            <input type="text" class="form-control form-control-user" id="NIK" name="NIK" required autofocus value="" maxlength="6" minlength="6">
+                            <input type="text" class="form-control form-control-user" id="NIK" name="NIK"
+                                required autofocus value="" maxlength="6" minlength="6">
                         </div>
                         <div class="form-group mb-3">
                             <label for="name">NAMA</label>
-                            <input type="text" class="form-control form-control-user" id="name" name="name" required autofocus value="">
+                            <input type="text" class="form-control form-control-user" id="name" name="name"
+                                required autofocus value="">
                         </div>
                         <div class="form-group mb-3">
                             <label for="role">ROLE</label>
@@ -84,20 +88,22 @@
                             <label for="lokasi">LOKASI</label>
                             <select class="form-control form-control-user" id="lokasi" name="lokasi" required>>
                                 <option value="" disabled selected></option>
-                                @foreach($lokasi as $item)
-                                    <option value="{{ $item->id}}">{{$item->nama}}</option>
+                                @foreach ($lokasi as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group mb-3">
                             <label for="password">PASSWORD</label>
-                            <input type="text" class="form-control form-control-user" id="password" name="password" required autofocus value="">
+                            <input type="text" class="form-control form-control-user" id="password" name="password"
+                                required autofocus value="">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitUserForm()">Save Change</button>
+                    <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitUserForm()">Save
+                        Change</button>
                 </div>
             </div>
         </div>
@@ -291,19 +297,38 @@
         function submitUserForm() {
             var nikInput = $('#NIK').val();
             var passwordInput = $('#password').val();
+            var name = $('#name').val();
+            var lokasi = $('#lokasi').val();
+            var role = $('#role').val();
 
-            if (nikInput.length < 6) {
+            if (!nikInput || !name || !role || !lokasi || !passwordInput) {
                 Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    icon: "warning",
+                    text: "Lengkapi Data Terlebih Dahulu!",
+                    timer: 3500
+                });
+                return false;
+            } else if (nikInput.length < 6) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    icon: "warning",
                     text: "NIK harus 6 digit!",
+                    timer: 3500
                 });
                 return false;
             } else if (passwordInput < 6) {
                 Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Password kurang dari 6 karakter!"
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    icon: "warning",
+                    text: "Password kurang dari 6 karakter!",
+                    timer: 3500
                 });
                 return false;
             }
@@ -337,7 +362,16 @@
                         timer: 3500
                     });
                 },
-                error: function(xhr, status, error) {}
+                error: function(error) {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        text: "Error!! NIK Sudah Ada",
+                        icon: "error",
+                        timer: 3500
+                    });
+                }
             });
         }
     </script>
