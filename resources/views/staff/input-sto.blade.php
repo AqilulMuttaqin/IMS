@@ -22,7 +22,6 @@
             <div class="card-body">
                 <div class="tab-content">
                     <!-- Content Menu 1 -->
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#scannerInputSTOModal">Tes</button>
                     <div class="tab-pane fade show active text-center" id="menu-1" role="tabpanel">
                         <div class="gif mb-3">
                             <h2 style="position: absolute; left: 50%; transform: translateX(-50%); margin-top: 12px;">Scan
