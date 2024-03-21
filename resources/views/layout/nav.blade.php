@@ -88,26 +88,21 @@
                     <div class="form-group mb-3">
                         <label for="NIK">NIK</label>
                         <input type="text" class="form-control form-control-user" id="NIK" name="NIK"
-                            required autofocus value="" maxlength="6" minlength="6">
+                            required autofocus value="{{auth()->user()->NIK}}" maxlength="6" minlength="6">
                     </div>
                     <div class="form-group mb-3">
                         <label for="name">NAMA</label>
                         <input type="text" class="form-control form-control-user" id="name" name="name"
-                            required autofocus value="">
+                            required autofocus value="{{auth()->user()->name}}">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="user-lokasi">user-lokasi</label>
+                        <select id="user-lokasi" name="user-lokasi" class="form-select" required></select>
                     </div>
                     <div class="form-group mb-3">
                         <label for="role">ROLE</label>
                         <select class="form-control form-control-user" id="role" name="role" required>>
-                            <option value="" disabled selected></option>
-                            <option value="spv">Supervisor</option>
-                            <option value="admin">Staff Gudang</option>
-                            <option value="user">User</option>
-                        </select>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="lokasi">LOKASI</label>
-                        <select class="form-control form-control-user" id="lokasi" name="lokasi" required>>
-                            <option value="" disabled selected></option>
+                            <option value="{{auth()->user()->role}}" disabled selected>{{auth()->user()->role}}</option>
                         </select>
                     </div>
                 </form>
@@ -125,4 +120,26 @@
     $('.edit-btn').on('click', function() {
         $('#profileModal').modal('show');
     });
+
+    $('#profileModal').find('#user-lokasi').select2({
+        theme: 'bootstrap-5',
+        placeholder: ' Lokasi ...',
+        minimumInputLength: 3,
+        ajax: {
+            url: "{{ route('spv.get-lokasi') }}",
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.nama,
+                            id: item.id
+                        }
+                    })
+                };
+            },
+            cache: true
+        }
+    }).addClass('form-select');
 </script>

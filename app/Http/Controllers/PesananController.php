@@ -9,6 +9,7 @@ use App\Http\Requests\UpdatePesananRequest;
 use App\Models\Barang;
 use App\Models\BarangPesanan;
 use App\Models\Keranjang;
+use App\Models\Lokasi;
 use App\Models\TokenCounter;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

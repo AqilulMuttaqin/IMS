@@ -103,7 +103,6 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::post('spv/tambah-barang', [DataBarangController::class, 'add'])->name('spv.input-barang');
     Route::post('spv/mutasi-barang', [DataBarangController::class, 'mutasi'])->name('spv.mutasi-barang');
     Route::get('/spv/control-barang', [SPVController::class, 'update_stok'])->name('spv.control-barang');
-    Route::get('/spv/get-lokasi', [SPVController::class, 'get_lokasi'])->name('spv.get-lokasi');
     Route::get('/spv/get-barang', [SPVController::class, 'get_barang'])->name('spv.get-barang');
     Route::get('/spv/get-qty', [SPVController::class, 'get_qty'])->name('spv.get-qty');
     Route::get('/spv/getLokasiQty', [DataBarangController::class, 'getLokasiQty'])->name('spv.getLokasiQty');
@@ -118,6 +117,7 @@ Route::middleware(['auth','role:spv'])->group(function () {
 });
 
 Route::middleware(['auth','role:spv,admin'])->group(function () {
+    Route::get('/get-lokasi', [SPVController::class, 'get_lokasi'])->name('spv.get-lokasi');
     Route::get('tes', [DataBarangController::class, 'tes'])->name('tes');
     Route::get('tes-data', [DataBarangController::class, 'tes_data'])->name('tes-data');
     Route::post('/qr-generate', [QrCodeController::class, 'generate'])->name('qr.generate');
