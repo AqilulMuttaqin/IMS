@@ -24,6 +24,7 @@
                     <thead>
                         <tr>
                             <th style="width: 20px;">No</th>
+                            <th>Kode JS</th>
                             <th>Nama</th>
                             <th>Stok</th>
                         </tr>
@@ -80,6 +81,10 @@
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'kode_js',
+                        name: 'kode_js',
                     },
                     {
                         data: 'nama',

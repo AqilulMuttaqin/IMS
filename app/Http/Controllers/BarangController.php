@@ -35,8 +35,12 @@ class BarangController extends Controller
                 $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
                     return $dataBarang->lokasi->sum('pivot.qty');
                 });
+                $totalQtyGudang = $barang->dataBarang->sum(function ($dataBarang) {
+                    return $dataBarang->lokasi->where('nama', 'GUDANG PRODUKSI')->sum('pivot.qty');
+                });
 
                 $barang['total_qty'] = max(0, $totalQty);
+                $barang['total_qty_gudang'] = $totalQtyGudang;
 
                 return $barang;
             });
@@ -52,6 +56,33 @@ class BarangController extends Controller
                 'title' => 'Data Master Barang',
             ]);
         }
+    }
+
+    public function stok()
+    {
+        if (request()->ajax()) {
+            $barangs = Barang::with('dataBarang.lokasi')->get();
+
+            $barangs->map(function ($barang, $key) {
+                $barang['DT_RowIndex'] = $key + 1;
+                $totalQty = $barang->dataBarang->sum(function ($dataBarang) {
+                    return $dataBarang->lokasi->sum('pivot.qty');
+                });
+                $totalQtyGudang = $barang->dataBarang->sum(function ($dataBarang) {
+                    return $dataBarang->lokasi->where('nama', 'GUDANG PRODUKSI')->sum('pivot.qty');
+                });
+
+                $barang['total_qty'] = max(0, $totalQty);
+                $barang['total_qty_gudang'] = $totalQtyGudang;
+
+                return $barang;
+            });
+
+            return datatables()->of($barangs)->make(true);
+        }
+        return view('spv.level-stok', [
+            'title' => 'Data Stok Barang'
+        ]);
     }
 
     public function detail()

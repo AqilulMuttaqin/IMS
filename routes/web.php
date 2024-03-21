@@ -85,6 +85,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
 Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('/spv', [SPVController::class, 'index'])->name('spv.dashboard');
     Route::get('spv/master-barang', [BarangController::class, 'index'])->name('spv.master-barang');
+    Route::get('spv/level-stok', [BarangController::class, 'stok'])->name('spv.level-stok');
     Route::post('spv/add-barang', [BarangController::class, 'store'])->name('spv.tambah-barang');
     Route::put('spv/update-barang/{barang}', [BarangController::class, 'update'])->name('spv.update-barang');
     Route::delete('spv/delete-barang/{barang}', [BarangController::class, 'destroy'])->name('spv.hapus-barang');
