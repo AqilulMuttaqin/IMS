@@ -98,6 +98,22 @@
                             <span class="hide-menu">Master Barang</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Input Data STO' ? 'active' : ''}}" href="{{ route('staff.input-sto')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-checkup-list"></i>
+                            </span>
+                            <span class="hide-menu">Input STO</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Data Hasil STO' ? 'active' : ''}}" href="{{ route('staff.hasil-sto')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-checklist"></i>
+                            </span>
+                            <span class="hide-menu">Data STO</span>
+                        </a>
+                    </li>
                 @endif
                 <!-- Sidebar Menu SPV -->
                 @if (auth()->user() && auth()->user()->role == 'spv')

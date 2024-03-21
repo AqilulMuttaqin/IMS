@@ -46,7 +46,7 @@ class LokasiController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'nama' => 'required',
+            'nama' => 'required|unique:lokasi,nama',
         ]);
 
         Lokasi::create($request->all());
@@ -76,7 +76,7 @@ class LokasiController extends Controller
     public function update(Request $request, $id)
     {
         request()->validate([
-            'nama' => 'required',   
+            'nama' => 'required|unique:lokasi,nama,'.$id,
         ]);
 
         $lokasi = Lokasi::where('id', $id)->first();

@@ -503,6 +503,27 @@
         });
 
         function submitBarangForm() {
+            var kodeJs = $('#kode_js').val();
+            var name = $('#nama').val();
+            var minStok = $('#min_stok').val();
+            var maxStok = $('#max_stok').val();
+            var satuan = $('#satuan').val();
+            var harga = $('#harga').val();
+            var fakturPajak = $('#faktur_pajak').val();
+            var kategori = $('#kategori').val();
+
+            if (!kodeJs || !name || !minStok || !maxStok || !satuan || !harga || !fakturPajak || !kategori) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    icon: "warning",
+                    text: "Lengkapi Data Terlebih Dahulu!",
+                    timer: 3500
+                });
+                return false;
+            }
+
             var formData = $('#barangForm').serialize();
             var actionUrl = $('#barangForm').attr('action');
             var method = 'POST';
@@ -533,7 +554,16 @@
                         timer: 3500,
                     });
                 },
-                error: function(xhr, status, error) {}
+                error: function(error) {
+                    Swal.fire({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        text: "Error!! Duplicate Kode JS",
+                        icon: "error",
+                        timer: 3500
+                    })
+                }
             });
         }
     </script>
