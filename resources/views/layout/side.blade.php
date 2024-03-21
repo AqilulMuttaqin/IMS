@@ -50,7 +50,7 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link {{ $title === 'Profile' ? 'active' : ''}}" href="{{ route('user.profile')}}" aria-expanded="false">
                             <span>
-                                <i class="ti ti-article"></i>
+                                <i class="ti ti-user"></i>
                             </span>
                             <span class="hide-menu">Profile</span>
                         </a>
