@@ -150,7 +150,11 @@
                         name: 'action',
                         render: function(data, type, row, meta) {
                             if (row.status === "selesai") {
-                                return null;
+                                return `
+                                `;
+                            } else if (row.status === "ditolak") {
+                                return `
+                                `;
                             } else if (row.status === "pending") {
                                 return `
                                 <td class="text-center">
