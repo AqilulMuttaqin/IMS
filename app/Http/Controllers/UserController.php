@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -59,7 +60,9 @@ class UserController extends Controller
             $user->update(['lokasi_id' => $lokasi]); 
 
             $user->save();
-            return response()->json(['message' => 'Data Berhasil Disimpan']);
+
+            Auth::logout();
+            return response()->json(['message' => 'Data Berhasil Disimpan', 'logout' => true]);
         }
 
         return abort(404);

@@ -112,16 +112,28 @@
                     'X-CSRF-TOKEN': csrfToken
                 },
                 success: function(response) {
-                    
-                    Swal.fire({
+                    if (response.logout) {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            text: "Lokasi Berhasil Dirubah, Silahkan Login Ulang!!",
+                            icon: "success",
+                            timer: 3500
+                        }).then(() => {
+                            window.location.href = "{{ route('login') }}";
+                        });
+                    } else {
+                        Swal.fire({
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        text: "Data Berhasil Disimpan",
+                        text: response.message,
                         icon: "success",
                         timer: 3500
-                    });
-                },
+                        });
+                    }
+                    },
                 error: function(error) {
                     Swal.fire({
                         toast: true,
