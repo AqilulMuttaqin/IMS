@@ -113,7 +113,7 @@
                 createdRow: function(row, data, dataIndex) {
                     if (data.total_qty <= data.min_stok) {
                         $(row).attr('style', 'background-color: #ffb0b0');
-                    } else if (data.total_qty >= data.max_stok) {
+                    } else if (data.total_qty > data.max_stok) {
                         $(row).attr('style', 'background-color: #cffffd');
                     }
                 }
