@@ -117,11 +117,12 @@
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
-                            text: "Lokasi Berhasil Dirubah, Silahkan Login Ulang!!",
+                            text: "Lokasi Berhasil Dirubah!!",
                             icon: "success",
-                            timer: 3500
+                            timer: 2000
                         }).then(() => {
-                            window.location.href = "{{ route('login') }}";
+                            window.location.reload();
+                            //window.location.href = "{{ route('login') }}";
                         });
                     } else {
                         Swal.fire({

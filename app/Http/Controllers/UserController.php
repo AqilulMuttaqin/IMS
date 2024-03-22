@@ -61,7 +61,8 @@ class UserController extends Controller
 
             $user->save();
 
-            Auth::logout();
+            $request->session()->put('user', $user);
+            //Auth::logout();
             return response()->json(['message' => 'Data Berhasil Disimpan', 'logout' => true]);
         }
 
