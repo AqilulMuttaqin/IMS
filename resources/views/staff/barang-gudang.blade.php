@@ -43,7 +43,7 @@
                     <span class="badge border border-dark rounded-pill me-2" style="height: 20px; margin-top: 2px; background-color: #ffb0b0"> </span>
                     <p>Stok Perlu Ditambahkan</p>
                     <span class="badge border border-dark rounded-pill me-2 ms-4" style="height: 20px; margin-top: 2px; background-color: #cffffd"> </span>
-                    <p>Stok Melebihi Kapasitas Maximum</p>
+                    <p>Stok Berada dibatas Maximum</p>
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@
                 createdRow: function(row, data, dataIndex) {
                     if (data.total_qty <= data.min_stok) {
                         $(row).attr('style', 'background-color: #ffb0b0');
-                    } else if (data.total_qty > data.max_stok) {
+                    } else if (data.total_qty >= data.max_stok) {
                         $(row).attr('style', 'background-color: #cffffd');
                     }
                 }

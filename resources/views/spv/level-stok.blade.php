@@ -29,9 +29,9 @@
                 </div>
                 <div class="col-lg-10 col-md-9 col-sm-12 d-flex">
                     <span class="badge border border-dark rounded-pill me-2" style="height: 20px; margin-top: 2px; background-color: #ffb0b0"> </span>
-                    <p>Stok Gudang Kurang Dari Batas Minimum</p>
+                    <p>Stok Gudang Berada dibatas Minimum</p>
                     <span class="badge border border-dark rounded-pill me-2 ms-4" style="height: 20px; margin-top: 2px; background-color: #cffffd"> </span>
-                    <p>Stok Gudang Lebih Dari Batas Maximum</p>
+                    <p>Stok Gudang Berada dibatas Maximum</p>
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
                 createdRow: function(row, data, dataIndex) {
                     if (data.total_qty_gudang <= data.min_stok) {
                         $(row).attr('style', 'background-color: #ffb0b0');
-                    } else if (data.total_qty_gudang > data.max_stok) {
+                    } else if (data.total_qty_gudang >= data.max_stok) {
                         $(row).attr('style', 'background-color: #cffffd');
                     }
                 }
