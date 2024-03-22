@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('sto', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_js');
+            $table->integer('qty');
+            $table->integer('actual_qty');
             $table->timestamps();
+
+            $table->foreign('kode_js')->references('kode_js')->on('barang');
         });
     }
 
