@@ -23,6 +23,11 @@
                                     <img src="{{ asset('images/shin-psc.png') }}" width="250" alt="">
                                 </a>
                                 <p class="text-center">Production Stationery Control</p>
+                                @if (Session::has('alert-type'))
+                                    <div class="alert alert-{{ Session::get('alert-type') }}">
+                                        {{ Session::get('alert-message') }}
+                                    </div>
+                                @endif
                                 <!-- Form Login -->
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf

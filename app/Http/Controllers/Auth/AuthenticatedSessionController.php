@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -25,13 +26,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        if (Auth::attempt($request->only('nik', 'password'))) {
+            $request->session()->put('user', auth()->user());
+            $request->session()->regenerate();
 
-        $request->session()->put('user', auth()->user());
+            return redirect()->route(auth()->user()->getRedirectRoute());
+        }
 
-        $request->session()->regenerate();
+        Session::flash('alert-type', 'danger');
+        Session::flash('alert-message', 'Login Gagal, masukkan NIK dan Password yang sesuai!!!');
 
-        return redirect()->route(auth()->user()->getRedirectRoute());
+        return back()->withInput();
     }
 
     /**
