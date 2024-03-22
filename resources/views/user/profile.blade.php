@@ -112,6 +112,7 @@
                     'X-CSRF-TOKEN': csrfToken
                 },
                 success: function(response) {
+                    $('#editModal').modal('hide');
                     if (response.logout) {
                         Swal.fire({
                             toast: true,
