@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\STO;
 use App\Http\Requests\StoreSTORequest;
 use App\Http\Requests\UpdateSTORequest;
+use App\Models\Barang;
 
 class STOController extends Controller
 {
@@ -13,7 +14,19 @@ class STOController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->ajax()) {
+            $barang = [];
+
+            if(request()->has('q')){
+                $search = request()->q;
+                $barang =Barang::select("kode_js", "nama")
+                        ->where('nama', 'LIKE', "%$search%")
+                        ->get();
+            }
+            return response()->json($barang);
+        }
+
+        return view('staff.input-sto', ['title' => 'Input Data STO']);
     }
 
     /**
