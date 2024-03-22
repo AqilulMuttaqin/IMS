@@ -10,4 +10,17 @@ class STO extends Model
     use HasFactory;
 
     protected $table = 'sto';
+
+    protected $fillable = [
+        'kode_js',
+        'month',
+        'year',
+        'qty',
+        'actual_qty'
+    ];
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'kode_js', 'kode_js');
+    }
 }

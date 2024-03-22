@@ -10,6 +10,7 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\SPVController;
+use App\Http\Controllers\STOController;
 use App\Http\Controllers\UserController;
 use App\Models\SPV;
 use Illuminate\Support\Facades\Route;
@@ -81,7 +82,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('staff/tambah-barang', [DataBarangController::class, 'store'])->name('staff.update-barang');
     Route::get('staff/nama-barang', [AdminController::class, 'barang'])->name('staff.nama-barang');
     Route::get('staff/edit-pesanan', [PesananController::class, 'edit'])->name('staff.edit-pesanan');
-    Route::get('staff/input-sto', [AdminController::class, 'input_sto'])->name('staff.input-sto');
+    Route::get('staff/input-sto', [STOController::class, 'index'])->name('staff.input-sto');
     Route::get('staff/hasil-sto', function () {
         return view('staff.hasil-sto', ['title' => 'Data Hasil STO']);
     })->name('staff.hasil-sto');
