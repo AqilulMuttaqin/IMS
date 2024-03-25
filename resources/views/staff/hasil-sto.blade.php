@@ -35,8 +35,8 @@
                             <th>Kode JS</th>
                             <th>Nama Barang</th>
                             <th>Satuan</th>
-                            <th>Qty Real</th>
-                            <th>Qty STO</th>
+                            <th>Qty</th>
+                            <th>Actual Qty</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,4 +45,65 @@
             </div>
         </div>
     </div>
+
+<script>
+    $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var table = $('#dataBarang').DataTable({
+                processing: false,
+                serverSide: true,
+                scrollX: true,
+                ajax: {
+                    url: '{{ url()->current() }}',
+                    type: 'GET'
+                },
+                columns: [{
+                        data: 'null',
+                        name: 'null',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        render: function(data, row, meta) {
+                            var formattedDate = moment.utc(data).tz('Asia/Jakarta').format(
+                                'D MMM YYYY');
+                            return `
+                                <td class="text-center">` + formattedDate + `</td>
+                            `;
+                        }
+                    },
+                    {
+                        data: 'kode_js',
+                        name: 'kode_js',
+                    },
+                    {
+                        data: 'barang.nama',
+                        name: 'barang.nama',
+                    },
+                    {
+                        data: 'barang.satuan',
+                        name: 'barang.satuan',
+                    },
+                    {
+                        data: 'qty',
+                        name: 'qty',
+                    },
+                    {
+                        data: 'actual_qty',
+                        name: 'actual_qty',
+                    }
+                ]
+            });
+        });
+</script>
 @endsection

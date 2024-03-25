@@ -84,9 +84,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('staff/edit-pesanan', [PesananController::class, 'edit'])->name('staff.edit-pesanan');
     Route::get('staff/input-sto', [STOController::class, 'index'])->name('staff.input-sto');
     Route::post('staff/insert-sto', [STOController::class, 'store'])->name('staff.insert-sto');
-    Route::get('staff/hasil-sto', function () {
-        return view('staff.hasil-sto', ['title' => 'Data Hasil STO']);
-    })->name('staff.hasil-sto');
+    Route::get('staff/hasil-sto', [STOController::class, 'show'])->name('staff.hasil-sto');
 });
 
 Route::middleware(['auth','role:spv'])->group(function () {

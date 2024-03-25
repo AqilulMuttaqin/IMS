@@ -7,6 +7,7 @@ use App\Http\Requests\StoreSTORequest;
 use App\Http\Requests\UpdateSTORequest;
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class STOController extends Controller
 {
@@ -67,9 +68,13 @@ class STOController extends Controller
         alert()->success('Success', 'Data Berhasil Ditambahkan');
     }
 
-    public function show(STO $sTO)
+    public function show()
     {
-        
+        if(request()->ajax()){
+            $sto = STO::with('barang');
+            return DataTables::of($sto->limit(10))->make(true);
+        };
+        return view('staff.hasil-sto', ['title' => 'Data Hasil STO']);
     }
 
     /**
