@@ -23,6 +23,11 @@
                                     <img src="{{ asset('images/shin-psc.png') }}" width="250" alt="">
                                 </a>
                                 <p class="text-center">Production Stationery Control</p>
+                                @if (Session::has('alert-type'))
+                                    <div class="alert alert-{{ Session::get('alert-type') }}">
+                                        {{ Session::get('alert-message') }}
+                                    </div>
+                                @endif
                                 <!-- Form Login -->
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
@@ -30,7 +35,7 @@
                                         <input type="text" class="form-control" id="nik" name="nik" placeholder="Enter your Nik" autocomplete="off" required />
                                         <label for="nik" class="form-label">Nik</label>
                                     </div>
-                                    <div class=" form-floating mb-5">
+                                    <div class=" form-floating mb-4">
                                         <input type="password" id="password" class="form-control" name="password" placeholder="Enter your password" autocomplete="off" aria-describedby="password" required />
                                         <label class="form-label" for="password">Password</label>
                                     </div>
