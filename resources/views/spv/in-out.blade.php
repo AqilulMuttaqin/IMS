@@ -109,7 +109,10 @@
                     },
                     {
                         data: 'remark',
-                        name: 'remark'
+                        name: 'remark',
+                        render: function(data) {
+                            return data ? ucwords(data) : "N/A";
+                        }
                     },
                     {
                         data: 'lokasi_awal.nama',
@@ -150,6 +153,14 @@
             const endDate = document.getElementById('end_date').value;
             const exportLink = `{{ route('spv.export-perubahan') }}?start_date=${startDate}&end_date=${endDate}`;
             window.location.href = exportLink;
+        }
+
+        function ucwords(str) {
+            return (str + '')
+                .toLowerCase()
+                .replace(/^([a-z])|\s+([a-z])/g, function ($1) {
+                    return $1.toUpperCase();
+                });
         }
     </script>
 @endsection

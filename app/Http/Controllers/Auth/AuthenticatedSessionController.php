@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         Session::flash('alert-type', 'danger');
-        Session::flash('alert-message', 'Login Gagal, masukkan NIK dan Password yang sesuai!!!');
+        Session::flash('alert-message', 'Login Gagal!! NIK atau Password salah.');
 
         return back()->withInput();
     }
