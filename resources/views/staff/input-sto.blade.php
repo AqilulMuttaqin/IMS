@@ -34,7 +34,7 @@
                     </div>
                     <!-- Content Menu 2 -->
                     <div class="tab-pane fade" id="menu-2" role="tabpanel">
-                        <form method="POST" action="">
+                        <form method="POST" action="" id="formSto">
                             @csrf
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Barang</label>
@@ -43,7 +43,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="kodejs" class="form-label">Kode JS</label>
-                                <input type="text" class="form-control" id="kodejs" name="kodejs"
+                                <input type="text" class="form-control" id="kodejs" name="kode_js"
                                     placeholder="Input Kode JS" readonly required>
                             </div>
                             <div class="mb-3">
@@ -51,7 +51,7 @@
                                 <input type="number" class="form-control" id="qty" name="qty"
                                     placeholder="Input Qty ..." required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-xxl" id="modal-body">
-                        <form method="POST" action="">
+                        <form method="POST" action="" id="formModal">
                         @csrf
                             <div class="mb-3">
                                 <label for="namaBarang" class="form-label">Nama Barang</label>
@@ -77,7 +77,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="kodejs" class="form-label">Kode JS</label>
-                                <input type="text" class="form-control" id="kodejs" name="kodejs" readonly required>
+                                <input type="text" class="form-control" id="kodejs" name="kode_js" readonly required>
                             </div>
                             <div class="mb-3">
                                 <label for="qty" class="form-label">QTY</label>
@@ -87,7 +87,7 @@
                     </div>
                 <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitForm('modal')">Submit</button>
                     </form>
                 </div>
             </div>
@@ -158,5 +158,35 @@
             kodeJsField.val(kodejs);
             //kodeJsField.prop('disabled', false);
         });
+        function submitForm(type = 'form') {
+            if(type == 'modal') {
+                var formData = $('#formModal').serialize();
+            } else {
+                var formData = $('#formSto').serialize();
+            };
+            
+            var actionUrl = "{{ route('staff.insert-sto') }}";
+            var method = 'POST';
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: actionUrl,
+                type: method,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function(response) {
+                    Swal.fire({
+                        title: "Success",
+                        text: "Data Berhasil Disimpan",
+                        icon: "success",
+                        timer: 3500
+                    });
+                },
+                error: function(xhr, status, error) {}
+            });
+        }
     </script>
 @endsection

@@ -58,7 +58,7 @@ class STOController extends Controller
                 return $dataBarang->lokasi->where('nama', 'GUDANG PRODUKSI')->first()->pivot->qty ?? 0;
             });
 
-        $sto = STO::create([
+        STO::create([
             'kode_js' => $request->kode_js,
             'qty' => $totalQty,
             'actual_qty' => $request->qty
@@ -67,12 +67,9 @@ class STOController extends Controller
         alert()->success('Success', 'Data Berhasil Ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(STO $sTO)
     {
-        //
+        
     }
 
     /**
