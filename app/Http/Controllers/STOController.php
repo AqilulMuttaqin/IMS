@@ -49,23 +49,40 @@ class STOController extends Controller
             'qty' => 'required|numeric'
         ]);
 
-        $kode_js = $request->kode_js;
+        
+        $kodeJs = $request->kode_js;
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
 
-        $totalQty = Barang::where('kode_js', $kode_js)
+        $totalQty = Barang::where('kode_js', $kodeJs)
             ->with('dataBarang.lokasi')
             ->first()
-            ->dataBarang->where('kode_js', $kode_js)
+            ->dataBarang->where('kode_js', $kodeJs)
             ->sum(function ($dataBarang) {
                 return $dataBarang->lokasi->where('nama', 'GUDANG PRODUKSI')->first()->pivot->qty ?? 0;
             });
 
-        STO::create([
-            'kode_js' => $request->kode_js,
+        $existingSto = STO::where('kode_js', $kodeJs)
+            ->whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $currentYear)
+            ->first();
+
+        if ($existingSto) {
+            $existingSto->update([
             'qty' => $totalQty,
             'actual_qty' => $request->qty
-        ]);
+            ]);
 
-        alert()->success('Success', 'Data Berhasil Ditambahkan');
+            alert()->success('Success', 'Data Stok Diperbaharui');
+        } else {
+            STO::create([
+            'kode_js' => $kodeJs,
+            'qty' => $totalQty,
+            'actual_qty' => $request->qty
+            ]);
+
+            alert()->success('Success', 'Data Berhasil Ditambahkan');
+        }
     }
 
     public function show()
