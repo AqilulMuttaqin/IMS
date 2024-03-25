@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="d-flex justify-content-end text-end">
-                        <button type="button" class="btn btn-sm btn-success">
+                        <button type="button" class="btn btn-sm btn-success" onclick="submitExport()">
                             Export Excel
                         </button>
                     </div>
@@ -110,5 +110,10 @@
                 table.draw();
             });
         });
+        function submitExport() {
+            const startDate = document.getElementById('start_date').value;
+            const exportLink = `{{ route('staff.export-sto-gudang') }}?start_date=${startDate}`;
+            window.location.href = exportLink;
+        }
 </script>
 @endsection

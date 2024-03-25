@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\STOExport;
 use App\Models\STO;
 use App\Http\Requests\StoreSTORequest;
 use App\Http\Requests\UpdateSTORequest;
 use App\Models\Barang;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class STOController extends Controller
@@ -130,5 +132,16 @@ class STOController extends Controller
     public function destroy(STO $sTO)
     {
         //
+    }
+
+    public function export(Request $request){
+        if ($request->filled('start_date')) {
+            $start_date = $request->input('start_date');
+            $filename = 'STO Gudang (' . Carbon::parse($start_date)->format('d-m-Y'). ').xlsx';
+
+            $export = new STOExport($start_date);
+            
+            return Excel::download($export, $filename);
+        }
     }
 }

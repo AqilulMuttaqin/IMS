@@ -85,6 +85,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('staff/input-sto', [STOController::class, 'index'])->name('staff.input-sto');
     Route::post('staff/insert-sto', [STOController::class, 'store'])->name('staff.insert-sto');
     Route::get('staff/hasil-sto', [STOController::class, 'show'])->name('staff.hasil-sto');
+    Route::get('staff/export-sto-gudang', [STOController::class, 'export'])->name('staff.export-sto-gudang');
 });
 
 Route::middleware(['auth','role:spv'])->group(function () {
