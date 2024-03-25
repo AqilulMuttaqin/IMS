@@ -84,7 +84,7 @@
                     <h5 class="modal-title" id="importModalLabel">Import Excel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="importForm" method="POST" action="{{ route('spv.import-barang') }}"
+                <form id="importForm" method="POST" action="{{ route('spv.import-lokasi') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
