@@ -23,20 +23,20 @@
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                <!-- Item Lokasi -->
+                {{-- <!-- Item Lokasi -->
                 @if (auth()->user() && auth()->user()->role == 'user')
                     <li class="nav-item d-flex align-items-center gap-2" style="cursor: pointer">
                         <i class="ti ti-map-pin fs-6"></i>
                         <p class="mb-0 fs-3 me-2">{{ ucwords($userData['lokasi']['nama']) }}</p>
                     </li>
-                @endif
+                @endif --}}
                 <!-- Item Dropdown Profile -->
                 <li class="nav-item dropdown">
                     <!-- Navbar Item Profile -->
                     <a class="nav-link d-flex align-items-center gap-2" href="javascript:void(0)" id="drop2"
                         data-bs-toggle="dropdown">
                         <i class="ti ti-user fs-6"></i>
-                        <p class="mb-0 fs-3 me-2">{{ ucwords($userData['name']) }}</p>
+                        <p class="mb-0 fs-3 me-2">{{ ucwords(strtolower($userData['name'])) }}</p>
                         <img src="{{ asset('src/assets/images/profile/user-1.jpg') }}" alt="" width="35"
                             height="35" class="rounded-circle">
                     </a>
@@ -46,14 +46,17 @@
                             <div class="d-flex align-items-center gap-2 dropdown-item" style="cursor: pointer">
                                 <i class="ti ti-users fs-6"></i>
                                 @if ($userData['role'] === 'user')
-                                    <p class="mb-0 fs-3">User</p>
+                                    <p class="mb-0 fs-3">User Level</p>
                                 @elseif($userData['role'] === 'admin')
-                                    <p class="mb-0 fs-3">Staff</p>
+                                    <p class="mb-0 fs-3">Staff Level</p>
                                 @elseif($userData['role'] === 'spv')
-                                    <p class="mb-0 fs-3">Supervisor</p>
+                                    <p class="mb-0 fs-3">Supervisor Level</p>
                                 @else
                                     <p class="mb-0 fs-3">Undefined Role</p>
                                 @endif
+                            </div>
+                            <div class="d-flex align-items-center gap-2 dropdown-item" style="cursor: pointer">
+                                <i class="ti ti-map-pin fs-6"></i>{{ ucwords(strtolower($userData['lokasi']['nama'])) }}
                             </div>
                             @if (auth()->user() && auth()->user()->role == 'user')
                                 <a href="{{ route('user.profile')}}">
