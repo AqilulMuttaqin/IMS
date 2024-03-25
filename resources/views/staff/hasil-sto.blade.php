@@ -21,7 +21,7 @@
                 <div class="col-auto d-flex align-items-center text-nowrap">
                     <div class="label me-3">Filter Data Pesanan : </div>
                     <input type="month" class="form-control" id="start_date" name="start_date"
-                        value="">
+                        value="{{ $bulan }}">
                 </div>
             </div>
             <div class="table-responsive text-nowrap">
@@ -58,7 +58,10 @@
                 scrollX: true,
                 ajax: {
                     url: '{{ url()->current() }}',
-                    type: 'GET'
+                    type: 'GET',
+                    data: function(d) {
+                        d.date = $('#start_date').val();
+                    }
                 },
                 columns: [{
                         data: 'null',
@@ -101,6 +104,10 @@
                         name: 'actual_qty',
                     }
                 ]
+            });
+
+            $('#start_date').change(function() {
+                table.draw();
             });
         });
 </script>

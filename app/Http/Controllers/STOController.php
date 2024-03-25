@@ -6,6 +6,7 @@ use App\Models\STO;
 use App\Http\Requests\StoreSTORequest;
 use App\Http\Requests\UpdateSTORequest;
 use App\Models\Barang;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -89,9 +90,22 @@ class STOController extends Controller
     {
         if(request()->ajax()){
             $sto = STO::with('barang');
+
+            if(request()->filled('date')){
+                list($selectedYear, $selectedMonth) = explode('-', request()->date);
+
+                $sto->whereYear('created_at', $selectedYear)
+                    ->whereMonth('created_at', $selectedMonth);
+            }
+
             return DataTables::of($sto->limit(10))->make(true);
         };
-        return view('staff.hasil-sto', ['title' => 'Data Hasil STO']);
+
+        $currentMonth = Carbon::now()->format('Y-m');
+
+        return view('staff.hasil-sto', [
+            'bulan' => $currentMonth,
+            'title' => 'Data Hasil STO']);
     }
 
     /**
