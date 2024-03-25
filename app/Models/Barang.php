@@ -124,7 +124,7 @@ class Barang extends Model
                 }
             } else {
                 $lokasiScrap = Lokasi::where('nama', 'SCRAP')->pluck('id')->first();
-                $this->moveToLocation($lokasiAkhir, $lokasiScrap, $qty, 'Request');
+                $this->moveToLocation($lokasiAwal, $lokasiScrap, $qty, 'Request');
             }
         } else{
             foreach ($availableDataBarang as $dataBarang) {

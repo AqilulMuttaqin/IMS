@@ -219,7 +219,12 @@ class PesananController extends Controller
                 $lokasiAwal = '1';
                 $qty = $barang->pivot->qty;
                 $remark = $barang->pivot->keterangan;
-                $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty, $remark);
+                if($barang->kategori === 'request'){
+                    $lokasiScrap = Lokasi::where('nama', 'SCRAP')->pluck('id')->first();
+                    $barang->moveToLocation($lokasiAwal, $lokasiScrap, $qty, $remark);
+                }else{
+                    $barang->moveToLocation($lokasiAwal, $lokasiAkhir, $qty, $remark);
+                }
                 $barang->update(['requested_qty' => $barang->requested_qty - $qty]);
             });
         }
