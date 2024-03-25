@@ -13,8 +13,6 @@ class STO extends Model
 
     protected $fillable = [
         'kode_js',
-        'month',
-        'year',
         'qty',
         'actual_qty'
     ];

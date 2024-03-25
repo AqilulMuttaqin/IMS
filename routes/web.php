@@ -83,6 +83,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('staff/nama-barang', [AdminController::class, 'barang'])->name('staff.nama-barang');
     Route::get('staff/edit-pesanan', [PesananController::class, 'edit'])->name('staff.edit-pesanan');
     Route::get('staff/input-sto', [STOController::class, 'index'])->name('staff.input-sto');
+    Route::get('staff/insert-sto', [STOController::class, 'store'])->name('staff.insert-sto');
     Route::get('staff/hasil-sto', function () {
         return view('staff.hasil-sto', ['title' => 'Data Hasil STO']);
     })->name('staff.hasil-sto');

@@ -6,6 +6,7 @@ use App\Models\STO;
 use App\Http\Requests\StoreSTORequest;
 use App\Http\Requests\UpdateSTORequest;
 use App\Models\Barang;
+use Illuminate\Http\Request;
 
 class STOController extends Controller
 {
@@ -40,9 +41,30 @@ class STOController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSTORequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode_js' => 'required',
+            'qty' => 'required|numeric'
+        ]);
+
+        $kode_js = $request->kode_js;
+
+        $totalQty = Barang::where('kode_js', $kode_js)
+            ->with('dataBarang.lokasi')
+            ->first()
+            ->dataBarang->where('kode_js', $kode_js)
+            ->sum(function ($dataBarang) {
+                return $dataBarang->lokasi->where('nama', 'GUDANG PRODUKSI')->first()->pivot->qty ?? 0;
+            });
+
+        $sto = STO::create([
+            'kode_js' => $request->kode_js,
+            'qty' => $totalQty,
+            'actual_qty' => $request->qty
+        ]);
+
+        alert()->success('Success', 'Data Berhasil Ditambahkan');
     }
 
     /**
