@@ -9,23 +9,21 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="d-flex justify-content-end text-end">
-                        {{-- <!-- Dropdown Action Download Qr COde (zip,pdf) -->
-                        <div class="dropdown text-end me-2">
-                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                                Download QR Code
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('download-zip') }}"><i
-                                        class="ti ti-file-zip me-1"></i> Download ZIP</a>
-                                <a class="dropdown-item" href="{{ route('download-pdf') }}" target="_blank"><i
-                                        class="ti ti-file-text me-1"></i> Download PDF</a>
-                            </div>
-                        </div> --}}
+                        <button type="button" class="btn btn-sm btn-success">
+                            Export Excel
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-body">
+            <div class="row align-items-center mb-3">
+                <div class="col-auto d-flex align-items-center text-nowrap">
+                    <div class="label me-3">Filter Data Pesanan : </div>
+                    <input type="month" class="form-control" id="start_date" name="start_date"
+                        value="">
+                </div>
+            </div>
             <div class="table-responsive text-nowrap">
                 <table class="table w-100" id="dataBarang">
                     <thead>

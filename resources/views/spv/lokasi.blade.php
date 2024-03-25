@@ -11,7 +11,7 @@
                     <div class="d-flex justify-content-end text-end">
                         <div class="dropdown text-end me-2">
                             <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown">
-                                Import & Ekspor
+                                Import & Export
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('export-lokasi') }}">
