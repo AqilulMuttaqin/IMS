@@ -6,6 +6,7 @@ use App\Exports\LokasiExport;
 use App\Models\Lokasi;
 use App\Http\Requests\StoreLokasiRequest;
 use App\Http\Requests\UpdateLokasiRequest;
+use App\Imports\LokasiImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -100,5 +101,47 @@ class LokasiController extends Controller
     public function export()
     {
         return Excel::download(new LokasiExport, 'Lokasi.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+        
+        $importer = new LokasiImport();
+        $importResult = $importer->import(request()->file('file'));
+
+        if ($importResult['skipped_rows'] == null) {
+            alert()->success('Success', $importResult['imported_count'] . ' Data Berhasil Ditambah');
+
+            return redirect()->back()->with('success', 'Wire loss data imported successfully.')
+                ->with('imported_count', $importResult['imported_count'])
+                ->with('skipped_rows', $importResult['skipped_rows']);
+        } else {
+            $importedCount = $importResult['imported_count'];
+            $skippedRowCount = count($importResult['skipped_rows']);
+
+            $emptyColumns = [];
+            $emptyRows = [];
+            foreach ($importResult['skipped_rows'] as $skippedRow) {
+                $emptyRows[] = $skippedRow['row'];
+                $emptyColumns = array_merge($emptyColumns, $skippedRow['empty_columns']);
+            }
+
+            // $uniqueEmptyColumns = array_unique($emptyColumns);
+
+            $errorMessage = $importedCount . ' Data Tersimpan, ' . $skippedRowCount . ' Data Gagal Ditambahkan';
+            // if (!empty($uniqueEmptyColumns)) {
+            //     $errorMessage .= ', Kolom kosong: ' . implode(', ', $uniqueEmptyColumns);
+            // }
+            if (!empty($emptyRows)) {
+                $errorMessage .= ', Baris kosong: ' . implode(', ', $emptyRows);
+            }
+
+            alert()->error('Error', $errorMessage)->persistent(true);
+
+            return redirect()->back()->with('error', $errorMessage);
+        }
     }
 }

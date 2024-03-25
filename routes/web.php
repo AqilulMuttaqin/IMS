@@ -117,6 +117,7 @@ Route::middleware(['auth','role:spv'])->group(function () {
     Route::get('/spv/in-out', [PerubahanController::class, 'index'])->name('spv.in-out');
     Route::get('/spv/export-perubahan', [PerubahanController::class, 'export'])->name('spv.export-perubahan');
     Route::post('spv/import-dataBarang', [DataBarangController::class, 'import'])->name('spv.import-dataBarang');
+    Route::post('spv/import-lokasi', [LokasiController::class, 'import'])->name('spv.import-lokasi');
     // Route::get('/spv/detail-barang', function () {
     //     return view('spv.detail-barang', ['title' => 'Data Detail Barang']);
     // })->name('spv.detail-barang');
