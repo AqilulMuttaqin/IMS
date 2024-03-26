@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="d-flex justify-content-end text-end">
-                        <div class="dropdown text-end me-2">
+                        <!-- <div class="dropdown text-end me-2">
                             <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown">
                                 Import & Export
                             </button>
@@ -23,7 +23,7 @@
                                 <a class="dropdown-item" href="">
                                     <i class="ti ti-file-download me-1"></i> Format Import</a>
                             </div>
-                        </div>
+                        </div> -->
                         <button type="button" class="btn btn-sm btn-primary d-flex align-items-center me-2"
                             id="tambahDataBtn">
                             Tambah Data
