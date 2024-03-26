@@ -48,6 +48,22 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Input Data STO' ? 'active' : ''}}" href="{{ route('sto.input')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-checkup-list"></i>
+                            </span>
+                            <span class="hide-menu">Input STO</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ $title === 'Data Hasil STO' ? 'active' : ''}}" href="{{ route('sto.hasil')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-checklist"></i>
+                            </span>
+                            <span class="hide-menu">Data STO</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link {{ $title === 'Profile' ? 'active' : ''}}" href="{{ route('user.profile')}}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-user"></i>

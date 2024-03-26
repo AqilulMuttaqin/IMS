@@ -52,6 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/get-lokasi', [SPVController::class, 'get_lokasi'])->name('spv.get-lokasi');
+    Route::get('/input-sto', [STOController::class, 'index'])->name('sto.input');
+    Route::post('/insert-sto', [STOController::class, 'store'])->name('sto.insert');
+    Route::get('/hasil-sto', [STOController::class, 'show'])->name('sto.hasil');
 });
 
 Route::middleware(['auth','role:user'])->group(function () {
@@ -82,9 +85,6 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('staff/tambah-barang', [DataBarangController::class, 'store'])->name('staff.update-barang');
     Route::get('staff/nama-barang', [AdminController::class, 'barang'])->name('staff.nama-barang');
     Route::get('staff/edit-pesanan', [PesananController::class, 'edit'])->name('staff.edit-pesanan');
-    Route::get('staff/input-sto', [STOController::class, 'index'])->name('staff.input-sto');
-    Route::post('staff/insert-sto', [STOController::class, 'store'])->name('staff.insert-sto');
-    Route::get('staff/hasil-sto', [STOController::class, 'show'])->name('staff.hasil-sto');
     Route::get('staff/export-sto-gudang', [STOController::class, 'export'])->name('staff.export-sto-gudang');
 });
 

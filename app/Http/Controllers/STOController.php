@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateSTORequest;
 use App\Models\Barang;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
@@ -31,7 +32,11 @@ class STOController extends Controller
             return response()->json($barang);
         }
 
-        return view('staff.input-sto', ['title' => 'Input Data STO']);
+        if (Auth::check() && Auth::user()->role === 'admin'){
+            return view('staff.input-sto', ['title' => 'Input Data STO']);
+        } else if (Auth::check() && Auth::user()->role === 'user'){
+            return view('user.input-sto', ['title' => 'Input Data STO']);
+        }
     }
 
     /**
@@ -104,10 +109,16 @@ class STOController extends Controller
         };
 
         $currentMonth = Carbon::now()->format('Y-m');
-
-        return view('staff.hasil-sto', [
-            'bulan' => $currentMonth,
-            'title' => 'Data Hasil STO']);
+        
+        if (Auth::check() && Auth::user()->role === 'admin'){
+            return view('staff.hasil-sto', [
+                'bulan' => $currentMonth,
+                'title' => 'Data Hasil STO']);
+        } else if (Auth::check() && Auth::user()->role === 'user'){
+            return view('user.hasil-sto', [
+                'bulan' => $currentMonth,
+                'title' => 'Data Hasil STO']);    
+        }
     }
 
     /**
