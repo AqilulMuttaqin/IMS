@@ -151,7 +151,6 @@
         }
 
         const validateInput = (input) => {
-            input.value = input.value.replace(/[^0-9]/g, '');
             const id = input.id;
             const data = input.value;
             const pesananId = input.dataset.pesanan;
@@ -508,7 +507,7 @@
                                         <button type="button" class="btn btn-sm border" data-pesanan="${response.id}" onclick="minValue('${barang.kode_js}')">
                                             <i class="ti ti-minus"></i>
                                         </button>
-                                        <input type="text" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
+                                        <input type="number" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
                                             name="${barang.kode_js}" data-pesanan="${response.id}" oninput="validateInput(this)">
                                         <button type="button" class="btn btn-sm border" data-pesanan="${response.id}" onclick="plusValue('${barang.kode_js}')">
                                             <i class="ti ti-plus"></i>
