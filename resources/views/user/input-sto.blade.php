@@ -94,14 +94,14 @@
         </div>
     </div>
 
-    {{-- <script>
+<script>
         document.addEventListener('keypress', function(event) {
             if (event.keyCode === 13) {
                 // var scannedData = event.target.value.trim();
                 // document.getElementById('scannerInput').value = scannedData;
                 var scannedData = document.getElementById('scannerInputSTO').value;
                 $.ajax({
-                    url : "{{ route('staff.nama-barang')}}",
+                    url : "{{ route('user.nama-barang')}}",
                     type: 'GET',
                     data: {
                         kode_js: scannedData,
@@ -148,6 +148,7 @@
                 cache: true
             }
         }).addClass('form-select');
+
         $('#nama').on('select2:open', function(e) {
             $('.select2-search__field').focus();
         });
@@ -188,5 +189,5 @@
                 error: function(xhr, status, error) {}
             });
         }
-    </script> --}}
+    </script>
 @endsection
