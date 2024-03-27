@@ -474,7 +474,7 @@
                             <div class="col-sm-1">:</div>
                             <div class="col-sm-8">${response.kode_pesanan}</div>
                         </div>
-                        <div class="table-responsive border text-nowrap" style="border-radius: 10px;">
+                        <div class="table-responsive border" style="border-radius: 10px;">
                             <table class="table table-sm table-striped">
                                 <thead>
                                     <tr class="text-center">

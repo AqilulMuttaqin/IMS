@@ -464,7 +464,7 @@
             modalBody.empty();
 
             modalBody.append(`
-                <div class="table-responsive text-nowrap">
+                <div class="table-responsive">
                     <table class="table table-sm">
                         <thead>
                             <tr class="text-center">
