@@ -471,7 +471,7 @@
                                 <th style="width: 20px">No</th>
                                 <th>Nama Barang</th>
                                 <th>Keterangan</th>
-                                <th style="width: 180px">Qty</th>
+                                <th style="width: 180px" class="text-nowrap">Qty</th>
                                 <th style="width: 20px">Hapus</th>
                             </tr>
                         </thead>
@@ -489,7 +489,7 @@
                             <td>
                                 <input class="form-check-input" type="checkbox" id="keterangan_${barang.kode_js}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} ${isRequest} onchange="handleCheckboxChange(this)">    
                             </td>
-                            <td class="text-nowrap">
+                            <td>
                                 <div class="input-group number-spinner">
                                     <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
                                         <i class="ti ti-minus"></i>
