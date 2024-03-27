@@ -95,7 +95,7 @@
                                         </button>
                                         <input type="text" class="form-control text-center" value="1"
                                             id="barang" name="barang" hidden>
-                                        <input type="text" class="form-control text-center" value="1"
+                                        <input type="number" class="form-control text-center" value="1"
                                             id="jumlah" name="jumlah" oninput="validateInput(this)">
                                         <button type="button" class="btn btn-sm border" onclick="plusValue('jumlah')">
                                             <i class="ti ti-plus"></i>
@@ -195,7 +195,6 @@
         }
 
         const validateInput = (input) => {
-            input.value = input.value.replace(/[^0-9]/g, '');
             const id = input.id;
             const data = input.value;
             const maxQty = parseInt($('#'+ id).data('max'));
@@ -495,7 +494,7 @@
                                     <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
                                         <i class="ti ti-minus"></i>
                                     </button>
-                                    <input type="text" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
+                                    <input type="number" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
                                         name="${barang.kode_js}" data-max="${barang.total_qty}" data-max-loc="${barang.qty_on_loc}" oninput="validateInput(this)">
                                     <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
                                         <i class="ti ti-plus"></i>
