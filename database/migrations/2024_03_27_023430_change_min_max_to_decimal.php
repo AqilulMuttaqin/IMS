@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('barang', function (Blueprint $table) {
             $table->decimal('min_stok', 10, 2)->default(0)->change();
             $table->decimal('max_stok', 10, 2)->default(0)->change();
+            $table->decimal('requested_qty', 10, 2)->default(0)->change();
         });
     }
 
@@ -25,6 +26,7 @@ return new class extends Migration
         Schema::table('barang', function (Blueprint $table) {
             $table->integer('min_stok')->default(0)->change();
             $table->integer('max_stok')->default(0)->change();
+            $table->integer('requested_qty')->default(0)->change();
         });
     }
 };
