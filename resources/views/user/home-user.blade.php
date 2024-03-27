@@ -489,7 +489,7 @@
                             <td>
                                 <input class="form-check-input" type="checkbox" id="keterangan_${barang.kode_js}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} ${isRequest} onchange="handleCheckboxChange(this)">    
                             </td>
-                            <td>
+                            <td class="text-nowrap">
                                 <div class="input-group number-spinner">
                                     <button type="button" class="btn btn-sm border" onclick="minValue('${barang.kode_js}')">
                                         <i class="ti ti-minus"></i>

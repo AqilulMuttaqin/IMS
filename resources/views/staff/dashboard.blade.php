@@ -501,7 +501,7 @@
                                         <input class="form-check-input" type="checkbox" id="keterangan_${index}" data-pesanan="${response.id}" data-barang="${barang.kode_js}" data-toggle="toggle" ${isChecked} onchange="handleCheckboxChange(this)">
                                     </div>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <div class="jumlah-qty" id="jumlah-qty-${barang.kode_js}">${barang.pivot.qty} ${barang.satuan}</div>
                                     <div class="input-group number-spinner" hidden>
                                         <button type="button" class="btn btn-sm border" data-pesanan="${response.id}" onclick="minValue('${barang.kode_js}')">
