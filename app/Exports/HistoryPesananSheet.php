@@ -50,8 +50,8 @@ class HistoryPesananSheet implements FromCollection, WithHeadings, WithTitle, Wi
         foreach ($pesanan as $p) {
             $data[] = [
                 'Kode Pesan' => $p->kode_pesanan,
-                'Nama Pemesan' => $p->user->name,
-                'Lokasi' => $p->lokasi->nama,
+                'Nama Pemesan' => $p->nama,
+                'Lokasi' => $p->lokasi,
                 'Tanggal Pesan' => Date::dateTimeToExcel($p->created_at),
                 'Tanggal Selesai' => Date::dateTimeToExcel($p->updated_at),
             ];

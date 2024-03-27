@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,5 +76,19 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function barang(Request $request)
+    {
+        $barang =Barang::select("kode_js", "nama")
+                        ->where('kode_js', $request->kode_js)
+                        ->first();
+
+        if ($barang) {
+            $status = true;
+        } else {
+            $status = false;
+        }
+        return response()->json(['barang' => $barang, 'status' => $status]);
     }
 }
