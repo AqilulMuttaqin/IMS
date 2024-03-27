@@ -481,7 +481,7 @@
                                         <th style="width: 20px">No</th>
                                         <th>Nama Barang</th>
                                         <th>Keterangan</th>
-                                        <th class="qty text-nowrap">Qty</th>
+                                        <th class="qty text-nowrap" style="width: 130px;">Qty</th>
                                         <th class="hps" hidden style="width: 20px">Hapus</th>
                                     </tr>
                                 </thead>
