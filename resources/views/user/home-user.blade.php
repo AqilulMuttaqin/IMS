@@ -96,7 +96,7 @@
                                         <input type="text" class="form-control text-center" value="1"
                                             id="barang" name="barang" hidden>
                                         <input type="number" class="form-control text-center" value="1"
-                                            id="jumlah" name="jumlah" oninput="validateInput(this)">
+                                            id="jumlah" name="jumlah" step="0.01" oninput="validateInput(this)">
                                         <button type="button" class="btn btn-sm border" onclick="plusValue('jumlah')">
                                             <i class="ti ti-plus"></i>
                                         </button>
@@ -122,10 +122,10 @@
     <script>
         const plusValue = (id) => {
             const inputElement = document.getElementById(id);
-            inputElement.value = parseInt(inputElement.value) + 1;
-            const maxQty = parseInt($('#' + id).data('max'));
-            const maxQtyLoc = parseInt($('#' + id).data('max-loc'));
-            const currentQty = parseInt(inputElement.value);
+            inputElement.value = parseFloat(inputElement.value) + 1;
+            const maxQty = parseFloat($('#' + id).data('max'));
+            const maxQtyLoc = parseFloat($('#' + id).data('max-loc'));
+            const currentQty = parseFloat(inputElement.value);
             var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
             var keterangan2 = $('#keterangan_'+ id).prop('checked') ? 'tukar' : 'request';
             if (currentQty > maxQtyLoc && keterangan === 'tukar' || currentQty > maxQtyLoc && keterangan2 === 'tukar') {
@@ -158,11 +158,11 @@
 
         const minValue = (id) => {
             const inputElement = document.getElementById(id);
-            const newValue = parseInt(inputElement.value) - 1;
+            const newValue = parseFloat(inputElement.value) - 1;
             inputElement.value = newValue >= 0 ? newValue : 0;
-            const maxQty = parseInt($('#' + id).data('max'));
-            const maxQtyLoc = parseInt($('#' + id).data('max-loc'));
-            const currentQty = parseInt(newValue);
+            const maxQty = parseFloat($('#' + id).data('max'));
+            const maxQtyLoc = parseFloat($('#' + id).data('max-loc'));
+            const currentQty = parseFloat(newValue);
             var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
             var keterangan2 = $('#keterangan_'+ id).prop('checked') ? 'tukar' : 'request';
 
@@ -197,9 +197,9 @@
         const validateInput = (input) => {
             const id = input.id;
             const data = input.value;
-            const maxQty = parseInt($('#'+ id).data('max'));
-            const maxQtyLoc = parseInt($('#'+ id).data('max-loc'));
-            const currentQty = parseInt(data);
+            const maxQty = parseFloat($('#'+ id).data('max'));
+            const maxQtyLoc = parseFloat($('#'+ id).data('max-loc'));
+            const currentQty = parseFloat(data);
 
 
             var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
@@ -240,9 +240,9 @@
             isChecked ? (isChecked = 'tukar') : (isChecked = 'request');
 
             const inputElement = document.getElementById(barangId);
-            const maxQty = parseInt($('#' + barangId).data('max'));
-            const maxQtyLoc = parseInt($('#' + barangId).data('max-loc'));
-            const currentQty = parseInt(inputElement.value);
+            const maxQty = parseFloat($('#' + barangId).data('max'));
+            const maxQtyLoc = parseFloat($('#' + barangId).data('max-loc'));
+            const currentQty = parseFloat(inputElement.value);
             var keterangan = $('#tambahModal').find('#ket').prop('checked') ? 'tukar' : 'request';
             var keterangan2 = $('#keterangan_'+ barangId).prop('checked') ? 'tukar' : 'request';
 
@@ -495,7 +495,7 @@
                                         <i class="ti ti-minus"></i>
                                     </button>
                                     <input type="number" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
-                                        name="${barang.kode_js}" data-max="${barang.total_qty}" data-max-loc="${barang.qty_on_loc}" oninput="validateInput(this)">
+                                        name="${barang.kode_js}" data-max="${barang.total_qty}" data-max-loc="${barang.qty_on_loc}" step="0.01" oninput="validateInput(this)">
                                     <button type="button" class="btn btn-sm border" onclick="plusValue('${barang.kode_js}')">
                                         <i class="ti ti-plus"></i>
                                     </button>

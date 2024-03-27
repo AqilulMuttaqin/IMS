@@ -54,7 +54,7 @@ class STOController extends Controller
     {
         $request->validate([
             'kode_js' => 'required',
-            'qty' => 'required|numeric'
+            'qty' => 'required|decimal'
         ]);
 
         

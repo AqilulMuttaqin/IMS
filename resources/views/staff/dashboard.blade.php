@@ -114,9 +114,9 @@
         const plusValue = (id) => {
             const inputElement = document.getElementById(id);
             const pesananId = inputElement.dataset.pesanan;
-            inputElement.value = parseInt(inputElement.value) + 1;
-            const maxQty = parseInt($('#jumlah').data('max'));
-            const currentQty = parseInt(inputElement.value);
+            inputElement.value = parseFloat(inputElement.value) + 1;
+            const maxQty = parseFloat($('#jumlah').data('max'));
+            const currentQty = parseFloat(inputElement.value);
             $('#jumlah-qty-'+id).text(currentQty);
             if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
@@ -133,10 +133,10 @@
         const minValue = (id) => {
             const inputElement = document.getElementById(id);
             const pesananId = inputElement.dataset.pesanan;
-            const newValue = parseInt(inputElement.value) - 1;
+            const newValue = parseFloat(inputElement.value) - 1;
             inputElement.value = newValue >= 0 ? newValue : 0;
-            const maxQty = parseInt($('#jumlah').data('max'));
-            const currentQty = parseInt(newValue);
+            const maxQty = parseFloat($('#jumlah').data('max'));
+            const currentQty = parseFloat(newValue);
             $('#jumlah-qty-'+id).text(currentQty);
             if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
@@ -154,8 +154,8 @@
             const id = input.id;
             const data = input.value;
             const pesananId = input.dataset.pesanan;
-            const maxQty = parseInt($('#jumlah').data('max'));
-            const currentQty = parseInt(data);
+            const maxQty = parseFloat($('#jumlah').data('max'));
+            const currentQty = parseFloat(data);
             $('#jumlah-qty-'+id).text(currentQty);
             if (currentQty > maxQty) {
                 $('#error-message').text('Jumlah melebihi stok yang tersedia').show();
@@ -508,7 +508,7 @@
                                             <i class="ti ti-minus"></i>
                                         </button>
                                         <input type="number" class="form-control form-control-sm text-center" value="${barang.pivot.qty}" id="${barang.kode_js}"
-                                            name="${barang.kode_js}" data-pesanan="${response.id}" oninput="validateInput(this)">
+                                            name="${barang.kode_js}" data-pesanan="${response.id}" step="0.01" oninput="validateInput(this)">
                                         <button type="button" class="btn btn-sm border" data-pesanan="${response.id}" onclick="plusValue('${barang.kode_js}')">
                                             <i class="ti ti-plus"></i>
                                         </button>
