@@ -23,13 +23,13 @@
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                {{-- <!-- Item Lokasi -->
+                <!-- Item Lokasi -->
                 @if (auth()->user() && auth()->user()->role == 'user')
                     <li class="nav-item d-flex align-items-center gap-2" style="cursor: pointer">
                         <i class="ti ti-map-pin fs-6"></i>
                         <p class="mb-0 fs-3 me-2">{{ ucwords($userData['lokasi']['nama']) }}</p>
                     </li>
-                @endif --}}
+                @endif
                 <!-- Item Dropdown Profile -->
                 <li class="nav-item dropdown">
                     <!-- Navbar Item Profile -->
