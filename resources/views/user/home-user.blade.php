@@ -118,6 +118,21 @@
         </div>
     </div>
 
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Shin-PSC</strong>
+      <small>now</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
+
     <!-- JavaScript -->
     <script>
         const plusValue = (id) => {
@@ -407,12 +422,9 @@
                     data: {},
                     success: function(response) {
                         $('#keranjangModal').modal('hide');
-                        Swal.fire({
-                            title: "Success",
-                            text: "Pesanan berhasil dibuat, silahkan tunggu konfirmasi",
-                            icon: "success",
-                            timer: 3500
-                        });
+                        const toastContainer = $('#liveToast');
+                        toastContainer.find('.toast-body').text("Pesanan berhasil dibuat, silahkan tunggu konfirmasi");
+                        toastContainer.toast('show');
                         table.draw();
                     }
                 });
@@ -548,28 +560,17 @@
                     keterangan: keterangan
                 },
                 success: function(response) {
+                    const toastContainer = $('#liveToast');
                     if (action === 'keranjang') {
                         appendKeranjang(response);
                     } else if (action === 'add') {
                         $('#tambahModal').modal('hide');
-                        Swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            text: "Barang dimasukan ke-keranjang",
-                            icon: "success",
-                            timer: 3500
-                        });
+                        toastContainer.find('.toast-body').text("Barang dimasukan ke-keranjang");
+                        toastContainer.toast('show');
                     } else if (action === 'delete') {
                         appendKeranjang(response);
-                        Swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            text: "Barang dihapus dari keranjang",
-                            icon: "success",
-                            timer: 3500
-                        });
+                        toastContainer.find('.toast-body').text("Barang dihapus dari keranjang");
+                        toastContainer.toast('show');
                     }
                 }
             })
@@ -586,14 +587,9 @@
                 },
                 success: function(response) {
                     $('#tambahModal').modal('hide');
-                    Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        text: "Pesanan berhasil dibuat, silahkan tunggu konfirmasi",
-                        icon: "success",
-                        timer: 3500
-                    });
+                    const toastContainer = $('#liveToast');
+                    toastContainer.find('.toast-body').text("Pesanan berhasil dibuat, silahkan tunggu konfirmasi");
+                    toastContainer.toast('show');
                 }
             })
         }
