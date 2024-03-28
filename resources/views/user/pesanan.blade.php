@@ -177,75 +177,42 @@
                 ]
             });
 
-            $('#dataStatusPesanan').on('click', '#cancel', function(){
-                var id = $(this).data('id');
-                Swal.fire({
-                    title: 'Batalkan Pesanan',
-                    text: "Apakah anda yakin ingin membatalkan pesanan ini?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Batalkan'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ route('user.update-pesanan') }}",
-                            type: 'POST',
-                            data: {
-                                pesanan_id: id,
-                                status: 'batal'
-                            },
-                            success: function(response) {
-                                Swal.fire({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    text: 'Pesanan berhasil dibatalkan',
-                                    icon: 'success',
-                                    timer: 3500
-                                });
-                                table.ajax.reload();
-                            }
-                        });
-                    }
-                });                
+            $('#dataStatusPesanan').on('click', '#cancel', function() {
+            var id = $(this).data('id');
+            if (confirm("Apakah anda yakin ingin membatalkan pesanan ini?")) {
+                $.ajax({
+                url: "{{ route('user.update-pesanan') }}",
+                type: 'POST',
+                data: {
+                    pesanan_id: id,
+                    status: 'batal'
+                },
+                success: function(response) {
+                    alert("Pesanan berhasil dibatalkan");
+                    table.ajax.reload();
+                }
+                });
+            }
             });
 
-            $('#dataStatusPesanan').on('click', '#konfirmasi', function(){
-                var id = $(this).data('id');
-                Swal.fire({
-                    title: 'Konfirmasi Pesanan',
-                    text: "Apakah anda yakin ingin mengkonfirmasi pesanan ini?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Konfirmasi'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ route('user.update-pesanan') }}",
-                            type: 'POST',
-                            data: {
-                                pesanan_id: id,
-                                status: 'selesai'
-                            },
-                            success: function(response) {
-                                Swal.fire({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    text: 'Pesanan berhasil dikonfirmasi',
-                                    icon: 'success',
-                                    timer: 3500
-                                });
-                                table.ajax.reload();
-                            }
-                        });
-                    }
+            $('#dataStatusPesanan').on('click', '#konfirmasi', function() {
+            var id = $(this).data('id');
+            if (confirm("Apakah anda yakin ingin mengkonfirmasi pesanan ini?")) {
+                $.ajax({
+                url: "{{ route('user.update-pesanan') }}",
+                type: 'POST',
+                data: {
+                    pesanan_id: id,
+                    status: 'selesai'
+                },
+                success: function(response) {
+                    alert("Pesanan berhasil dikonfirmasi");
+                    table.ajax.reload();
+                }
                 });
+            }
             });
+
 
             $('#dataStatusPesanan').on('click', '#showCart', function() {
                 var id = $(this).data('id');
