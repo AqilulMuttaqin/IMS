@@ -464,14 +464,14 @@
             modalBody.empty();
 
             modalBody.append(`
-                <div class="table-responsive text-nowrap">
+                <div class="table-responsive">
                     <table class="table table-sm">
                         <thead>
                             <tr class="text-center">
                                 <th style="width: 20px">No</th>
                                 <th>Nama Barang</th>
                                 <th>Keterangan</th>
-                                <th style="width: 180px">Qty</th>
+                                <th style="width: 130px" class="text-nowrap">Qty</th>
                                 <th style="width: 20px">Hapus</th>
                             </tr>
                         </thead>
