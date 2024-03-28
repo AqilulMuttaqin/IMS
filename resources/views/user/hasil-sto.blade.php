@@ -19,7 +19,7 @@
         <div class="card-body">
             <div class="row align-items-center mb-3">
                 <div class="col-auto d-flex align-items-center text-nowrap">
-                    <div class="label me-3">Filter Data Pesanan : </div>
+                    <div class="label me-3">Filter Hasil STO : </div>
                     <input type="month" class="form-control" id="start_date" name="start_date"
                         value="{{ $bulan }}">
                 </div>
